@@ -8,5 +8,7 @@ public class Application {
 		
 		view.insertLoginData();
 		view.login();
+		
+		System.out.println("Fine");
 	}
 }
