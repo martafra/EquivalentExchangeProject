@@ -1,0 +1,7 @@
+organization=equivalentexchange
+projectKey=marcovalerio712_EquivalentExchangeProject
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.16462
+dashboardUrl=https://sonarcloud.io/dashboard?id=marcovalerio712_EquivalentExchangeProject
+ceTaskId=AXckuV8ZQ4LyRiFCC-QG
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXckuV8ZQ4LyRiFCC-QG

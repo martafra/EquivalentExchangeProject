@@ -12,13 +12,13 @@ public class User {
 		return this.username;
 	}
 	public String getName() {
-		return this.username;
+		return this.name;
 	}
 	public String getSurname() {
-		return this.username;
+		return this.surname;
 	}
 	public String getEmail() {
-		return this.username;
+		return this.email;
 	}
 	public String getPassword() {
 		return this.password;
