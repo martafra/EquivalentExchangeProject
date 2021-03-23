@@ -1,21 +1,22 @@
 package logic.entity;
+import java.util.ArrayList;
 
 public class Wallet {
 	
 	private Integer currentCredit;
-	private Order orderList;
+	private ArrayList<Order> orderList;
 	
 	public Integer getCurrentCredit() {
 		return this.currentCredit;
 	}
-	/*public Order getOrder(Integer index) {
-		return this.currentCredit;
-	}*/
+	public Order getOrder(int index) {
+		return this.orderList.get(index);
+	}
 	
 	/*public void setCurrentCredit()*/
 	
-	/*public void removeOrder(Integer index) {
-		return this.currentCredit;
-	}*/
+	public void removeOrder(int index) {
+		this.orderList.remove(index);
+	}
 	
 }
