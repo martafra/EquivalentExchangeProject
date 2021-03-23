@@ -1,15 +1,25 @@
 package logic.entity;
+import logic.enumeration.MovieGenre;
 
 public class Movie {
 	private Integer duration;
-	//private enum MovieGenre {}
+	private MovieGenre genre;
 	
 	public Integer getDuration() {
 		return this.duration;
 	}
 	
+	public MovieGenre getGenre() {
+		return this.genre;
+	}
+	
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
+	
+	public void setGenre(MovieGenre genre) {
+		this.genre = genre;
+	}
+	
 
 }
