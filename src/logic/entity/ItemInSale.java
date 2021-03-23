@@ -5,15 +5,15 @@ public class ItemInSale {
 	private Integer price;
 	private String description;
 	private Boolean availability;
-	private enum Condition {NEW, PRATICALLYNEW,VERYGOOD, GOOD, ACCEPTABLE }
+	/*private Condition */
 	//private 		media;
 	//private Location address;
 	private Item referedItem;
 	private User seller;
 	
-	public ItemInSale(Condition condition) {
+	/*public ItemInSale(Condition condition) {
 		
-	}
+	}*/
 	
 	public Integer getPrice() {
 		return this.price;
