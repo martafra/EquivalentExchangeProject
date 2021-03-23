@@ -1,5 +1,5 @@
 package logic.entity;
-import java.util.*;
+import java.util.Date;
 
 public class Order {
 	
