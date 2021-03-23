@@ -1,7 +1,7 @@
 package logic.entity;
 import logic.enumeration.BookGenre;
 
-public class Book {
+public class Book extends Item {
 	private String author;
 	private Integer edition;
 	private Integer numberOfPages;

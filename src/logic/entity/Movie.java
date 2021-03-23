@@ -1,7 +1,7 @@
 package logic.entity;
 import logic.enumeration.MovieGenre;
 
-public class Movie {
+public class Movie extends Item {
 	private Integer duration;
 	private MovieGenre genre;
 	

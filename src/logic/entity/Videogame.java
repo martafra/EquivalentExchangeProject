@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import logic.enumeration.VideoGameGenre;
 import logic.enumeration.VGConsole;
 
-public class Videogame {
+public class Videogame extends Item {
 	private ArrayList<VGConsole> consoles;
 	private VideoGameGenre genre;
 	
