@@ -12,6 +12,9 @@ public class Wallet {
 	public Order getOrder(int index) {
 		return this.orderList.get(index);
 	}
+	public ArrayList<Order> getOrderList(){
+		return this.orderList;
+	}
 	
 	/*public void setCurrentCredit()*/
 	
