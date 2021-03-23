@@ -7,6 +7,7 @@ public class User {
 	private String surname;
 	private String email;
 	private String password;
+	private Wallet wallet;
 	
 	public String getUsername() {
 		return this.username;
@@ -23,6 +24,10 @@ public class User {
 	public String getPassword() {
 		return this.password;
 	}
+	public Wallet getWallet() {
+		return this.wallet;
+	}
+	
 	public void setUsername(String user) {
 		this.username = user;
 	}
@@ -37,5 +42,8 @@ public class User {
 	}
 	public void setPassword(String passwd) {
 		this.password = passwd;
+	}
+	public void setWallet(Wallet wallet) {
+		this.wallet = wallet;
 	}
 }
