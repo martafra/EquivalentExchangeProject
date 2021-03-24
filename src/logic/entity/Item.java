@@ -4,7 +4,7 @@ import java.util.*;
 public class Item {
 	private String name;
 	private Date publishingDate;
-	private String language;
+	//private String language;
 	//private enum target { }
 	
 	public String getName() {
@@ -15,9 +15,9 @@ public class Item {
 		return this.publishingDate;
 	}
 		
-	public String getLanguage() {
+	/*public String getLanguage() {
 		return this.language;
-	}
+	}*/
 	
 	public void setName(String name) {
 		this.name = name;
@@ -27,9 +27,9 @@ public class Item {
 		this.publishingDate = publishingDate;
 	}
 		
-	public void getLanguage(String language) {
+	/*public void setLanguage(String language) {
 		this.language = language;
-	}
+	}*/
 	
 	
 }

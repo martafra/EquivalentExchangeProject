@@ -1,19 +1,17 @@
 package logic.entity;
+import logic.enumeration.Condition;
 
 public class ItemInSale {
 	
 	private Integer price;
 	private String description;
 	private Boolean availability;
-	/*private Condition */
+	private Condition condition;
 	//private 		media;
 	//private Location address;
 	private Item referedItem;
 	private User seller;
 	
-	/*public ItemInSale(Condition condition) {
-		
-	}*/
 	
 	public Integer getPrice() {
 		return this.price;
@@ -21,6 +19,10 @@ public class ItemInSale {
 	
 	public String getDescription() {
 		return this.description;
+	}
+	
+	public Condition getCondition() {
+		return this.condition;
 	}
 	
 	public Boolean getAvailability() {
@@ -42,6 +44,10 @@ public class ItemInSale {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public void setCondition(Condition condition) {
+		this.condition = condition;;
 	}
 	
 	public void setAvailability(Boolean availability) {
