@@ -16,8 +16,19 @@ public class Wallet {
 		return this.orderList;
 	}
 	
-	/*public void setCurrentCredit()*/
-	
+	public boolean setCurrentCredit(Integer n) {
+		if (n > 0) {
+		this.currentCredit = n;
+		return true;
+		}
+		
+		else {
+			return false;
+		}
+	}
+	public void addOrder(Order order) {
+		this.orderList.add(order);
+	}
 	public void removeOrder(int index) {
 		this.orderList.remove(index);
 	}

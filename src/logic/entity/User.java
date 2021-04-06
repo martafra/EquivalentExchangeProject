@@ -11,6 +11,7 @@ public class User {
 	private Date birthDate;
 	private String email;
 	private String password;
+	private Wallet wallet;
 	
 	public String getUsername() {
 		return this.username;
@@ -53,5 +54,29 @@ public class User {
 	}
 	public void setPassword(String passwd) {
 		this.password = passwd;
+	}
+	public boolean increaseCredit(Integer n) {
+		if (n < 0) {
+			return false;
+		}
+		
+		else {
+			Integer credit = wallet.getCurrentCredit();
+			wallet.setCurrentCredit( (credit+n) );
+			return true;
+		}	
+	}
+	public boolean decreaseCredit(Integer n) {
+		if (n < 0) {
+			return false;
+		}
+		
+		Integer credit = wallet.getCurrentCredit();
+		if ( ( credit - n) >= 0 ) {
+			wallet.setCurrentCredit( (credit-n) );
+			return true;}
+		
+		else {return false;}
+		
 	}
 }
