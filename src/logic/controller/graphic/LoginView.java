@@ -52,7 +52,7 @@ public class LoginView extends Application{
 	public void start(Stage stage) throws Exception {
     	FXMLLoader loader = new FXMLLoader();
         // Path to the FXML File
-        String fxmlDocPath = "src/LoginView.fxml";
+        String fxmlDocPath = "src/logic/view/LoginView.fxml";
         FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
  
         // Create the Pane and all Details
