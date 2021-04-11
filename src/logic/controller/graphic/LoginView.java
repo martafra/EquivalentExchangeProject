@@ -57,6 +57,7 @@ public class LoginView extends Application{
  
         // Create the Pane and all Details
         VBox root = (VBox) loader.load(fxmlStream);
+   
  
         // Create the Scene
         Scene scene = new Scene(root);

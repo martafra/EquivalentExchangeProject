@@ -1,6 +1,7 @@
 package logic.controller.graphic;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +23,15 @@ public class SellerPanel extends Application {
 		String filePath = "src/logic/view/SellerPanel.fxml"; // path del file di riferimento
 		FileInputStream fxmlStream = new FileInputStream(filePath);
 		
+		ArrayList<String> lista = new ArrayList<String>();
+		int i;
+		
 		VBox root = (VBox) loader.load(fxmlStream);
 		
-		root.getChildren().add(new Label("nodo"));
+		for (i = 0; i < 5; i++) {
+			root.getChildren().add(new Label(lista.get(i)));
+		}
+			
 		
 		// Create the Scene
         Scene scene = new Scene(root);
