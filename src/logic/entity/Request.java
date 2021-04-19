@@ -3,7 +3,7 @@ package logic.entity;
 public class Request {
 
 	private User buyer;
-	private ItemInSale referedItem;
+	private ItemInSale referredItem;
 	private Boolean requestStatus;
 	private String note;
 
@@ -11,10 +11,10 @@ public class Request {
 		return this.buyer;
 	}
 	public User getSeller() {
-		return this.referedItem.getSeller();
+		return this.referredItem.getSeller();
 	}
-	public ItemInSale getReferedItem() {
-		return this.referedItem;
+	public ItemInSale getReferredItem() {
+		return this.referredItem;
 	}
 	public Boolean getStatus() {
 		return this.requestStatus;
@@ -26,8 +26,8 @@ public class Request {
 	public void setBuyer(User buyer) {
 		this.buyer = buyer;
 	}
-	public void setReferedItem(ItemInSale item) {
-		this.referedItem = item;
+	public void setReferredItem(ItemInSale item) {
+		this.referredItem = item;
 	}
 	public void setStatus(Boolean status) {
 		this.requestStatus = status;

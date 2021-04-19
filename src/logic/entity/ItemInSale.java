@@ -9,7 +9,7 @@ public class ItemInSale {
 	private Condition condition;
 	//private 		media;
 	//private Location address;
-	private Item referedItem;
+	private Item referredItem;
 	private User seller;
 	
 	
@@ -30,8 +30,8 @@ public class ItemInSale {
 	}
 	
 	
-	public Item getReferedItem() {
-		return this.referedItem;
+	public Item getReferredItem() {
+		return this.referredItem;
 	}
 	
 	public User getSeller() {
@@ -54,8 +54,8 @@ public class ItemInSale {
 		this.availability = availability;
 	}
 	
-	public void setReferedItem(Item referedItem) {
-		this.referedItem = referedItem;
+	public void setReferredItem(Item referredItem) {
+		this.referredItem = referredItem;
 	}
 	
 	public void setSeller(User seller) {
