@@ -45,7 +45,7 @@ public class LoginView implements SceneManageable{
     	bean.setPassword(passText.getText());
     	Boolean result = log.login(bean);
     	
-    	LoginSession.getInstance().setLoginSessionID(bean.getUserID());
+    	
     	
     	
     	if(result) {

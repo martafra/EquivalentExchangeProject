@@ -2,8 +2,8 @@ package logic.bean;
 
 public class LoginBean {
 
-	private String userID;
-	private String passwd;
+	protected String userID;
+	protected String passwd;
 	
 	public void setUserID(String id) {
 		this.userID = id;
