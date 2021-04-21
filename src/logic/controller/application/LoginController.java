@@ -32,9 +32,9 @@ public class LoginController {
 		
 		User loggedUser = userDAO.retrieveUser(LoginSession.getInstance().getLoginSessionID());
 		
-		bean.email = loggedUser.getEmail();
-		bean.name = loggedUser.getName();
-		bean.lastName = loggedUser.getSurname();
+		bean.setEmail(loggedUser.getEmail());
+		bean.setName(loggedUser.getName());
+		bean.setLastName(loggedUser.getSurname());
 		
 		bean.setUserID(loggedUser.getUsername());
 		

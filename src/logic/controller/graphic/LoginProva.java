@@ -28,10 +28,10 @@ public class LoginProva implements SceneManageable {
 
 	@Override
 	public void onLoad() {
-		String username = LoginSession.getInstance().getLoginSessionID();
+		
 		UserBean loggedUser = controller.getLoggedUser();
 		
-		textview.setText(loggedUser.getUserID() +"\n\n"+ loggedUser.name + " " + loggedUser.lastName + "\n" + loggedUser.email);
+		textview.setText(loggedUser.getUserID() +"\n\n"+ loggedUser.getName() + " " + loggedUser.getLastName() + "\n" + loggedUser.getEmail());
 	}
     
 }
