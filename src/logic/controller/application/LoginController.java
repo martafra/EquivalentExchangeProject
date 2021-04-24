@@ -3,7 +3,7 @@ import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.DAO.UserDAO;
 import logic.entity.User;
-import logic.support.other.LoginSession;
+
 
 public class LoginController {
 
@@ -19,18 +19,16 @@ public class LoginController {
 		if(!(loggedUser.getPassword().equals(userData.getPassword()))) {
 			return false;
 		}
-		
-		LoginSession.getInstance().setLoginSessionID(userData.getUserID());
-		
+
 		return true;
 	}
 	
-	public UserBean getLoggedUser() {
+	public UserBean getUserByUsername(String username) {
 		
 		UserBean bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		
-		User loggedUser = userDAO.retrieveUser(LoginSession.getInstance().getLoginSessionID());
+		User loggedUser = userDAO.retrieveUser(username);
 		
 		bean.setEmail(loggedUser.getEmail());
 		bean.setName(loggedUser.getName());

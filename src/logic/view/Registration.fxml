@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+ 
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="300.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="logic.controller.graphic.Registration">
+  <style>
+    -fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-insets: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: blue;
+  </style>
+  <children>
+  		<Label text="name:"/>
+    	<TextField fx:id="firstName"/>
+    	<Label text="last name:"/>
+    	<TextField fx:id="lastName"/>
+    	<Label text="username:"/>
+    	<TextField fx:id="username"/>
+    	<Label text="email:"/>
+    	<TextField fx:id="email"/>
+    	<Label text="birth date:"/>
+    	<DatePicker fx:id="birthDate"/>
+    	<Label text="password:"/>
+    	<PasswordField fx:id="password"/>
+    	<Label text="confirm password:"/>
+    	<PasswordField fx:id="confirmPassword"/>
+    	
+    	<Button fx:id="register" text="Register" onAction="#register"/>
+  </children>
+</VBox>

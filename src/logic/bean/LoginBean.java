@@ -1,9 +1,11 @@
 package logic.bean;
 
-public class LoginBean {
+import logic.support.interfaces.Bean;
+
+public class LoginBean implements Bean{
 
 	protected String userID;
-	protected String passwd;
+	protected String password;
 	
 	public void setUserID(String id) {
 		this.userID = id;
@@ -12,11 +14,12 @@ public class LoginBean {
 		return userID;
 	}
 	
-	public void setPassword(String passwd) {
-		this.passwd = passwd;
+	public boolean setPassword(String passwd) {
+		this.password = passwd;
+		return true;
 	}
 	public String getPassword() {
-		return passwd;
+		return password;
 	}
 		
 }

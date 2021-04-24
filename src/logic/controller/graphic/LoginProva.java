@@ -1,35 +1,24 @@
 package logic.controller.graphic;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.LoginController;
-import logic.support.interfaces.SceneManageable;
-import logic.support.other.LoginSession;
-import logic.support.other.PaneManager;
+import logic.support.other.Bundle;
+import logic.support.other.SceneManageable;
 
-public class LoginProva implements SceneManageable {
+public class LoginProva extends SceneManageable {
 	
-	PaneManager myManager;
 	LoginController controller = new LoginController();
 	@FXML
 	private Label textview;
-	
 
 	
-	@Override
-	public void setPaneManager(PaneManager manager) {
-		myManager = manager;
-	}
-
-	@Override
-	public void onLoad() {
-		
-		UserBean loggedUser = controller.getLoggedUser();
+	public void onLoad(Bundle bundle) {
+		super.onLoad(bundle);
+		LoginBean login = (LoginBean) this.bundle.get("loggedUser");
+		UserBean loggedUser = controller.getUserByUsername(login.getUserID());
 		
 		textview.setText(loggedUser.getUserID() +"\n\n"+ loggedUser.getName() + " " + loggedUser.getLastName() + "\n" + loggedUser.getEmail());
 	}

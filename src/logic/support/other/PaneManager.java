@@ -7,19 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-import logic.support.interfaces.SceneManageable;
 
 public class PaneManager extends StackPane{
 	
 	private HashMap<String, Node> loadedScenes = new HashMap();
-	private HashMap<String, SceneManageable> sceneControllers = new HashMap();
+	private HashMap<Node, SceneManageable> sceneControllers = new HashMap();
 
 	private Node getScene(String name){
         return this.loadedScenes.get(name);
     }
 
 	private void addScene(String name, Node scene){
-        // TODO aggiungere eventuali controlli
         this.loadedScenes.put(name, scene);
     }
 
@@ -37,11 +35,12 @@ public class PaneManager extends StackPane{
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
     	try {
+    		
 			Parent newScene = (Parent) loader.load();
 			SceneManageable sceneController = (SceneManageable) loader.getController();
 			sceneController.setPaneManager(this);
 			
-			sceneControllers.put(name, sceneController);
+			sceneControllers.put(newScene, sceneController);
 			
 			this.addScene(name, newScene);
 		} catch (IOException e) {
@@ -52,13 +51,18 @@ public class PaneManager extends StackPane{
     
     public void setScene(String name) {
     	
+    	Bundle bundle = new Bundle();
+    	
     	if(!getChildren().isEmpty()) {
+    		bundle = sceneControllers.get(getChildren().get(0)).getBundle();
     		getChildren().remove(0);
     	}
     	
     	getChildren().add(0, getScene(name));  
-    	sceneControllers.get(name).onLoad();
+    	sceneControllers.get(getScene(name)).onLoad(bundle);
     }
+
+	
 
     
 	

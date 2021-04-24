@@ -1,6 +1,8 @@
 package logic.bean;
 
-public class UserBean extends LoginBean{
+import logic.support.interfaces.Bean;
+
+public class UserBean extends LoginBean implements Bean{
 	
 	private String name;
 	private String lastName;

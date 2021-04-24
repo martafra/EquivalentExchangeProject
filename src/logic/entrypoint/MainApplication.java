@@ -18,6 +18,7 @@ public class MainApplication extends Application{
 		PaneManager mainPanel = new PaneManager();
 		mainPanel.loadScene("login", "/logic/view/LoginView.fxml");
 		mainPanel.loadScene("loginprova", "/logic/view/LoginProva.fxml");
+		mainPanel.loadScene("register", "/logic/view/Registration.fxml");
 		
 		mainPanel.setScene("login");
 		

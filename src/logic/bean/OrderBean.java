@@ -4,8 +4,9 @@ import java.util.Date;
 
 import logic.entity.ItemInSale;
 import logic.entity.User;
+import logic.support.interfaces.Bean;
 
-public class OrderBean {
+public class OrderBean implements Bean{
 	private String code;
 	private ItemInSale involvedItem;
 	private Date orderDate;
