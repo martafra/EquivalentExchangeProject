@@ -1,5 +1,7 @@
 package logic.entity;
-import java.util.*;
+import java.sql.Date;
+
+
 
 public class Item {
 	private String name;
@@ -23,8 +25,15 @@ public class Item {
 		this.name = name;
 	}
 	
-	public void getPublishingDate(Date publishingDate) {
+	public void setPublishingDate(Date publishingDate) {
 		this.publishingDate = publishingDate;
+	}
+	
+	public void setPublishingDate(String publishingDate) {
+		if (publishingDate!= null) {
+			this.publishingDate = Date.valueOf(publishingDate);
+		}
+	
 	}
 		
 	/*public void setLanguage(String language) {

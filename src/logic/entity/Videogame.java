@@ -1,4 +1,5 @@
 package logic.entity;
+
 import java.util.ArrayList;
 import logic.enumeration.VideoGameGenre;
 import logic.enumeration.VGConsole;
@@ -6,6 +7,12 @@ import logic.enumeration.VGConsole;
 public class Videogame extends Item {
 	private ArrayList<VGConsole> consoles;
 	private VideoGameGenre genre;
+	
+	public Videogame(String name, String publishingDate,VideoGameGenre genre) {
+		this.setName(name);
+		this.setPublishingDate(publishingDate);
+		this.genre = genre;
+	}
 	
 	public VGConsole getConsole(int index) {
 		return this.consoles.get(index);

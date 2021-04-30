@@ -13,14 +13,18 @@ public class User {
 	private String password;
 	private Wallet wallet;
 	
-	public User(String username, String name, String surname, Gender gender, Date birthDate, String email, String password) {
+	public User(String username, String name, String surname, String email, String password) {
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
-		this.gender = gender;
-		this.birthDate = birthDate;
+
 		this.email = email;
 		this.password = password;
+	}
+	
+	
+	public User() {
+		
 	}
 	
 	public String getUsername() {

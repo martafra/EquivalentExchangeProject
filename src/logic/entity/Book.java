@@ -1,4 +1,6 @@
 package logic.entity;
+
+
 import logic.enumeration.BookGenre;
 
 public class Book extends Item {
@@ -7,6 +9,17 @@ public class Book extends Item {
 	private Integer numberOfPages;
 	private BookGenre genre;
 	private String  publishingHouse;
+	
+	public Book (String name, String publishingDate, String author, Integer edition, Integer numberOfPages, BookGenre genre, String publishingHouse) {
+		this.setName(name);
+		this.setPublishingDate(publishingDate);
+		this.author = author;
+		this.edition = edition;
+		this.numberOfPages = numberOfPages;
+		this.genre = genre;
+		this.publishingHouse = publishingHouse;
+		
+	}
 	
 	public String getAuthor() {
 		return this.author;
