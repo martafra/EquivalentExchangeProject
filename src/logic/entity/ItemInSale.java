@@ -7,11 +7,18 @@ public class ItemInSale {
 	private String description;
 	private Boolean availability;
 	private Condition condition;
-	//private 		media;
-	//private Location address;
+	//private String media;
+	private String address; //da modificare? string -> Location
 	private Item referredItem;
 	private User seller;
 	
+	public ItemInSale(int price, boolean availability, String preferredLocation, Item referredItem, User seller) {
+		this.price = price;
+		this.availability = availability;
+		this.address = preferredLocation;
+		this.referredItem = referredItem;
+		this.seller = seller;	
+	}
 	
 	public Integer getPrice() {
 		return this.price;
@@ -38,6 +45,10 @@ public class ItemInSale {
 		return this.seller;
 	}
 	
+	public String getAddress() {
+		return this.address;
+	}
+	
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
@@ -60,6 +71,10 @@ public class ItemInSale {
 	
 	public void setSeller(User seller) {
 		this.seller = seller;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

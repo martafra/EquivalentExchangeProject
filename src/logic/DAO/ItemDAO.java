@@ -1,4 +1,4 @@
-package logic.database;
+package logic.DAO;
 
 import java.sql.Connection;
 
@@ -7,12 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import logic.query.ItemQuery;
+import logic.database.ItemFactory;
+import logic.database.MyConnection;
 import logic.entity.Item;
 
 
 public class ItemDAO {
 	
 	MyConnection connection = MyConnection.getInstance();
+	ItemQuery itemQ = new ItemQuery();
 	
 	public Item selectItem(int itemID) {
 		Item item = null;
@@ -22,7 +26,7 @@ public class ItemDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = "SELECT * FROM item WHERE itemID =" + itemID;
+			String query = itemQ.selectItem(itemID);
 			rs = stmt.executeQuery(query);
 
 			if (!rs.next()) {
@@ -83,7 +87,7 @@ public class ItemDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-				String query = "INSERT INTO Item (itemName,itemType) VALUES ('" + itemName + "','" + itemType + "')";
+				String query = itemQ.insertItem(itemName, itemType);
 				stmt.executeUpdate(query);
 				
 		} catch (SQLException e) {
@@ -110,7 +114,7 @@ public class ItemDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-				String query = "INSERT INTO Item (itemID,itemName,itemType) VALUES ('" +itemID +"','"+ itemName + "','" + itemType + "')";
+				String query = itemQ.insertItem(itemID, itemName, itemType);
 				stmt.executeUpdate(query);
 				
 		} catch (SQLException e) {
