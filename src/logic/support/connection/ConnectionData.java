@@ -1,4 +1,4 @@
-package logic.support.other;
+package logic.support.connection;
 
 public class ConnectionData {
 	

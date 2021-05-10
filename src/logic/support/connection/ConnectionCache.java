@@ -1,8 +1,6 @@
-package logic.support.other;
+package logic.support.connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 
 public class ConnectionCache {
 
