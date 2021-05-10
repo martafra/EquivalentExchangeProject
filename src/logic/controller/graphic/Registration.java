@@ -6,6 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import logic.bean.RegistrationBean;
+import logic.controller.application.LoginController;
 import logic.support.other.Bundle;
 import logic.support.other.PaneManager;
 import logic.support.other.SceneManageable;
@@ -35,10 +36,11 @@ public class Registration extends SceneManageable{
 	public void register() {
 		
 		RegistrationBean rBean = new RegistrationBean();
+		LoginController regController = new LoginController();
 		
 		TextField arrayOfNodes[] = {firstName, lastName, username, email, password, confirmPassword};
 		for(TextField field : arrayOfNodes) {
-			if(field.getText() == "") {
+			if(field.getText().equals("")) {
 				System.out.println("Manca il campo: " + field.getId());
 				return;
 			}
@@ -84,13 +86,11 @@ public class Registration extends SceneManageable{
 			return;
 		}
 		
+		regController.register(rBean);
+		
 		
 	}
 	
-	@Override
-	public void onLoad(Bundle bundle) {
-		
-		
-	}
+
 
 }

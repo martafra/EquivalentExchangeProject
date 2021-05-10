@@ -2,23 +2,25 @@ package logic.support.other;
 
 public class ProfileRules {
 
-	private final static Integer minPasswordLenght = 8;
-	private final static Integer maxPasswordLenght = 20;
+	private static final Integer MIN_PASSWORD_LENGHT = 8;
+	private static final Integer MAX_PASSWORD_LENGHT = 20;
 	
-	private final static Character[] passwordNotAllowedCharacters = {' ', '\t', '\n', '/', '\\', '<', '>', '='};
-	private final static String[] passwordRequiredCharactersSet = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	private static final Character[] passwordNotAllowedCharacters = {' ', '\t', '\n', '/', '\\', '<', '>', '='};
+	private static final String[] passwordRequiredCharactersSet = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 													  			   "abcdefghijklmnopqrstuvwxyz",
 													  			   "0123456789",
 													  			   ".@?,!#"};
+
+	private static final Integer MIN_AGE = 14;
 	
-	private final static Integer minimumAge = 14;
+	private ProfileRules() {}
 	
 	public static Integer getMinPasswordLenght() {
-		return minPasswordLenght;
+		return MIN_PASSWORD_LENGHT;
 	}
 	
 	public static Integer getMaxPasswordLenght() {
-		return maxPasswordLenght;
+		return MAX_PASSWORD_LENGHT;
 	}
 	
 	public static Character[] getPassNotAllowed() {
@@ -30,6 +32,6 @@ public class ProfileRules {
 	}	
 	
 	public static int getMinimumAge() {
-		return minimumAge;
+		return MIN_AGE;
 	}
 }

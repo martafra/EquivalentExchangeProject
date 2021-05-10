@@ -21,4 +21,6 @@ public abstract class SceneManageable {
 		bundle = new Bundle();
 	}
 	
+	
+	
 }

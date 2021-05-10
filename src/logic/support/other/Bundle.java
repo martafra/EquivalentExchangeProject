@@ -5,7 +5,7 @@ import logic.support.interfaces.Bean;
 
 public class Bundle {
 	
-	private HashMap<String, Bean> content = new HashMap<String, Bean>();
+	private HashMap<String, Bean> content = new HashMap<>();
 	
 	public void add(String id, Bean bean) {
 		content.put(id, bean);

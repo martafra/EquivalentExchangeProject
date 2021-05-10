@@ -18,7 +18,7 @@ public class LoginProva extends SceneManageable {
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
 		LoginBean login = (LoginBean) this.bundle.get("loggedUser");
-		UserBean loggedUser = controller.getUserByUsername(login.getUserID());
+		UserBean loggedUser = controller.getUserByLoginData(login);
 		
 		textview.setText(loggedUser.getUserID() +"\n\n"+ loggedUser.getName() + " " + loggedUser.getLastName() + "\n" + loggedUser.getEmail());
 	}

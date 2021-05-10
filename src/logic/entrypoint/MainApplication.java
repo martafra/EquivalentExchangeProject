@@ -1,9 +1,12 @@
 package logic.entrypoint;
 
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import logic.controller.graphic.HeaderBar;
+import logic.support.other.HeaderController;
 import logic.support.other.PaneManager;
 
 public class MainApplication extends Application{
@@ -19,11 +22,18 @@ public class MainApplication extends Application{
 		mainPanel.loadScene("login", "/logic/view/LoginView.fxml");
 		mainPanel.loadScene("loginprova", "/logic/view/LoginProva.fxml");
 		mainPanel.loadScene("register", "/logic/view/Registration.fxml");
+		mainPanel.loadScene("home", "/logic/view/Home.fxml");
+		mainPanel.loadScene("community", "/logic/view/Community.fxml");
+		mainPanel.loadScene("catalogue", "/logic/view/Catalogue.fxml");
+		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		
-		mainPanel.setScene("login");
+		mainPanel.setScene("home");
 		
 		VBox root = new VBox();
+		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();
 		
+		
+		root.getChildren().add(headerBarContent);
 		root.getChildren().add(mainPanel);
 		
 		Scene scene = new Scene(root);
