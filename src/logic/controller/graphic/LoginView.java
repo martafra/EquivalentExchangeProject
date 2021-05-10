@@ -32,8 +32,13 @@ public class LoginView extends SceneManageable{
 
     	if(result) {
     		bundle.add("loggedUser", bean);
-    		sceneManager.setScene("loginprova");
+    		goToScene("loginprova");
     	}    	
+    }
+    
+    @FXML
+    public void goToRegistration() {
+    	goToScene("register");
     }
 	
 	

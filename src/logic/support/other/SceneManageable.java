@@ -2,7 +2,7 @@ package logic.support.other;
 
 public abstract class SceneManageable {
 	
-	protected PaneManager sceneManager;
+	private PaneManager sceneManager;
 	protected Bundle bundle;
 	
 	public void setPaneManager(PaneManager manager) {
@@ -21,6 +21,9 @@ public abstract class SceneManageable {
 		bundle = new Bundle();
 	}
 	
+	protected void goToScene(String sceneName) {
+		sceneManager.setScene(sceneName);
+	}
 	
 	
 }
