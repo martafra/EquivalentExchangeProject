@@ -25,6 +25,8 @@ public class LoginController {
 	
 	public UserBean getUserByUsername(String username) {
 		
+		//TODO Considerare se cambiare il parametro in un tipo LoginBean
+		
 		UserBean bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		
