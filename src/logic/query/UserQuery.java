@@ -1,5 +1,6 @@
 package logic.query;
 
+import logic.entity.User;
 
 public class UserQuery {
 	private String table = "user";
@@ -16,9 +17,9 @@ public class UserQuery {
 	private String clGender = "gender";
 	private String clBirthdate = "birthDate";
 	private String clCredit = "credit";
+	private String columnsName = " (" + clUsername + ", "   + clPassword + ", " + clFirstName + ", "  + clLastName+ ", " +
+			 clEmail+ ", " +   clGender + ", " +   clBirthdate + ", " +  clCredit + ") ";
 
-	// private String attObligatori = clUsername + "," + clFirstName + "," +
-	// clLastName + "," + clEmail + "," + clPassword;
 
 	public String selectUser(String username) {
 		return "SELECT * FROM " + table + " WHERE " + clUsername + "='" + username + "'";
@@ -29,28 +30,64 @@ public class UserQuery {
 				+ password + "'";
 	}
 
-	public String checkUser(String username) {
-		return "SELECT username FROM user WHERE username = '" + username + "'";
+	public String changeStr(String str) {
+		if(str !=null) {
+			return "'" + str + "'";
+		}
+		return str;
 	}
 	
+	public String insertUser(User user) {
+		String query = insertStr;
+		String username = changeStr(user.getUsername());
+		String password = changeStr(user.getPassword());
+		String firstName = changeStr(user.getName());
+		String lastName =changeStr(user.getSurname());
+		String email = changeStr(user.getEmail());
+		
+		String gender = null;
+		if(user.getGender()!=null) {
+			gender = "'" + user.getGender().toString().charAt(0) + "'";
+		}
+		
+		String birthdate = null; 
+		if(user.getBirthDate()!=null) {
+			birthdate = changeStr(user.getBirthDate().toString());
+		}
+		
+		int credit= user.getWallet().getCurrentCredit();
 
-	public String insertUser(String username, String firstName, String lastName, String email, String password) {
-		return insertStr + 
-						"(" + clUsername + ", " + clFirstName + ", " + clLastName + ", " + clEmail + ", "
-								+ clPassword + ") "
-						+ "VALUES ('" + username + "','" + firstName + "','" + lastName + "','" + email + "','"
-								+ password + "')";
+		String str= String.format(query + columnsName + " VALUES (%s,%s,%s,%s,%s,%s,%s,%d)", username, password, firstName, lastName, email,gender, birthdate, credit);
+		return str;
 	}
 
-	public String updateGender(String username, char gender) {
-		return updateStr + clGender + " = '" + gender + "' WHERE " + clUsername + "= '" + username + "'";
-	}
+	public String updateUser(User user) {
+		String query = updateStr;
+		String username = changeStr(user.getUsername());
+		String password = changeStr(user.getPassword());
+		String firstName = changeStr(user.getName());
+		String lastName =changeStr(user.getSurname());
+		String email = changeStr(user.getEmail());
+		
+		String gender = null;
+		if(user.getGender()!=null) {
+			gender = "'" + user.getGender().toString().charAt(0) + "'";
+		}
+		
+		String birthdate = null; 
+		if(user.getBirthDate()!=null) {
+			birthdate = changeStr(user.getBirthDate().toString());
+		}
+		
+		int credit= user.getWallet().getCurrentCredit();
 
-	public String updateBirthDate(String username, String birthDate) {
-		return updateStr + clBirthdate + "=  '" + birthDate + "' WHERE " + clUsername + "= '" + username + "'";
+		String str= String.format(query + " %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %d WHERE %s = %s", 
+				clUsername, username, clPassword, password, clFirstName, firstName, clLastName, lastName, clEmail, email,
+				clGender, gender, clBirthdate, birthdate, clCredit, credit, clUsername, username );
+		return str;
 	}
-
-	public String updateCredit(String username, int newCredit) {
-		return updateStr + clCredit + " = " + newCredit + " WHERE " + clUsername + " = '" + username + "'";
+	
+	public String deleteUser(String username) {
+		return "DELETE FROM" + table + " WHERE " + clUsername +"= '" + username + "'";
 	}
 }

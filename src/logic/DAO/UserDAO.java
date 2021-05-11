@@ -16,49 +16,8 @@ public class UserDAO {
 	MyConnection connection = MyConnection.getInstance();
 	UserQuery userQ = new UserQuery();
 
-	public User selectMiniUser(String username, String password) {//restituisce l'utente con solo i dati obbligatori
-		User user = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
 
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = userQ.selectUser(username, password);
-			rs = stmt.executeQuery(query);
-
-			if (!rs.next()) {
-				return null;
-			}
-
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"),
-					rs.getString("email"), rs.getString("passwd"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.selectMiniUser()");
-
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return user;
-
-	}
-
-	public User selectUser(String username, String password) {//restituisce l'utente con tutti i dati presenti, lasciando a null i restanti
+	public User selectUser(String username, String password) {
 		User user = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -78,6 +37,9 @@ public class UserDAO {
 
 			String datestr = rs.getString("birthDate");
 			String genderstr = rs.getString("gender");
+			
+			int credit = rs.getInt("credit");
+			user.getWallet().setCurrentCredit(credit);
 
 			if (datestr != null) {
 				Date date = Date.valueOf(datestr);
@@ -87,6 +49,8 @@ public class UserDAO {
 				Gender gender = Gender.getGender(genderstr);
 				user.setGender(gender);
 			}
+			
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -112,7 +76,7 @@ public class UserDAO {
 
 	}
 	
-	public User selectUser(String username) {//restituisce l'utente con tutti i dati presenti, lasciando a null i restanti
+	public User selectUser(String username) {
 		User user = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -132,6 +96,9 @@ public class UserDAO {
 
 			String datestr = rs.getString("birthDate");
 			String genderstr = rs.getString("gender");
+			
+			int credit = rs.getInt("credit");
+			user.getWallet().setCurrentCredit(credit);
 
 			if (datestr != null) {
 				Date date = Date.valueOf(datestr);
@@ -166,19 +133,14 @@ public class UserDAO {
 
 	}
 
-	// ritorna 1 se l'utente è stato inserito, 0 altrimenti
-	public int insertUser(String username, String firstName, String lastName, String email, String password) {
+	public void insertUser(User user) {
 		Statement stmt = null;
-		int ret = 0;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			if (checkUser(stmt, username) == 0) {
-				String query = userQ.insertUser(username, firstName, lastName, email, password);
-				stmt.executeUpdate(query);
-				ret = 1;
-			}
+			String query = userQ.insertUser(user);
+			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -196,38 +158,49 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 		}
-		return ret;
 	}
-
-	// controlla se l'username è già in uso
-	public int checkUser(Statement stmt, String username) throws SQLException {
-		ResultSet rs;
-		int ret;
-		String query = userQ.checkUser(username);
-		rs = stmt.executeQuery(query);
-		if (rs.next()) {
-			ret = 1;
-		} else {
-			ret = 0;
-		}
-		rs.close();
-		return ret;
-	}
-
-	public void updateGender(String username, char gender) {
+	
+	public void updateUser(User user) {
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = userQ.updateGender(username, gender);
+			String query = userQ.updateUser(user);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.updateGender()");
+			System.out.println("Attenzione: Errore nella UserDao.updateUser()");
+
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteUser(String username) {
+		Statement stmt = null;
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = userQ.deleteUser(username);
+			stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+			System.out.println("Attenzione: Errore nella UserDao.deleteUser()");
 
 		} finally {
 			try {
@@ -241,58 +214,6 @@ public class UserDAO {
 		}
 	}
 
-	public void updateBirthDate(String username, String birthDate) { //birtDate : yyyy-mm-dd
-		Statement stmt = null;
-		try {
 
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = userQ.updateBirthDate(username, birthDate);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.updateBirthDate()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void updateCredit(String username, Integer newCredit) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = userQ.updateCredit(username, newCredit);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.updateCredit()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
 }

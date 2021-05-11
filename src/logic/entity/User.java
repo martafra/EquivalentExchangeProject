@@ -20,6 +20,7 @@ public class User {
 
 		this.email = email;
 		this.password = password;
+		this.wallet = new Wallet();
 	}
 	
 	
@@ -92,5 +93,9 @@ public class User {
 		
 		else {return false;}
 		
+	}
+	
+	public Wallet getWallet() {
+		return this.wallet;
 	}
 }

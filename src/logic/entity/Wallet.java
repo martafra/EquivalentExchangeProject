@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Wallet {
 	
-	private Integer currentCredit;
+	private Integer currentCredit=0;
 	private ArrayList<Order> orderList;
 	
 	public Integer getCurrentCredit() {
