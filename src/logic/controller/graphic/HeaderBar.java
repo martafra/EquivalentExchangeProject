@@ -64,7 +64,7 @@ public class HeaderBar extends HeaderController{
 	@Override
 	public void update() {
 		
-		LoginBean loggedUser = (LoginBean) getBodyManager().getCurrentSceneController().getBundle().get("loggedUser");
+		LoginBean loggedUser = (LoginBean) getBodyManager().getCurrentSceneController().getBundle().getBean("loggedUser");
 		if(loggedUser != null){
 			loginButton.setText(loggedUser.getUserID());
 		}

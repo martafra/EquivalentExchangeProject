@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import logic.controller.application.LoginController;
 import logic.support.other.Bundle;
+import logic.support.other.MailBox;
 import logic.support.other.SceneManageable;
 
 public class LoginView extends SceneManageable{
@@ -31,9 +32,12 @@ public class LoginView extends SceneManageable{
     	Boolean result = log.login(bean);
 
     	if(result) {
-    		bundle.add("loggedUser", bean);
+    		bundle.addBean("loggedUser", bean);
+    		bundle.addObject("mailbox", log.getMailBox());
     		goToScene("loginprova");
-    	}    	
+    	}
+    	
+    	
     }
     
     @FXML

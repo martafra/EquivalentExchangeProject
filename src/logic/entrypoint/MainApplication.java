@@ -1,24 +1,27 @@
 package logic.entrypoint;
-
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import logic.controller.graphic.HeaderBar;
 import logic.support.other.HeaderController;
 import logic.support.other.PaneManager;
 
-public class MainApplication extends Application{
+public class MainApplication extends Application {
 
+
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) throws Exception{
 		
-		PaneManager mainPanel = new PaneManager();
+		var mainPanel = new PaneManager();
 		mainPanel.loadScene("login", "/logic/view/LoginView.fxml");
 		mainPanel.loadScene("loginprova", "/logic/view/LoginProva.fxml");
 		mainPanel.loadScene("register", "/logic/view/Registration.fxml");
@@ -27,19 +30,22 @@ public class MainApplication extends Application{
 		mainPanel.loadScene("catalogue", "/logic/view/Catalogue.fxml");
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		
-		mainPanel.setScene("home");
+		mainPanel.setScene("login");
 		
-		VBox root = new VBox();
+		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();
 		
 		
 		root.getChildren().add(headerBarContent);
 		root.getChildren().add(mainPanel);
 		
-		Scene scene = new Scene(root);
+		var scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+
 		
 	}
+	
+	
 
 }

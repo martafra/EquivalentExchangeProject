@@ -6,10 +6,10 @@ public class MyConnection {
 	
 	private static MyConnection instance = null;
 	private Connection con;
-	private String nomeDB = "db";
-	private String portaDB = "3307";
+	private String nomeDB = "equivalentexchange";
+	private String portaDB = "3306";
 	private String usernameDB = "root";
-	private String passwordDB = "passsql";
+	private String passwordDB = "K3p4ll3!";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 
 	

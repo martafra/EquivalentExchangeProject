@@ -4,6 +4,8 @@ import logic.bean.RegistrationBean;
 import logic.bean.UserBean;
 import logic.DAO.UserDAO;
 import logic.entity.User;
+import logic.support.connection.ConnectionServer;
+import logic.support.other.MailBox;
 
 
 public class LoginController {
@@ -24,6 +26,7 @@ public class LoginController {
 		newUser.setPassword(newUserData.getPassword());
 		
 		//userDB.registerUser(newUser);
+		userDB.insertUser(newUser);
 		
 		return true;
 		
@@ -37,15 +40,14 @@ public class LoginController {
 		if(loggedUser == null) {
 			return false;
 		}
-
 		return true;
 	}
+	
 	
 	public UserBean getUserByLoginData(LoginBean loginData) {
 		
 		//TODO Considerare se cambiare il parametro in un tipo LoginBean
-		
-		UserBean bean = new UserBean();
+		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		
 		User loggedUser = userDAO.selectUser(loginData.getUserID(), loginData.getPassword());
@@ -57,6 +59,14 @@ public class LoginController {
 		bean.setUserID(loggedUser.getUsername());
 		
 		return bean;
+	}
+
+	public MailBox getMailBox(){
+
+		var mailBox = new MailBox();
+		new ConnectionServer(mailBox);
+		return mailBox;
+
 	}
 	
 	

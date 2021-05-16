@@ -5,15 +5,26 @@ import logic.support.interfaces.Bean;
 
 public class Bundle {
 	
-	private HashMap<String, Bean> content = new HashMap<>();
+	private HashMap<String, Bean> beanContent = new HashMap<>();
+	private HashMap<String, Object> genericContent = new HashMap<>();
 	
-	public void add(String id, Bean bean) {
-		content.put(id, bean);
+	
+	public void addBean(String id, Bean bean) {
+		beanContent.put(id, bean);
 	}
 	
-	public Bean get(String id) {
-		return content.get(id);
+	public Bean getBean(String id) {
+		return beanContent.get(id);
 	}
+	
+	public void addObject(String id, Object obj) {
+		genericContent.put(id, obj);
+	}
+
+	public Object getObject(String id) {
+		return genericContent.get(id);
+	}
+	
 	
 	
 }
