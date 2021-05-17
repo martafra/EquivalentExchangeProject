@@ -27,8 +27,8 @@ public class ConnectionHandler implements Runnable {
 				String msg = reader.readLine();
 				if(msg == null)
 					break;
-				msg = msg.substring(0, msg.length()-1);
-				System.out.println(msg);
+				
+				System.out.println("message->" + msg);
 				mailbox.addMessage(msg);
 				
 			}

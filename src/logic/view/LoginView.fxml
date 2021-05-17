@@ -18,7 +18,10 @@
     <TextField fx:id="userText" prefWidth="100.0" prefHeight="20.0"/>
     
     <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="Password:" textAlignment="LEFT" />
+    
     <TextField fx:id="passText" prefWidth="100.0" prefHeight="20.0"/>
+    <Label fx:id="chat" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="User to chat with:" textAlignment="LEFT" />
+    <TextField fx:id="otherUserID" prefWidth="100.0" prefHeight="20.0"/>
     <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Login" textAlignment="CENTER" onAction="#login" />
     <Button fx:id="goToReg" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Create an Account" textAlignment="CENTER" onAction="#goToRegistration" />
   </children>

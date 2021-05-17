@@ -61,11 +61,13 @@ public class ConnectionCache {
 	// get connections list from a certain user
 	public ArrayList<String> getConnections(String username){
 
-        ArrayList<String> connections = new ArrayList<>();
-		for(ConnectionData data : onlineUsers.get(username)){
-            connections.add(data.getStringData());
-        }
-
-        return connections;
+//		
+//        ArrayList<String> connections = new ArrayList<>();
+//		for(ConnectionData data : onlineUsers.get(username)){
+//            connections.add(data.getStringData());
+//        }
+//
+//        return connections;
+		return null;
 	}
 }

@@ -4,38 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import logic.entity.Message;
+import logic.entity.ChatMessage;
+import logic.support.connection.MessageParser;
 
 public class MailBox extends Subject{
 
-	ArrayList<Message> messages = new ArrayList<>();
+	ArrayList<ChatMessage> messages = new ArrayList<>();
 	
-	public List<Message> getState() {
+	public List<ChatMessage> getState() {
 		return messages;
 	}
 	
 	public void addMessage(String message) {
 		
-		messages.add(parseMessage(message));
+		messages.add(MessageParser.parseChatMessage(message));
 		notifyObservers();
 	}
 	
-	private Message parseMessage(String messageString) {
-		
-		if(messageString == ""){
-			return null;
-		}
-		String[] params = messageString.split(";");
-		HashMap<String, String> messageFields = new HashMap<>();
-
-		for(String param : params){
-			System.out.println(param);
-			String[] keyValue = param.split(":");
-			messageFields.put(keyValue[0], keyValue[1]);
-		}
-		return new Message(messageFields.get("username"), messageFields.get("date"), messageFields.get("text"));
-		
-	}
 	
 	
 }

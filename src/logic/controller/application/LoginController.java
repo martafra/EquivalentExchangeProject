@@ -2,9 +2,17 @@ package logic.controller.application;
 import logic.bean.LoginBean;
 import logic.bean.RegistrationBean;
 import logic.bean.UserBean;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import logic.DAO.UserDAO;
 import logic.entity.User;
+import logic.support.connection.ConnectionData;
 import logic.support.connection.ConnectionServer;
+import logic.support.connection.SessionHandler;
 import logic.support.other.MailBox;
 
 
@@ -61,12 +69,15 @@ public class LoginController {
 		return bean;
 	}
 
-	public MailBox getMailBox(){
+	public MailBox connect(LoginBean userData){
 
 		var mailBox = new MailBox();
-		new ConnectionServer(mailBox);
-		return mailBox;
-
+		ConnectionData myServerData = new ConnectionServer(mailBox).getConnectionData();
+		SessionHandler session = new SessionHandler();
+		
+		if(session.startSession(userData.getUserID(), myServerData.getIP() , myServerData.getPort()))
+			return mailBox;
+		return null;
 	}
 	
 	

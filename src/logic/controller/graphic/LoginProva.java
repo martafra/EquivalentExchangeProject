@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.LoginController;
-import logic.entity.Message;
+import logic.entity.ChatMessage;
 import logic.support.interfaces.Observer;
 import logic.support.other.Bundle;
 import logic.support.other.MailBox;
@@ -39,7 +39,7 @@ public class LoginProva extends SceneManageable implements Observer{
 	@Override
 	public void update() {
 		
-		var messages = (ArrayList<Message>) mailbox.getState();
+		var messages = (ArrayList<ChatMessage>) mailbox.getState();
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {

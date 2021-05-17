@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+ 
+<VBox fx:id="vbox" fx:controller="logic.controller.graphic.ChatGraphicController" layoutX="10.0" layoutY="10.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <style>
+    -fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-insets: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: blue;
+  </style>
+  <children>
+  	<VBox fx:id="messageArea" prefHeight="500.0" prefWidth="1200.0">
+  		<style>
+  			-fx-border-width: 1;
+    		-fx-border-insets: 5;
+    		-fx-border-color: black;		
+  		</style>
+  	</VBox>
+  	
+  	<TextField fx:id="message"/>
+  	<Button fx:id="sendButton" text="Send Message" onAction="#sendMessage"/>
+  	
+    
+  </children>
+</VBox>
