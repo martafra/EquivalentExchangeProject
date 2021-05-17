@@ -88,6 +88,6 @@ public class UserQuery {
 	}
 	
 	public String deleteUser(String username) {
-		return "DELETE FROM" + table + " WHERE " + clUsername +"= '" + username + "'";
+		return "DELETE FROM " + table + " WHERE " + clUsername +" = '" + username + "'";
 	}
 }

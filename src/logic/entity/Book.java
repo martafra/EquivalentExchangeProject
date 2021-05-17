@@ -3,6 +3,7 @@ package logic.entity;
 
 import logic.enumeration.BookGenre;
 
+
 public class Book extends Item {
 	private String author;
 	private Integer edition;
@@ -10,13 +11,13 @@ public class Book extends Item {
 	private BookGenre genre;
 	private String  publishingHouse;
 	
-	public Book (String name, String publishingDate, String author, Integer edition, Integer numberOfPages, BookGenre genre, String publishingHouse) {
+	public Book (String name, String publishingDate, String author, Integer edition, Integer numberOfPages, String genre, String publishingHouse) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.author = author;
 		this.edition = edition;
 		this.numberOfPages = numberOfPages;
-		this.genre = genre;
+		setGenre(genre);
 		this.publishingHouse = publishingHouse;
 		
 	}
@@ -41,6 +42,14 @@ public class Book extends Item {
 		return this.publishingHouse;
 	}
 	
+	public char getType() {
+		return 'B';
+	}
+	
+	public String getInfo() {
+		return author + ";" + edition + ";" + numberOfPages + ";" + genre + ";" + publishingHouse;
+	}
+	
 	public void setAuthor(String author) {
 		this.author = author;
 	}
@@ -55,6 +64,18 @@ public class Book extends Item {
 	
 	public void setGenre(BookGenre genre) {
 		this.genre = genre;
+	}
+	
+	public void setGenre(String genre) {
+		if(genre != null) {
+			for (BookGenre value : BookGenre.values()) {
+				if (genre.equals(value.toString())){
+					  this.genre = value;
+					  return;
+				}
+			}
+		}
+		this.genre = null;
 	}
 	
 	public void setPublishingHouse(String publishingHouse) {

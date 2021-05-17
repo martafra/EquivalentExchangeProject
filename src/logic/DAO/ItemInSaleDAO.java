@@ -17,7 +17,7 @@ public class ItemInSaleDAO {
 	MyConnection connection = MyConnection.getInstance();
 	ItemInSaleQuery itemInSaleQ = new ItemInSaleQuery();
 	
-	public ItemInSale selectItemInsale(int itemInSaleID) {
+	public ItemInSale selectItemInSale(int itemInSaleID) {
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -38,8 +38,8 @@ public class ItemInSaleDAO {
 			UserDAO userDAO= new UserDAO();
 			User user = userDAO.selectUser(rs.getString("userID"));
 			
-			itemInSale = new ItemInSale(rs.getInt("price"), rs.getBoolean("availability"), rs.getString("preferredLocation"),
-					item, user);
+			itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), rs.getInt("price"),rs.getString("saleDescription"), rs.getBoolean("availability"), rs.getString("itemCondition"),
+					rs.getString("preferredLocation"), item, user);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -65,14 +65,14 @@ public class ItemInSaleDAO {
 
 	}
 	
-	public void insertItemInSale(int price, boolean availability, String preferredLocation, int referredItemID, String sellerID) {
+	public void insertItemInSale(ItemInSale itemInSale) {
 		Statement stmt = null;
 		
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.insertItemInSale(price, preferredLocation, referredItemID, sellerID);
+			String query = itemInSaleQ.insertItemInSale(itemInSale);
 			stmt.executeUpdate(query);
 		
 
@@ -95,20 +95,22 @@ public class ItemInSaleDAO {
 		
 	}
 	
-	public void updateDescription(int itemInSaleID, String saleDescription) {
+
+	
+	public void updateItemInSale(ItemInSale itemInSale) {
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.updateSaleDescription(itemInSaleID, saleDescription);
+			String query = itemInSaleQ.updateItemInSale(itemInSale);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateDescription()");
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateItemInSale()");
 
 		} finally {
 			try {
@@ -122,155 +124,22 @@ public class ItemInSaleDAO {
 		}
 	}
 	
-	public void updatePrice(int itemInSaleID,int newPrice) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.updatePrice(itemInSaleID, newPrice);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updatePrice()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 	
-	public void updateAvailability(int itemInSaleID,boolean availability) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.updateAvailability(itemInSaleID, availability);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateAvailability()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 	
-	public void updateItemCondition(int itemInSaleID,char itemCondition) {
+	public void deleteItemInSale(int itemInSaleID) {
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.updateItemCondition(itemInSaleID, itemCondition);
+			String query = itemInSaleQ.deleteItemInSale(itemInSaleID);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateItemCondition()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void updatePreferredLocation(int itemInSaleID,String peferredLocation) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.updatePreferredLocation(itemInSaleID, peferredLocation);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updatePreferredLocation()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void updateReferredOrderID(int itemInSaleID,int referredOrderID) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.updateReferredOrderID(itemInSaleID, referredOrderID);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateReferredOrderID()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void removeItemInSale(int itemInSaleID) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.removeItemInSale(itemInSaleID);
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.removeItemInSale()");
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.deleteItemInSale()");
 
 		} finally {
 			try {

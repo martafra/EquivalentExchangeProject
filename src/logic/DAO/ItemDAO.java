@@ -63,12 +63,12 @@ public class ItemDAO {
 
 	} 
 	
-	private ArrayList<String> storeRs(ResultSet rs, Integer column_count) {//Inserisce tutti i dati del resultSet in un ArrayList
+	private ArrayList<String> storeRs(ResultSet rs, Integer columnCount) {//Inserisce tutti i dati del resultSet in un ArrayList
 		ArrayList<String> ret = new ArrayList<String>();
 
 		try {
 
-				for (int i = 1; i <= column_count; i++) {
+				for (int i = 1; i <= columnCount; i++) {
 					ret.add(rs.getString(i));
 				}
 
@@ -81,13 +81,13 @@ public class ItemDAO {
 	}
 	
 	
-	public void insertItem(String itemName, char itemType) {//inserisce l'item senza dover specificare l'ID -> nel database verrà messo come AutoIncrement
+	public void insertItem(Item item) {//inserisce l'item senza dover specificare l'ID -> nel database verrà messo come AutoIncrement
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-				String query = itemQ.insertItem(itemName, itemType);
+				String query = itemQ.insertItem(item);
 				stmt.executeUpdate(query);
 				
 		} catch (SQLException e) {
@@ -108,31 +108,5 @@ public class ItemDAO {
 		}
 	}
 	
-	public void insertItem(Integer itemID,String itemName, char itemType) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-				String query = itemQ.insertItem(itemID, itemName, itemType);
-				stmt.executeUpdate(query);
-				
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemDao.insertItem()");
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 	
 }

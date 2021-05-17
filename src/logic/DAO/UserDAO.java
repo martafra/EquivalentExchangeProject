@@ -1,15 +1,14 @@
 package logic.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import logic.query.UserQuery;
 import logic.database.MyConnection;
 import logic.entity.User;
-import logic.enumeration.Gender;
+
 
 public class UserDAO {
 
@@ -32,25 +31,9 @@ public class UserDAO {
 				return null;
 			}
 
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"),
-					rs.getString("email"), rs.getString("passwd"));
+			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"),
+					rs.getDate("birthDate"), rs.getString("email"), rs.getString("passwd"));
 
-			String datestr = rs.getString("birthDate");
-			String genderstr = rs.getString("gender");
-			
-			int credit = rs.getInt("credit");
-			user.getWallet().setCurrentCredit(credit);
-
-			if (datestr != null) {
-				Date date = Date.valueOf(datestr);
-				user.setBirthDate(date);
-			}
-			if (genderstr != null) {
-				Gender gender = Gender.getGender(genderstr);
-				user.setGender(gender);
-			}
-			
-			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -91,23 +74,9 @@ public class UserDAO {
 				return null;
 			}
 
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"),
-					rs.getString("email"), rs.getString("passwd"));
+			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"),
+					rs.getDate("birthDate"), rs.getString("email"), rs.getString("passwd"));
 
-			String datestr = rs.getString("birthDate");
-			String genderstr = rs.getString("gender");
-			
-			int credit = rs.getInt("credit");
-			user.getWallet().setCurrentCredit(credit);
-
-			if (datestr != null) {
-				Date date = Date.valueOf(datestr);
-				user.setBirthDate(date);
-			}
-			if (genderstr != null) {
-				Gender gender = Gender.getGender(genderstr);
-				user.setGender(gender);
-			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

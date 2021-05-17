@@ -20,9 +20,10 @@ public class ItemFactory {
 		else if (itemType == 'V') {
 			item = makeVideoGame(data);
 		}
-		else if (itemType == 'M') {
+		else { //if (itemType == 'M') {
 			item = makeMovie(data);
 		}
+		item.setItemID(Integer.parseInt(data.get(0)));
 		return item;
 	}
 	
@@ -41,7 +42,7 @@ public class ItemFactory {
 			numberOfPages = Integer.parseInt(numberOfPageStr);
 		}
 
-		BookGenre genre = BookGenre.getGenre(data.get(4));
+		String genre = data.get(4);
 		String publishingHouse = data.get(5);
 		String name = data.get(1);
 		String publishingDate = data.get(2);
@@ -51,7 +52,7 @@ public class ItemFactory {
 	}
 	
 	private Item makeVideoGame(ArrayList<String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
-		VideoGameGenre genre = VideoGameGenre.getGenre(data.get(4));
+		String genre = data.get(4);
 		String name = data.get(1);
 		String publishingDate = data.get(2);
 		return new Videogame(name,publishingDate,genre);
@@ -65,7 +66,7 @@ public class ItemFactory {
 		if (durationStr != null) {
 			duration = Integer.parseInt(durationStr);
 		}
-		MovieGenre genre = MovieGenre.getGenre(data.get(4));
+		String genre = data.get(4);
 		return new Movie(name, publishingDate, duration, genre);
 	}
 

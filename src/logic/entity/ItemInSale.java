@@ -1,8 +1,10 @@
 package logic.entity;
+
 import logic.enumeration.Condition;
 
 public class ItemInSale {
 	
+	private int itemInSaleID;
 	private Integer price;
 	private String description;
 	private Boolean availability;
@@ -18,6 +20,21 @@ public class ItemInSale {
 		this.address = preferredLocation;
 		this.referredItem = referredItem;
 		this.seller = seller;	
+	}
+	
+	public ItemInSale(int itemInSaleID, int price, String description, boolean availability, String condition, String preferredLocation, Item referredItem, User seller) {
+		this.itemInSaleID = itemInSaleID;
+		this.price = price;
+		this.description = description;
+		this.availability = availability;
+		setCondition(condition);
+		this.address = preferredLocation;
+		this.referredItem = referredItem;
+		this.seller = seller;	
+	}
+	
+	public int getItemInSaleID() {
+		return this.itemInSaleID;
 	}
 	
 	public Integer getPrice() {
@@ -49,6 +66,10 @@ public class ItemInSale {
 		return this.address;
 	}
 	
+	public void setItemInSaleID(int itemInSaleID) {
+		this.itemInSaleID = itemInSaleID;
+	}
+	
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
@@ -58,7 +79,19 @@ public class ItemInSale {
 	}
 	
 	public void setCondition(Condition condition) {
-		this.condition = condition;;
+		this.condition = condition;
+	}
+	
+	public void setCondition(String condition) {
+		if(condition != null) {
+			for (Condition value : Condition.values()) {
+				if (condition.equals(value.toString().substring(0, 1))){
+					  this.condition = value;
+					  return;
+				}
+			}
+		}
+		this.condition = null;
 	}
 	
 	public void setAvailability(Boolean availability) {

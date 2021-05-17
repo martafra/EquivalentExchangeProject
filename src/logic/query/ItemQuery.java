@@ -1,5 +1,7 @@
 package logic.query;
 
+import logic.entity.Item;
+
 public class ItemQuery {
 	private String table = "item";
 
@@ -19,21 +21,64 @@ public class ItemQuery {
 	private String clBookEdition = "bookEdition";
 	private String clBookPagesNumber = "bookPagesNumber";
 	
+	private String columnsName = " (" + clItemID + ", "   + clItemName + ", " + clPublishingDate + ", "  + /*clItemTarget+ ", " +*/
+			clGenre+ ", " +   clPublisher + ", " +   clItemType + ", " +  clMovieDuration + ", " + clBookAuthor + ", " + 
+			clBookEdition + ", " + clBookPagesNumber +") ";
+	
+	private String columnsNameBook = " (" + clItemName + ", " + clPublishingDate + ", "  + /*clItemTarget + ", "  +*/
+			clGenre+ ", " +   clPublisher + ", " +   clItemType + ", " + clBookAuthor + ", " + 
+			clBookEdition + ", " + clBookPagesNumber +") ";
+	
+	private String columnsNameMovie = " (" + clItemName + ", " + clPublishingDate + ", " + /* clItemTarget + ", " +*/
+			clGenre+ ", " +   clItemType + ", " +  clMovieDuration + ") ";
+	
+	private String columnsNameVideoGame = " (" + clItemName + ", " + clPublishingDate + ", "  + /*clItemTarget+ ", " +*/
+			clGenre+ ", "  +   clItemType + ") ";
+	
 	public String selectItem(int itemID) {
 		return "SELECT * FROM item WHERE itemID =" + itemID;
 	}
 	
-	public String insertItem(String itemName, char itemType) {
-		return insertStr + 
-				"(" +  clItemName + ", " + clItemType + ")"
-				+ "VALUES ('" + itemName + "','" + itemType + "')";
-				
+	public String changeStr(String str) {
+		if(str !=null) {
+			return "'" + str + "'";
+		}
+		return str;
 	}
 	
-	public String insertItem(Integer itemID, String itemName, char itemType) {
-		return insertStr + 
-				"(" + clItemID + ", " + clItemName + ", " + clItemType + ")"
-				+ "VALUES (" +itemID +  ",'" + itemName + "','" + itemType + "')";
-				
+	public String insertItem(Item item) {
+		String query = insertStr;
+		String info = item.getInfo();
+		String [] infoArray = info.split(";");
+		String itemName = item.getName();
+		String publishingDate = item.getPublishingDate().toString();
+		char itemType =  item.getType() ;
+		String str;
+		
+		
+		if (itemType == 'B') {
+			
+			String author = infoArray[0];
+			String edition = infoArray[1];
+			String pages = infoArray[2];
+			String bookGenre = infoArray[3];
+			String publishingHouse = infoArray[4];
+			str= String.format(query + columnsNameBook + " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s',%d)", itemName, publishingDate ,
+					bookGenre, publishingHouse ,itemType , author, edition , pages);
+			return str;
+		}
+		else if (itemType == 'M') {
+			String duration = infoArray[0];
+			String movieGenre = infoArray[1];
+			str= String.format(query + columnsNameMovie + " VALUES (%s,%s,%s,%s,%d)", itemName, publishingDate, movieGenre, itemType, duration);
+			return str;
+		}
+		else{
+			
+			String videogameGenre = infoArray[0];
+			str= String.format(query + columnsNameVideoGame + " VALUES (%s,%s,%s,%s)", itemName, publishingDate, videogameGenre, itemType);
+			return str;
+		}
 	}
+	
 }

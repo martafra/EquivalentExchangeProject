@@ -1,17 +1,16 @@
 package logic.entity;
 
-
 import logic.enumeration.MovieGenre;
 
 public class Movie extends Item {
 	private Integer duration;
 	private MovieGenre genre;
 	
-	public Movie(String name, String publishingDate,Integer duration, MovieGenre genre) {
+	public Movie(String name, String publishingDate,Integer duration, String genre) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.duration = duration;
-		this.genre = genre;
+		setGenre(genre);
 	}
 	
 	public Integer getDuration() {
@@ -22,6 +21,14 @@ public class Movie extends Item {
 		return this.genre;
 	}
 	
+	public char getType() {
+		return 'M';
+	}
+	
+	public String getInfo() {
+		return duration + ";" + genre;
+	}
+	
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
@@ -29,6 +36,16 @@ public class Movie extends Item {
 	public void setGenre(MovieGenre genre) {
 		this.genre = genre;
 	}
-	
+	public void setGenre(String genre) {
+		if(genre != null) {
+			for (MovieGenre value : MovieGenre.values()) {
+				if (genre.equals(value.toString())){
+					  this.genre = value;
+					  return;
+				}
+			}
+		}
+		this.genre = null;
+	}
 
 }

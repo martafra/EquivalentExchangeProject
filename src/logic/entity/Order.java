@@ -10,6 +10,15 @@ public class Order {
 	private Boolean orderStatus;
 	private User buyer;
 	
+	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Boolean orderStatus, User buyer) {
+		this.orderID = orderID;
+		this.code = code;
+		this.involvedItem = involvedItem;
+		this.orderDate = orderDate;
+		this.orderStatus = orderStatus;
+		this.buyer = buyer;
+	}
+	
 	public String getCode() {
 		return this.code;
 	}

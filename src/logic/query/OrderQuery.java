@@ -1,5 +1,8 @@
 package logic.query;
 
+
+import logic.entity.Order;
+
 public class OrderQuery {
 	private String table = "itemorder";
 
@@ -16,6 +19,9 @@ public class OrderQuery {
 	private String clBuyerID = "buyerID";
 	private String clReferredItemID = "referredItemID";
 	
+	private String columnsName = " (" + clOrderID + ", "   + clOrderDate + ", " + clStatus + ", "  + clCode + ", " +
+			clTimer+ ", " +   clSellerID + ", " +  clBuyerID + ", " +  clReferredItemID + ") ";
+	
 	public String selectOrder(int orderID) {
 		return "SELECT * FROM " + table + " WHERE " + clOrderID + "= "+  orderID;
 	}
@@ -28,34 +34,55 @@ public class OrderQuery {
 		return "SELECT * FROM " + table + " WHERE " + clBuyerID + "='"+ buyer +"' AND" + clStatus + "= true";
 	}
 	
-	public String inserOrder(int orderID, String seller, String buyer, int referredItem) {
-		return insertStr + 
-				"(" + clOrderID + ", " + clSellerID + ", " + clBuyerID + ", " + clReferredItemID + ") "
-				+ "VALUES (" + orderID + ",'" + seller + "','" + buyer + "'," + referredItem + ")";
+	public String changeStr(String str) {
+		if(str !=null) {
+			return "'" + str + "'";
+		}
+		return str;
 	}
 	
-	public String inserOrder(String seller, String buyer, int referredItem) {
-		return insertStr + 
-				"(" + clSellerID + ", " + clBuyerID + ", " + clReferredItemID + ") "
-				+ "VALUES ('" + seller + "','" + buyer + "'," + referredItem + ")";
+	public String insertOrder(Order order) {
+		String query = insertStr;
+		int orderID = order.getOrderID();
+		String orderDate = null; 
+		if(order.getOrderDate()!=null) {
+			orderDate = changeStr(order.getOrderDate().toString());
+		}
+		String status = order.getOrderStatus().toString();
+		String code = changeStr(order.getCode());
+		String timer = null;
+		String sellerID = changeStr(order.getinvolvedItem().getSeller().getUsername());
+		String buyerID = changeStr(order.getBuyer().getUsername());
+		int referredItemID = order.getinvolvedItem().getItemInSaleID();
+		
+		String str= String.format(query + columnsName + " VALUES (%d,%s,%s,%s,%s,%s,%s,%d)", orderID, orderDate, status,
+				code, timer, sellerID, buyerID, referredItemID);
+		return str;
 	}
 	
-	public String updateOrderDate(int orderID, String orderDate) {
-		return updateStr + clOrderDate + " = '" + orderDate + "' WHERE " + clOrderID + "= " + orderID ;
-	}
+	public String updateOrder(Order order) {
+		String query = updateStr;
+		int orderID = order.getOrderID();
+		String orderDate = null; 
+		if(order.getOrderDate()!=null) {
+			orderDate = changeStr(order.getOrderDate().toString());
+		}
+		String status = order.getOrderStatus().toString();
+		String code = changeStr(order.getCode());
+		String timer = null;
+		String sellerID = changeStr(order.getinvolvedItem().getSeller().getUsername());
+		String buyerID = changeStr(order.getBuyer().getUsername());
+		int referredItemID = order.getinvolvedItem().getItemInSaleID();
 
-	public String updateStatus(int orderID, boolean status) {
-		return updateStr + clStatus + "=  " + status + " WHERE " + clOrderID + "= " + orderID;
-	}
-
-	public String updateCode(int orderID, String code) {
-		return updateStr + clCode + " = '" + code + "' WHERE " + clOrderID + " = " + orderID ;
+		String str= String.format(query + "  %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %d WHERE %s = %d", 
+				clOrderDate, orderDate, clStatus, status, clCode, code,
+				clTimer, timer, clSellerID, sellerID, clBuyerID, buyerID, clReferredItemID, referredItemID, clOrderID, orderID);
+		return str;
 	}
 	
-	public String updateTimer(int orderID, int timer) {
-		return updateStr + clTimer + "=  " + timer + " WHERE " + clOrderID + "= " + orderID;
+	public String deleteOrder(int orderID) {
+		return "DELETE FROM " + table + " WHERE " + clOrderID +" = " + orderID  ;
 	}
-	
 	
 	
 

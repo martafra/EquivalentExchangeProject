@@ -8,12 +8,11 @@ public class Videogame extends Item {
 	private ArrayList<VGConsole> consoles;
 	private VideoGameGenre genre;
 	
-	public Videogame(String name, String publishingDate,VideoGameGenre genre) {
+	public Videogame(String name, String publishingDate,String genre) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
-		this.genre = genre;
+		setGenre(genre);
 	}
-	
 	public VGConsole getConsole(int index) {
 		return this.consoles.get(index);
 	}
@@ -23,7 +22,12 @@ public class Videogame extends Item {
 	public VideoGameGenre getGenre() {
 		return this.genre;
 	}
-	
+	public char getType() {
+		return 'V';
+	}
+	public String getInfo() {
+		return "" + genre;
+	}
 	public void addConsole(VGConsole console) {
 		this.consoles.add(console);
 	}
@@ -32,5 +36,16 @@ public class Videogame extends Item {
 	}
 	public void setGenre(VideoGameGenre genre) {
 		this.genre = genre;
+	}
+	public void setGenre(String genre) {
+		if(genre != null) {
+			for (VideoGameGenre value : VideoGameGenre.values()) {
+				if (genre.equals(value.toString())){
+					  this.genre = value;
+					  return;
+				}
+			}
+		}
+		this.genre = null;
 	}
 }

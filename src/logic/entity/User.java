@@ -1,5 +1,6 @@
 package logic.entity;
 import java.util.Date;
+
 import logic.enumeration.Gender;
 
 public class User {
@@ -17,7 +18,16 @@ public class User {
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
-
+		this.email = email;
+		this.password = password;
+		this.wallet = new Wallet();
+	}
+	public User(String username, String name, String surname,String gender, Date birthDate, String email, String password) {
+		this.username = username;
+		this.name = name;
+		this.surname = surname;
+		setGender(gender);
+		this.birthDate = birthDate;
 		this.email = email;
 		this.password = password;
 		this.wallet = new Wallet();
@@ -60,6 +70,17 @@ public class User {
 	}
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	public void setGender(String gender) {
+		if(gender != null) {
+			for (Gender value : Gender.values()) {
+				if (gender.equals(value.toString().substring(0, 1))){
+					  this.gender = value;
+					  return;
+				}
+			}
+		}
+		this.gender = null;
 	}
 	public void setBirthDate(Date date) {
 		this.birthDate = date;
