@@ -15,7 +15,7 @@ public class UserDAO {
 	MyConnection connection = MyConnection.getInstance();
 	UserQuery userQ = new UserQuery();
 
-
+	// TODO da eliminare
 	public User selectUser(String username, String password) {
 		User user = null;
 		Statement stmt = null;

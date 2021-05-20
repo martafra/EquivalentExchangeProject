@@ -1,26 +1,36 @@
 package logic.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import logic.enumeration.Condition;
 
 public class ItemInSale {
 	
-	private int itemInSaleID;
+	private Integer itemInSaleID;
 	private Integer price;
 	private String description;
 	private Boolean availability;
 	private Condition condition;
-	//private String media;
-	private String address; //da modificare? string -> Location
+	private ArrayList<String> media;
+	private String address; //TODO da modificare? string -> Location
 	private Item referredItem;
 	private User seller;
 	
-	public ItemInSale(int price, boolean availability, String preferredLocation, Item referredItem, User seller) {
+	public ItemInSale(int price, String description, Condition condition, Item referredItem, User seller) {
 		this.price = price;
-		this.availability = availability;
-		this.address = preferredLocation;
+		this.availability = true;
+		this.condition = condition;
 		this.referredItem = referredItem;
 		this.seller = seller;	
+		this.itemInSaleID = seller.getUsername().hashCode() +
+							referredItem.getName().hashCode() +
+							condition.hashCode() +
+							price +
+							new Random().nextInt();
 	}
+	//TODO a cosa serve?!
 	
 	public ItemInSale(int itemInSaleID, int price, String description, boolean availability, String condition, String preferredLocation, Item referredItem, User seller) {
 		this.itemInSaleID = itemInSaleID;
@@ -33,7 +43,7 @@ public class ItemInSale {
 		this.seller = seller;	
 	}
 	
-	public int getItemInSaleID() {
+	public Integer getItemInSaleID() {
 		return this.itemInSaleID;
 	}
 	
@@ -47,6 +57,10 @@ public class ItemInSale {
 	
 	public Condition getCondition() {
 		return this.condition;
+	}
+	
+	public List<String> getMedia() {
+		return this.media;
 	}
 	
 	public Boolean getAvailability() {
@@ -66,7 +80,7 @@ public class ItemInSale {
 		return this.address;
 	}
 	
-	public void setItemInSaleID(int itemInSaleID) {
+	public void setItemInSaleID(Integer itemInSaleID) {
 		this.itemInSaleID = itemInSaleID;
 	}
 	
@@ -92,6 +106,14 @@ public class ItemInSale {
 			}
 		}
 		this.condition = null;
+	}
+	
+	public void addMedia(String src) {
+		media.add(src);
+	}
+	
+	public void removeMedia(String src) {
+		media.remove(src);
 	}
 	
 	public void setAvailability(Boolean availability) {

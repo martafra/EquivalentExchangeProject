@@ -11,11 +11,13 @@ import logic.entity.Item;
 import logic.entity.ItemInSale;
 import logic.entity.User;
 import logic.query.ItemInSaleQuery;
+import logic.query.MediaQuery;
 
 public class ItemInSaleDAO {
 
 	MyConnection connection = MyConnection.getInstance();
 	ItemInSaleQuery itemInSaleQ = new ItemInSaleQuery();
+	MediaQuery mediaQuery = new MediaQuery();
 	
 	public ItemInSale selectItemInSale(int itemInSaleID) {
 		ItemInSale itemInSale = null;
@@ -74,13 +76,23 @@ public class ItemInSaleDAO {
 			stmt = con.createStatement();
 			String query = itemInSaleQ.insertItemInSale(itemInSale);
 			stmt.executeUpdate(query);
-		
+
+			//TODO valutare se avviare un thread per caricare ogni singola immagine
+			Integer mediaID = 0;
+
+			for(String mediaPath : itemInSale.getMedia()){
+				query = mediaQuery.insertItemMedia(mediaPath, mediaID, itemInSale.getItemInSaleID());
+				stmt.executeUpdate(query);
+				mediaID++;
+			}
+
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.insertItemInSale()");
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.insertItemInSale()"); //TODO a cosa serve se c'è printStackTrace?
 
 		} finally {
 			try {
