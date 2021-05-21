@@ -1,12 +1,14 @@
 package logic.DAO;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 
-import logic.database.MyConnection;
+
+import logic.support.database.MyConnection;
 import logic.entity.Item;
 import logic.entity.ItemInSale;
 import logic.entity.User;

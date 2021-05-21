@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import logic.query.ItemQuery;
-import logic.database.ItemFactory;
-import logic.database.MyConnection;
+import logic.support.other.ItemFactory;
+import logic.support.database.MyConnection;
 import logic.entity.Item;
 
 
