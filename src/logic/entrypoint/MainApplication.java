@@ -9,10 +9,7 @@ import logic.controller.graphic.HeaderBar;
 import logic.support.other.HeaderController;
 import logic.support.other.PaneManager;
 
-public class MainApplication extends Application {
-
-
-	
+public class MainApplication extends Application {	
 	
 	public static void main(String[] args) {
 		launch(args);

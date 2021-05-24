@@ -21,6 +21,8 @@ public class Book extends Item {
 		this.numberOfPages = numberOfPages;
 		setGenre(genre);
 		this.publishingHouse = publishingHouse;
+
+		this.setItemID(name.hashCode() + author.hashCode() + publishingDate.hashCode() % 2147483647);
 		
 	}
 	

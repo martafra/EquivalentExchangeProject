@@ -19,7 +19,7 @@ public class ItemDBPopulator {
 	public static void main(String[] args) throws Exception {
 		
 		ItemDAO itemDAO = new ItemDAO();
-		BufferedReader reader = new BufferedReader(new FileReader("E:\\Desktop\\books.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("D:\\Download\\books.txt"));
 		
 		String header = reader.readLine();
 		header = header.replaceAll(";;;;;;", "");
@@ -37,12 +37,9 @@ public class ItemDBPopulator {
 	
 	public static Book parseBook(Map<String, String> map) throws ParseException {
 		
-		for(String key : map.keySet()) {
-			System.out.println(key + ": " + map.get(key));
-		}
 		
 		HashMap<String, String> bookMap = (HashMap<String, String>) map;
-		SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
 		
 		String title = bookMap.get("title");
 		String authors = bookMap.get("authors");

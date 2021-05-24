@@ -18,9 +18,7 @@
   	<Label text="description:"/>
     <TextArea fx:id="descriptionText"/>
     <Label text="Item:"/>
-    <ComboBox fx:id="itemList" prefHeight="30.0">
-		
-		    	
-    </ComboBox>
+    <ComboBox fx:id="itemList" prefHeight="30.0"/>
+    <Button fx:id="publish" text = "Publish"/>
   </children>
 </VBox>

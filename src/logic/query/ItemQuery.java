@@ -1,5 +1,7 @@
 package logic.query;
 
+import java.text.SimpleDateFormat;
+
 import logic.entity.Item;
 
 public class ItemQuery {
@@ -11,7 +13,7 @@ public class ItemQuery {
 	
 	private String clItemID = "itemID";
 	private String clItemName = "itemName";
-	private String clPublishingDate = "publisghinDate";
+	private String clPublishingDate = "publishingDate";
 	private String clItemTarget = "itemTarget";
 	private String clGenre = "genre";
 	private String clPublisher = "publisher";
@@ -25,7 +27,7 @@ public class ItemQuery {
 			clGenre+ ", " +   clPublisher + ", " +   clItemType + ", " +  clMovieDuration + ", " + clBookAuthor + ", " + 
 			clBookEdition + ", " + clBookPagesNumber +") ";
 	
-	private String columnsNameBook = " (" + clItemName + ", " + clPublishingDate + ", "  + /*clItemTarget + ", "  +*/
+	private String columnsNameBook = " (" + clItemID + ", " + clItemName + ", " + clPublishingDate + ", "  + /*clItemTarget + ", "  +*/
 			clGenre+ ", " +   clPublisher + ", " +   clItemType + ", " + clBookAuthor + ", " + 
 			clBookEdition + ", " + clBookPagesNumber +") ";
 	
@@ -55,20 +57,22 @@ public class ItemQuery {
 		String info = item.getInfo();
 		String [] infoArray = info.split(";");
 		String itemName = item.getName();
-		String publishingDate = item.getPublishingDate().toString();
+		String publishingDate = new SimpleDateFormat("yyyy-mm-dd").format(item.getPublishingDate());
 		char itemType =  item.getType() ;
 		String str;
 		
 		
 		if (itemType == 'B') {
 			
+			Integer itemID = item.getItemID();
 			String author = infoArray[0];
 			String edition = infoArray[1];
-			String pages = infoArray[2];
+			Integer pages = Integer.valueOf(infoArray[2]);
 			String bookGenre = infoArray[3];
 			String publishingHouse = infoArray[4];
-			str= String.format(query + columnsNameBook + " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s',%d)", itemName, publishingDate ,
+			str= String.format(query + columnsNameBook + " VALUES (%d, \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d)", itemID, itemName, publishingDate ,
 					bookGenre, publishingHouse ,itemType , author, edition , pages);
+			
 			return str;
 		}
 		else if (itemType == 'M') {
