@@ -1,7 +1,6 @@
 package logic.entity;
-import java.sql.Date;
 
-
+import java.util.Date;
 
 public abstract class Item {
 	private int itemID;
@@ -38,12 +37,12 @@ public abstract class Item {
 		this.publishingDate = publishingDate;
 	}
 	
-	public void setPublishingDate(String publishingDate) {
-		if (publishingDate!= null) {
-			this.publishingDate = Date.valueOf(publishingDate);
-		}
-	
-	}
+//	public void setPublishingDate(String publishingDate) {
+//		if (publishingDate!= null) {
+//			this.publishingDate = Date.valueOf(publishingDate);
+//		}
+//	
+//	}
 	
 	public void setItemID(int itemID) {
 		this.itemID = itemID;

@@ -20,7 +20,7 @@ public abstract class HeaderController{
 		bodyManager.setScene(sceneID);
 	}
 	
-	public abstract void update();
+	public abstract void updateHeader();
 	
 	public abstract void onLoad();
 	

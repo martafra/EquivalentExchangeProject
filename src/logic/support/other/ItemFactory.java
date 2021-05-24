@@ -1,7 +1,9 @@
 package logic.support.other;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 import logic.entity.Book;
 import logic.entity.Item;
@@ -46,7 +48,13 @@ public class ItemFactory {
 		String genre = data.get(4);
 		String publishingHouse = data.get(5);
 		String name = data.get(1);
-		String publishingDate = data.get(2);
+		Date publishingDate = null;
+		try {
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return new Book(name, publishingDate, author, edition, numberOfPages, genre, publishingHouse);
 		
@@ -55,14 +63,26 @@ public class ItemFactory {
 	private Item makeVideoGame(ArrayList<String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
 		String genre = data.get(4);
 		String name = data.get(1);
-		String publishingDate = data.get(2);
+		Date publishingDate = null;
+		try {
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new Videogame(name,publishingDate,genre);
 	}
 	
 	private Item makeMovie(ArrayList<String> data){ //popola e ritorna la classe Movie
 		String durationStr = data.get(7);
 		String name = data.get(1);
-		String publishingDate = data.get(2);
+		Date publishingDate = null;
+		try {
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Integer duration = null;
 		if (durationStr != null) {
 			duration = Integer.parseInt(durationStr);

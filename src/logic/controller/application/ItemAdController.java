@@ -1,11 +1,13 @@
 package logic.controller.application;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.UserDAO;
 import logic.bean.ItemAdBean;
+import logic.bean.ItemBean;
 import logic.bean.UserBean;
 import logic.entity.Item;
 import logic.entity.ItemInSale;
@@ -36,5 +38,17 @@ public class ItemAdController {
 		itemDAO.insertItemInSale(item);
 
 		return true;
+	}
+	
+	public List<ItemBean> getItemsList(){
+		ItemDAO itemDAO = new ItemDAO(); 
+		ArrayList<Item> items = (ArrayList<Item>) itemDAO.getItemsList();
+		
+		ArrayList<ItemBean> itemData = new ArrayList<>();
+		
+		for(Item item : items) {
+			itemData.add(new ItemBean(item.getItemID(), item.getName()));
+		}
+		return itemData;
 	}
 }

@@ -1,12 +1,14 @@
 package logic.entity;
 
+import java.util.Date;
+
 import logic.enumeration.MovieGenre;
 
 public class Movie extends Item {
 	private Integer duration;
 	private MovieGenre genre;
 	
-	public Movie(String name, String publishingDate,Integer duration, String genre) {
+	public Movie(String name, Date publishingDate,Integer duration, String genre) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.duration = duration;

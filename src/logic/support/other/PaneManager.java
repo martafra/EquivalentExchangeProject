@@ -115,7 +115,7 @@ public class PaneManager extends StackPane{
 	}
 	
 	public void headerUpdate() {
-		headerBarController.update();
+		headerBarController.updateHeader();
 	}
 
     

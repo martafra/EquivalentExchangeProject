@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import logic.entity.ChatMessage;
+import logic.enumeration.NotificationType;
 import logic.support.other.Notification;
 
 public class MessageParser {
@@ -89,7 +90,15 @@ public class MessageParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		String type = notificationFields.get("type");
+		type = type.substring(type.indexOf('/')+1, type.length());
+		notification.setType(NotificationType.valueOf(type));
+		String options = notificationFields.get("options");
+		options = options.replace('-', ':');
+		options = options.replace('_', ';');
+		notification.setParameters(parseMessage(options.substring(1, options.length()-1)));
+	
 		//TODO inserire campi mancanti
 		return notification;
 

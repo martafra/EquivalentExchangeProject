@@ -5,6 +5,7 @@ import java.util.Date;
 
 import logic.bean.ChatBean;
 import logic.entity.ChatMessage;
+import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
 import logic.support.other.MailBox;
 
@@ -25,9 +26,13 @@ public class ChatController{
     }
 	
 	public String getLastMessageSent(MailBox box) {
-		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getState();
+		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getMessages();
 		ChatMessage message = messages.get(messages.size()-1);
 		return message.getText();
+	}
+	
+	public Boolean getChatNotifications(MailBox box) {
+		return !box.getNotifications(NotificationType.CHAT).isEmpty();
 	}
 	
 }

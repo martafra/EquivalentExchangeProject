@@ -7,8 +7,8 @@ import java.util.Map;
 import logic.enumeration.NotificationType;
 
 public class Notification {
-    private String sender;
-    private Date date;
+    private String sender = "";
+    private Date date = new Date();
     private NotificationType type;
     private HashMap<String, String> options = new HashMap<>();
     
@@ -33,7 +33,10 @@ public class Notification {
     public void setType(NotificationType type){
         this.type = type;
     }
-    private void addParameter(String key, String value){
+    public void addParameter(String key, String value){
         options.put(key, value);
+    }
+    public void setParameters(Map<String, String> options) {
+    	this.options = (HashMap<String, String>) options;
     }
 }

@@ -39,6 +39,10 @@ public class ItemQuery {
 		return "SELECT * FROM item WHERE itemID =" + itemID;
 	}
 	
+	public String getAllItems() {
+		return "SELECT * FROM item";
+	}
+	
 	public String changeStr(String str) {
 		if(str !=null) {
 			return "'" + str + "'";

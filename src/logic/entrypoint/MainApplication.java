@@ -29,10 +29,11 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("community", "/logic/view/Community.fxml");
 		mainPanel.loadScene("catalogue", "/logic/view/Catalogue.fxml");
 		mainPanel.loadScene("chat", "/logic/view/Chat.fxml");
+		mainPanel.loadScene("postad", "/logic/view/PostAd.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		
-		mainPanel.setScene("home");
+		mainPanel.setScene("postad");
 		
 		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import logic.query.ItemQuery;
 import logic.support.other.ItemFactory;
@@ -18,10 +19,49 @@ public class ItemDAO {
 	MyConnection connection = MyConnection.getInstance();
 	ItemQuery itemQ = new ItemQuery();
 	
+	public List<Item> getItemsList(){
+		ArrayList<Item> itemList = new ArrayList<>();
+		ItemFactory factory = new ItemFactory();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemQ.getAllItems();
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				ArrayList<String> data = storeRs(rs, rs.getMetaData().getColumnCount());
+				itemList.add(factory.makeItem(data.get(6).charAt(0), data)); 
+			}
+		}catch(SQLException e) {
+			//TODO gestire eccezione
+		}
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return itemList;
+		
+	}
+	
+	
 	public Item selectItem(int itemID) {
 		Item item = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		
+		
 		try {
 
 			Connection con = connection.getConnection();

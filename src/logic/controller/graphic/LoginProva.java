@@ -39,7 +39,7 @@ public class LoginProva extends SceneManageable implements Observer{
 	@Override
 	public void update() {
 		
-		var messages = (ArrayList<ChatMessage>) mailbox.getState();
+		var messages = (ArrayList<ChatMessage>) mailbox.getMessages();
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {

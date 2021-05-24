@@ -1,6 +1,8 @@
 package logic.entity;
 
 
+import java.util.Date;
+
 import logic.enumeration.BookGenre;
 
 
@@ -11,7 +13,7 @@ public class Book extends Item {
 	private BookGenre genre;
 	private String  publishingHouse;
 	
-	public Book (String name, String publishingDate, String author, Integer edition, Integer numberOfPages, String genre, String publishingHouse) {
+	public Book (String name, Date publishingDate, String author, Integer edition, Integer numberOfPages, String genre, String publishingHouse) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.author = author;
