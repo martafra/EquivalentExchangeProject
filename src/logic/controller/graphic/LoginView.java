@@ -2,15 +2,12 @@ package logic.controller.graphic;
 
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
-
 import java.io.IOException;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import logic.controller.application.LoginController;
-import logic.support.other.Bundle;
-import logic.support.other.MailBox;
 import logic.support.other.SceneManageable;
 
 public class LoginView extends SceneManageable{

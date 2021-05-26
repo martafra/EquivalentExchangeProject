@@ -15,6 +15,7 @@ public class ConnectionServer implements Runnable{
 	private MailBox mailbox;
 	private final int minPort = 4096;
 	private final int maxPort = 65000;
+	private Thread threadReference;
 
 	public ConnectionServer(MailBox mailbox){
 		// TODO valutare eventuale porta vuota
@@ -32,7 +33,9 @@ public class ConnectionServer implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		new Thread(this).start();
+		threadReference = new Thread(this);
+		threadReference.start();
+	
 	}
 
 	@Override
@@ -51,6 +54,10 @@ public class ConnectionServer implements Runnable{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public Thread getThread() {
+		return threadReference;
 	}
 	
 	public ConnectionData getConnectionData() {

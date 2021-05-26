@@ -20,6 +20,7 @@ public class ItemInSale {
 	
 	public ItemInSale(int price, String description, Condition condition, Item referredItem, User seller) {
 		this.price = price;
+		this.description = description;
 		this.availability = true;
 		this.condition = condition;
 		this.referredItem = referredItem;
@@ -29,6 +30,7 @@ public class ItemInSale {
 							condition.hashCode() +
 							price +
 							new Random().nextInt();
+		this.media = new ArrayList<>();
 	}
 	//TODO a cosa serve?!
 	
@@ -41,6 +43,7 @@ public class ItemInSale {
 		this.address = preferredLocation;
 		this.referredItem = referredItem;
 		this.seller = seller;	
+		this.media = new ArrayList<>();
 	}
 	
 	public Integer getItemInSaleID() {
@@ -130,6 +133,10 @@ public class ItemInSale {
 	
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public void setMedia(List<String> media) {
+		this.media = (ArrayList<String>) media;
 	}
 	
 	

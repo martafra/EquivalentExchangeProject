@@ -19,7 +19,7 @@ public class ItemDBPopulator {
 	public static void main(String[] args) throws Exception {
 		
 		ItemDAO itemDAO = new ItemDAO();
-		BufferedReader reader = new BufferedReader(new FileReader("D:\\Download\\books.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("E:\\Desktop\\books.txt"));
 		
 		String header = reader.readLine();
 		header = header.replaceAll(";;;;;;", "");

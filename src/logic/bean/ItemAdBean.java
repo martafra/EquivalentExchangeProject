@@ -1,17 +1,20 @@
 package logic.bean;
 
 import java.util.ArrayList;
-import logic.enumeration.Condition;
 import logic.support.interfaces.Bean;
 
 public class ItemAdBean implements Bean {
 	
 	private Integer price;
 	private String description;
-	private Condition condition;
+	private String condition;
 	private ArrayList<String> media;
 	private String address; //TODO da modificare? string -> Location
 	private Integer referredItemID;
+	
+	public ItemAdBean() {
+		media = new ArrayList<>();
+	}
 	
 	public Integer getReferredItemID() {
 		return referredItemID;
@@ -31,10 +34,10 @@ public class ItemAdBean implements Bean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Condition getCondition() {
+	public String getCondition() {
 		return condition;
 	}
-	public void setCondition(Condition condition) {
+	public void setCondition(String condition) {
 		this.condition = condition;
 	}
 	public ArrayList<String> getMedia() {
@@ -48,6 +51,9 @@ public class ItemAdBean implements Bean {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public void addMedia(String selectedImagePath) {	
+		this.media.add(selectedImagePath);
 	}
 	
 }

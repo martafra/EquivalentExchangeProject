@@ -2,11 +2,8 @@ package logic.entrypoint;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import logic.controller.graphic.HeaderBar;
-import logic.support.other.HeaderController;
 import logic.support.other.PaneManager;
 
 public class MainApplication extends Application {	
@@ -30,7 +27,7 @@ public class MainApplication extends Application {
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		
-		mainPanel.setScene("postad");
+		mainPanel.setScene("home");
 		
 		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();

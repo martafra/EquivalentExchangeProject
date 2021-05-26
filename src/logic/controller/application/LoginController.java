@@ -51,6 +51,11 @@ public class LoginController {
 		return true;
 	}
 	
+	public void logout() {
+		SessionHandler session = new SessionHandler();
+		session.endSession(null, null, 0);
+	}
+	
 	
 	public UserBean getUserByLoginData(LoginBean loginData) {
 		

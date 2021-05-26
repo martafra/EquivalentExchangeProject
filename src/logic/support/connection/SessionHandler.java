@@ -31,10 +31,18 @@ public class SessionHandler {
 		}
 	}
 	
+	public boolean endSession(String userID, String ip, int port) {
+		String request = "request:remove;username:"+userID+";ip:"+ip+";port:"+port;
+		return makeResponselessRequest(request);
+	}
+	
 	
 	public boolean startSession(String userID, String ip, int port) {
 		String request = "request:add;username:"+userID+";ip:"+ip+";port:"+port;
-		
+		return makeResponselessRequest(request);
+	}
+	
+	public boolean makeResponselessRequest(String request) {
 		if(connectToServer()) {
 			try {
 				var writer = new PrintWriter(server.getOutputStream(), true);
@@ -46,7 +54,7 @@ public class SessionHandler {
 			}
 		}else {
 			return false;
-		}		
+		}	
 	}
 	
 	public List<ConnectionData> getConnectionData(String userID){

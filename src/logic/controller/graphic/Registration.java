@@ -7,7 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import logic.bean.RegistrationBean;
 import logic.controller.application.LoginController;
-import logic.support.other.Bundle;
 import logic.support.other.PaneManager;
 import logic.support.other.SceneManageable;
 

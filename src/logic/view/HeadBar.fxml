@@ -10,6 +10,7 @@
 	<Button fx:id="homeButton" text="Home" onAction="#goToHome"/>
 	<Button fx:id="catalogueButton" text="Catalogue" onAction="#goToCatalogue"/>
 	<Button fx:id="communityButton" text="Community" onAction="#goToCommunity"/>
+	<Button fx:id="postAnAdButton" text="Post an Ad" onAction="#goToPostAnAd"/>
 	<Pane HBox.hgrow="ALWAYS"/>
 	<Button fx:id="loginButton" text="Login" onAction="#goToLogin"/>
 	

@@ -1,27 +1,14 @@
 package logic.controller.graphic;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 import logic.bean.LoginBean;
 import logic.controller.application.ChatController;
 import logic.support.interfaces.Observer;
 import logic.support.other.HeaderController;
 import logic.support.other.MailBox;
-import logic.support.other.PaneManager;
-import logic.support.other.SceneManageable;
+
 
 public class HeaderBar extends HeaderController implements Observer{
 		
@@ -68,9 +55,15 @@ public class HeaderBar extends HeaderController implements Observer{
 	}
 	
 	@FXML
+	public void goToPostAnAd() {
+		goToScene("postad");
+	}
+	
+	@FXML
 	public void logout() {
 		
 	}
+	
 
 	@Override
 	public void updateHeader() {

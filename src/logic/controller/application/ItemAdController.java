@@ -22,7 +22,7 @@ public class ItemAdController {
 				
 		Integer price = itemBean.getPrice();
 		String description = itemBean.getDescription();
-		Condition condition = itemBean.getCondition();
+		Condition condition = Condition.valueOfLabel(itemBean.getCondition());
 		ArrayList<String> media = itemBean.getMedia();
 		String address = itemBean.getAddress();
 
@@ -31,9 +31,12 @@ public class ItemAdController {
 		
 		ItemInSale item = new ItemInSale(price, description, condition, referredItem, seller);
 
-		for(String mediaPath : media){
-			item.addMedia(mediaPath);
-		}
+		
+		if(!media.isEmpty())
+			for(String mediaPath : media)
+				item.addMedia(mediaPath);
+		else
+			item.setMedia(media);
 
 		itemDAO.insertItemInSale(item);
 
@@ -51,4 +54,14 @@ public class ItemAdController {
 		}
 		return itemData;
 	}
+	
+	public List<String> getConditionTypes(){
+		
+		ArrayList<String> conditions = new ArrayList<>();
+		for(Condition condition : Condition.values()) {
+			conditions.add(condition.toString());
+		}
+		return conditions;
+	}
+	
 }

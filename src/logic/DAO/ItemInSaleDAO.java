@@ -84,6 +84,7 @@ public class ItemInSaleDAO {
 
 			for(String mediaPath : itemInSale.getMedia()){
 				query = mediaQuery.insertItemMedia(mediaPath, mediaID, itemInSale.getItemInSaleID());
+				System.out.println(query);
 				stmt.executeUpdate(query);
 				mediaID++;
 			}
