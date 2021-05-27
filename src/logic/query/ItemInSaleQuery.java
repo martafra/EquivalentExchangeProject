@@ -1,84 +1,53 @@
 package logic.query;
 
-import logic.entity.ItemInSale;
+public class ItemInSaleQuery extends Query{
 
-
-public class ItemInSaleQuery {
-	private String table = "iteminsale";
-
-	private String updateStr = "UPDATE " + table + " SET ";
-	//private String selectAll = "SELECT * from " + table;
-	private String insertStr = "INSERT INTO " + table;
-
-	private String clItemInSaleID = "itemInSaleID";
-	private String clPrice = "price";
-	private String clSaleDescription = "saleDescription";
-	private String clAvailability = "availability";
-	private String clItemCondition = "itemCondition";
-	private String clPreferredLocation = "preferredLocation";
-	private String clReferredItemID = "referredItemID";
-	private String clUserID = "userID";
-	//private String clReferredOrderID = "referredOrderID";
-	
-	private String columnsName = " (" + clItemInSaleID + ", "   + clPrice + ", " + clSaleDescription + ", "  + clAvailability+ ", " +
-			clItemCondition+ ", " +   clPreferredLocation + ", " +   clReferredItemID + ", " +  clUserID + /*", " +  clReferredOrderID +*/ ") ";
-	
-	
-	public String selectItemInSale(int itemInSaleID) {
-		return "SELECT * FROM " + table + " WHERE " + clItemInSaleID + "= " + itemInSaleID ;
+	public String selectItemInSale(Integer itemInSaleID) {
+		String query = "SELECT * FROM iteminsale WHERE itemInSaleID = %d;";
+		return String.format(query, itemInSaleID);
 	}
 	
-	public String changeStr(String str) {
-		if(str !=null) {
-			return "'" + str + "'";
-		}
-		return str;
-	}
-	
-	public String insertItemInSale(ItemInSale itemInSale) {
-		String query = insertStr;
-		int itemInSaleID = itemInSale.getItemInSaleID();
-		int price = itemInSale.getPrice();
-		String saleDescription = changeStr(itemInSale.getDescription());
-		String availability = itemInSale.getAvailability().toString();
-		String itemCondition = null; //eventuale modifica: inserire nella enumerazione Non Specificato
-		if(itemInSale.getCondition()!=null) {
-			itemCondition = "'" + itemInSale.getCondition().toString().charAt(0) + "'";
-		}
-		String preferredLocation = changeStr(itemInSale.getAddress());
-		int referredItemID = itemInSale.getReferredItem().getItemID();
-		String userID =changeStr(itemInSale.getSeller().getUsername());
-		//String referredOrderID = changeStr(itemInSale.get);
+	public String insertItemInSale(Integer itemInSaleID, Integer price, String saleDescription, Integer availability, String itemCondition, String preferredLocation, Integer referredItem, String userID) {
 		
-		String str= String.format(query + columnsName + " VALUES (%d,%d,%s,%s,%s,%s,%d,%s)", itemInSaleID, price, saleDescription,
-				availability, itemCondition, preferredLocation, referredItemID, userID);
-		return str;
+		saleDescription = quote(saleDescription);
+		itemCondition = quote(itemCondition);
+		preferredLocation = quote(preferredLocation);
+		userID = quote(userID);
+
+		String query = "INSERT INTO iteminsale "+
+					   "(itemInSaleID, price, saleDescription, availability, itemCondition,"+
+					   "preferredLocation, referredItemID, userID) VALUES (%d, %d, %s, %d, %s, %s, %d, %s);";
+
+		query = String.format(query, itemInSaleID, price, saleDescription, availability, 
+							  itemCondition, preferredLocation, referredItem, userID);
+		return query;
 		
 	}
 	
 	
-	public String updateItemInSale(ItemInSale itemInSale) {
-		String query = updateStr;
-		int itemInSaleID = itemInSale.getItemInSaleID();
-		int price = itemInSale.getPrice();
-		String saleDescription = changeStr(itemInSale.getDescription());
-		String availability = itemInSale.getAvailability().toString();
-		String itemCondition = null;
-		if(itemInSale.getCondition()!=null) {
-			itemCondition = "'" + itemInSale.getCondition().toString().charAt(0) + "'";
-		}
-		String preferredLocation = changeStr(itemInSale.getAddress());
-		int referredItemID = itemInSale.getReferredItem().getItemID();
-		String userID =changeStr(itemInSale.getSeller().getUsername());
+	public String updateItemInSale(Integer itemInSaleID, Integer price, String saleDescription, Integer availability, String itemCondition, String preferredLocation, Integer referredItem, String userID) {
+		
+		saleDescription = quote(saleDescription);
+		itemCondition = quote(itemCondition);
+		preferredLocation = quote(preferredLocation);
+		userID = quote(userID);
+		
+		String query = "UPDATE TABLE iteminsale SET " +
+						"price = %d," +
+						"saleDescription = %s," +
+						"availability = %d," +
+						"itemCondition = %s," +
+						"preferredLocation = %s," +
+						"referredItemID = %d," +
+						"userID = %s," +
+						"WHERE itemInSaleID = %d;";
 
-		String str= String.format(query + "  %s = %d, %s = %s, %s = %s, %s = %s, %s = %s, %s = %d, %s = %s WHERE %s = %d", 
-				clPrice, price, clSaleDescription, saleDescription, clAvailability, availability, clItemCondition, itemCondition,
-				clPreferredLocation, preferredLocation, clReferredItemID, referredItemID, clUserID, userID, clItemInSaleID, itemInSaleID);
-		return str;
+		return String.format(query, price, saleDescription, availability, itemCondition, preferredLocation, referredItem, userID, itemInSaleID);
 	}
 	
 	public String deleteItemInSale(int itemInSaleID) {
-		return "DELETE FROM " + table + " WHERE " + clItemInSaleID +" = " + itemInSaleID ;
+		String query = "DELETE FROM itemInSale WHERE itemInSaleID = %d;";
+		return String.format(query, itemInSaleID);
 	}
 	
 	

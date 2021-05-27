@@ -6,15 +6,17 @@ public class Order {
 	private String code;
 	private ItemInSale involvedItem;
 	private Date orderDate;
+	private Date startDate; 
 	private Integer orderID;
 	private Boolean orderStatus;
 	private User buyer;
 	
-	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Boolean orderStatus, User buyer) {
+	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, Boolean orderStatus, User buyer) {
 		this.orderID = orderID;
 		this.code = code;
 		this.involvedItem = involvedItem;
 		this.orderDate = orderDate;
+		this.startDate = startDate;
 		this.orderStatus = orderStatus;
 		this.buyer = buyer;
 	}
@@ -25,7 +27,10 @@ public class Order {
 	public Date getOrderDate() {
 		return this.orderDate;
 	}
-	public ItemInSale getinvolvedItem() {
+	public Date getStartDate() {
+		return this.startDate;
+	}
+	public ItemInSale getInvolvedItem() {
 		return this.involvedItem;
 	}
 	public Integer getOrderID() {
@@ -44,7 +49,10 @@ public class Order {
 	public void setOrderDate(Date date) {
 		this.orderDate = date;
 	}
-	public void setinvolvedItem(ItemInSale item) {
+	public void setStartDate(Date date) {
+		this.startDate = date;
+	}
+	public void setInvolvedItem(ItemInSale item) {
 		this.involvedItem = item;
 	}
 	public void setOrderID(Integer id) {

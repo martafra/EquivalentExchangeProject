@@ -1,65 +1,19 @@
 package logic.DAO;
 
 import java.sql.Connection;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import logic.query.UserQuery;
 import logic.support.database.MyConnection;
 import logic.entity.User;
-
 
 public class UserDAO {
 
 	MyConnection connection = MyConnection.getInstance();
 	UserQuery userQ = new UserQuery();
 
-	// TODO da eliminare
-	public User selectUser(String username, String password) {
-		User user = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = userQ.selectUser(username, password);
-			rs = stmt.executeQuery(query);
-
-			if (!rs.next()) {
-				return null;
-			}
-
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"),
-					rs.getDate("birthDate"), rs.getString("email"), rs.getString("passwd"));
-
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
-			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.selectUser()");
-
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return user;
-
-	}
-	
 	public User selectUser(String username) {
 		User user = null;
 		Statement stmt = null;
@@ -75,15 +29,11 @@ public class UserDAO {
 				return null;
 			}
 
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"),
-					rs.getDate("birthDate"), rs.getString("email"), rs.getString("passwd"));
-
-
+			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.selectUser()");
 
 		} finally {
 			try {
@@ -109,14 +59,22 @@ public class UserDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = userQ.insertUser(user);
+			String username = user.getUsername();
+			String password = user.getPassword();
+			String name = user.getName();
+			String lastName = user.getSurname();
+			String email = user.getEmail();
+			String gender = user.getGender().toString().substring(0,1);
+			Date birthDate = user.getBirthDate();
+			Integer credit = user.getWallet().getCurrentCredit();
+
+			String query = userQ.insertUser(username, password, name, lastName, email, gender, birthDate, credit);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.insertUser()");
 
 		} finally {
 			try {
@@ -136,14 +94,22 @@ public class UserDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = userQ.updateUser(user);
+			String username = user.getUsername();
+			String password = user.getPassword();
+			String name = user.getName();
+			String lastName = user.getSurname();
+			String email = user.getEmail();
+			String gender = user.getGender().toString().substring(0,1);
+			Date birthDate = user.getBirthDate();
+			Integer credit = user.getWallet().getCurrentCredit();
+
+			String query = userQ.updateUser(username, password, name, lastName, email, gender, birthDate, credit);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.updateUser()");
 
 		} finally {
 			try {
@@ -170,7 +136,6 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella UserDao.deleteUser()");
 
 		} finally {
 			try {

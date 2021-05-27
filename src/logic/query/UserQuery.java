@@ -1,93 +1,65 @@
 package logic.query;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import logic.entity.User;
-
-public class UserQuery {
-	private String table = "user";
-
-	private String updateStr = "UPDATE " + table + " SET ";
-	//private String selectAll = "SELECT * from " + table;
-	private String insertStr = "INSERT INTO " + table;
-
-	private String clUsername = "username";
-	private String clPassword = "passwd";
-	private String clFirstName = "firstName";
-	private String clLastName = "lastName";
-	private String clEmail = "email";
-	private String clGender = "gender";
-	private String clBirthdate = "birthDate";
-	private String clCredit = "credit";
-	private String columnsName = " (" + clUsername + ", "   + clPassword + ", " + clFirstName + ", "  + clLastName+ ", " +
-			 clEmail+ ", " +   clGender + ", " +   clBirthdate + ", " +  clCredit + ") ";
-
+public class UserQuery extends Query{
 
 	public String selectUser(String username) {
-		return "SELECT * FROM " + table + " WHERE " + clUsername + "='" + username + "'";
-	}
-
-	public String selectUser(String username, String password) {
-		return "SELECT * FROM " + table + " WHERE " + clUsername + "='" + username + "'" + " AND " + clPassword + "='"
-				+ password + "'";
-	}
-
-	public String changeStr(String str) {
-		if(str !=null) {
-			return "'" + str + "'";
-		}
-		return str;
+		username = quote(username);
+		String query = "SELECT * FROM User WHERE username = %s;";
+		return String.format(query, username);
 	}
 	
-	public String insertUser(User user) {
-		String query = insertStr;
-		String username = changeStr(user.getUsername());
-		String password = changeStr(user.getPassword());
-		String firstName = changeStr(user.getName());
-		String lastName =changeStr(user.getSurname());
-		String email = changeStr(user.getEmail());
+	public String insertUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
 		
-		String gender = null;
-		if(user.getGender()!=null) {
-			gender = "'" + user.getGender().toString().charAt(0) + "'";
-		}
-		
-		String birthdate = null; 
-		if(user.getBirthDate()!=null) {
-			birthdate = changeStr(user.getBirthDate().toString());
-		}
-		
-		int credit= user.getWallet().getCurrentCredit();
+		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		String birthDateString = format.format(birthDate);
 
-		String str= String.format(query + columnsName + " VALUES (%s,%s,%s,%s,%s,%s,%s,%d)", username, password, firstName, lastName, email,gender, birthdate, credit);
-		return str;
+		username = quote(username);
+		password = quote(password);
+		name = quote(name);
+		lastName = quote(lastName);
+		email = quote(email);
+		gender = quote(gender);
+		birthDateString = quote(birthDateString);
+		gender = quote(gender);
+		
+		String query = "INSERT INTO User (username, firstName, lastName, email, passwd, gender, birthDate, credit) "+
+					   "VALUES (%s, %s, %s, %s, %s, %s, %s, %d);";
+		
+		return String.format(query, username, name, lastName, email, password, gender, birthDateString, credit);
 	}
 
-	public String updateUser(User user) {
-		String query = updateStr;
-		String username = changeStr(user.getUsername());
-		String password = changeStr(user.getPassword());
-		String firstName = changeStr(user.getName());
-		String lastName =changeStr(user.getSurname());
-		String email = changeStr(user.getEmail());
+	public String updateUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
 		
-		String gender = null;
-		if(user.getGender()!=null) {
-			gender = "'" + user.getGender().toString().charAt(0) + "'";
-		}
-		
-		String birthdate = null; 
-		if(user.getBirthDate()!=null) {
-			birthdate = changeStr(user.getBirthDate().toString());
-		}
-		
-		int credit= user.getWallet().getCurrentCredit();
+		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		String birthDateString = format.format(birthDate);
 
-		String str= String.format(query + " %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %d WHERE %s = %s", 
-				clUsername, username, clPassword, password, clFirstName, firstName, clLastName, lastName, clEmail, email,
-				clGender, gender, clBirthdate, birthdate, clCredit, credit, clUsername, username );
-		return str;
+		username = quote(username);
+		password = quote(password);
+		name = quote(name);
+		lastName = quote(lastName);
+		email = quote(email);
+		gender = quote(gender);
+		birthDateString = quote(birthDateString);
+		gender = quote(gender);
+
+		String query = "update TABLE User SET" +
+					   "passwd = %s" +
+					   "firstName = %s" +
+					   "lastName = %s" +
+					   "email = %s" +
+					   "gender = %s" +
+					   "birthDate = %s" +
+					   "credit = %d" +
+					   "WHERE username = %s";
+					   
+		return String.format(query, password, name, lastName, email, gender, birthDateString, credit, username);
 	}
 	
 	public String deleteUser(String username) {
-		return "DELETE FROM " + table + " WHERE " + clUsername +" = '" + username + "'";
+		String query = "DELETE FROM user WHERE username = %s;";
+		return String.format(query, username);
 	}
 }

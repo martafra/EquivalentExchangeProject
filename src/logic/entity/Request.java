@@ -7,6 +7,13 @@ public class Request {
 	private Boolean requestStatus;
 	private String note;
 
+	public Request(User buyer, ItemInSale referredItem, Boolean requestStatus, String note) {
+		this.buyer = buyer;
+		this.referredItem = referredItem;
+		this.requestStatus = requestStatus;
+		this.note = note;
+	}
+	
 	public User getBuyer() {
 		return this.buyer;
 	}

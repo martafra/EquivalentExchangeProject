@@ -43,9 +43,13 @@ public class LoginController {
 	public Boolean login(LoginBean userData) {
 		
 		UserDAO userDB = new UserDAO();
-		User loggedUser = userDB.selectUser(userData.getUserID(), userData.getPassword());
+		User loggedUser = userDB.selectUser(userData.getUserID());
 		
 		if(loggedUser == null) {
+			return false;
+		}
+
+		if(!loggedUser.getPassword().equals(userData.getPassword())){
 			return false;
 		}
 		return true;
@@ -63,7 +67,7 @@ public class LoginController {
 		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		
-		User loggedUser = userDAO.selectUser(loginData.getUserID(), loginData.getPassword());
+		User loggedUser = userDAO.selectUser(loginData.getUserID());
 		
 		bean.setEmail(loggedUser.getEmail());
 		bean.setName(loggedUser.getName());

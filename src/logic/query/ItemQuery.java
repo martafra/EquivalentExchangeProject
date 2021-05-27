@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 
 import logic.entity.Item;
 
-public class ItemQuery {
+public class ItemQuery extends Query{
 	private String table = "item";
 
 	private String updateStr = "UPDATE " + table + " SET ";
@@ -38,20 +38,14 @@ public class ItemQuery {
 			clGenre+ ", "  +   clItemType + ") ";
 	
 	public String selectItem(int itemID) {
-		return "SELECT * FROM item WHERE itemID =" + itemID;
+		String query = "SELECT * FROM item WHERE itemID = %d;";
+		return String.format(query, itemID);
 	}
 	
 	public String getAllItems() {
 		return "SELECT * FROM item";
 	}
-	
-	public String changeStr(String str) {
-		if(str !=null) {
-			return "'" + str + "'";
-		}
-		return str;
-	}
-	
+
 	public String insertItem(Item item) {
 		String query = insertStr;
 		String info = item.getInfo();

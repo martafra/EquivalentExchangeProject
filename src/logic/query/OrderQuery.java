@@ -1,87 +1,51 @@
 package logic.query;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import logic.entity.Order;
-
-public class OrderQuery {
-	private String table = "itemorder";
-
-	private String updateStr = "UPDATE " + table + " SET ";
-	//private String selectAll = "SELECT * from " + table;
-	private String insertStr = "INSERT INTO " + table;
-
-	private String clOrderID = "orderID";
-	private String clOrderDate = "orderDate";
-	private String clStatus = "status";
-	private String clCode = "code";
-	private String clTimer = "timer";
-	private String clSellerID = "sellerID";
-	private String clBuyerID = "buyerID";
-	private String clReferredItemID = "referredItemID";
-	
-	private String columnsName = " (" + clOrderID + ", "   + clOrderDate + ", " + clStatus + ", "  + clCode + ", " +
-			clTimer+ ", " +   clSellerID + ", " +  clBuyerID + ", " +  clReferredItemID + ") ";
+public class OrderQuery extends Query{
 	
 	public String selectOrder(int orderID) {
-		return "SELECT * FROM " + table + " WHERE " + clOrderID + "= "+  orderID;
+		String query =  "SELECT * FROM itemorder WHERE orderID = %d;";
+		return String.format(query, orderID);
 	}
 	
-	public String selectOrdersBySeller(String seller) {//ordini conclusi
-		return "SELECT * FROM " + table + " WHERE " + clSellerID +  "='"+  seller +"' AND " + clStatus + "= true";
+	public String selectOrdersByUser(String user) {
+		user = quote(user);
+		String query = "SELECT * FROM itemorder WHERE sellerID = %s OR buyerID = %s;";
+		return String.format(query, user, user);
 	}
 	
-	public String selectOrdersByBuyer(String buyer) {//ordini conclusi
-		return "SELECT * FROM " + table + " WHERE " + clBuyerID + "='"+ buyer +"' AND" + clStatus + "= true";
-	}
-	
-	public String changeStr(String str) {
-		if(str !=null) {
-			return "'" + str + "'";
-		}
-		return str;
-	}
-	
-	public String insertOrder(Order order) {
-		String query = insertStr;
-		int orderID = order.getOrderID();
-		String orderDate = null; 
-		if(order.getOrderDate()!=null) {
-			orderDate = changeStr(order.getOrderDate().toString());
-		}
-		String status = order.getOrderStatus().toString();
-		String code = changeStr(order.getCode());
-		String timer = null;
-		String sellerID = changeStr(order.getinvolvedItem().getSeller().getUsername());
-		String buyerID = changeStr(order.getBuyer().getUsername());
-		int referredItemID = order.getinvolvedItem().getItemInSaleID();
+	public String insertOrder(Integer id, Date orderDate, Integer status, String code, Date startDate, String seller, String buyer, Integer item) {
 		
-		String str= String.format(query + columnsName + " VALUES (%d,%s,%s,%s,%s,%s,%s,%d)", orderID, orderDate, status,
-				code, timer, sellerID, buyerID, referredItemID);
-		return str;
+		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String start = quote(format.format(startDate));
+		String end = quote(format.format(orderDate));
+		code = quote(code);
+		seller = quote(seller);
+		buyer = quote(buyer);
+		
+		String query = "INSERT INTO itemorder (itemInSaleID, price, saleDescription, availability, itemCondition, preferredLocation, "
+				+ "referredItemID, userID, referredOrderID) VALUES (%d, %d, %s, %d, %s, %s, %d, %s, %d);";
+		return String.format(query, id, end, status, code, start, seller, buyer, item);
 	}
 	
-	public String updateOrder(Order order) {
-		String query = updateStr;
-		int orderID = order.getOrderID();
-		String orderDate = null; 
-		if(order.getOrderDate()!=null) {
-			orderDate = changeStr(order.getOrderDate().toString());
-		}
-		String status = order.getOrderStatus().toString();
-		String code = changeStr(order.getCode());
-		String timer = null;
-		String sellerID = changeStr(order.getinvolvedItem().getSeller().getUsername());
-		String buyerID = changeStr(order.getBuyer().getUsername());
-		int referredItemID = order.getinvolvedItem().getItemInSaleID();
+	public String updateOrder(Integer id, Date orderDate, Date startDate, Integer status, String code) {
+	
+		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String end = quote(format.format(orderDate));
+		String start = quote(format.format(startDate));
+		code = quote(code);
 
-		String str= String.format(query + "  %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %s, %s = %d WHERE %s = %d", 
-				clOrderDate, orderDate, clStatus, status, clCode, code,
-				clTimer, timer, clSellerID, sellerID, clBuyerID, buyerID, clReferredItemID, referredItemID, clOrderID, orderID);
-		return str;
+		String query = "UPDATE TABLE itemorder SET orderDate = %s, startDate = %s, status = %d, code = %s WHERE id = %d;";
+		return String.format(query, end, start, status, code);
+		
 	}
 	
-	public String deleteOrder(int orderID) {
-		return "DELETE FROM " + table + " WHERE " + clOrderID +" = " + orderID  ;
+	public String deleteOrder(Integer orderID) {
+		String query = "DELETE FROM itemOrder WHERE orderID = %d;";
+		return String.format(query, orderID);
 	}
 	
 	
