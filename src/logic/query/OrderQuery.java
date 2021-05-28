@@ -38,8 +38,8 @@ public class OrderQuery extends Query{
 		String start = quote(format.format(startDate));
 		code = quote(code);
 
-		String query = "UPDATE TABLE itemorder SET orderDate = %s, startDate = %s, status = %d, code = %s WHERE id = %d;";
-		return String.format(query, end, start, status, code);
+		String query = "UPDATE itemorder SET orderDate = %s, startDate = %s, status = %d, code = %s WHERE orderID = %d;";
+		return String.format(query, end, start, status, code, id);
 		
 	}
 	

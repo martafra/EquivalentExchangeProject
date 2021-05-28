@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Wallet {
 	
-	private Integer currentCredit=0;
+	private Integer currentCredit;
 	private ArrayList<Order> orderList;
 	
 	public Integer getCurrentCredit() {
@@ -17,7 +17,7 @@ public class Wallet {
 	}
 	
 	public boolean setCurrentCredit(Integer n) {
-		if (n > 0) {
+		if (n >= 0) {
 		this.currentCredit = n;
 		return true;
 		}

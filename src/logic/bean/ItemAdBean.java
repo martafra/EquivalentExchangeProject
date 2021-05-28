@@ -11,6 +11,7 @@ public class ItemAdBean implements Bean {
 	private ArrayList<String> media;
 	private String address; //TODO da modificare? string -> Location
 	private Integer referredItemID;
+	private String sellerID;
 	
 	public ItemAdBean() {
 		media = new ArrayList<>();
@@ -54,6 +55,12 @@ public class ItemAdBean implements Bean {
 	}
 	public void addMedia(String selectedImagePath) {	
 		this.media.add(selectedImagePath);
+	}
+	public String getSellerID() {
+		return sellerID;
+	}
+	public void setSellerID(String seller) {
+		this.sellerID = seller;
 	}
 	
 }

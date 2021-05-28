@@ -45,15 +45,15 @@ public class UserQuery extends Query{
 		birthDateString = quote(birthDateString);
 		gender = quote(gender);
 
-		String query = "update TABLE User SET" +
-					   "passwd = %s" +
-					   "firstName = %s" +
-					   "lastName = %s" +
-					   "email = %s" +
-					   "gender = %s" +
-					   "birthDate = %s" +
+		String query = "update User SET " +
+					   "passwd = %s," +
+					   "firstName = %s," +
+					   "lastName = %s," +
+					   "email = %s," +
+					   "gender = %s," +
+					  "birthDate = %s," +
 					   "credit = %d" +
-					   "WHERE username = %s";
+					   " WHERE username = %s";
 					   
 		return String.format(query, password, name, lastName, email, gender, birthDateString, credit, username);
 	}

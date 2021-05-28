@@ -14,15 +14,16 @@ public class User {
 	private String password;
 	private Wallet wallet;
 	
-	public User(String username, String name, String surname, String email, String password) {
+	public User(String username, String name, String surname, String email, String password, Integer credit) {
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
 		this.wallet = new Wallet();
+		wallet.setCurrentCredit(credit);
 	}
-	public User(String username, String name, String surname,String gender, Date birthDate, String email, String password) {
+	public User(String username, String name, String surname,String gender, Date birthDate, String email, String password, Integer credit) {
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
@@ -31,6 +32,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.wallet = new Wallet();
+		wallet.setCurrentCredit(credit);
 	}
 	
 	

@@ -29,7 +29,10 @@ public class UserDAO {
 				return null;
 			}
 
-			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"));
+			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"), rs.getInt("credit"));
+			user.setGender(rs.getString("gender"));
+			user.setBirthDate(rs.getDate("birthDate"));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
