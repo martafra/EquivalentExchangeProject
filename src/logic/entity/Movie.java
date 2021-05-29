@@ -27,10 +27,6 @@ public class Movie extends Item {
 		return 'M';
 	}
 	
-	public String getInfo() {
-		return duration + ";" + genre;
-	}
-	
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
@@ -49,5 +45,4 @@ public class Movie extends Item {
 		}
 		this.genre = null;
 	}
-
 }

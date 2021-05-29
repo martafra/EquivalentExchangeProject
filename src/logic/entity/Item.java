@@ -27,8 +27,6 @@ public abstract class Item {
 	
 	public abstract char getType();
 	
-	public abstract String getInfo();
-	
 	public void setName(String name) {
 		this.name = name;
 	}

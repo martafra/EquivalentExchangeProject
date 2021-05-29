@@ -6,18 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import logic.query.ConsoleQuery;
 import logic.query.ItemQuery;
 import logic.support.other.ItemFactory;
 import logic.support.database.MyConnection;
+import logic.entity.Book;
 import logic.entity.Item;
+import logic.entity.Movie;
+import logic.entity.Videogame;
+import logic.enumeration.VGConsole;
 
 
 public class ItemDAO {
 	
 	MyConnection connection = MyConnection.getInstance();
 	ItemQuery itemQ = new ItemQuery();
+	ConsoleQuery consoleQ = new ConsoleQuery();
 	
 	public List<Item> getItemsList(){
 		ArrayList<Item> itemList = new ArrayList<>();
@@ -127,8 +134,44 @@ public class ItemDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-				String query = itemQ.insertItem(item);
-				stmt.executeUpdate(query);
+			
+			Integer itemID = item.getItemID();
+			Character itemType = item.getType();
+			String itemName = item.getName();
+			Date publishingDate = item.getPublishingDate();
+			String publisher = "";
+			String query = itemQ.insertItem(itemID, itemName, publishingDate, publisher);
+			stmt.executeUpdate(query);
+			switch(itemType) {
+				case 'B':
+					String author = ((Book) item).getAuthor();
+					Integer pageNumber = ((Book) item).getNumberOfPages();
+					Integer edition = ((Book) item).getEdtion();
+					String bookGenre = ((Book) item).getGenre().toString();
+					query = itemQ.insertBookData(itemID, author, edition, pageNumber, bookGenre);
+					stmt.executeUpdate(query);	
+					break;
+				case 'M':
+					Integer duration = ((Movie) item).getDuration();
+					String movieGenre = ((Movie) item).getGenre().toString();
+					query = itemQ.insertMovieData(itemID, duration, movieGenre);
+					stmt.executeUpdate(query);
+					break;
+				case 'V':
+					String videogameGenre = ((Videogame) item).getGenre().toString();
+					query = itemQ.insertVideogameData(itemID, videogameGenre);
+					stmt.executeUpdate(query);
+					
+					ArrayList<VGConsole> consoles = ((Videogame) item).getConsoles();
+					
+					for(VGConsole console : consoles) {
+						String consoleName = console.toString();
+						query = consoleQ.insertConsole(itemID, consoleName);
+						stmt.executeUpdate(query);
+					}
+					
+					break;
+			}
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

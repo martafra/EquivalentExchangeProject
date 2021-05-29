@@ -13,7 +13,7 @@ public class UserQuery extends Query{
 	
 	public String insertUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		DateFormat format = new SimpleDateFormat(dateFormat);
 		String birthDateString = format.format(birthDate);
 
 		username = quote(username);
@@ -23,7 +23,6 @@ public class UserQuery extends Query{
 		email = quote(email);
 		gender = quote(gender);
 		birthDateString = quote(birthDateString);
-		gender = quote(gender);
 		
 		String query = "INSERT INTO User (username, firstName, lastName, email, passwd, gender, birthDate, credit) "+
 					   "VALUES (%s, %s, %s, %s, %s, %s, %s, %d);";
@@ -33,7 +32,7 @@ public class UserQuery extends Query{
 
 	public String updateUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		DateFormat format = new SimpleDateFormat(dateFormat);
 		String birthDateString = format.format(birthDate);
 
 		username = quote(username);
@@ -43,7 +42,6 @@ public class UserQuery extends Query{
 		email = quote(email);
 		gender = quote(gender);
 		birthDateString = quote(birthDateString);
-		gender = quote(gender);
 
 		String query = "update User SET " +
 					   "passwd = %s," +
@@ -51,9 +49,9 @@ public class UserQuery extends Query{
 					   "lastName = %s," +
 					   "email = %s," +
 					   "gender = %s," +
-					  "birthDate = %s," +
-					   "credit = %d" +
-					   " WHERE username = %s";
+					   "birthDate = %s," +
+					   "credit = %d " +
+					   "WHERE username = %s";
 					   
 		return String.format(query, password, name, lastName, email, gender, birthDateString, credit, username);
 	}

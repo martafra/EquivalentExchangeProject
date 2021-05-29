@@ -50,10 +50,6 @@ public class Book extends Item {
 		return 'B';
 	}
 	
-	public String getInfo() {
-		return author + ";" + edition + ";" + numberOfPages + ";" + genre + ";" + publishingHouse;
-	}
-	
 	public void setAuthor(String author) {
 		this.author = author;
 	}

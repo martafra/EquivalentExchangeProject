@@ -27,9 +27,6 @@ public class Videogame extends Item {
 	public char getType() {
 		return 'V';
 	}
-	public String getInfo() {
-		return "" + genre;
-	}
 	public void addConsole(VGConsole console) {
 		this.consoles.add(console);
 	}

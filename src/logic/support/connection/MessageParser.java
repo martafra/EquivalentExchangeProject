@@ -14,6 +14,8 @@ import logic.support.other.Notification;
 
 public class MessageParser {
 
+	private static String dateTimeFormat = "yyyy-MM-dd_HH-mm-ss";
+	
 	public static Map<String, String> parseMessage(String message){
 		if(message == "" || message == null)
 			return null;
@@ -44,7 +46,7 @@ public class MessageParser {
 	}
 
 	public static String encodeMessage(ChatMessage message) {
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd_hh-mm-ss");
+		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 		return "type:chat;sender:"+message.getSender()+";date:"+
 				format.format(message.getDate())+";text:"+message.getText();
 	}
@@ -57,7 +59,7 @@ public class MessageParser {
 	}
 
 	public static String encodeNotification(Notification notification) {
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd_hh-mm-ss");
+		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 		String result = "type:notification/" + notification.getType().toString() + ";";
 		result += "sender:" + notification.getSender() + ";";
 		result += "date:" + format.format(notification.getDate()) + ";";
@@ -81,7 +83,7 @@ public class MessageParser {
 	public static Notification parseNotification(String notificationString){
 		var notificationFields = parseMessage(notificationString);
 		Notification notification = new Notification();
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd_hh-mm-ss");
+		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 
 		notification.setSender(notificationFields.get("sender"));
 		try {

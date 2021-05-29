@@ -19,7 +19,7 @@ public class OrderQuery extends Query{
 	
 	public String insertOrder(Integer id, Date orderDate, Integer status, String code, Date startDate, String seller, String buyer, Integer item) {
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 		String start = quote(format.format(startDate));
 		String end = quote(format.format(orderDate));
 		code = quote(code);
@@ -33,9 +33,13 @@ public class OrderQuery extends Query{
 	
 	public String updateOrder(Integer id, Date orderDate, Date startDate, Integer status, String code) {
 	
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-		String end = quote(format.format(orderDate));
-		String start = quote(format.format(startDate));
+		DateFormat format = new SimpleDateFormat(dateTimeFormat);
+		String end = "null";
+		if(orderDate != null)
+			end = quote(format.format(orderDate));
+		String start = "null";
+		if(startDate != null)
+			start = quote(format.format(startDate));
 		code = quote(code);
 
 		String query = "UPDATE itemorder SET orderDate = %s, startDate = %s, status = %d, code = %s WHERE orderID = %d;";
