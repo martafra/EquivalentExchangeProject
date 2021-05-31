@@ -4,7 +4,7 @@ public enum NotificationType {
     WISHLIST("WISHLIST"),
     APPROVAL("APPROVAL"), 
     REQUEST("REQUEST"), 
-    ACCEPTED_ORDER("ACCEPTEDORDER"),
+    ORDER("ORDER"),
 	CHAT("CHAT");
     
     private String type;

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.entity.ChatMessage;
-import logic.enumeration.NotificationType;
 import logic.support.other.Notification;
 
 public class MessageSender {

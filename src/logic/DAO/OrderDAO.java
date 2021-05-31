@@ -168,9 +168,13 @@ public class OrderDAO {
 			Integer orderID = order.getOrderID();
 			Date orderDate = order.getOrderDate();
 			Date startDate = order.getStartDate();
+			
+			
 			Integer status = 0;
-			if(order.getOrderStatus())
+			if(order.isAccepted())
 				status = 1;
+			
+			
 			String code = order.getCode();
 			
 			String query = orderQ.updateOrder(orderID, orderDate, startDate, status, code);
@@ -193,13 +197,13 @@ public class OrderDAO {
 		}
 	}
 	
-	public void deleteOrder(int itemInSaleID) {
+	public void deleteOrder(int orderID) {
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = orderQ.deleteOrder(itemInSaleID);
+			String query = orderQ.deleteOrder(orderID);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {

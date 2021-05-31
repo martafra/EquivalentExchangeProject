@@ -1,5 +1,6 @@
 package logic.entity;
 import java.util.Date;
+import java.util.Random;
 
 public class Order {
 	
@@ -10,6 +11,15 @@ public class Order {
 	private Integer orderID;
 	private Boolean orderStatus;
 	private User buyer;
+
+	public Order(User buyer, ItemInSale involvedItem){
+		
+		this.buyer = buyer;
+		this.involvedItem = involvedItem;
+		this.orderID = (buyer.getUsername().hashCode() +
+						    involvedItem.hashCode() + new Random().nextInt()) % Integer.MAX_VALUE;
+
+	}
 	
 	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, Boolean orderStatus, User buyer) {
 		this.orderID = orderID;
@@ -36,7 +46,7 @@ public class Order {
 	public Integer getOrderID() {
 		return this.orderID;
 	}
-	public Boolean getOrderStatus() {
+	public Boolean isAccepted() {
 		return this.orderStatus;
 	}
 	public User getBuyer() {
