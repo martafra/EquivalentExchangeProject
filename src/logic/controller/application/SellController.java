@@ -77,7 +77,7 @@ public class SellController {
 		
 		Integer orderID = orderBean.getOrderID();
 		OrderDAO orderDAO = new OrderDAO();
-
+		
 		Order order = orderDAO.selectOrder(orderID);
 		String seller = order.getInvolvedItem().getSeller().getUsername();
 		Integer itemID = order.getInvolvedItem().getItemInSaleID();
