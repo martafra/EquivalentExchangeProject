@@ -32,9 +32,9 @@ public class MainApplication extends Application {
 		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();
 		
-		
 		root.getChildren().add(headerBarContent);
 		root.getChildren().add(mainPanel);
+		
 		
 		var scene = new Scene(root);
 		stage.setScene(scene);

@@ -10,5 +10,12 @@ public class MediaQuery extends Query{
         return String.format(query, itemID, mediaID, mediaPath);
 
     }
+    
+    public String selectItemMedia(Integer itemID) {
+    	
+    	String query = "SELECT imageIndex, image FROM media WHERE itemInSaleID = %d;";
+    	return String.format(query, itemID);
+    	
+    }
 
 }

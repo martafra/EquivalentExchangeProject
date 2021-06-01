@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import org.apache.tomcat.jakartaee.commons.io.IOUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 public class ImageCache {
 	
@@ -44,6 +45,8 @@ public class ImageCache {
 			if(image.createNewFile()) {
 				OutputStream output = new FileOutputStream(image);
 				IOUtils.copy(data, output);	
+				output.close();
+				data.close();
 			}else {
 				filePath = "";
 			}
@@ -61,7 +64,9 @@ public class ImageCache {
 	
 	public void remove() {
 		try {
-			Files.deleteIfExists(directoryPath);
+			File mainDirectory = directoryPath.toFile();
+			FileUtils.cleanDirectory(mainDirectory);
+			FileUtils.deleteDirectory(mainDirectory);		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

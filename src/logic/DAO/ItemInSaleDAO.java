@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 
 import logic.support.database.MyConnection;
+import logic.support.other.ImageCache;
 import logic.entity.ItemInSale;
 import logic.query.ItemInSaleQuery;
 import logic.query.MediaQuery;
@@ -20,10 +21,12 @@ public class ItemInSaleDAO {
 	ItemInSaleQuery itemInSaleQ = new ItemInSaleQuery();
 	MediaQuery mediaQuery = new MediaQuery();
 	
+	
 	public ItemInSale selectItemInSale(int itemInSaleID) {
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		ResultSet rs2 = null;
 		try {
 
 			Connection con = connection.getConnection();
@@ -46,6 +49,19 @@ public class ItemInSaleDAO {
 										rs.getString("preferredLocation"), 
 										itemDAO.selectItem(rs.getInt("referredItemID")), 
 										userDAO.selectUser(rs.getString("userID")));
+			
+			query = mediaQuery.selectItemMedia(itemInSale.getItemInSaleID());
+			rs2 = stmt.executeQuery(query);
+			
+			ImageCache mediaCache = ImageCache.getInstance();
+			
+			while(rs2.next()) {
+				Integer mediaIndex = rs2.getInt("imageIndex");
+				Integer itemID = itemInSale.getItemInSaleID();
+				String fileName = itemID.toString() + "_" + mediaIndex.toString();
+				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+				itemInSale.addMedia(filePath);
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +74,9 @@ public class ItemInSaleDAO {
 				if (rs != null) {
 					rs.close();
 				}
-
+				if (rs2 != null) {
+					rs2.close();
+				}
 				if (stmt != null) {
 					stmt.close();
 				}
