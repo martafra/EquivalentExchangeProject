@@ -6,8 +6,10 @@ import logic.DAO.ItemInSaleDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
+import logic.bean.ItemInSaleBean;
 import logic.bean.OrderBean;
 import logic.bean.RequestBean;
+import logic.bean.UserBean;
 import logic.entity.ItemInSale;
 import logic.entity.Order;
 import logic.entity.User;
@@ -88,7 +90,9 @@ public class SellController {
 		acceptedOrder.addParameter("status", "accepted");
 		acceptedOrder.addParameter("item", itemID.toString());
 		
-		if(order.isAccepted()){
+		order.setSellerStatus(true);
+		
+		if(Boolean.TRUE.equals(order.isAccepted())){
 			order.setStartDate(new Date());
 		}
 		
@@ -121,6 +125,63 @@ public class SellController {
 		
 		orderDAO.deleteOrder(orderID);
 	}
+	
+	public OrderBean generateOrderSummary(Integer orderID) {
+		OrderBean orderSummary = new OrderBean();
+		OrderDAO orderDAO = new OrderDAO();
+		Order order = orderDAO.selectOrder(orderID);
+		
+		User buyer = order.getBuyer();
+		ItemInSale item = order.getInvolvedItem();
+		UserBean buyerData = new UserBean();
+		ItemInSaleBean itemData = new ItemInSaleBean();
+		
+		buyerData.setUserID(buyer.getUsername());
+		itemData.setItemID(item.getItemInSaleID());
+		itemData.setItemName(item.getReferredItem().getName());
+		itemData.setPrice(item.getPrice());
+		//TODO gestire media
+		
+		orderSummary.setBuyer(buyerData);
+		orderSummary.setinvolvedItem(itemData);
+		return orderSummary;
+	}
+	
+	public Boolean verifyPaymentCode(OrderBean orderBean){
+		String code = orderBean.getCode();
+		OrderDAO orderDAO = new OrderDAO();
+		Integer itemID = orderBean.getOrderID();
+		Order order = orderDAO.selectOrder(itemID);
+		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
+		ItemInSale item = itemDAO.selectItemInSale(itemID);
+		
+		String sellerID = item.getSeller().getUsername();
+		UserDAO sellerDAO = new UserDAO();
+		User seller = sellerDAO.selectUser(sellerID);
+		
+		Notification enteredCode = new Notification();
+		MessageSender sender = new MessageSender();
+					
+		if(code.equals(order.getCode())){
+			order.setOrderDate(new Date());
+			orderDAO.updateOder(order);
+			
+			item.setAvailability(false);
+			itemDAO.updateItemInSale(item);
+			seller.increaseCredit(item.getPrice());
+			sellerDAO.updateUser(seller);
+			
+			enteredCode.setSender(sellerID);
+			enteredCode.setDate(new Date());
+			enteredCode.setType(NotificationType.ORDER);
+			enteredCode.addParameter("code", "valid");
+			sender.sendNotification(order.getBuyer().getUsername(), enteredCode);
+			return true;
+		}
+		else
+			return false;
+	}
+	
 
 	
 }

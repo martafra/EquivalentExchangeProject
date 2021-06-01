@@ -9,7 +9,8 @@ public class Order {
 	private Date orderDate;
 	private Date startDate; 
 	private Integer orderID;
-	private Boolean orderStatus;
+	private Boolean sellerStatus;
+	private Boolean buyerStatus;
 	private User buyer;
 
 	public Order(User buyer, ItemInSale involvedItem){
@@ -21,13 +22,14 @@ public class Order {
 
 	}
 	
-	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, Boolean orderStatus, User buyer) {
+	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, User buyer, Boolean buyerStatus, Boolean sellerStatus) {
 		this.orderID = orderID;
 		this.code = code;
 		this.involvedItem = involvedItem;
 		this.orderDate = orderDate;
 		this.startDate = startDate;
-		this.orderStatus = orderStatus;
+		this.buyerStatus = buyerStatus;
+		this.sellerStatus = sellerStatus;
 		this.buyer = buyer;
 	}
 	
@@ -46,8 +48,14 @@ public class Order {
 	public Integer getOrderID() {
 		return this.orderID;
 	}
+	public Boolean isAcceptedByBuyer() {
+		return this.buyerStatus;
+	}
+	public Boolean isAcceptedBySeller() {
+		return this.sellerStatus;
+	}
 	public Boolean isAccepted() {
-		return this.orderStatus;
+		return this.sellerStatus && this.buyerStatus;
 	}
 	public User getBuyer() {
 		return this.buyer;
@@ -68,8 +76,11 @@ public class Order {
 	public void setOrderID(Integer id) {
 		this.orderID = id;
 	}
-	public void setOrderStatus(Boolean status) { 
-		this.orderStatus = status;
+	public void setBuyerStatus(Boolean status) { 
+		this.buyerStatus = status;
+	}
+	public void setSellerStatus(Boolean status) { 
+		this.sellerStatus = status;
 	}
 	public void setBuyer(User user) {
 		this.buyer = user;

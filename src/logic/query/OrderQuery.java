@@ -17,7 +17,7 @@ public class OrderQuery extends Query{
 		return String.format(query, user, user);
 	}
 	
-	public String insertOrder(Integer id, Date orderDate, Integer status, String code, Date startDate, String seller, String buyer, Integer item) {
+	public String insertOrder(Integer id, Date orderDate, String code, Date startDate, String seller, String buyer, Integer item, Integer buyerStatus, Integer sellerStatus) {
 		
 		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 		String start = quote(format.format(startDate));
@@ -26,12 +26,12 @@ public class OrderQuery extends Query{
 		seller = quote(seller);
 		buyer = quote(buyer);
 		
-		String query = "INSERT INTO itemorder (itemInSaleID, price, saleDescription, availability, itemCondition, preferredLocation, "
-				+ "referredItemID, userID, referredOrderID) VALUES (%d, %d, %s, %d, %s, %s, %d, %s, %d);";
-		return String.format(query, id, end, status, code, start, seller, buyer, item);
+		String query = "INSERT INTO itemorder (itemInSaleID, price, saleDescription, itemCondition, preferredLocation, "
+				+ "referredItemID, userID, referredOrderID, sellerStatus, buyerStatus) VALUES (%d, %d, %s, %d, %s, %s, %d, %s, %d, %d, %d);";
+		return String.format(query, id, end, code, start, seller, buyer, item, sellerStatus, buyerStatus);
 	}
 	
-	public String updateOrder(Integer id, Date orderDate, Date startDate, Integer status, String code) {
+	public String updateOrder(Integer id, Date orderDate, Date startDate, String code, Integer buyerStatus, Integer sellerStatus) {
 	
 		DateFormat format = new SimpleDateFormat(dateTimeFormat);
 		String end = "null";
@@ -42,8 +42,8 @@ public class OrderQuery extends Query{
 			start = quote(format.format(startDate));
 		code = quote(code);
 
-		String query = "UPDATE itemorder SET orderDate = %s, startDate = %s, status = %d, code = %s WHERE orderID = %d;";
-		return String.format(query, end, start, status, code, id);
+		String query = "UPDATE itemorder SET orderDate = %s, startDate = %s, code = %s, buyerStatus = %d, sellerStatus = %d WHERE orderID = %d;";
+		return String.format(query, end, start, code, buyerStatus, sellerStatus, id);
 		
 	}
 	

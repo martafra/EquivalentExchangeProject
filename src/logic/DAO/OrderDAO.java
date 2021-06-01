@@ -39,12 +39,28 @@ public class OrderDAO {
 			
 			ItemInSaleDAO itemInSaleDAO= new ItemInSaleDAO();
 			ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(rs.getInt("referredItemID"));
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date orderDate = null;
+			Date startDate = null;
+			try {
+				orderDate = format.parse(rs.getString("orderDate"));
+				startDate = format.parse(rs.getString("startDate"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Boolean sellerStatus = false;
+			if(rs.getInt("sellerStatus") == 1)
+				sellerStatus = true;
+			Boolean buyerStatus = false;
+			if(rs.getInt("buyerStatus") == 1)
+				buyerStatus = true;
 			
 			UserDAO userDAO= new UserDAO();
 			User user = userDAO.selectUser(rs.getString("buyerID"));
 			
-			order = new Order(rs.getInt("orderID"), rs.getString("code"), itemInSale, rs.getDate("orderDate"), rs.getDate("startDate"),
-					rs.getBoolean("status"), user);
+			order = new Order(rs.getInt("orderID"), rs.getString("code"), itemInSale, orderDate, startDate,
+				 user, buyerStatus, sellerStatus);
 
 
 		} catch (SQLException e) {
@@ -70,7 +86,7 @@ public class OrderDAO {
 
 	}
 	
-	public ArrayList<Order> selectAllOrders(String username) throws ParseException {
+	public ArrayList<Order> selectAllOrders(String username) {
 		ArrayList<Order> orders = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -83,19 +99,28 @@ public class OrderDAO {
 			
 			while(rs.next()) {
 				//int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, Boolean orderStatus, User buyer
-				DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-				Date orderDate = format.parse(rs.getString("orderDate"));
-				Date startDate = format.parse(rs.getString("startDate"));
-				Boolean status;
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date orderDate = null;
+				Date startDate = null;
+				try {
+					orderDate = format.parse(rs.getString("orderDate"));
+					startDate = format.parse(rs.getString("startDate"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				UserDAO userDAO = new UserDAO();
 				ItemInSaleDAO itemDAO = new ItemInSaleDAO();
-				if(rs.getInt("status") == 1)
-					status = true;
-				else
-					status = false;
+				Boolean sellerStatus = false;
+				if(rs.getInt("sellerStatus") == 1)
+					sellerStatus = true;
+				Boolean buyerStatus = false;
+				if(rs.getInt("buyerStatus") == 1)
+					buyerStatus = true;
 				
 				orders.add(new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItem")), orderDate,
-						startDate, status, userDAO.selectUser(username)));
+						startDate, userDAO.selectUser(username), buyerStatus, sellerStatus));
 			}
 
 		} catch (SQLException e) {
@@ -132,13 +157,17 @@ public class OrderDAO {
 			Date orderDate = order.getOrderDate();
 			String seller = order.getInvolvedItem().getSeller().getUsername();
 			String buyer = order.getBuyer().getUsername();
-			Integer status = 0;
-			if(order.getOrderStatus())
-				status = 1;
+			Integer buyerStatus = 0;
+			if(Boolean.TRUE.equals(order.isAcceptedByBuyer()))
+				buyerStatus = 1;
+			
+			Integer sellerStatus = 0;
+			if(Boolean.TRUE.equals(order.isAcceptedBySeller()))
+				sellerStatus = 1;
 			String code = order.getCode();
 			Date startDate = order.getStartDate();
 			Integer itemID = order.getInvolvedItem().getItemInSaleID();	
-			String query = orderQ.insertOrder(orderID, orderDate, status, code, startDate, seller, buyer, itemID);
+			String query = orderQ.insertOrder(orderID, orderDate, code, startDate, seller, buyer, itemID, buyerStatus, sellerStatus);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
@@ -169,15 +198,18 @@ public class OrderDAO {
 			Date orderDate = order.getOrderDate();
 			Date startDate = order.getStartDate();
 			
+			Integer buyerStatus = 0;
+			if(Boolean.TRUE.equals(order.isAcceptedByBuyer()))
+				buyerStatus = 1;
 			
-			Integer status = 0;
-			if(order.isAccepted())
-				status = 1;
+			Integer sellerStatus = 0;
+			if(Boolean.TRUE.equals(order.isAcceptedBySeller()))
+				sellerStatus = 1;
 			
 			
 			String code = order.getCode();
 			
-			String query = orderQ.updateOrder(orderID, orderDate, startDate, status, code);
+			String query = orderQ.updateOrder(orderID, orderDate, startDate, code, buyerStatus, sellerStatus);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {

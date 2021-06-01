@@ -3,16 +3,15 @@ package logic.bean;
 import java.util.Date;
 
 import logic.entity.ItemInSale;
-import logic.entity.User;
 import logic.support.interfaces.Bean;
 
 public class OrderBean implements Bean{
 	private String code;
-	private ItemInSale involvedItem;
+	private ItemInSaleBean involvedItem;
 	private Date orderDate;
 	private Integer orderID;
 	private Boolean orderStatus;
-	private User buyer;
+	private UserBean buyer;
 	
 	public String getCode() {
 		return this.code;
@@ -20,7 +19,7 @@ public class OrderBean implements Bean{
 	public Date getOrderDate() {
 		return this.orderDate;
 	}	
-	public ItemInSale getinvolvedItem() {
+	public ItemInSaleBean getinvolvedItem() {
 		return this.involvedItem;
 	}
 	public Integer getOrderID() {
@@ -29,17 +28,16 @@ public class OrderBean implements Bean{
 	public Boolean getOrderStatus() {
 		return this.orderStatus;
 	}
-	public User getBuyer() {
+	public UserBean getBuyer() {
 		return this.buyer;
 	}
-	
 	public void setCode(String code) {
 		this.code = code;
 	}
 	public void setOrderDate(Date date) {
 		this.orderDate = date;
 	}
-	public void setinvolvedItem(ItemInSale item) {
+	public void setinvolvedItem(ItemInSaleBean item) {
 		this.involvedItem = item;
 	}
 	public void setOrderID(Integer id) {
@@ -48,7 +46,7 @@ public class OrderBean implements Bean{
 	public void setOrderStatus(Boolean status) { 
 		this.orderStatus = status;
 	}
-	public void setBuyer(User user) {
+	public void setBuyer(UserBean user) {
 		this.buyer = user;
 	}
 }
