@@ -1,6 +1,8 @@
 package logic.controller.application;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.OrderDAO;
@@ -18,6 +20,22 @@ import logic.support.connection.MessageSender;
 import logic.support.other.Notification;
 
 public class SellController {
+	
+	public List<ItemInSaleBean> getItemList(UserBean userBean){
+		String username = userBean.getUserID();
+		ItemInSaleDAO itemSaleDAO = new ItemInSaleDAO();
+		ArrayList<ItemInSale> items = (ArrayList<ItemInSale>) itemSaleDAO.selectItemsInSaleByUser(username);
+		ArrayList<ItemInSaleBean> itemBeans = new ArrayList<>();
+		for(ItemInSale item: items) {
+			ItemInSaleBean itemBean = new ItemInSaleBean();
+			itemBean.setItemID(item.getItemInSaleID());
+			itemBean.setItemName(item.getReferredItem().getName());
+			itemBean.setMediaPath(item.getMedia().get(0));
+			itemBean.setPrice(item.getPrice());
+			itemBeans.add(itemBean);
+		}
+		return itemBeans;
+	}
 	
 	public void acceptRequest(RequestBean requestBean) {
 		Notification rejectedRequest = new Notification();

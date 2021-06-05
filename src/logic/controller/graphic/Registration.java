@@ -1,18 +1,16 @@
 package logic.controller.graphic;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import logic.bean.RegistrationBean;
 import logic.controller.application.LoginController;
-import logic.support.other.PaneManager;
 import logic.support.other.SceneManageable;
 
 public class Registration extends SceneManageable{
-
-	PaneManager myManager = new PaneManager();
 	
 	@FXML
 	private TextField firstName;

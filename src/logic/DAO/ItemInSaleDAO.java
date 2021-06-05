@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 import logic.support.database.MyConnection;
 import logic.support.other.ImageCache;
@@ -21,7 +21,71 @@ public class ItemInSaleDAO {
 	ItemInSaleQuery itemInSaleQ = new ItemInSaleQuery();
 	MediaQuery mediaQuery = new MediaQuery();
 	
-	
+	public List<ItemInSale> selectItemsInSaleByUser(String userID){
+		ArrayList<ItemInSale> itemList = new ArrayList<>();
+		ItemInSale itemInSale = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemInSaleQ.selectItemsByUser(userID);
+			rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				ItemDAO itemDAO= new ItemDAO();
+				UserDAO userDAO= new UserDAO();
+				
+				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
+											rs.getInt("price"),
+											rs.getString("saleDescription"), 
+											rs.getBoolean("availability"), 
+											rs.getString("itemCondition"),
+											rs.getString("preferredLocation"), 
+											itemDAO.selectItem(rs.getInt("referredItemID")), 
+											userDAO.selectUser(rs.getString("userID")));
+				
+				query = mediaQuery.selectItemMedia(itemInSale.getItemInSaleID());
+				rs2 = stmt.executeQuery(query);
+				
+				ImageCache mediaCache = ImageCache.getInstance();
+				
+				while(rs2.next()) {
+					Integer mediaIndex = rs2.getInt("imageIndex");
+					Integer itemID = itemInSale.getItemInSaleID();
+					String fileName = itemID.toString() + "_" + mediaIndex.toString();
+					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+					itemInSale.addMedia(filePath);
+				}
+				itemList.add(itemInSale);
+			}} catch (SQLException e) {
+				// TODO Auto-generated catch block
+
+				e.printStackTrace();
+				System.out.println("Attenzione: Errore nella ItemInSaleDao.selectItemInSale()");
+
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (rs2 != null) {
+						rs2.close();
+					}
+					if (stmt != null) {
+						stmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		return itemList;
+	}
 	public ItemInSale selectItemInSale(int itemInSaleID) {
 		ItemInSale itemInSale = null;
 		Statement stmt = null;

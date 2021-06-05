@@ -2,6 +2,12 @@ package logic.query;
 
 public class ItemInSaleQuery extends Query{
 
+	public String selectItemsByUser(String userID){
+		userID = quote(userID);
+		String query = "SELECT * FROM iteminsale WHERE userID = %s;";
+		return String.format(query, userID);
+	}
+
 	public String selectItemInSale(Integer itemInSaleID) {
 		String query = "SELECT * FROM iteminsale WHERE itemInSaleID = %d;";
 		return String.format(query, itemInSaleID);

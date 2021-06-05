@@ -24,10 +24,11 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("catalogue", "/logic/view/Catalogue.fxml");
 		mainPanel.loadScene("chat", "/logic/view/Chat.fxml");
 		mainPanel.loadScene("postad", "/logic/view/PostAd.fxml");
+		mainPanel.loadScene("sellerpanel", "/logic/view/SellerPanel.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		
-		mainPanel.setScene("home");
+		mainPanel.setScene("sellerpanel");
 		
 		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();
@@ -38,6 +39,8 @@ public class MainApplication extends Application {
 		
 		var scene = new Scene(root);
 		stage.setScene(scene);
+		stage.centerOnScreen();
+		stage.setResizable(false);
 		stage.show();
 
 		
