@@ -10,7 +10,8 @@ public class TestImageCache {
 		for(String path : item.getMedia()) {
 			System.out.println(path);
 		}
-		ImageCache.getInstance().remove();;
+	
+		//ImageCache.getInstance().remove();
 	}
 	
 }

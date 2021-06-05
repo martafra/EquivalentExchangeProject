@@ -1,5 +1,19 @@
-.orange-button{
+
+
+.orange-clickable{
 	-fx-background-color: #FF6A00;
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 20px;
+}
+.orange-clickable:hover{
+	-fx-background-color: #FF7B00;
+	
+}
+.orange-clickable:pressed{
+	-fx-background-color: #FF6600;
+}
+
+.tab{
+	-fx-background-color: #FF6A00;
+	-fx-text-fill: #FFFFFF;
 }

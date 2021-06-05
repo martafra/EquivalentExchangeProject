@@ -3,6 +3,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import logic.bean.LoginBean;
 import logic.controller.application.ChatController;
 import logic.support.interfaces.Observer;
@@ -33,6 +34,9 @@ public class HeaderBar extends HeaderController implements Observer{
 	
 	@FXML
 	private Button logoutButton;
+	
+	@FXML
+	private Button postAnAdButton;
 	
 	@FXML
 	public void goToHome() {
@@ -75,7 +79,7 @@ public class HeaderBar extends HeaderController implements Observer{
 			loginButton.setText(loggedUser.getUserID());
 		}
 		else {
-			loginButton.setText("Login");
+			loginButton.setText("LOGIN");
 		}
 		
 		if(box != null) {

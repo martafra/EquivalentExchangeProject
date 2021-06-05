@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import logic.bean.ItemInSaleBean;
+import logic.bean.UserBean;
 import logic.controller.application.SellController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
@@ -35,15 +36,20 @@ public class SellerPanelView extends SceneManageable{
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
 		
+		UserBean user = new UserBean();
+		user.setUserID("Wibbley712");
+		
 		itemBox.setPrefHeight(5000);
-		List<ItemInSaleBean> itemBeans = sellController.getItemList(null)
-		for() {
-			}
+		List<ItemInSaleBean> itemBeans = sellController.getItemList(user);
+		for(ItemInSaleBean itemBean : itemBeans) {
+			Pane productCase = fillCase(itemBean);
+			itemBox.getChildren().add(productCase);
+		}
 		
 
 	}
 	
-	private void fillCase(ItemInSaleBean itemBean) {
+	private Pane fillCase(ItemInSaleBean itemBean) {
 		Pane productCase = null;
 		ObservableList<Node> prova = null;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/ProductCase.fxml"));
@@ -77,6 +83,7 @@ public class SellerPanelView extends SceneManageable{
 			}
 			
 		}
+		return productCase;
 	}
 	
 }

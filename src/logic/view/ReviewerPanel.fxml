@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewerPanelView">
+   <right>
+      <VBox prefWidth="980.0" style="-fx-background-color: #ff0000;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="writeReviewButton" onAction="#goToWriteReview" prefHeight="65.0" prefWidth="415.0" text="Write Review" textAlignment="CENTER" />
+         </children></VBox>
+   </right>
+   <left>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="720.0" prefWidth="300.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="reviewContainer" prefHeight="720.0" prefWidth="300.0" />
+         </content>
+      </ScrollPane>
+   </left>
+</BorderPane>

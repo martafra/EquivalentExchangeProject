@@ -35,10 +35,10 @@ public class ItemInSaleDAO {
 			String query = itemInSaleQ.selectItemsByUser(userID);
 			rs = stmt.executeQuery(query);
 
+			ItemDAO itemDAO= new ItemDAO();
+			UserDAO userDAO= new UserDAO();
+			
 			while (rs.next()) {
-				ItemDAO itemDAO= new ItemDAO();
-				UserDAO userDAO= new UserDAO();
-				
 				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
 											rs.getInt("price"),
 											rs.getString("saleDescription"), 
@@ -47,21 +47,28 @@ public class ItemInSaleDAO {
 											rs.getString("preferredLocation"), 
 											itemDAO.selectItem(rs.getInt("referredItemID")), 
 											userDAO.selectUser(rs.getString("userID")));
-				
-				query = mediaQuery.selectItemMedia(itemInSale.getItemInSaleID());
+				itemList.add(itemInSale);
+			}
+			
+			ImageCache mediaCache = ImageCache.getInstance();
+			
+			for(ItemInSale item : itemList) {
+				Integer itemID = item.getItemInSaleID();
+				query = mediaQuery.selectItemMedia(itemID);
 				rs2 = stmt.executeQuery(query);
-				
-				ImageCache mediaCache = ImageCache.getInstance();
-				
 				while(rs2.next()) {
 					Integer mediaIndex = rs2.getInt("imageIndex");
-					Integer itemID = itemInSale.getItemInSaleID();
 					String fileName = itemID.toString() + "_" + mediaIndex.toString();
 					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					itemInSale.addMedia(filePath);
+					item.addMedia(filePath);
 				}
-				itemList.add(itemInSale);
-			}} catch (SQLException e) {
+				if(item.getMedia().isEmpty())
+				{
+					item.addMedia("/logic/view/assets/images/missing.png");
+				}
+				rs2.close();
+			}	
+		} catch (SQLException e) {
 				// TODO Auto-generated catch block
 
 				e.printStackTrace();
@@ -126,6 +133,7 @@ public class ItemInSaleDAO {
 				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
 				itemInSale.addMedia(filePath);
 			}
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

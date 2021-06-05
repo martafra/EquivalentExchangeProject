@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
  
-<VBox fx:id="vbox" fx:controller="logic.controller.graphic.ChatGraphicController" layoutX="10.0" layoutY="10.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox fx:id="vbox" fx:controller="logic.controller.graphic.ChatGraphicController" layoutX="10.0" layoutY="10.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1">
   <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;

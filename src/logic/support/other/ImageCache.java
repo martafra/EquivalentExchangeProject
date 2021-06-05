@@ -15,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.FileUtils;
 public class ImageCache {
 	
 	private static ImageCache instance = null;
+	private static final String MISSING_IMAGE_PATH = "/logic/view/assets/images/missing.png";
 	private ArrayList<String> paths = new ArrayList<>();
 	private Path directoryPath;
 	
@@ -37,18 +38,25 @@ public class ImageCache {
 	
 	public String addImage(String name, InputStream data) {
 		
+		if(data == null) {
+			return MISSING_IMAGE_PATH;
+		}
+		
 		String filePath = directoryPath.toString() + "/" + name;
 		File image = new File(filePath);
 		
+		filePath = "file:///" + filePath;
+		filePath = filePath.replace('\\', '/');
 		
+	
 		try {
 			if(image.createNewFile()) {
 				OutputStream output = new FileOutputStream(image);
 				IOUtils.copy(data, output);	
 				output.close();
 				data.close();
-			}else {
-				filePath = "";
+			}else { 
+				filePath = MISSING_IMAGE_PATH;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -72,5 +80,4 @@ public class ImageCache {
 			e.printStackTrace();
 		}
 	}
-	
 }

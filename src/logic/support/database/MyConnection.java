@@ -9,7 +9,7 @@ public class MyConnection {
 	private String nomeDB = "equivalentexchange";
 	private String portaDB = "3306";
 	private String usernameDB = "root";
-	private String passwordDB = "";
+	private String passwordDB = "root";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 
 	
