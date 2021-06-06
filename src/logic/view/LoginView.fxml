@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
- 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
- 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="300.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="logic.controller.graphic.LoginView">
-  <style>
-    -fx-padding: 10;
-    -fx-border-style: solid inside;
-    -fx-border-width: 2;
-    -fx-border-insets: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: blue;
-  </style>
-  <children>
-    <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="Username:" textAlignment="LEFT" />
-    <TextField fx:id="userText" prefWidth="100.0" prefHeight="20.0"/>
-    
-    <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="Password:" textAlignment="LEFT" />
-    
-    <TextField fx:id="passText" prefWidth="100.0" prefHeight="20.0"/>
-    <Label fx:id="chat" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="User to chat with:" textAlignment="LEFT" />
-    <TextField fx:id="otherUserID" prefWidth="100.0" prefHeight="20.0"/>
-    <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Login" textAlignment="CENTER" onAction="#login" />
-    <Button fx:id="goToReg" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Create an Account" textAlignment="CENTER" onAction="#goToRegistration" />
-  </children>
-</VBox>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.LoginView">
+   <children>
+      <TextField fx:id="userText" layoutX="480.0" layoutY="219.0" prefHeight="34.0" prefWidth="321.0" promptText="type your username..." />
+      <PasswordField fx:id="passText" layoutX="480.0" layoutY="333.0" prefHeight="34.0" prefWidth="321.0" promptText="type your password..." />
+      <Button layoutX="480.0" layoutY="423.0" mnemonicParsing="false" onAction="#goToRegistration" prefHeight="34.0" styleClass="orange-clickable" text="Create an Account">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding></Button>
+      <Button fx:id="loginButton" layoutX="726.0" layoutY="423.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" styleClass="orange-clickable" text="Login">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding></Button>
+      <Label layoutX="480.0" layoutY="202.0" text="username:" />
+      <Label layoutX="480.0" layoutY="316.0" text="password:" />
+   </children>
+</AnchorPane>

@@ -1,9 +1,19 @@
 
 
+.root{
+    -fx-font-family: "Spartan";
+}
+.bubble-background{
+	-fx-background-image: url("../assets/images/ee-bg.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 1280 720;
+    -fx-background-position: center center;
+}
+
 .orange-clickable{
 	-fx-background-color: #FF6A00;
 	-fx-text-fill: #FFFFFF;
-	-fx-font-size: 20px;
+	-fx-font-size: 14px;
 }
 .orange-clickable:hover{
 	-fx-background-color: #FF7B00;

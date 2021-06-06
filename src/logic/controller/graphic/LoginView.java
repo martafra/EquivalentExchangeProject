@@ -2,9 +2,10 @@ package logic.controller.graphic;
 
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
-import java.io.IOException;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import logic.controller.application.LoginController;
@@ -16,33 +17,25 @@ public class LoginView extends SceneManageable{
     private LoginController log = new LoginController();
     
     @FXML
-    private VBox vbox;
-    
-    @FXML
     private TextField userText;
     
     @FXML
-    private TextField passText;
+    private PasswordField passText;
     
     @FXML
-    private TextField otherUserID;
+    private Button loginButton;
     
     @FXML 
-    public void login(Event e) throws IOException {
+    public void login(Event e){
     	bean.setUserID(userText.getText());
     	bean.setPassword(passText.getText());
     	Boolean result = log.login(bean);
 
-    	if(result) {
-    		bundle.addBean("loggedUser", bean);
-    		
-    		
-    		UserBean chatUser = new UserBean();
-    		chatUser.setUserID(otherUserID.getText());
-    		bundle.addBean("chatUser", chatUser);
-    		bundle.addObject("mailbox", log.connect(bean));
-    		
-    		goToScene("chat");
+    	if(Boolean.TRUE.equals(result)) {
+    		UserBean me = log.getUserByLoginData(bean);
+    		bundle.addBean("loggedUser", me);
+    		bundle.addObject("mailbox", log.connect(me));
+    		goToScene("home");
     	}
     	
     	

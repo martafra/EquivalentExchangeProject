@@ -55,7 +55,7 @@ public class PostAnAdView extends SceneManageable{
 	@Override
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
-		LoginBean loggedUser = (LoginBean) bundle.getBean("loggedUser");
+		UserBean loggedUser = (UserBean) bundle.getBean("loggedUser");
 		
 		if(loggedUser == null) {
 			goToScene("login");
@@ -63,7 +63,7 @@ public class PostAnAdView extends SceneManageable{
 		}
 		chooser.setTitle("Image selector");
 		chooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
-		user = logController.getUserByLoginData(loggedUser);
+		user = loggedUser;
 		
 		items = (ArrayList<ItemBean>) controller.getItemsList();
 		conditions = (ArrayList<String>) controller.getConditionTypes();
@@ -97,7 +97,7 @@ public class PostAnAdView extends SceneManageable{
 		}
 		
 		controller.post(ad, user);
-		
+		goToScene("sellerpanel");
 	}
 	
 	@FXML

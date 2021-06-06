@@ -36,11 +36,15 @@ public class SellerPanelView extends SceneManageable{
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
 		
-		UserBean user = new UserBean();
-		user.setUserID("Wibbley712");
+		UserBean loggedUser = (UserBean) getBundle().getBean("loggedUser");
+		
+		if(loggedUser == null) {
+			goToScene("login");
+			return;
+		}
 		
 		itemBox.setPrefHeight(5000);
-		List<ItemInSaleBean> itemBeans = sellController.getItemList(user);
+		List<ItemInSaleBean> itemBeans = sellController.getItemList(loggedUser);
 		for(ItemInSaleBean itemBean : itemBeans) {
 			Pane productCase = fillCase(itemBean);
 			itemBox.getChildren().add(productCase);

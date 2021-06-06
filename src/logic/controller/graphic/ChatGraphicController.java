@@ -21,7 +21,7 @@ import logic.support.other.SceneManageable;
 public class ChatGraphicController extends SceneManageable implements Observer{
 
 	private UserBean receiver;
-	private LoginBean loggedUser;
+	private UserBean loggedUser;
 	private ChatController controller = new ChatController();
 	private MailBox mailbox;
 	
@@ -54,9 +54,8 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
 		receiver = (UserBean) bundle.getBean("chatUser");
-		loggedUser = (LoginBean) bundle.getBean("loggedUser");
+		loggedUser = (UserBean) bundle.getBean("loggedUser");
 		mailbox = (MailBox) bundle.getObject("mailbox");
-		
 		mailbox.register(this);
 	}
 
@@ -64,16 +63,8 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	public void update() {
 		// TODO Auto-generated method stub
 		String textMessage = receiver.getUserID() + " > " + controller.getLastMessageSent(mailbox);
-		
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				Label messageLabel = new Label(textMessage);
-				messageArea.getChildren().add(messageLabel);
-			}	
-		});
-		
-		
+		Label messageLabel = new Label(textMessage);
+		messageArea.getChildren().add(messageLabel);
 	}
 	
 	

@@ -9,7 +9,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import logic.DAO.UserDAO;
+import logic.DAO.UserProfileDAO;
 import logic.entity.User;
+import logic.entity.UserProfile;
 import logic.support.connection.ConnectionData;
 import logic.support.connection.ConnectionServer;
 import logic.support.connection.SessionHandler;
@@ -66,19 +68,22 @@ public class LoginController {
 		//TODO Considerare se cambiare il parametro in un tipo LoginBean
 		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
+		UserProfileDAO profileDAO = new UserProfileDAO();
 		
 		User loggedUser = userDAO.selectUser(loginData.getUserID());
+		UserProfile profileData = profileDAO.selectProfileByUsername(loginData.getUserID(), true);
+		
 		
 		bean.setEmail(loggedUser.getEmail());
 		bean.setName(loggedUser.getName());
 		bean.setLastName(loggedUser.getSurname());
-		
 		bean.setUserID(loggedUser.getUsername());
+		bean.setProfilePicPath(profileData.getProfilePicturePath());
 		
 		return bean;
 	}
 
-	public MailBox connect(LoginBean userData){
+	public MailBox connect(UserBean userData){
 
 		var mailBox = new MailBox();
 		ConnectionData myServerData = new ConnectionServer(mailBox).getConnectionData();
