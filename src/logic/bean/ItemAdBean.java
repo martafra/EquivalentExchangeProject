@@ -5,6 +5,7 @@ import logic.support.interfaces.Bean;
 
 public class ItemAdBean implements Bean {
 	
+	private Integer itemInSaleID;
 	private Integer price;
 	private String description;
 	private String condition;
@@ -61,6 +62,12 @@ public class ItemAdBean implements Bean {
 	}
 	public void setSellerID(String seller) {
 		this.sellerID = seller;
+	}
+	public Integer getItemInSaleID() {
+		return itemInSaleID;
+	}
+	public void setItemInSaleID(Integer itemInSaleID) {
+		this.itemInSaleID = itemInSaleID;
 	}
 	
 }

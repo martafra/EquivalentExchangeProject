@@ -25,6 +25,7 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("chat", "/logic/view/Chat.fxml");
 		mainPanel.loadScene("postad", "/logic/view/PostAd.fxml");
 		mainPanel.loadScene("sellerpanel", "/logic/view/SellerPanel.fxml");
+		mainPanel.loadScene("itemDetails", "/logic/view/ItemDetails.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		

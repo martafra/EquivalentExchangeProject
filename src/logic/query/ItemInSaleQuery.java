@@ -56,5 +56,29 @@ public class ItemInSaleQuery extends Query{
 		return String.format(query, itemInSaleID);
 	}
 	
+	public String getAllItemsInSale() {
+		String query = "SELECT * FROM ItemInSale";
+		return query;
+	}
+
+	public String getItemsInSaleFiltered(String[] filters) {
+		String filter = "";
+		if (filters[0] != null) { // Se e' presente la parola di ricerca
+			filter = " itemName like '%%" + filters[0] + "%%' ";
+			if (filters[1] != null) {
+				filter = filter + " and ";
+			}
+		}
+		if (filters[1] != null) { // Abbiamo il tipo
+			filter = filter + " itemType = '" + filters[1] + "' ";
+			if (filters[2] != null) { // Abbiamo il genere del tipo
+				filter = filter + " AND genre = '" + filters[2] + "' ";
+			}
+			if (filters[3] != null) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
+				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters[3] + "') "; // TODO controllare tabelle database
+			}
+		}
+		return "SELECT * FROM ItemInSale WHERE referredItemID in (SELECT itemId FROM Item WHERE " + filter + ");";
+	}
 	
 }

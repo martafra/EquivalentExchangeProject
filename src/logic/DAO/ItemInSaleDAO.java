@@ -285,5 +285,105 @@ public class ItemInSaleDAO {
 		
 	}
 	
+	public List<ItemInSale> getItemsInSaleList(){
+		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
+		ItemInSale itemInSale = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemInSaleQ.getAllItemsInSale();
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				ItemDAO itemDAO= new ItemDAO();
+				UserDAO userDAO= new UserDAO();
+				
+				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
+											rs.getInt("price"),
+											rs.getString("saleDescription"), 
+											rs.getBoolean("availability"), 
+											rs.getString("itemCondition"),
+											rs.getString("preferredLocation"), 
+											itemDAO.selectItem(rs.getInt("referredItemID")), 
+											userDAO.selectUser(rs.getString("userID")));
+
+				itemInSaleList.add(itemInSale); 
+			}
+		}catch(SQLException e) {
+			//TODO gestire eccezione
+			e.printStackTrace();
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.getAllItemInSale()");
+		}
+		
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return itemInSaleList;
+			
+	}
+	
+	public List<ItemInSale> getItemsInSaleListFiltered(String[] filters){
+		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
+		ItemInSale itemInSale = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemInSaleQ.getItemsInSaleFiltered(filters);
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				ItemDAO itemDAO= new ItemDAO();
+				UserDAO userDAO= new UserDAO();
+				
+				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
+											rs.getInt("price"),
+											rs.getString("saleDescription"), 
+											rs.getBoolean("availability"), 
+											rs.getString("itemCondition"),
+											rs.getString("preferredLocation"), 
+											itemDAO.selectItem(rs.getInt("referredItemID")), 
+											userDAO.selectUser(rs.getString("userID")));
+
+				itemInSaleList.add(itemInSale); 
+			}
+		}catch(SQLException e) {
+			//TODO gestire eccezione
+			e.printStackTrace();
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.getItemsInSaleListFiltered()");
+		}
+		
+		finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return itemInSaleList;
+			
+	}
+	
 	
 }
