@@ -40,12 +40,7 @@ public class CatalogueController {
 			itemInSaleBean.setItemID(item.getItemInSaleID());
 			itemInSaleBean.setItemName(item.getReferredItem().getName());
 			itemInSaleBean.setPrice(item.getPrice());
-			
-			if (!item.getMedia().isEmpty()) {
-				itemInSaleBean.setMediaPath(item.getMedia().get(0));
-	    	}
-			
-			
+			itemInSaleBean.setMediaPath(item.getMedia().get(0));
 			itemInSaleBeanList.add(itemInSaleBean);
 		}
 		return itemInSaleBeanList;

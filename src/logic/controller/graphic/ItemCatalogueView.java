@@ -22,10 +22,8 @@ public class ItemCatalogueView {
     public void setView(ItemInSaleBean item) {
     	titleText.setText(item.getItemName());
     	priceText.setText(item.getPrice().toString());
-    	if (item.getMediaPath() != null) {
-    		imageView.setImage(new Image(item.getMediaPath()));
-    	}
-    		
+    	imageView.setImage(new Image(item.getMediaPath()));
+   		
     }
 
 }

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -122,20 +124,25 @@ public class CatalogueView extends SceneManageable {
 	}
 	
 	public void setListView() {
+		
 		// Passo la lista di bean a questo metodo per renderla una lista di oggetti osservabili
 		ObservableList<ItemInSaleBean> data = FXCollections.observableArrayList(itemInSaleBeanList);
-
+		
+		
 		// Passo la lista osservabile alla mia lista di JavaFX
 		list.setItems(data);
 		if (!inizialize) {
 			// Aggiungo la Cella che si occupa di visualizzare la schermata dell'oggetto
 			list.setCellFactory(param -> new Cell());
-
+			
 			list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ItemInSaleBean>() {
 
 				@Override
-				public void changed(ObservableValue<? extends ItemInSaleBean> observable, ItemInSaleBean oldValue,
-						ItemInSaleBean newValue) {
+				public void changed(ObservableValue<? extends ItemInSaleBean> observable, ItemInSaleBean oldValue, ItemInSaleBean newValue) {
+					
+					if (newValue == null) {
+						return;
+					}
 					Bundle bundle = getBundle();
 					bundle.addBean("selectedItem", newValue);
 					goToScene("itemDetails");

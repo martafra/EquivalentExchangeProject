@@ -4,6 +4,7 @@ package logic.controller.graphic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import logic.bean.ItemAdBean;
@@ -72,6 +73,7 @@ public class ItemDetailsView extends SceneManageable {
     	
     	sellerText.setText(seller.getName());
     	priceText.setText(itemInSale.getPrice().toString());
+    	imgV.setImage(new Image(itemInSale.getMediaPath()));
     	
     	String itemDetails;
     	if (item.getType() =='B') {

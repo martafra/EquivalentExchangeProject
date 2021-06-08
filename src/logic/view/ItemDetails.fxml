@@ -2,13 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="659.0" prefWidth="692.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="659.0" prefWidth="692.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
    <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;
@@ -23,13 +22,9 @@
          
         <Label fx:id="titleText" alignment="CENTER" layoutX="100.0" layoutY="31.0" text="Title">
             <font>
-               <Font size="14.0" />
+               <Font size="16.0" />
             </font></Label> 
         <ImageView fx:id="imgV" fitHeight="150.0" fitWidth="155.0" layoutX="101.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
-         
-          <image>
-         <Image url="file:/c:/Users/Valentina/Downloads/scatola.jpg" /> 
-          </image>
          </ImageView> 
          	
         <Label layoutX="37.0" layoutY="210.0" text="Description:">
@@ -44,7 +39,7 @@
         <Button fx:id="buyBtn" layoutX="442.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickOnBuy" prefHeight="25.0" prefWidth="133.0" text="BUY ITEM" />
         <Label fx:id="priceText" alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="191.0" text="Price" textAlignment="CENTER">
             <font>
-               <Font size="15.0" />
+               <Font size="16.0" />
             </font></Label>
         <Label fx:id="descText" alignment="TOP_LEFT" layoutX="38.0" layoutY="235.0" maxHeight="150.0" maxWidth="350.0" text="desc" />
         <Label layoutX="36.0" layoutY="465.0" text="Item Details">

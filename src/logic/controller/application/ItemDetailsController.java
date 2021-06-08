@@ -2,7 +2,9 @@ package logic.controller.application;
 
 import logic.support.connection.MessageSender;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
@@ -52,7 +54,7 @@ public class ItemDetailsController {
 		bean.setAddress(itemInSale.getAddress());
 		bean.setCondition(itemInSale.getCondition().toString());
 		bean.setDescription(itemInSale.getDescription());
-		//bean.setMedia(itemInSale.getMedia());
+		bean.setMedia((ArrayList<String>)itemInSale.getMedia()); //cast a 'ArrayList<String>' poiche' itemInSale.getMedia() ritorna un List<String>, da modificare?
 		
 		return bean;
 	}
