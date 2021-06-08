@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="659.0" prefWidth="692.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="659.0" prefWidth="692.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
    <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;

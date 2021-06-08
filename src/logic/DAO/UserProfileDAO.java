@@ -20,7 +20,7 @@ public class UserProfileDAO {
 		UserProfile profileData = new UserProfile();
 		Statement stmt = null;
 		ResultSet rs = null;
-		
+	
 		Connection con = connection.getConnection();
 		try {
 			stmt = con.createStatement();

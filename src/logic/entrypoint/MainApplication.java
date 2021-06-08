@@ -28,17 +28,17 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("itemDetails", "/logic/view/ItemDetails.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
+		mainPanel.loadMenu("/logic/view/Menu.fxml");
 		
 		mainPanel.setScene("home");
 		
 		var root = new VBox();
 		Parent headerBarContent = (Parent) mainPanel.getHeaderContent();
 		
-		
+		root.getChildren().add(headerBarContent);
 		root.getChildren().add(mainPanel);
-		root.getChildren().add(0, headerBarContent);
 		
-		
+			
 		var scene = new Scene(root);
 		Font.loadFont(getClass().getResourceAsStream("/logic/view/assets/fonts/Spartan-Regular.ttf"), 22);
 		scene.getStylesheets().add(getClass().getResource("/logic/view/style/Style.css").toExternalForm());

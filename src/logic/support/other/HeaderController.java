@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 public abstract class HeaderController{
 	
 	private PaneManager bodyManager;
+	private MenuController menuManager;
 	protected Parent headerBarContent;
 	
 	public final void setBodyManager(PaneManager panel) {
@@ -14,6 +15,14 @@ public abstract class HeaderController{
 	
 	protected final PaneManager getBodyManager() {
 		return this.bodyManager;
+	}
+	
+	public final void setMenuManager(MenuController menu) {
+		menuManager = menu;
+	}
+	
+	protected final MenuController getMenuManager() {
+		return this.menuManager;
 	}
 	
 	protected final void goToScene(String sceneID) {

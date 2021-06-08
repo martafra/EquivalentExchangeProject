@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="233.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemCatalogueView">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="233.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemCatalogueView">
  <!--  <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;

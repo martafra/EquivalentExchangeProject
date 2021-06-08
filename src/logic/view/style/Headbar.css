@@ -15,3 +15,15 @@
 .title{
 	-fx-font-size: 19px;
 }
+.circle{
+	-fx-fill: #FF6A00;
+}
+.menu-voice-text{
+	-fx-font-size: 16px;
+}
+.menu-voice{
+	
+}
+.menu-voice:hover{
+	-fx-background-color: #E3E3E3;
+}

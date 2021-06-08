@@ -12,7 +12,7 @@
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.HeaderBar">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: WHITE;" styleClass="container" stylesheets="@style/Headbar.css" />
-      <HBox prefHeight="68.0" prefWidth="600.0" stylesheets="@style/Headbar.css">
+      <HBox fx:id="headerBox" prefHeight="68.0" prefWidth="600.0" stylesheets="@style/Headbar.css">
          <children>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -1,10 +1,12 @@
 package logic.controller.graphic;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import logic.bean.LoginBean;
@@ -18,9 +20,10 @@ import logic.support.other.MailBox;
 public class HeaderBar extends HeaderController implements Observer{
 		
 	private MailBox mailbox;
-	private Boolean logged;
+	private Boolean changeState = false;
+	private Boolean logged = false;
 	private ChatController chatNotif = new ChatController();
-	ImageView profilePic = new ImageView();
+	private ProfileBox profileBox = new ProfileBox();
 	
 	
 	@FXML
@@ -48,6 +51,9 @@ public class HeaderBar extends HeaderController implements Observer{
 	private HBox loginBox;
 	
 	@FXML
+	private HBox headerBox;
+	
+	@FXML
 	public void goToHome() {
 		goToScene("home");
 	}
@@ -71,12 +77,6 @@ public class HeaderBar extends HeaderController implements Observer{
 	public void goToPostAnAd() {
 		goToScene("postad");
 	}
-	
-	@FXML
-	public void logout() {
-		
-	}
-	
 
 	@Override
 	public void updateHeader() {
@@ -84,12 +84,16 @@ public class HeaderBar extends HeaderController implements Observer{
 		UserBean loggedUser = (UserBean) getBodyManager().getCurrentSceneController().getBundle().getBean("loggedUser");
 		MailBox box = (MailBox) getBodyManager().getCurrentSceneController().getBundle().getObject("mailbox");
 		
-		if(loggedUser != null){
+		if(loggedUser != null && !logged){
+			changeState = true;
 			logged = true;
 		}
-		else {
+		if(loggedUser == null && logged) {
+			changeState = true;
 			logged = false;
 		}
+		
+		switchProfileView(loggedUser);
 		
 		if(box != null) {
 			box.register(this);
@@ -103,13 +107,18 @@ public class HeaderBar extends HeaderController implements Observer{
 	public void onLoad() {
 		// TODO Auto-generated method stub
 		
+		
 	}
 
 	@Override
 	public void update() {
 		
+		
+		ListMenuView menu = (ListMenuView) this.getMenuManager();
+		
+		
 		if(chatNotif.getChatNotifications(mailbox)) {
-			
+			menu.notifyVoice("chat");
 		}
 		
 		
@@ -118,7 +127,24 @@ public class HeaderBar extends HeaderController implements Observer{
 
 	
 
+	private void switchProfileView(UserBean loggedUser) {
+		
+		if(Boolean.TRUE.equals(changeState)) {
+			changeState = false;
+			headerBox.getChildren().remove(loginBox);
+			headerBox.getChildren().add(profileBox);
+			profileBox.setProfileName(loggedUser.getUserID());
+			profileBox.setProfilePic(loggedUser.getProfilePicPath());
+			profileBox.setOnMouseClicked(new EventHandler<>() {
 
+				@Override
+				public void handle(MouseEvent arg0) {
+					getBodyManager().switchMenu();
+				}
+				
+			});
+		}
+	}
 	
 	
 	

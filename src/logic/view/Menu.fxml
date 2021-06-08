@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #00000033;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ListMenuView">
+   <children>
+      <StackPane layoutX="1048.0" layoutY="-6.0" prefHeight="185.0" prefWidth="220.0" stylesheets="@style/Headbar.css">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Pane prefHeight="7.0" prefWidth="220.0" />
+                  <Pane prefHeight="183.0" prefWidth="220.0" style="-fx-background-color: WHITE;" styleClass="container" />
+               </children>
+            </VBox>
+            <VBox fx:id="menuList" prefHeight="137.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <HBox fx:id="profileVoice" alignment="CENTER_LEFT" onMouseClicked="#goToProfile" prefHeight="42.0" prefWidth="209.0" spacing="10.0" styleClass="menu-voice">
+                     <children>
+                        <Circle radius="5.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="circle">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Label styleClass="menu-voice-text" text="Profile" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="walletVoice" alignment="CENTER_LEFT" onMouseClicked="#goToWallet" prefHeight="42.0" prefWidth="209.0" spacing="10.0" styleClass="menu-voice">
+                     <children>
+                        <Circle radius="5.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="circle">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Label styleClass="menu-voice-text" text="Wallet" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="chatVoice" alignment="CENTER_LEFT" onMouseClicked="#goToChat" prefHeight="37.0" prefWidth="232.0" spacing="10.0" styleClass="menu-voice">
+                     <children>
+                        <Circle radius="5.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="circle">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Label styleClass="menu-voice-text" text="Chat" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="wishlistVoice" alignment="CENTER_LEFT" onMouseClicked="#goToWishlist" prefHeight="42.0" prefWidth="209.0" spacing="10.0" styleClass="menu-voice">
+                     <children>
+                        <Circle radius="5.0" strokeType="INSIDE" styleClass="circle">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Label styleClass="menu-voice-text" text="WishList" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="logoutVoice" alignment="CENTER_LEFT" onMouseClicked="#logout" prefHeight="42.0" prefWidth="209.0" spacing="10.0" styleClass="menu-voice">
+                     <children>
+                        <Circle radius="5.0" styleClass="circle">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Label styleClass="menu-voice-text" text="Log out" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

@@ -134,7 +134,7 @@ public class ItemInSaleDAO {
 				itemInSale.addMedia(filePath);
 			}
 
-
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 

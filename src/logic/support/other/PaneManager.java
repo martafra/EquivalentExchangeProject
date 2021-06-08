@@ -14,6 +14,8 @@ public class PaneManager extends StackPane{
 	private HashMap<Node, SceneManageable> sceneControllers = new HashMap<>();
 	private HeaderController headerBarController = null;
 	private Node headerContent = null;
+	private Node menuContent = null;
+	private Boolean menuState = false;
 	
 	private static final Integer PREFERRED_WIDTH = 1280;
 	private static final Integer PREFERRED_HEIGHT = 720;
@@ -35,13 +37,43 @@ public class PaneManager extends StackPane{
 		
 		
 	}
-	
+
 	private void bindHeaderBarController(HeaderController headerBar) {
 		
 		headerBar.setBodyManager(this);
 		this.headerBarController = headerBar;
-		
+		headerBar.onLoad();
 	}
+	
+	public void loadMenu(String resourcePath) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
+		try {
+			this.menuContent = loader.load();
+			MenuController menuController = loader.getController();
+			menuController.attachToHeader(headerBarController);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void switchMenu() {
+		
+		
+		if(!getChildren().isEmpty()) {
+			
+			if(!menuState) {
+				getChildren().add(1, menuContent);
+			}else {
+				getChildren().remove(1);
+			}
+			
+			menuState = !menuState;
+			
+		}
+	}
+	
 
 	private Node getScene(String name){
         return this.loadedScenes.get(name);
