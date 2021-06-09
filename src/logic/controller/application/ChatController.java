@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ChatBean;
 import logic.bean.UserBean;
 import logic.entity.ChatMessage;
+import logic.entity.Order;
 import logic.entity.User;
 import logic.entity.UserProfile;
 import logic.enumeration.NotificationType;
@@ -35,15 +37,29 @@ public class ChatController{
 		ArrayList<UserBean> activeUsers = new ArrayList<>();
 		
 		UserDAO userDAO = new UserDAO();
+		OrderDAO orderDAO = new OrderDAO();
 		UserProfileDAO userProfileDAO = new UserProfileDAO();
-		UserProfile testProfile = userProfileDAO.selectProfileByUsername("co712", true);
-		User testUser = userDAO.selectUser("co712");
 		
-		UserBean testBean = new UserBean();
-		testBean.setUserID(testUser.getUsername());
-		testBean.setProfilePicPath(testProfile.getProfilePicturePath());
-		activeUsers.add(testBean);
-
+		List<Order> userOrders = orderDAO.selectAllOrders(user.getUserID());
+		
+		for(Order order : userOrders) {
+			User otherUser;
+			if(user.getUserID().equals(order.getBuyer().getUsername())) {
+				otherUser = order.getInvolvedItem().getSeller();
+			}else {
+				otherUser = order.getBuyer();
+			}
+			
+			UserProfile profileData = userProfileDAO.selectProfileByUsername(otherUser.getUsername(), true);
+			UserBean otherUserBean = new UserBean();
+			otherUserBean.setName(otherUser.getName());
+			otherUserBean.setLastName(otherUser.getSurname());
+			otherUserBean.setUserID(otherUser.getUsername());
+			otherUserBean.setEmail(otherUser.getEmail());
+			otherUserBean.setProfilePicPath(profileData.getProfilePicturePath());
+			activeUsers.add(otherUserBean);
+		}
+	
 		return activeUsers;
 	}
 	

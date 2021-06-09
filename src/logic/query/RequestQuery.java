@@ -15,10 +15,12 @@ public class RequestQuery extends Query{
 			return String.format(query, buyer, item);
 		}
 		
-		public String selectAllRequests(String buyer) {
-			buyer = quote(buyer);
-			String query = "SELECT * FROM request WHERE buyer = %s;";
-			return String.format(query, buyer);
+		public String selectAllRequests(String seller) {
+			seller = quote(seller);
+			String query = "select A.buyer, A.referredItemID, A.requestStatus, A.note "
+						 + "FROM Request A INNER JOIN itemInSale B "
+						 + "ON A.referredItemID = B.itemInSaleID AND B.userid = %s";
+			return String.format(query, seller);
 		}
 		
 		public String deleteRequest(String buyer, Integer item) {

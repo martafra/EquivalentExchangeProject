@@ -31,7 +31,7 @@ public class ListMenuView extends MenuController implements Initializable{
 	
 	@FXML
 	public void goToProfile() {
-		goToScene("home");
+		goToScene("sellerpanel");
 	}
 	@FXML
 	public void goToWallet() {

@@ -122,7 +122,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		if(currentChatUser == null)
 			return;
 		
-		messageBox.getChildren().removeAll();
+		messageBox.getChildren().clear();
 		
 		for(ChatBean message : sortedMessages.get(currentChatUser.getUserID())) {
 			messageBox.getChildren().add(new Label(message.getSender() + " > " + message.getMessageText()));

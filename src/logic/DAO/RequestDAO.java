@@ -89,7 +89,7 @@ public class RequestDAO {
 		return request;
 	}
 	
-	public ArrayList<Request> selectAllRequests(String buyer) {
+	public ArrayList<Request> selectAllRequests(String seller) {
 		ArrayList<Request> requests = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs;
@@ -98,7 +98,7 @@ public class RequestDAO {
 			
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = requestQuery.selectAllRequests(buyer);
+			String query = requestQuery.selectAllRequests(seller);
 			rs = stmt.executeQuery(query);
 			UserDAO userDAO = new UserDAO();
 			ItemInSaleDAO itemDAO = new ItemInSaleDAO();
@@ -108,7 +108,7 @@ public class RequestDAO {
 					status = true;
 				else
 					status = false;
-				requests.add(new Request(userDAO.selectUser(buyer), itemDAO.selectItemInSale(rs.getInt("referredItemID")), status, rs.getString("note")));
+				requests.add(new Request(userDAO.selectUser(rs.getString("buyer")), itemDAO.selectItemInSale(rs.getInt("referredItemID")), status, rs.getString("note")));
 			}		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
