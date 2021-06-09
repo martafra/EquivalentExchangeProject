@@ -8,9 +8,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="739.0" prefWidth="427.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.CatalogueView">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="734.0" prefWidth="1271.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.CatalogueView">
   <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;
@@ -20,26 +21,27 @@
     -fx-border-color: blue;
   </style>
   <children>
-    <Label fx:id="placeHolder" alignment="CENTER" cache="true" cacheHint="SCALE" text="Catalogue" textAlignment="CENTER" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <Pane prefHeight="722.0" prefWidth="1041.0">
          <children>
-            <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="342.0" promptText="Search item name here!" />
-            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="Search" />
+            <TextField fx:id="searchBar" layoutX="7.0" layoutY="14.0" prefHeight="25.0" prefWidth="1117.0" promptText="Search item name here!" />
+            <Button fx:id="searchBtn" layoutX="1124.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="99.0" text="Search" />
+            <Label layoutX="996.0" layoutY="89.0" text="Order by:" />
+            <HBox layoutX="8.0" layoutY="53.0" prefHeight="25.0" prefWidth="623.0" spacing="50.0">
+               <children>
+                  <RadioButton fx:id="all" mnemonicParsing="false" onAction="#all" text="All">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="type" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="book" mnemonicParsing="false" onAction="#book" text="Book" toggleGroup="$type" />
+                  <RadioButton fx:id="movie" mnemonicParsing="false" onAction="#movie" text="Movie" toggleGroup="$type" />
+                  <RadioButton fx:id="videogame" mnemonicParsing="false" onAction="#videogame" text="VideoGame" toggleGroup="$type" />
+               </children>
+            </HBox>
+            <ComboBox fx:id="genre" layoutX="7.0" layoutY="85.0" onAction="#genre" prefWidth="150.0" promptText="GENRE" />
+            <ListView fx:id="list" layoutX="7.0" layoutY="119.0" prefHeight="563.0" prefWidth="1227.0" />
+            <ComboBox fx:id="orderBy" layoutX="1073.0" layoutY="85.0" onAction="#orderBy" prefWidth="150.0" />
          </children>
-      </HBox>
-      <HBox prefHeight="50.0" prefWidth="393.0" spacing="50.0">
-         <children>
-            <RadioButton fx:id="all" mnemonicParsing="false" onAction="#all" text="All">
-               <toggleGroup>
-                  <ToggleGroup fx:id="type" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="book" mnemonicParsing="false" onAction="#book" text="Book" toggleGroup="$type" />
-            <RadioButton fx:id="movie" mnemonicParsing="false" onAction="#movie" text="Movie" toggleGroup="$type" />
-            <RadioButton fx:id="videogame" mnemonicParsing="false" onAction="#videogame" text="VideoGame" toggleGroup="$type" />
-         </children>
-      </HBox>
-      <ComboBox fx:id="genre" onAction="#genre" prefWidth="150.0" promptText="GENRE" />
-      <ListView fx:id="list" prefHeight="657.0" prefWidth="393.0" />  
+      </Pane>  
   </children>
 </VBox>

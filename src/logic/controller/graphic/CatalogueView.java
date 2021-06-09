@@ -36,6 +36,7 @@ public class CatalogueView extends SceneManageable {
 	private boolean inizialize = false;
 	
 	private String searchStr;
+	private String orderByStr;
 	private String typeStr;
 	private String genreStr;
 	private String consoleStr;
@@ -59,6 +60,8 @@ public class CatalogueView extends SceneManageable {
 	private RadioButton all;
 	@FXML
 	private ComboBox<String> genre;
+	@FXML
+	private ComboBox<String> orderBy;
 	@FXML 
 	private ToggleGroup type;
 	
@@ -77,6 +80,8 @@ public class CatalogueView extends SceneManageable {
 		if (searchBar.getText()!=null) {
 			searchBar.setText("");
 		}
+		
+		setOrderByList();
 		
 		setListView();	
 	}
@@ -158,12 +163,9 @@ public class CatalogueView extends SceneManageable {
     }
 	
 	public void doSearch() {
-		String[] filters = {searchStr, typeStr, genreStr, consoleStr};
-		if( (filters[0] != null && !filters[0].isBlank() ) || filters[1]!= null) {
+		String[] filters = {searchStr, orderByStr, typeStr, genreStr, consoleStr};
 			itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);
-		}else {
-			itemInSaleBeanList = controller.getListItemInSaleBean();
-		}
+		
 		ObservableList<ItemInSaleBean> data = FXCollections.observableArrayList(itemInSaleBeanList);
 		list.setItems(data);
 		
@@ -203,6 +205,12 @@ public class CatalogueView extends SceneManageable {
 		doSearch();
 	}
 	
+	public void orderBy() {
+		orderByStr = orderBy.getValue();
+		doSearch();
+		
+	}
+	
 	public void setGenreList(String type) { //TODO far riapparire la scritta GENRE
 		
 		genre.getItems().clear();
@@ -213,6 +221,11 @@ public class CatalogueView extends SceneManageable {
 			genre.getItems().add(gen);
 		}
 	
+	}
+	
+	public void setOrderByList() {
+		orderBy.getItems().add("Rising Price");
+		orderBy.getItems().add("Decreasing Price");
 	}
 	
 	

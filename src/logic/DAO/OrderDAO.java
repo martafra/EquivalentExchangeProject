@@ -43,10 +43,11 @@ public class OrderDAO {
 			Date orderDate = null;
 			Date startDate = null;
 			try {
-				orderDate = format.parse(rs.getString("orderDate"));
 				startDate = format.parse(rs.getString("startDate"));
-			} catch (ParseException e) {
+				orderDate = format.parse(rs.getString("orderDate"));
+			} catch (NullPointerException | ParseException e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			Boolean sellerStatus = false;
