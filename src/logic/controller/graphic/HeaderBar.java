@@ -113,10 +113,8 @@ public class HeaderBar extends HeaderController implements Observer{
 	@Override
 	public void update() {
 		
-		
 		ListMenuView menu = (ListMenuView) this.getMenuManager();
-		
-		
+			
 		if(chatNotif.getChatNotifications(mailbox)) {
 			menu.notifyVoice("chat");
 		}

@@ -39,7 +39,7 @@ public class ListMenuView extends MenuController implements Initializable{
 	}
 	@FXML
 	public void goToChat() {
-		goToScene("home");
+		goToScene("chat");
 	}
 	@FXML
 	public void goToWishlist() {

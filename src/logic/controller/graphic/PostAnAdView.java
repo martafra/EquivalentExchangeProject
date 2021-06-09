@@ -85,7 +85,6 @@ public class PostAnAdView extends SceneManageable{
 		int selectedItemIndex = itemList.getSelectionModel().getSelectedIndex();
 		ItemBean selectedItem = items.get(selectedItemIndex);
 		
-		
 		ad.setPrice(Integer.valueOf(price.getText()));
 		ad.setDescription(description.getText());
 		System.out.println(description.getText());
@@ -93,7 +92,7 @@ public class PostAnAdView extends SceneManageable{
 		ad.setReferredItemID(selectedItem.getItemID());
 		
 		if(ad.getMedia() == null) {
-			ad.setMedia(new ArrayList<String>());
+			ad.setMedia(new ArrayList<>());
 		}
 		
 		controller.post(ad, user);
