@@ -108,7 +108,7 @@ public class RequestDAO {
 					status = true;
 				else
 					status = false;
-				requests.add(new Request(userDAO.selectUser(buyer), itemDAO.selectItemInSale(rs.getInt("referredItem")), status, rs.getString("note")));
+				requests.add(new Request(userDAO.selectUser(buyer), itemDAO.selectItemInSale(rs.getInt("referredItemID")), status, rs.getString("note")));
 			}		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

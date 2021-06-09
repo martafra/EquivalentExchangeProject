@@ -24,7 +24,7 @@ public class RequestQuery extends Query{
 		public String deleteRequest(String buyer, Integer item) {
 			
 			buyer = quote(buyer);
-			String query = "DELETE FROM request WHERE buyer = %s AND item = %d;";
-			return String.format(query, buyer);
+			String query = "DELETE FROM request WHERE buyer = %s AND referredItemID = %d;";
+			return String.format(query, buyer, item);
 		}
 }

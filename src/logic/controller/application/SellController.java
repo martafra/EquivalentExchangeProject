@@ -14,6 +14,7 @@ import logic.bean.RequestBean;
 import logic.bean.UserBean;
 import logic.entity.ItemInSale;
 import logic.entity.Order;
+import logic.entity.Request;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
@@ -36,6 +37,28 @@ public class SellController {
 		}
 		return itemBeans;
 	}
+	
+	public List<RequestBean> getRequestList(UserBean userBean){
+		String username = userBean.getUserID();
+		RequestDAO requestDAO = new RequestDAO();
+		ArrayList<Request> requests = (ArrayList<Request>) requestDAO.selectAllRequests(username);
+		ArrayList<RequestBean> requestBeans = new ArrayList<>();
+		for(Request request: requests) {
+			RequestBean requestBean = new RequestBean();
+			ItemInSale item = request.getReferredItem();
+			ItemInSaleBean itemBean = new ItemInSaleBean();
+			itemBean.setItemID(item.getItemInSaleID());
+			itemBean.setItemName(item.getReferredItem().getName());
+			itemBean.setMediaPath(item.getMedia().get(0));
+			requestBean.setBuyer(request.getBuyer().getUsername());
+			requestBean.setNote(request.getNote());
+			requestBean.setReferredItemBean(itemBean);
+
+			requestBeans.add(requestBean);
+		}
+		return requestBeans;
+	}
+	
 	
 	public void acceptRequest(RequestBean requestBean) {
 		Notification rejectedRequest = new Notification();

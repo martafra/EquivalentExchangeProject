@@ -3,7 +3,7 @@ package logic.bean;
 public class RequestBean {
 	
 	private String buyer;
-	private Integer referredItem;
+	private ItemInSaleBean referredItemBean;
 	private Boolean requestStatus;
 	private String note;
 	
@@ -14,10 +14,10 @@ public class RequestBean {
 		this.buyer = buyer;
 	}
 	public Integer getReferredItem() {
-		return referredItem;
+		return referredItemBean.getItemID();
 	}
-	public void setReferredItem(Integer referredItem) {
-		this.referredItem = referredItem;
+	public void setReferredItem(Integer itemID) {
+		this.referredItemBean.setItemID(itemID);
 	}
 	public Boolean getRequestStatus() {
 		return requestStatus;
@@ -30,6 +30,12 @@ public class RequestBean {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public ItemInSaleBean getReferredItemBean() {
+		return referredItemBean;
+	}
+	public void setReferredItemBean(ItemInSaleBean referredItemBean) {
+		this.referredItemBean = referredItemBean;
 	}
 	
 }

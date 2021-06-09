@@ -2,6 +2,7 @@ package logic.controller.graphic;
 
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,7 +11,6 @@ import javafx.scene.layout.VBox;
 import logic.bean.ItemAdBean;
 import logic.bean.ItemBean;
 import logic.bean.ItemInSaleBean;
-import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.ItemDetailsController;
 import logic.support.other.Bundle;
@@ -18,7 +18,7 @@ import logic.support.other.SceneManageable;
 
 public class ItemDetailsView extends SceneManageable {
 	
-	private LoginBean loggedUser;
+	private UserBean loggedUser;
 	private UserBean seller;
 	private ItemBean item;
 	private ItemAdBean itemAd;
@@ -55,7 +55,7 @@ public class ItemDetailsView extends SceneManageable {
     	
     	super.onLoad(bundle);
     	
-    	loggedUser = (LoginBean)bundle.getBean("loggedUser");
+    	loggedUser = (UserBean)bundle.getBean("loggedUser");
     	ItemInSaleBean itemInSale = (ItemInSaleBean)bundle.getBean("selectedItem");
     	
     	itemAd =  controller.getItemAdByID(itemInSale.getItemID());

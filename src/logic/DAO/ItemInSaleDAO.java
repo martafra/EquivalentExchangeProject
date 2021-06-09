@@ -133,6 +133,11 @@ public class ItemInSaleDAO {
 				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
 				itemInSale.addMedia(filePath);
 			}
+			
+			if(itemInSale.getMedia().isEmpty())
+			{
+				itemInSale.addMedia("/logic/view/assets/images/missing.png");
+			}
 
 			if(itemInSale.getMedia().isEmpty()){
 				itemInSale.addMedia("/logic/view/assets/images/missing.png");
