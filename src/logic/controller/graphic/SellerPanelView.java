@@ -49,6 +49,7 @@ public class SellerPanelView extends SceneManageable{
 		}
 		
 		List<ItemInSaleBean> itemBeans = sellController.getItemList(loggedUser);
+		itemBox.getChildren().clear();
 		for(ItemInSaleBean itemBean : itemBeans) {
 			Pane productCase = fillProductCase(itemBean);
 			itemBox.getChildren().add(productCase);
@@ -56,6 +57,7 @@ public class SellerPanelView extends SceneManageable{
 		
 
 		List<RequestBean> requestBeans = sellController.getRequestList(loggedUser);
+		requestBox.getChildren().clear();
 		for(RequestBean requestBean: requestBeans) {
 			Pane requestCase = fillRequestCase(requestBean);
 			requestBox.getChildren().add(requestCase);
@@ -77,6 +79,7 @@ public class SellerPanelView extends SceneManageable{
 		Integer price = itemBean.getPrice();
 		String name = itemBean.getItemName();
 		Image pic = new Image(itemBean.getMediaPath());
+		System.out.println("percorso: " + itemBean.getMediaPath());
 		
 		attr = productCase.getChildren();
 		for(Node n: attr) {

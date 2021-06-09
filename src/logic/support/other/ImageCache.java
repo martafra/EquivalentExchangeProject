@@ -16,7 +16,7 @@ public class ImageCache {
 	
 	private static ImageCache instance = null;
 	private static final String MISSING_IMAGE_PATH = "/logic/view/assets/images/missing.png";
-	private ArrayList<String> paths = new ArrayList<>();
+	private ArrayList<String> fileNames = new ArrayList<>();
 	private Path directoryPath;
 	
 	private ImageCache() {
@@ -38,6 +38,13 @@ public class ImageCache {
 	
 	public String addImage(String name, InputStream data) {
 		
+		if(fileNames.contains(name)){
+			String filePath = directoryPath.toString() + "/" + name;
+			filePath = "file:///" + filePath;
+			return filePath.replace('\\', '/');
+		}
+
+
 		if(data == null) {
 			return MISSING_IMAGE_PATH;
 		}
@@ -55,6 +62,7 @@ public class ImageCache {
 				IOUtils.copy(data, output);	
 				output.close();
 				data.close();
+				fileNames.add(name);
 			}else { 
 				filePath = MISSING_IMAGE_PATH;
 			}
