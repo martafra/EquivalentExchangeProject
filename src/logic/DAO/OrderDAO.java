@@ -104,8 +104,10 @@ public class OrderDAO {
 				Date orderDate = null;
 				Date startDate = null;
 				try {
-					orderDate = format.parse(rs.getString("orderDate"));
-					startDate = format.parse(rs.getString("startDate"));
+					if(rs.getString("orderDate") != null)
+						orderDate = format.parse(rs.getString("orderDate"));
+					if(rs.getString("startDate") != null)
+						startDate = format.parse(rs.getString("startDate"));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -120,7 +122,7 @@ public class OrderDAO {
 				if(rs.getInt("buyerStatus") == 1)
 					buyerStatus = true;
 				
-				orders.add(new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItem")), orderDate,
+				orders.add(new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
 						startDate, userDAO.selectUser(username), buyerStatus, sellerStatus));
 			}
 

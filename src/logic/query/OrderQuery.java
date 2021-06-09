@@ -20,15 +20,20 @@ public class OrderQuery extends Query{
 	public String insertOrder(Integer id, Date orderDate, String code, Date startDate, String seller, String buyer, Integer item, Integer buyerStatus, Integer sellerStatus) {
 		
 		DateFormat format = new SimpleDateFormat(dateTimeFormat);
-		String start = quote(format.format(startDate));
-		String end = quote(format.format(orderDate));
+		
+		String end = "null";
+		if(orderDate != null)
+			end = quote(format.format(orderDate));
+		String start = "null";
+		if(startDate != null)
+			start = quote(format.format(startDate));
 		code = quote(code);
 		seller = quote(seller);
 		buyer = quote(buyer);
 		
-		String query = "INSERT INTO itemorder (itemInSaleID, price, saleDescription, itemCondition, preferredLocation, "
-				+ "referredItemID, userID, referredOrderID, sellerStatus, buyerStatus) VALUES (%d, %d, %s, %d, %s, %s, %d, %s, %d, %d, %d);";
-		return String.format(query, id, end, code, start, seller, buyer, item, sellerStatus, buyerStatus);
+		String query = "INSERT INTO itemorder (orderID, orderDate, sellerStatus, code, sellerID, buyerID, "
+					 + "referredItemID, startDate, buyerStatus) VALUES (%d, %s, %d, %s, %s, %s, %d, %s, %d);";
+		return String.format(query, id, end, sellerStatus, code, seller, buyer, item, start, buyerStatus);
 	}
 	
 	public String updateOrder(Integer id, Date orderDate, Date startDate, String code, Integer buyerStatus, Integer sellerStatus) {
