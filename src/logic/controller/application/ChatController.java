@@ -50,6 +50,9 @@ public class ChatController{
 				otherUser = order.getBuyer();
 			}
 			
+			System.out.println(order.getBuyer().getUsername());
+			System.out.println(order.getInvolvedItem().getSeller().getUsername());
+			
 			UserProfile profileData = userProfileDAO.selectProfileByUsername(otherUser.getUsername(), true);
 			UserBean otherUserBean = new UserBean();
 			otherUserBean.setName(otherUser.getName());

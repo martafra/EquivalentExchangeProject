@@ -89,6 +89,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	
 	private void loadUsers() {
 		ArrayList<UserBean> activeChats = (ArrayList<UserBean>) controller.getActiveChats(loggedUser);
+		chatList.getChildren().clear();
 		for(UserBean userData : activeChats) {
 			
 			sortedMessages.put(userData.getUserID(), new ArrayList<>());

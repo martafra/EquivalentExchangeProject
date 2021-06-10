@@ -123,7 +123,7 @@ public class OrderDAO {
 					buyerStatus = true;
 				
 				orders.add(new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
-						startDate, userDAO.selectUser(username), buyerStatus, sellerStatus));
+						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus));
 			}
 
 		} catch (SQLException e) {

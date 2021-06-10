@@ -61,37 +61,6 @@ public class ItemInSaleQuery extends Query{
 		return query;
 	}
 
-	/*public String getItemsInSaleFiltered(String[] filters) {
-		String filter = "";
-		String filter2 ="";
-		if (filters[0] != null) { // Se e' presente la parola di ricerca
-			filter = " itemName like '%%" + filters[0] + "%%' ";
-			if (filters[2] != null) {
-				filter = filter + " and ";
-			}
-		}
-		if (filters[2] != null) { // Abbiamo il tipo
-			filter = filter + " itemType = '" + filters[2] + "' ";
-			if (filters[3] != null) { // Abbiamo il genere del tipo
-				filter = filter + " AND genre = '" + filters[3] + "' ";
-			}
-			if (filters[4] != null) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
-				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters[4] + "') "; // TODO controllare tabelle database
-			}
-		}
-		if (filters[1] != null) {
-			filter2 = filter2 + " ORDER BY ";
-			if (filters[1].equals("Rising Price")){
-				filter2 = filter2 + "price";
-			}
-			else if (filters[1].equals("Decreasing Price")){
-				filter2 = filter2 + "price DESC";
-			}
-		}
-			
-		return "SELECT * FROM ItemInSale WHERE referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") " + filter2;
-	}*/
-	
 	public String getItemsInSaleFiltered(String[] filters) {
 		String filter = "";
 		String filter2 ="";

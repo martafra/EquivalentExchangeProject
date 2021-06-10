@@ -42,7 +42,7 @@ public class BuyController {
 		
 	}
 	
-	public Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
+	private Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
 		
 		UserDAO userD = new UserDAO();
 		OrderDAO orderD = new OrderDAO();
@@ -137,7 +137,6 @@ public class BuyController {
         String numeri = "0123456789";
         String perRandom = upper + lower + numeri;
         int lunghezzaRandom = 20;
-
         SecureRandom sr = new SecureRandom();
         StringBuilder sb = new StringBuilder(lunghezzaRandom);
         for (int i = 0; i < lunghezzaRandom; i++) {
@@ -145,10 +144,11 @@ public class BuyController {
             char randomChar = perRandom.charAt(randomInt);
             sb.append(randomChar);
         }
+        
         return sb.toString();
 	}
 	
-	public void startTimer(Integer orderId, Long delay) {
+	private void startTimer(Integer orderId, Long delay) {
 		
 		Timer timer = new Timer("Order" + orderId);
 		TimerTask task = new TimerTask() {

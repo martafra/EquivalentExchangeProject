@@ -18,8 +18,6 @@ public abstract class Subject {
 				}
 			}	
 		});
-		
-		
 	}
 	
 	public void register(Observer ob) {
