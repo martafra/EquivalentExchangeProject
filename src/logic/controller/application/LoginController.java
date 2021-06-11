@@ -57,9 +57,13 @@ public class LoginController {
 		return true;
 	}
 	
-	public void logout() {
+	public void logout(UserBean loggedUser) {
 		SessionHandler session = new SessionHandler();
-		session.endSession(null, null, 0);
+		ConnectionServer serverInstance = ConnectionServer.getInstance();
+		String ip = serverInstance.getConnectionData().getIP();
+		Integer port = serverInstance.getConnectionData().getPort();
+		session.endSession(loggedUser.getUserID(), ip, port);
+		serverInstance.stopServer();
 	}
 	
 	
@@ -86,12 +90,15 @@ public class LoginController {
 	public MailBox connect(UserBean userData){
 
 		var mailBox = new MailBox();
-		ConnectionData myServerData = new ConnectionServer(mailBox).getConnectionData();
+		ConnectionServer server = ConnectionServer.getInstance();
+		server.setMailBox(mailBox);
+		ConnectionData myServerData = server.getConnectionData();
 		SessionHandler session = new SessionHandler();
 		
 		if(session.startSession(userData.getUserID(), myServerData.getIP() , myServerData.getPort()))
-			return mailBox;
-		return null;
+			server.startServer();
+			
+		return mailBox;
 	}
 	
 	

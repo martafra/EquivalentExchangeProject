@@ -25,6 +25,14 @@ public class Bundle {
 		return genericContent.get(id);
 	}
 	
+	public void removeBean(String id) {
+		beanContent.remove(id);
+	}
+	
+	public void removeObject(String id) {
+		genericContent.remove(id);
+	}
+	
 	
 	
 }

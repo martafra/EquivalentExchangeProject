@@ -150,6 +150,10 @@ public class PaneManager extends StackPane{
 		headerBarController.updateHeader();
 	}
 
+	public HeaderController getHeaderController() {
+		return this.headerBarController;
+	}
+
     
 	
 }

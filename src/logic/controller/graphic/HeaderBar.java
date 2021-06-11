@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.ChatController;
+import logic.controller.application.LoginController;
 import logic.support.interfaces.Observer;
 import logic.support.other.HeaderController;
 import logic.support.other.MailBox;
@@ -22,7 +23,9 @@ public class HeaderBar extends HeaderController implements Observer{
 	private MailBox mailbox;
 	private Boolean changeState = false;
 	private Boolean logged = false;
+	private UserBean loggedUser;
 	private ChatController chatNotif = new ChatController();
+	private LoginController logController = new LoginController();
 	private ProfileBox profileBox = new ProfileBox();
 	
 	
@@ -81,7 +84,7 @@ public class HeaderBar extends HeaderController implements Observer{
 	@Override
 	public void updateHeader() {
 		
-		UserBean loggedUser = (UserBean) getBodyManager().getCurrentSceneController().getBundle().getBean("loggedUser");
+		loggedUser = (UserBean) getBodyManager().getCurrentSceneController().getBundle().getBean("loggedUser");
 		MailBox box = (MailBox) getBodyManager().getCurrentSceneController().getBundle().getObject("mailbox");
 		
 		if(loggedUser != null && !logged){
@@ -123,26 +126,43 @@ public class HeaderBar extends HeaderController implements Observer{
 	
 	}
 
-	
+	public void logout() {
+		// TODO Auto-generated method stub
+		if(logged)
+		{
+			logController.logout(loggedUser);
+			this.getBodyManager().getCurrentSceneController().getBundle().removeBean("loggedUser");
+			updateHeader();
+		}
+	}
 
 	private void switchProfileView(UserBean loggedUser) {
 		
 		if(Boolean.TRUE.equals(changeState)) {
 			changeState = false;
-			headerBox.getChildren().remove(loginBox);
-			headerBox.getChildren().add(profileBox);
-			profileBox.setProfileName(loggedUser.getUserID());
-			profileBox.setProfilePic(loggedUser.getProfilePicPath());
-			profileBox.setOnMouseClicked(new EventHandler<>() {
+			if(Boolean.TRUE.equals(logged))
+			{
+				headerBox.getChildren().remove(loginBox);
+				headerBox.getChildren().add(profileBox);
+				profileBox.setProfileName(loggedUser.getUserID());
+				profileBox.setProfilePic(loggedUser.getProfilePicPath());
+				profileBox.setOnMouseClicked(new EventHandler<>() {
 
-				@Override
-				public void handle(MouseEvent arg0) {
-					getBodyManager().switchMenu();
-				}
-				
-			});
+					@Override
+					public void handle(MouseEvent arg0) {
+						getBodyManager().switchMenu();
+					}
+					
+				});
+			}else {
+				headerBox.getChildren().remove(profileBox);
+				headerBox.getChildren().add(loginBox);
+			}
+			
 		}
 	}
+
+	
 	
 	
 	

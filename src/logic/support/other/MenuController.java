@@ -11,8 +11,15 @@ public abstract class MenuController {
 	}
 	
 	protected void goToScene(String sceneName) {
-		headerBar.getBodyManager().switchMenu();
+		switchMenu();
 		headerBar.getBodyManager().setScene(sceneName);
 	}
 	
+	protected HeaderController getAttachedHeader() {
+		return this.headerBar;
+	}
+	
+	protected void switchMenu() {
+		headerBar.getBodyManager().switchMenu();
+	}
 }

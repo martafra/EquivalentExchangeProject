@@ -47,7 +47,9 @@ public class ListMenuView extends MenuController implements Initializable{
 	}
 	@FXML
 	public void logout() {
-		goToScene("home");
+		HeaderBar hb = (HeaderBar) this.getAttachedHeader();
+		hb.logout();
+		switchMenu();
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
