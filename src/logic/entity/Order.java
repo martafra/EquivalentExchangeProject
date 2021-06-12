@@ -86,4 +86,12 @@ public class Order {
 		this.buyer = user;
 	}
 
+	public Boolean getSellerStatus() {
+		return sellerStatus;
+	}
+
+	public Boolean getBuyerStatus() {
+		return buyerStatus;
+	}
+
 }

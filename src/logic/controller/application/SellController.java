@@ -184,7 +184,7 @@ public class SellController {
 		//TODO gestire media
 		
 		orderSummary.setBuyer(buyerData);
-		orderSummary.setinvolvedItem(itemData);
+		orderSummary.setInvolvedItem(itemData);
 		return orderSummary;
 	}
 	

@@ -27,3 +27,6 @@
 	-fx-background-color: #FF6A00;
 	-fx-text-fill: #FFFFFF;
 }
+.rounded-pane{
+	-fx-border-radius: 15px;
+}

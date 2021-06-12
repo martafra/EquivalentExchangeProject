@@ -35,7 +35,7 @@ public class ListMenuView extends MenuController implements Initializable{
 	}
 	@FXML
 	public void goToWallet() {
-		goToScene("home");
+		goToScene("wallet");
 	}
 	@FXML
 	public void goToChat() {
