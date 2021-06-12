@@ -8,6 +8,7 @@ public class ItemInSaleBean implements Bean{
 	Integer itemID;
 	String itemName;
 	String mediaPath;
+	UserBean seller;
 	
 	public Integer getPrice() {
 		return price;
@@ -33,5 +34,12 @@ public class ItemInSaleBean implements Bean{
 	public void setMediaPath(String mediaPath) {
 		this.mediaPath = mediaPath;
 	}
+	public UserBean getSeller() {
+		return seller;
+	}
+	public void setSeller(UserBean seller) {
+		this.seller = seller;
+	}
+	
 	
 }
