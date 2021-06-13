@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import logic.DAO.MessageDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
@@ -21,6 +22,8 @@ public class ChatController{
 	
 	public void sendMessage(ChatBean messageData){
 		
+		MessageDAO chatDAO = new MessageDAO();
+		
 		String senderID = messageData.getSender();
 		String text = messageData.getMessageText();
 		Date messageDate = new Date();
@@ -30,13 +33,13 @@ public class ChatController{
 		
 		MessageSender sender = new MessageSender();
 		sender.sendChatMessage(receiverID, message);
-		
+		sender.sendChatMessage(message.getSender(), message);
+		chatDAO.addMessageforUser(message, receiverID);
     }
 	
 	public List<UserBean> getActiveChats(UserBean user){
 		ArrayList<UserBean> activeUsers = new ArrayList<>();
 		
-		UserDAO userDAO = new UserDAO();
 		OrderDAO orderDAO = new OrderDAO();
 		UserProfileDAO userProfileDAO = new UserProfileDAO();
 		
@@ -50,9 +53,6 @@ public class ChatController{
 				otherUser = order.getBuyer();
 			}
 			
-			System.out.println(order.getBuyer().getUsername());
-			System.out.println(order.getInvolvedItem().getSeller().getUsername());
-			
 			UserProfile profileData = userProfileDAO.selectProfileByUsername(otherUser.getUsername(), true);
 			UserBean otherUserBean = new UserBean();
 			otherUserBean.setName(otherUser.getName());
@@ -62,23 +62,44 @@ public class ChatController{
 			otherUserBean.setProfilePicPath(profileData.getProfilePicturePath());
 			activeUsers.add(otherUserBean);
 		}
-	
+		
 		return activeUsers;
 	}
 	
-	public List<ChatBean> getMessagesByUser(MailBox box, UserBean sender){
+	public List<ChatBean> getMessagesByUser(UserBean loggedUser, UserBean otherUser){
 		
-		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getMessages();
-		ArrayList<ChatBean> filteredMessages = new ArrayList<>();
+//		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getMessages();
+//		
+//		ArrayList<ChatBean> filteredMessages = new ArrayList<>();
+//		for(ChatMessage message : messages) {
+//			if(message.getSender().equals(sender.getUserID())) {
+//				ChatBean messageBean = new ChatBean();
+//				messageBean.setSender(message.getSender());
+//				messageBean.setMessageText(message.getText());
+//				filteredMessages.add(messageBean);
+//			}
+//		}
+//		return filteredMessages;
+		
+		MessageDAO chatDAO = new MessageDAO();
+		List<ChatMessage> messages = chatDAO.getMessagesByUsers(loggedUser.getUserID(), otherUser.getUserID());
+		ArrayList<ChatBean> messageBeans = new ArrayList<>();
+		
 		for(ChatMessage message : messages) {
-			if(message.getSender().equals(sender.getUserID())) {
-				ChatBean messageBean = new ChatBean();
-				messageBean.setSender(message.getSender());
-				messageBean.setMessageText(message.getText());
-				filteredMessages.add(messageBean);
+			ChatBean messageBean = new ChatBean();
+			messageBean.setSender(message.getSender());
+			if(message.getSender().equals(otherUser.getUserID())){	
+				messageBean.setReceiver(loggedUser.getUserID());
 			}
+			else {
+				messageBean.setReceiver(otherUser.getUserID());
+			}
+			messageBean.setMessageText(message.getText());
+			messageBean.setDate(message.getDate());
+			messageBeans.add(messageBean);
 		}
-		return filteredMessages;
+		
+		return messageBeans;
 		
 	}
 	
@@ -89,6 +110,7 @@ public class ChatController{
 		ChatBean messageBean = new ChatBean();
 		messageBean.setMessageText(message.getText());
 		messageBean.setSender(message.getSender());
+		messageBean.setDate(message.getDate());
 		return messageBean;
 	}
 	

@@ -2,7 +2,6 @@ package logic.controller.graphic;
 
 import java.io.IOException;
 
-
 import java.util.List;
 
 import javafx.collections.ObservableList;

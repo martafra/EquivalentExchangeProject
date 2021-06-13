@@ -46,6 +46,10 @@ public class ConnectionServer implements Runnable{
 		return instance;
 	}
 	
+	public static void resetInstance() {
+		instance = null;
+	}
+	
 	public void startServer() {
 		this.running.set(true);
 		threadReference.start();

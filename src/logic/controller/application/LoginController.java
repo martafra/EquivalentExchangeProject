@@ -64,6 +64,7 @@ public class LoginController {
 		Integer port = serverInstance.getConnectionData().getPort();
 		session.endSession(loggedUser.getUserID(), ip, port);
 		serverInstance.stopServer();
+		ConnectionServer.resetInstance();
 	}
 	
 	

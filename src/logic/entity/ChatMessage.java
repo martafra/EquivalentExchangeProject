@@ -30,6 +30,10 @@ public class ChatMessage {
 		this.date = date;
 	}
 	
+	public ChatMessage() {
+		
+	}
+
 	public String getSender() {
 		return this.sender;
 	}
