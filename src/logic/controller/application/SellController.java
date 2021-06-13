@@ -81,7 +81,7 @@ public class SellController {
 		sender.sendNotification(buyer.getUsername(), rejectedRequest);
 		
 		RequestDAO requestDAO = new RequestDAO();
-		requestDAO.deleteRequest(seller, item);
+		requestDAO.deleteRequest(buyer.getUsername(), item);
 		
 		ItemInSale involvedItem = itemDAO.selectItemInSale(item);
 
@@ -111,7 +111,7 @@ public class SellController {
 		sender.sendNotification(requestBean.getBuyer(), rejectedRequest);
 		
 		RequestDAO requestDAO = new RequestDAO();
-		requestDAO.deleteRequest(seller, item);
+		requestDAO.deleteRequest(requestBean.getBuyer(), item);
 		
 	}
 	

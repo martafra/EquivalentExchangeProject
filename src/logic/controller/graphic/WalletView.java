@@ -103,7 +103,6 @@ public class WalletView extends SceneManageable{
 					UserBean userBean = new UserBean();
 					String userLabel;
 					if (!(buyer.equals(loggedUser.getUserID()))) {
-						System.out.println("prova");
 						userLabel = "Buyer: " + buyer;
 						userBean.setUserID(buyer);
 					}
@@ -116,7 +115,7 @@ public class WalletView extends SceneManageable{
 				        @Override
 				        public void handle(MouseEvent event) {
 				        	Bundle bundle = getBundle();
-				        	bundle.addBean("otherUser", userBean);
+				        	bundle.addBean("selectedUser", userBean);
 				            goToScene("userprofile");
 				        }
 				    });

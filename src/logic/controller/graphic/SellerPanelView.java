@@ -51,137 +51,58 @@ public class SellerPanelView extends SceneManageable{
 		List<ItemInSaleBean> itemBeans = sellController.getItemList(loggedUser);
 		itemBox.getChildren().clear();
 		for(ItemInSaleBean itemBean : itemBeans) {
-			Pane productCase = fillProductCase(itemBean);
-			itemBox.getChildren().add(productCase);
+			ProductCase productCase = new ProductCase(itemBean);
+			productCase.getProductName().setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	Bundle bundle = getBundle();
+		        	bundle.addBean("selectedItem", itemBean);
+		            goToScene("itemDetails");
+		        }
+		    });
+			itemBox.getChildren().add(productCase.getBody());
 		}
 		
 
 		List<RequestBean> requestBeans = sellController.getRequestList(loggedUser);
 		requestBox.getChildren().clear();
 		for(RequestBean requestBean: requestBeans) {
-			Pane requestCase = fillRequestCase(requestBean);
-			requestBox.getChildren().add(requestCase);
-		}
-		
-
-	}
-	
-	private Pane fillProductCase(ItemInSaleBean itemBean) {
-		Pane productCase = null;
-		ObservableList<Node> attr = null;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/ProductCase.fxml"));
-		try {
-			productCase = (Pane)loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Integer price = itemBean.getPrice();
-		String name = itemBean.getItemName();
-		Image pic = new Image(itemBean.getMediaPath());
-		System.out.println("percorso: " + itemBean.getMediaPath());
-		
-		attr = productCase.getChildren();
-		for(Node n: attr) {
-			switch (n.getId()) {
-				case "productPreview":
-					((ImageView) n).setImage(pic);
-					break;
-				case "productName":
-					((Label) n).setText(name);
-					n.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				        @Override
-				        public void handle(MouseEvent event) {
-				        	Bundle bundle = getBundle();
-				        	bundle.addBean("selectedItem", itemBean);
-				            goToScene("itemDetails");
-				        }
-				    });
-					break;
-				case "productPrice":
-					((Label) n).setText(price.toString());
-			}
+			RequestCase requestCase = new RequestCase(requestBean);
 			
+			requestCase.getItemLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	Bundle bundle = getBundle();
+		        	bundle.addBean("selectedItem", requestBean.getReferredItemBean());
+		            goToScene("itemDetails");
+		        }
+		    });
+			requestCase.getBuyerLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	Bundle bundle = getBundle();
+		        	UserBean userBean = new UserBean();
+		        	userBean.setUserID(requestBean.getBuyer());
+		        	bundle.addBean("selectedUser", userBean);
+		            goToScene("userprofile");
+		        }
+		    });
+			requestCase.getAcceptButton().setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					sellController.acceptRequest(requestBean);
+					requestBox.getChildren().remove(requestCase.getBody());
+				}
+			});
+			requestCase.getRejectButton().setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					sellController.rejectRequest(requestBean);
+					requestBox.getChildren().remove(requestCase.getBody());
+				}
+			});
+			
+			requestBox.getChildren().add(requestCase.getBody());
 		}
-		return productCase;
 	}
-	
-	private Pane fillRequestCase(RequestBean requestBean) {
-		Pane requestCase = null;
-		ObservableList<Node> attr = null;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/RequestCase.fxml"));
-		
-		try {
-			requestCase = (Pane)loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Image pic = new Image(requestBean.getReferredItemBean().getMediaPath());
-		String item = requestBean.getReferredItemBean().getItemName();
-		String buyer = requestBean.getBuyer();
-		String note = requestBean.getNote();
-		
-		final Pane finalCase = requestCase;
-		
-		attr = requestCase.getChildren();
-		for(Node n: attr) {
-			switch(n.getId()) {
-				case "requestPic":
-					((ImageView) n).setImage(pic);
-					break;
-				case "requestItem":
-					((Label) n).setText("Request referred to "+ item);
-					n.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				        @Override
-				        public void handle(MouseEvent event) {
-				        	Bundle bundle = getBundle();
-				        	bundle.addBean("selectedItem", requestBean.getReferredItemBean());
-				            goToScene("itemDetails");
-				        }
-				    });
-					break;
-				case "requestBuyer":
-					((Label) n).setText("From user "+ buyer);
-					n.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				        @Override
-				        public void handle(MouseEvent event) {
-				        	Bundle bundle = getBundle();
-				        	UserBean userBean = new UserBean();
-				        	userBean.setUserID(buyer);
-				        	bundle.addBean("selectedUser", userBean);
-				            goToScene("userprofile");
-				        }
-				    });
-					break;
-				case "requestNote":
-					((Label) n).setText("\"" + note + "\"");
-					break;
-				case "requestAcc":
-					((Button) n).setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							sellController.acceptRequest(requestBean);
-							requestBox.getChildren().remove(finalCase);
-						}
-					});
-					break;
-				case "requestRej":
-					((Button) n).setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							sellController.rejectRequest(requestBean);
-							requestBox.getChildren().remove(finalCase);
-						}
-					});
-					break;
-					
-					
-			}
-		}
-		
-		return requestCase;
-	}
-	
 }

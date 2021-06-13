@@ -136,6 +136,7 @@ public class RequestDAO {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
 			String query = requestQuery.deleteRequest(buyer, item);
+			System.out.println(query);
 			stmt.executeUpdate(query);
 			
 		} catch (SQLException e) {

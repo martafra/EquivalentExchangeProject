@@ -26,13 +26,13 @@ public class WalletController {
 		String username = userBean.getUserID();
 		OrderDAO orderDAO = new OrderDAO();
 		ArrayList<Order> orders = orderDAO.selectAllOrders(username);
-		List<OrderBean> orderBeans = new ArrayList<OrderBean>();
+		List<OrderBean> orderBeans = new ArrayList<>();
 		
-		OrderBean orderBean = new OrderBean();
-		UserBean buyerBean = new UserBean();
-		UserBean sellerBean = new UserBean();
-		ItemInSaleBean itemBean = new ItemInSaleBean();
 		for (Order order: orders) {
+			OrderBean orderBean = new OrderBean();
+			UserBean buyerBean = new UserBean();
+			UserBean sellerBean = new UserBean();
+			ItemInSaleBean itemBean = new ItemInSaleBean();
 			orderBean.setStartDate(order.getStartDate());
 			orderBean.setOrderID(order.getOrderID());
 			buyerBean.setUserID(order.getBuyer().getUsername());
@@ -42,10 +42,8 @@ public class WalletController {
 			itemBean.setItemID(order.getInvolvedItem().getItemInSaleID());
 			itemBean.setItemName(order.getInvolvedItem().getReferredItem().getName());
 			itemBean.setMediaPath(order.getInvolvedItem().getMedia().get(0));
-			
 			orderBean.setBuyer(buyerBean);
 			orderBean.setInvolvedItem(itemBean);
-			
 			orderBeans.add(orderBean);
 		}
 		

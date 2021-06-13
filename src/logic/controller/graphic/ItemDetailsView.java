@@ -63,7 +63,7 @@ public class ItemDetailsView extends SceneManageable {
     	seller = controller.getUserByID(itemDetails.getSellerID());
     	item = controller.getItemByID(itemDetails.getReferredItemID());
     	
-    	
+ 
     	titleText.setText(item.getItemName());
     	descText.setText(itemDetails.getDescription());
     	descText.setWrapText(true);
