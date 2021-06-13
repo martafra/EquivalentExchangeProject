@@ -10,8 +10,8 @@ import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
-import logic.bean.ItemAdBean;
 import logic.bean.ItemBean;
+import logic.bean.ItemDetailsBean;
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.entity.Book;
@@ -41,8 +41,8 @@ public class ItemDetailsController {
 		return bean;
 	}
 	
-	public ItemAdBean getItemAdByID(Integer itemInSaleID) {
-		var bean = new ItemAdBean();
+	public ItemDetailsBean getItemAdByID(Integer itemInSaleID) {
+		var bean = new ItemDetailsBean();
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
 		
 		ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(itemInSaleID);

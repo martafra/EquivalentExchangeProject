@@ -4,8 +4,9 @@ package logic.controller.graphic;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import javafx.scene.Node;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -13,15 +14,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import logic.bean.ItemInSaleBean;
 import logic.controller.application.CatalogueController;
@@ -33,19 +39,11 @@ public class CatalogueView extends SceneManageable {
 	private CatalogueController controller = new CatalogueController();
 	private List<ItemInSaleBean> itemInSaleBeanList;
 	private ArrayList<String> genres = new ArrayList<>();
-	private boolean inizialize = false;
+	private HashMap<String, String> filters = new HashMap<>();
+	private int maxItem = 8;
+
+	private Integer pageNumber = 0;
 	
-	private String searchStr;
-	private String orderByStr;
-	private String typeStr;
-	private String genreStr;
-	private String consoleStr;
-	
-	
-	@FXML
-	private VBox vbox;
-	@FXML
-	private ListView<ItemInSaleBean> list;
 	@FXML
 	private TextField searchBar;
 	@FXML
@@ -64,6 +62,14 @@ public class CatalogueView extends SceneManageable {
 	private ComboBox<String> orderBy;
 	@FXML 
 	private ToggleGroup type;
+	@FXML
+	private FlowPane flowPane;
+	@FXML
+	private Button nextPage;
+	@FXML
+	private Button prevPage;
+	@FXML
+	private Label page;
 	
 	
 
@@ -71,144 +77,174 @@ public class CatalogueView extends SceneManageable {
 	@Override
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
+
 		
 		itemInSaleBeanList = controller.getListItemInSaleBean();
 		
 		genre.setVisible(false);
 		all.setSelected(true);
+		setPageBtn();
 		
+		setOrderByList();
 		if (searchBar.getText()!=null) {
 			searchBar.setText("");
 		}
 		
-		setOrderByList();
-		
-		setListView();	
-	}
-	
-	static class Cell extends ListCell<ItemInSaleBean>{
-		
-		//Creo il loader che mi carica la mia interfaccia per il singolo oggetto
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/itemCatalogue.fxml"));
-		
-		//Vbox dove mettere l'interfaccia per singolo oggetto
-		private VBox box;
-		
-		public Cell() {
-			try {
-				//Metto l'interfaccia nel Vbox;
-				box = loader.load();
-					
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-			
-		//chiamato per inserire i valori degli item nell'intefaccia creata da cell
-		@Override
-		public void updateItem(ItemInSaleBean item, boolean empty) {
-			super.updateItem(item, empty);
-		
-			//imposto a nulli i valori base della lista, cio che mostra come testo e interfaccia
-			setText(null);
-			setGraphic(null);
-			
-			if(item != null && !empty) {  //Controllo se c'e' l'elemento
-				
-				//prendo il controller grafico dell'interfaccia ItemCatalogue
-				ItemCatalogueView controller = loader.getController();
-				
-				//Chiamo il metodo per settare i valori dell'interfaccia
-				controller.setView(item);
-				
-				//Imposto l'interfaccia come elemento da mostrare nella riga della Lost
-				setGraphic(box);
-			}
-		}
-	}
-	
-	public void setListView() {
-		
-		// Passo la lista di bean a questo metodo per renderla una lista di oggetti osservabili
-		ObservableList<ItemInSaleBean> data = FXCollections.observableArrayList(itemInSaleBeanList);
-		
-		
-		// Passo la lista osservabile alla mia lista di JavaFX
-		list.setItems(data);
-		if (!inizialize) {
-			// Aggiungo la Cella che si occupa di visualizzare la schermata dell'oggetto
-			list.setCellFactory(param -> new Cell());
-			
-			list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ItemInSaleBean>() {
 
-				@Override
-				public void changed(ObservableValue<? extends ItemInSaleBean> observable, ItemInSaleBean oldValue, ItemInSaleBean newValue) {
-					
-					if (newValue == null) {
-						return;
-					}
-					Bundle bundle = getBundle();
-					bundle.addBean("selectedItem", newValue);
-					goToScene("itemDetails");
-				}
-			});
-			inizialize = true;
+		fillCatalogue();
+	}
+
+	
+	
+	public void fillCatalogue() {
+		flowPane.getChildren().clear();
+		for (int i = 0; i < maxItem; i++) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/itemCatalogue.fxml"));
+			try {
+				
+				flowPane.getChildren().add(loader.load());
+				ItemCatalogueView controller = loader.getController();	
+				
+				controller.setView(this, itemInSaleBeanList.get(i+(maxItem*pageNumber)));
+			} catch (IndexOutOfBoundsException | IOException e) {
+				flowPane.getChildren().remove(i);
+				//e.printStackTrace();
+				return;
+			}
+			
 		}
+	}
+	
+	public void setPageBtn() {
+		prevPage.setDisable(true);
+		pageNumber = 0;
+		page.setText(pageNumber.toString());
+		
+		if (maxItem >= itemInSaleBeanList.size() ) {
+			nextPage.setDisable(true);
+		}else {
+			nextPage.setDisable(false);
+		}
+		
+	}
+	
+	public void nextPage() {
+		if(pageNumber == 0) {
+			prevPage.setDisable(false);
+		}
+		if ( (pageNumber+2)*maxItem >= itemInSaleBeanList.size() ) {
+			nextPage.setDisable(true);
+		}
+		
+		pageNumber += 1;
+		page.setText(pageNumber.toString());
+		fillCatalogue();
+	}
+	
+	public void prevPage() {
+		if (nextPage.isDisable() ) {
+			nextPage.setDisable(false);
+		}
+		
+		if (pageNumber == 1) {
+			prevPage.setDisable(true);
+		}
+		pageNumber -= 1;
+		page.setText(pageNumber.toString());
+		fillCatalogue();
+		
 	}
 	
 	public void search(Event e){
-    	searchStr = searchBar.getText();
+    	var searchStr = searchBar.getText();
+   	 
+		if (searchStr != null && !searchStr.isBlank()) {
+			
+			filters.put("searchKey", searchStr );
+		}else {
+			filters.remove("searchKey");
+		}
+		
     	doSearch();
     }
 	
 	public void doSearch() {
-		String[] filters = {searchStr, orderByStr, typeStr, genreStr, consoleStr};
-			itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);
-		
-		ObservableList<ItemInSaleBean> data = FXCollections.observableArrayList(itemInSaleBeanList);
-		list.setItems(data);
-		
+		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);	
+		setPageBtn();
+		fillCatalogue();
 	}
 	
 	public void all(){
-		typeStr = null;
+
+		filters.remove("type");
+		filters.remove("genre");
+		filters.remove("console");
+		
 		genre.setVisible(false);
-		genreStr = null;
-		consoleStr = null;
 		doSearch();
 		
     }
 	
 	public void book(){
-		typeStr = "B";
+		var typeStr = "B";
+	
+		filters.put("type", typeStr);
+		filters.remove("genre");
+		filters.remove("console");
+
 		setGenreList(typeStr);
 		doSearch();
 		
     }
 	
 	public void movie(){
-		typeStr = "M";
+		var typeStr = "M";
+		filters.put("type", typeStr);
+		
+		filters.remove("genre");
+		filters.remove("console");
+		
 		setGenreList(typeStr);
 		doSearch();
 	}	
 	
 	public void videogame(){
-		typeStr = "V";
+		var typeStr = "V";
+		filters.put("type", typeStr);
+		
+		filters.remove("genre");
+		filters.remove("console");
+		
 		setGenreList(typeStr);
 		doSearch();
 		
     }
 	
 	public void genre() {
-		genreStr = genre.getValue();
+		var genreStr = genre.getValue();
+	
+		if(genreStr != null) {
+		filters.put("genre", genreStr);
+		}else {
+			filters.remove("genre");
+		}
 		doSearch();
 	}
 	
 	public void orderBy() {
-		orderByStr = orderBy.getValue();
+
+		var orderStr = orderBy.getValue();
+
+		if (orderStr != null) {
+
+			filters.put("orderBy", orderBy.getValue());
+		} else {
+
+			filters.remove("orderBy");
+		}
+
 		doSearch();
-		
+
 	}
 	
 	public void setGenreList(String type) { //TODO far riapparire la scritta GENRE
@@ -224,8 +260,16 @@ public class CatalogueView extends SceneManageable {
 	}
 	
 	public void setOrderByList() {
+		orderBy.getItems().clear();
+		//filters.remove("orderBy");
 		orderBy.getItems().add("Rising Price");
 		orderBy.getItems().add("Decreasing Price");
+	}
+	
+	public void goToDetails(ItemInSaleBean item) {
+	 	bundle = getBundle();
+		bundle.addBean("selectedItem", item);
+		goToScene("itemDetails");
 	}
 	
 	

@@ -8,8 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import logic.bean.ItemAdBean;
+
 import logic.bean.ItemBean;
+import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
 import logic.bean.UserBean;
 import logic.controller.application.ItemDetailsController;
@@ -21,7 +22,7 @@ public class ItemDetailsView extends SceneManageable {
 	private UserBean loggedUser;
 	private UserBean seller;
 	private ItemBean item;
-	private ItemAdBean itemAd;
+	private ItemDetailsBean itemDetails;
 	
 	private ItemDetailsController controller = new ItemDetailsController();
 	
@@ -58,17 +59,17 @@ public class ItemDetailsView extends SceneManageable {
     	loggedUser = (UserBean)bundle.getBean("loggedUser");
     	ItemInSaleBean itemInSale = (ItemInSaleBean)bundle.getBean("selectedItem");
     	
-    	itemAd =  controller.getItemAdByID(itemInSale.getItemID());
-    	seller = controller.getUserByID(itemAd.getSellerID());
-    	item = controller.getItemByID(itemAd.getReferredItemID());
+    	itemDetails =  controller.getItemAdByID(itemInSale.getItemID());
+    	seller = controller.getUserByID(itemDetails.getSellerID());
+    	item = controller.getItemByID(itemDetails.getReferredItemID());
     	
     	
     	titleText.setText(item.getItemName());
-    	descText.setText(itemAd.getDescription());
+    	descText.setText(itemDetails.getDescription());
     	descText.setWrapText(true);
     	genreText.setText(item.getGenre());
-    	conditionText.setText(itemAd.getCondition());
-    	addressText.setText(itemAd.getAddress());
+    	conditionText.setText(itemDetails.getCondition());
+    	addressText.setText(itemDetails.getAddress());
     	addressText.setWrapText(true);
     	
     	sellerText.setText(seller.getName());
@@ -102,7 +103,7 @@ public class ItemDetailsView extends SceneManageable {
 			return;
 		}
     	String buyerID = loggedUser.getUserID();
-    	Integer itemInSaleID = itemAd.getItemInSaleID();
+    	Integer itemInSaleID = itemDetails.getItemInSaleID();
     	controller.clickOnBuy(buyerID, itemInSaleID); 	
     }
     

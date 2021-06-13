@@ -1,5 +1,7 @@
 package logic.query;
 
+import java.util.Map;
+
 public class ItemInSaleQuery extends Query{
 
 	public String selectItemsByUser(String userID){
@@ -61,18 +63,22 @@ public class ItemInSaleQuery extends Query{
 		return query;
 	}
 
-	public String getItemsInSaleFiltered(String[] filters) {
-		String filter = "";
-		String filter2 ="";
-		if ( ( filters[0] != null && !filters[0].isBlank() ) || filters[2] != null ) { 
-			filter = getItemFilters(filters);
+	public String getItemsInSaleFiltered(Map<String, String> filters) {
+		
+		String queryFilters = "";
+		
+		if ( filters.containsKey("searchKey") || filters.containsKey("type") ) { 
+			queryFilters += getItemFilters(filters);
 		}
 
-		if (filters[1] != null) {
-			filter2 = getOrderFilter(filters[1]);
+		if (filters.containsKey("orderBy")) {
+			queryFilters += getOrderFilter(filters.get("orderBy"));
 		}
 			
-		return "SELECT * FROM ItemInSale "+  filter + filter2;
+		//System.out.println("SELECT * FROM ItemInSale "+  queryFilters);
+		
+		return "SELECT * FROM ItemInSale "+  queryFilters;
+		
 	}
 	
 	public String getOrderFilter(String filter) {
@@ -83,24 +89,29 @@ public class ItemInSaleQuery extends Query{
 		else if (filter.equals("Decreasing Price")){
 			sortBy = "price DESC";
 		}
+		
 		return " ORDER BY " + sortBy;
 	}
 	
-	public String getItemFilters(String[] filters) {
+	public String getItemFilters(Map<String,String> filters) {
 		String filter = "";
-		if (filters[0] != null) { // Se e' presente la parola di ricerca
-			filter = " itemName like '%%" + filters[0] + "%%' ";
-			if (filters[2] != null) {
+		if (filters.containsKey("searchKey") ) { // Se e' presente la parola di ricerca
+			filter = " itemName like '%%" + filters.get("searchKey") + "%%' ";
+			if (filters.containsKey("type")) {
 				filter = filter + " and ";
 			}
 		}
-		if (filters[2] != null) { // Abbiamo il tipo
-			filter = filter + " itemType = '" + filters[2] + "' ";
-			if (filters[3] != null) { // Abbiamo il genere del tipo
-				filter = filter + " AND genre = '" + filters[3] + "' ";
+		
+		if (filters.containsKey("type")) { // Abbiamo il tipo
+			
+			filter = filter + " itemType = '" + filters.get("type") + "' ";
+			
+			if (filters.containsKey("genre")) { // Abbiamo il genere del tipo
+				filter = filter + " AND genre = '" + filters.get("genre") + "' ";
 			}
-			if (filters[4] != null) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
-				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters[4] + "') "; // TODO controllare tabelle database
+			
+			if (filters.containsKey("console")) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
+				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters.get("console") + "') "; // TODO controllare tabelle database
 			}
 		}
 		return " WHERE referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") ";

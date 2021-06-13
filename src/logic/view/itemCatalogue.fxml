@@ -3,26 +3,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="233.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemCatalogueView">
- <!--  <style>
-    -fx-padding: 10;
-    -fx-border-style: solid inside;
-    -fx-border-width: 2;
-    -fx-border-insets: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: blue;
-  </style>-->
+<Pane prefHeight="254.0" prefWidth="233.0" style="-fx-background-color: #FFF1E9; -fx-background-radius: 12; -fx-border-radius: 12;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemCatalogueView">
    <children>
-      <Pane prefHeight="254.0" prefWidth="233.0">
-         <children>
-            <Label fx:id="titleText" alignment="CENTER" layoutX="54.0" layoutY="178.0" text="Title" />
-            <Label fx:id="priceText" alignment="CENTER" layoutX="105.0" layoutY="202.0" text="Price" />
-            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="214.0" layoutX="33.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="titleText" alignment="TOP_CENTER" layoutX="1.0" layoutY="171.0" onMouseClicked="#click" prefHeight="49.0" prefWidth="233.0" text="Title" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="priceText" alignment="CENTER" layoutX="105.0" layoutY="223.0" text="Price" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" layoutX="43.0" layoutY="14.0" onMouseClicked="#click" pickOnBounds="true" preserveRatio="true">
             	
           	</ImageView> 
-         </children>
-      </Pane>
    </children>
-</VBox>
+</Pane>

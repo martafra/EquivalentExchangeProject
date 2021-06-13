@@ -1,6 +1,7 @@
 package logic.controller.application;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class CatalogueController {
 		return createItemInSaleBeanList(itemInSaleList);
 	}
 	
-	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(String[] filters) {
+	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(HashMap<String, String> filters) {
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
 		List<ItemInSale> itemInSaleList = itemInSaleDAO.getItemsInSaleListFiltered(filters);
 		
