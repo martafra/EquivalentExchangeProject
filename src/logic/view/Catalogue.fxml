@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="734.0" prefWidth="1271.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.CatalogueView">
+<VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="734.0" prefWidth="1271.0" spacing="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.CatalogueView">
   <style>
     -fx-padding: 10;
     -fx-border-style: solid inside;

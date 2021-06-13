@@ -242,11 +242,9 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 			switch(node.getId()) {
 				case "textMessage":
 					((Text) node).setText(message.getMessageText());
-					
 					break;
 				case "date":
 					((Label) node).setText(format.format(message.getDate()));
-					
 					break;
 				default:
 					break;

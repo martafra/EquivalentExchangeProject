@@ -47,15 +47,24 @@ public class MessageParser {
 
 	public static String encodeMessage(ChatMessage message) {
 		DateFormat format = new SimpleDateFormat(dateTimeFormat);
+		
+		String messageText = message.getText();
+		messageText = messageText.replace('\n', '#');
+		
 		return "type:chat;sender:"+message.getSender()+";date:"+
-				format.format(message.getDate())+";text:"+message.getText();
+				format.format(message.getDate())+";text:"+messageText;
 	}
 
 	public static ChatMessage parseChatMessage(String message) {
 		var messageFields = parseMessage(message);
+		
 		if(messageFields == null)
 			return new ChatMessage("", "", "");
-		return new ChatMessage(messageFields.get("sender"), messageFields.get("date"), messageFields.get("text"));
+		
+		String messageText = messageFields.get("text");
+		messageText = messageText.replace('#', '\n');
+		
+		return new ChatMessage(messageFields.get("sender"), messageFields.get("date"), messageText);
 	}
 
 	public static String encodeNotification(Notification notification) {
