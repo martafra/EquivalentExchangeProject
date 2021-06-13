@@ -10,7 +10,7 @@ public class MessageQuery extends Query{
 		username2 = quote(username2);
 		
 		String query = "SELECT * FROM messages WHERE (senderID = %s AND receiverID = %s) "
-					 + " OR (senderID = %s AND receiverID = %s)";
+					 + " OR (senderID = %s AND receiverID = %s) ORDER BY sDateTime ASC";
 		return String.format(query, username1, username2, username2, username1);
 	}
 	

@@ -102,6 +102,10 @@ public class PostAnAdView extends SceneManageable{
 	@FXML
 	public void addImage() {
 		File selectedImage = chooser.showOpenDialog(null);
+		
+		if(selectedImage == null)
+			return;
+		
 		String selectedImagePath = selectedImage.getAbsolutePath();
 		try {
 			ImageView image = new ImageView(new Image(new FileInputStream(selectedImagePath)));

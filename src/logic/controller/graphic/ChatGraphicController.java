@@ -103,21 +103,27 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		// TODO Auto-generated method stub
 		ChatBean chatBean = controller.getLastMessageSent(mailbox);
 		HBox messageRow = null;
+		String userBoxID = null;
 		if(chatBean.getSender().equals(loggedUser.getUserID())){
 			messageRow = generateMessageView(chatBean);
 			messageRow.setAlignment(Pos.CENTER_RIGHT);
+			userBoxID = currentChatUser.getUserID();
 		}
-		if(chatBean.getSender().equals(currentChatUser.getUserID())){
+		else if(chatBean.getSender().equals(currentChatUser.getUserID())){
 			messageRow = generateMessageView(chatBean);
 			messageRow.setAlignment(Pos.CENTER_LEFT);
+			userBoxID = currentChatUser.getUserID();
 		}
+		else {
+			userBoxID = chatBean.getSender();
+		}
+		
 		messageBox.getChildren().add(messageRow);
 		
 		goToBottom();
 		//TODO gestire anteprime messaggi chat al lato
 		
-		
-		
+		((Label) ((VBox) chatBoxes.get(userBoxID).getChildren().get(1)).getChildren().get(1)).setText(chatBean.getMessageText());	
 		
 	}
 	
@@ -129,6 +135,10 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 			HBox chatBox = generateChatBox(userData);
 			chatBoxes.put(userData.getUserID(), chatBox);
 			chatList.getChildren().add(chatBox);
+		}
+		
+		if(!activeChats.isEmpty()) {
+			setActiveChat(activeChats.get(0));
 		}
 	}
 	
