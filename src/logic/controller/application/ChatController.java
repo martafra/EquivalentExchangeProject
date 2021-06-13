@@ -60,7 +60,15 @@ public class ChatController{
 			otherUserBean.setUserID(otherUser.getUsername());
 			otherUserBean.setEmail(otherUser.getEmail());
 			otherUserBean.setProfilePicPath(profileData.getProfilePicturePath());
-			activeUsers.add(otherUserBean);
+			
+			Boolean present = false;
+			for(UserBean userBean : activeUsers) {
+				if(userBean.getUserID().equals(otherUserBean.getUserID())) {
+					present = true;
+				}
+			}
+			if(Boolean.FALSE.equals(present))
+				activeUsers.add(otherUserBean);
 		}
 		
 		return activeUsers;

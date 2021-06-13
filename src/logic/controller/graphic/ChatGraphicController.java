@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -43,7 +45,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	private UserBean currentChatUser = null;
 	private UserBean loggedUser;
 	private ChatController controller = new ChatController();
-	private HashMap<String, HBox> chatBoxes = new HashMap<>();
+	private HashMap<String, ChatBox> chatBoxes = new HashMap<>();
 	private MailBox mailbox;
 	
 	@FXML
@@ -81,12 +83,12 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	public void filterUsers(){
 		String filterText = searchField.getText();
 		
-		System.out.println("Hello" + filterText);
-		
-		for(String userID : chatBoxes.keySet()) 
-			chatBoxes.get(filterText).setVisible(userID.contains(filterText) || filterText.equals(""));
-		
-		
+		for(Entry<String, ChatBox> chatBox : chatBoxes.entrySet()) 
+		{
+			String userID = chatBox.getKey();
+			HBox box = chatBox.getValue().getPane();
+			box.setVisible(filterText.equals("") || userID.contains(filterText));
+		}
 	}
 	
 	@Override
@@ -96,6 +98,10 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		mailbox = (MailBox) bundle.getObject("mailbox");
 		mailbox.register(this);
 		loadUsers();
+		
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filterUsers();
+		});
 	}
 
 	@Override
@@ -121,10 +127,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		messageBox.getChildren().add(messageRow);
 		
 		goToBottom();
-		//TODO gestire anteprime messaggi chat al lato
-		
-		((Label) ((VBox) chatBoxes.get(userBoxID).getChildren().get(1)).getChildren().get(1)).setText(chatBean.getMessageText());	
-		
+		chatBoxes.get(userBoxID).setMessage(chatBean.getMessageText());	
 	}
 	
 	private void loadUsers() {
@@ -132,9 +135,17 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		ArrayList<UserBean> activeChats = (ArrayList<UserBean>) controller.getActiveChats(loggedUser);
 		chatList.getChildren().clear();
 		for(UserBean userData : activeChats) {
-			HBox chatBox = generateChatBox(userData);
+			ChatBox chatBox = new ChatBox(userData);
+			
+			chatBox.getPane().setOnMouseClicked(new EventHandler<>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					setActiveChat(userData);
+				}
+			});
+			
 			chatBoxes.put(userData.getUserID(), chatBox);
-			chatList.getChildren().add(chatBox);
+			chatList.getChildren().add(chatBox.getPane());
 		}
 		
 		if(!activeChats.isEmpty()) {
@@ -147,13 +158,13 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	private void setActiveChat(UserBean userData) {
 		
 		if(currentChatUser != null) {
-			HBox previousChatBox = chatBoxes.get(userData.getUserID());
-			previousChatBox.setStyle(null);
+			ChatBox previousChatBox = chatBoxes.get(userData.getUserID());
+			previousChatBox.deselect();
 		}
 		currentChatUser = userData;
 		
-		HBox currentChatBox = chatBoxes.get(userData.getUserID());
-		currentChatBox.setStyle("-fx-background-color: #77777733");
+		ChatBox currentChatBox = chatBoxes.get(userData.getUserID());
+		currentChatBox.select();
 		
 		currentUserUsername.setText(userData.getUserID());
 		currentUserImage.setImage(new Image(userData.getProfilePicPath()));
@@ -180,55 +191,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		}
 		goToBottom();
 	}
-	
-	
-	private HBox generateChatBox(UserBean userData) {
 		
-		HBox chatBox = null;
-		try {
-			chatBox = new FXMLLoader(getClass().getResource("/logic/view/ChatBox.fxml")).load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		if(chatBox == null)
-			return new HBox();
-		
-		ImageView profileImage = (ImageView) chatBox.getChildren().get(0);
-		profileImage.setImage(new Image(userData.getProfilePicPath()));
-		
-		VBox infoBox = (VBox) chatBox.getChildren().get(1);
-		
-		for(Node node : infoBox.getChildren()) {
-
-			if(node.getId() == null) {
-				continue;
-			}
-			
-			switch(node.getId()) {
-				case "usernameLabel":
-					((Label) node).setText(userData.getUserID());
-					
-					break;
-				case "messageLabel":
-					((Label) node).setText("message");
-					
-					break;
-				default:
-					break;
-			}
-		}
-		
-		chatBox.setOnMouseClicked(new EventHandler<>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				setActiveChat(userData);
-			}
-		});
-		
-		return chatBox;
-	}
-	
 	private HBox generateMessageView(ChatBean message) {
 		DateFormat format = new SimpleDateFormat("HH:mm");
 		HBox messageRow = null;
