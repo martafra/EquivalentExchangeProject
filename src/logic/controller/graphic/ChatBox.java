@@ -12,6 +12,7 @@ import logic.bean.UserBean;
 public class ChatBox extends GraphicWidget{
 
 	private HBox boxBody;
+	private Double defaultHeight = 0d;
 	
 	public ChatBox(UserBean userData) {
 		try {
@@ -21,6 +22,8 @@ public class ChatBox extends GraphicWidget{
 		}
 		
 		loadComponents(boxBody);
+		
+		defaultHeight = boxBody.getPrefHeight();
 		
 		ImageView profileImage = (ImageView) getComponent("profileImage");
 		profileImage.setImage(new Image(userData.getProfilePicPath()));
@@ -38,13 +41,15 @@ public class ChatBox extends GraphicWidget{
 	public HBox getPane() {
 		return this.boxBody;
 	}
-	
+
 	public void select() {
 		getPane().setStyle("-fx-background-color: #77777733");
+		getPane().setPrefHeight(defaultHeight);
 	}
 
 	public void deselect() {
-		getPane().setStyle(null);
+		getPane().setStyle("-fx-background-color: #FFFFFF00");
+		getPane().setPrefHeight(0);
 	}
 	
 }

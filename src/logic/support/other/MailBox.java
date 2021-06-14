@@ -19,7 +19,7 @@ public class MailBox extends Subject{
 	public List<Notification> getNotifications(){
 		return notifications;
 	}
-	
+
 	public List<Notification> getNotifications(NotificationType type){
 		ArrayList<Notification> filteredNotifications = new ArrayList<>();
 		for(Notification n : notifications) {

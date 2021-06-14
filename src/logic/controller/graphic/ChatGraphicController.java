@@ -111,12 +111,12 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		HBox messageRow = null;
 		String userBoxID = null;
 		if(chatBean.getSender().equals(loggedUser.getUserID())){
-			messageRow = generateMessageView(chatBean);
+			messageRow = (HBox) new MessageCase(chatBean).getBody();
 			messageRow.setAlignment(Pos.CENTER_RIGHT);
 			userBoxID = currentChatUser.getUserID();
 		}
 		else if(chatBean.getSender().equals(currentChatUser.getUserID())){
-			messageRow = generateMessageView(chatBean);
+			messageRow = (HBox) new MessageCase(chatBean).getBody();
 			messageRow.setAlignment(Pos.CENTER_LEFT);
 			userBoxID = currentChatUser.getUserID();
 		}
@@ -156,18 +156,18 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	
 	
 	private void setActiveChat(UserBean userData) {
-		
+	
 		if(currentChatUser != null) {
-			ChatBox previousChatBox = chatBoxes.get(userData.getUserID());
+			ChatBox previousChatBox = chatBoxes.get(currentChatUser.getUserID());
 			previousChatBox.deselect();
 		}
 		currentChatUser = userData;
 		
-		ChatBox currentChatBox = chatBoxes.get(userData.getUserID());
+		ChatBox currentChatBox = chatBoxes.get(currentChatUser.getUserID());
 		currentChatBox.select();
 		
-		currentUserUsername.setText(userData.getUserID());
-		currentUserImage.setImage(new Image(userData.getProfilePicPath()));
+		currentUserUsername.setText(currentChatUser.getUserID());
+		currentUserImage.setImage(new Image(currentChatUser.getProfilePicPath()));
 		updateMessageBox();
 	}
 	
@@ -179,52 +179,18 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		ArrayList<ChatBean> messages = (ArrayList<ChatBean>) controller.getMessagesByUser(loggedUser, currentChatUser);
 		for(ChatBean message : messages) {
 			
-			HBox messageRow = generateMessageView(message);
+			MessageCase messageRow = new MessageCase(message);
+			HBox body = (HBox) messageRow.getBody();
 			
 			if(message.getSender().equals(loggedUser.getUserID())){
-				messageRow.setAlignment(Pos.CENTER_RIGHT);
+				body.setAlignment(Pos.CENTER_RIGHT);
 			}
 			else {
-				messageRow.setAlignment(Pos.CENTER_LEFT);
+				body.setAlignment(Pos.CENTER_LEFT);
 			}
-			messageBox.getChildren().add(messageRow);
+			messageBox.getChildren().add(body);
 		}
 		goToBottom();
-	}
-		
-	private HBox generateMessageView(ChatBean message) {
-		DateFormat format = new SimpleDateFormat("HH:mm");
-		HBox messageRow = null;
-		try {
-			messageRow = new FXMLLoader(getClass().getResource("/logic/view/MessageBox.fxml")).load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		if(messageRow == null)
-			return new HBox();
-		
-		VBox messageContainer = (VBox) messageRow.getChildren().get(0);
-		
-		for(Node node : messageContainer.getChildren()) {
-
-			if(node.getId() == null) {
-				continue;
-			}
-			
-			switch(node.getId()) {
-				case "textMessage":
-					((Text) node).setText(message.getMessageText());
-					break;
-				case "date":
-					((Label) node).setText(format.format(message.getDate()));
-					break;
-				default:
-					break;
-			}
-		}
-		
-		return messageRow;
 	}
 	
 	private void goToBottom() {

@@ -11,7 +11,7 @@ import logic.entity.ChatMessage;
 import logic.support.other.Notification;
 
 public class MessageSender {
-
+	
 	private List<ConnectionData> getConnections(String userID){
 		SessionHandler session = new SessionHandler();
 		ArrayList<ConnectionData> connections =  (ArrayList<ConnectionData>) session.getConnectionData(userID);
