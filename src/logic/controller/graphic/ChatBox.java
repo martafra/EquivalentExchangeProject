@@ -44,12 +44,23 @@ public class ChatBox extends GraphicWidget{
 
 	public void select() {
 		getPane().setStyle("-fx-background-color: #77777733");
-		getPane().setPrefHeight(defaultHeight);
+		
 	}
 
 	public void deselect() {
 		getPane().setStyle("-fx-background-color: #FFFFFF00");
-		getPane().setPrefHeight(0);
+	}
+	
+	public void setVisible(Boolean isVisible) {
+		
+		getPane().setVisible(isVisible);
+		
+		if(Boolean.TRUE.equals(isVisible)) {
+			getPane().setPrefHeight(defaultHeight);
+		}else {
+			getPane().setPrefHeight(0);
+		}
+		
 	}
 	
 }

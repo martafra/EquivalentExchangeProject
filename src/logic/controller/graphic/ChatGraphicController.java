@@ -86,8 +86,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		for(Entry<String, ChatBox> chatBox : chatBoxes.entrySet()) 
 		{
 			String userID = chatBox.getKey();
-			HBox box = chatBox.getValue().getPane();
-			box.setVisible(filterText.equals("") || userID.contains(filterText));
+			chatBox.getValue().setVisible(userID.contains(filterText));
 		}
 	}
 	
