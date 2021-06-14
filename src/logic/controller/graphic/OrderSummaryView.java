@@ -66,7 +66,8 @@ public class OrderSummaryView extends SceneManageable{
 		}
 		
 		String logged = loggedUser.getUserID();
-		OrderBean order = (OrderBean) bundle.getBean("selectedOrder");
+		OrderBean selectedOrder = (OrderBean) bundle.getBean("selectedOrder");
+		OrderBean order = sController.generateOrderSummary(selectedOrder.getOrderID());
 		ItemDetailsBean item = iController.getItemDetails(order.getInvolvedItem().getItemID());
 		
 		summaryPic.setImage(new Image(item.getMediaPath()));
@@ -78,11 +79,19 @@ public class OrderSummaryView extends SceneManageable{
 			summaryUser.setText("Buyer: " + order.getBuyer().getUserID());
 			summaryCodeLabel.setText("Enter payment code");
 			TextField codeField = new TextField();
-			summaryCode.add(codeField, 0, 1);
-			summaryVerify.setVisible(true);
+			
+			if(order.getOrderDate() != null) {
+				Label codeLabel = new Label(order.getCode());
+				summaryCode.add(codeLabel, 0, 1);
+				summaryCodeLabel.setText("Payment Code:");
+			}else {
+				summaryCode.add(codeField, 0, 1);
+			}
+				
 			summaryVerify.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					order.setCode(codeField.getText());
 					sController.verifyPaymentCode(order);
 				}
 			});
@@ -92,6 +101,7 @@ public class OrderSummaryView extends SceneManageable{
 			summaryCodeLabel.setText("Payment code");
 			Label codeField = new Label();
 			codeField.setText(order.getCode());
+			summaryVerify.setVisible(false);
 			summaryCode.add(codeField, 0, 1);
 		}
 		if(order.getSellerStatus()) {
@@ -106,8 +116,12 @@ public class OrderSummaryView extends SceneManageable{
 		else {
 			summaryBuyer.setText("Order not accepted yet");
 		}
-		summaryStart.setText(format.format(order.getStartDate()));
-		summaryStart.setText(format.format(order.getOrderDate()));
+		
+		if(order.getStartDate() != null)
+			summaryStart.setText(format.format(order.getStartDate()));
+		
+		if(order.getOrderDate() != null)
+			summaryStart.setText(format.format(order.getOrderDate()));
 		
 		
 	}

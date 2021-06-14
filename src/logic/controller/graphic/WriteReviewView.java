@@ -5,6 +5,8 @@ import logic.support.other.SceneManageable;
 
 public class WriteReviewView extends SceneManageable{
 
+	
+	
 	@FXML
 	public void viewPreview() {
 		
@@ -14,5 +16,7 @@ public class WriteReviewView extends SceneManageable{
 	public void addImage() {
 		
 	}
+	
+	
 	
 }

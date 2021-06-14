@@ -16,9 +16,10 @@ import logic.entity.Order;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
+import logic.support.interfaces.SaleController;
 import logic.support.other.Notification;
 
-public class BuyController {
+public class BuyController implements SaleController{
 	
 	//arriva la notifica che il seller ha accettato
 	public Boolean orderNotification(Integer orderID) {
@@ -70,6 +71,7 @@ public class BuyController {
 		return false;
 	}
 	
+	@Override
 	public void acceptOrder(OrderBean orderBean) {
 		Integer orderID = orderBean.getOrderID();
 		OrderDAO orderDAO = new OrderDAO();
@@ -86,6 +88,7 @@ public class BuyController {
 		acceptedOrder.addParameter("item", itemID.toString());
 		
 		order.setBuyerStatus(true);
+		order.setCode(generateCode());
 		orderDAO.updateOder(order);
 		
 		if(order.isAccepted()){
@@ -109,6 +112,7 @@ public class BuyController {
 	
 	}
 	
+	@Override
 	public void rejectOrder(OrderBean orderBean) {
 		Integer orderID = orderBean.getOrderID();
 		OrderDAO orderDAO = new OrderDAO();
@@ -131,7 +135,7 @@ public class BuyController {
 	}
 	
 	
-	public String generateCode() {
+	private String generateCode() {
 		String lower = "abcdefghijklmnopqrstuvwxyz";
         String upper = lower.toUpperCase();
         String numeri = "0123456789";

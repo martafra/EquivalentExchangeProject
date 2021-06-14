@@ -1,0 +1,13 @@
+.order-button{
+	-fx-background-color: #88888811;
+	-fx-text-fill: #FF6A00;
+	-fx-border-width: 1;
+	-fx-border-color: #999;
+	-fx-border-radius: 30;
+	-fx-background-radius: 30;
+	-fx-font-size: 14;
+}
+
+.order-button:hover{
+	-fx-background-color: #33333322;
+}

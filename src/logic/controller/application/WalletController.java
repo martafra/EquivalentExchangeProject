@@ -44,6 +44,8 @@ public class WalletController {
 			itemBean.setMediaPath(order.getInvolvedItem().getMedia().get(0));
 			orderBean.setBuyer(buyerBean);
 			orderBean.setInvolvedItem(itemBean);
+			orderBean.setBuyerStatus(order.getBuyerStatus());
+			orderBean.setSellerStatus(order.getSellerStatus());
 			orderBeans.add(orderBean);
 		}
 		

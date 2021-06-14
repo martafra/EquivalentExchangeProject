@@ -64,6 +64,52 @@ public class MessageDAO {
 		return messages;
 	}
 	
+	public ChatMessage getLastMessageSentByUsers(String myUsername, String otherUsername) {
+		
+		ChatMessage lastMessage = new ChatMessage();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = mQuery.getLastMessageByUsers(myUsername, otherUsername);
+			rs = stmt.executeQuery(query);
+			
+			if(rs.next())
+			{
+				try {
+					lastMessage.setDate(format.parse(rs.getString("sDateTime")));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				lastMessage.setSender(rs.getString("senderID"));
+				lastMessage.setText(rs.getString("body"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return lastMessage;
+		
+	}
+	
 	public void addMessageforUser(ChatMessage message, String receiverID) {
 		String senderID = message.getSender();
 		Date messageDate = message.getDate();

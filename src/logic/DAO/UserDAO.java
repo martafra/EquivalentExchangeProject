@@ -67,7 +67,10 @@ public class UserDAO {
 			String name = user.getName();
 			String lastName = user.getSurname();
 			String email = user.getEmail();
-			String gender = user.getGender().toString().substring(0,1);
+			
+			String gender = "";
+			if(user.getGender() != null)
+				gender = user.getGender().toString().substring(0,1);
 			Date birthDate = user.getBirthDate();
 			Integer credit = user.getWallet().getCurrentCredit();
 
@@ -102,7 +105,10 @@ public class UserDAO {
 			String name = user.getName();
 			String lastName = user.getSurname();
 			String email = user.getEmail();
-			String gender = user.getGender().toString().substring(0,1);
+			
+			String gender = "";
+			if(user.getGender() != null)
+				gender = user.getGender().toString().substring(0,1);
 			Date birthDate = user.getBirthDate();
 			Integer credit = user.getWallet().getCurrentCredit();
 

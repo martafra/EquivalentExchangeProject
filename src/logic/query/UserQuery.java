@@ -33,15 +33,22 @@ public class UserQuery extends Query{
 	public String updateUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
 		
 		DateFormat format = new SimpleDateFormat(dateFormat);
-		String birthDateString = format.format(birthDate);
-
+		
+		String birthDateString = "NULL";
+		
 		username = quote(username);
 		password = quote(password);
 		name = quote(name);
 		lastName = quote(lastName);
 		email = quote(email);
-		gender = quote(gender);
-		birthDateString = quote(birthDateString);
+		
+		if(gender != "NULL")
+			gender = quote(gender);
+		if(birthDate != null)
+		{
+			birthDateString = format.format(birthDate);
+			birthDateString = quote(birthDateString);
+		}
 
 		String query = "update User SET " +
 					   "passwd = %s," +

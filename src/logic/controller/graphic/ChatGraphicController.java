@@ -1,22 +1,12 @@
 package logic.controller.graphic;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -26,16 +16,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import logic.bean.ChatBean;
-import logic.bean.LoginBean;
+import logic.bean.OrderBean;
 import logic.bean.UserBean;
+import logic.controller.application.BuyController;
 import logic.controller.application.ChatController;
-import logic.support.connection.MessageSender;
+import logic.controller.application.SellController;
 import logic.support.interfaces.Observer;
+import logic.support.interfaces.SaleController;
 import logic.support.other.Bundle;
 import logic.support.other.MailBox;
 import logic.support.other.SceneManageable;
@@ -44,8 +33,10 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 
 	private UserBean currentChatUser = null;
 	private UserBean loggedUser;
+	private OrderBean currentActiveOrder;
 	private ChatController controller = new ChatController();
 	private HashMap<String, ChatBox> chatBoxes = new HashMap<>();
+	private SaleController saleController;
 	private MailBox mailbox;
 	
 	@FXML
@@ -64,6 +55,16 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	private ImageView currentUserImage;
 	@FXML
 	private ScrollPane chatScrollPane;
+	@FXML
+	private HBox orderBox;
+	@FXML
+	private Label itemOrderLabel;
+	@FXML
+	private Button acceptOrderButton;
+	@FXML
+	private Button rejectOrderButton;
+ 	
+	
 	@FXML
 	public void sendMessage() {
 		
@@ -90,6 +91,24 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		}
 	}
 	
+	@FXML
+	public void opacifyOrderBox(){
+		orderBox.setOpacity(1);
+	}
+	@FXML
+	public void deopacifyOrderBox() {
+		orderBox.setOpacity(0.6);
+	}
+	@FXML
+	public void acceptOrder() {
+		saleController.acceptOrder(currentActiveOrder);
+		orderBox.setVisible(false);
+	}
+	@FXML
+	public void rejectOrder() {
+		saleController.rejectOrder(currentActiveOrder);
+		orderBox.setVisible(false);
+	}
 	@Override
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
@@ -107,6 +126,10 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	public void update() {
 		// TODO Auto-generated method stub
 		ChatBean chatBean = controller.getLastMessageSent(mailbox);
+		
+		if(chatBean == null)
+			return;
+			
 		HBox messageRow = null;
 		String userBoxID = null;
 		if(chatBean.getSender().equals(loggedUser.getUserID())){
@@ -147,6 +170,12 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 			chatList.getChildren().add(chatBox.getPane());
 		}
 		
+		Map<String, ChatBean> lastMessages = controller.getLastMessagesSaved(loggedUser);
+		for(Entry<String, ChatBean> lastMessage : lastMessages.entrySet()) {
+			ChatBox chatBox = chatBoxes.get(lastMessage.getKey());
+			chatBox.setMessage(lastMessage.getValue().getMessageText());
+		}
+		
 		if(!activeChats.isEmpty()) {
 			setActiveChat(activeChats.get(0));
 		}
@@ -164,6 +193,22 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		
 		ChatBox currentChatBox = chatBoxes.get(currentChatUser.getUserID());
 		currentChatBox.select();
+		
+		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData);
+		
+		if(currentActiveOrder != null) {
+			orderBox.setVisible(true);
+			itemOrderLabel.setText("Deal started for Item: " + currentActiveOrder.getInvolvedItem().getItemName());
+			
+			if(currentActiveOrder.getBuyer().getUserID().equals(loggedUser.getUserID())) {
+				saleController = new BuyController();
+			}else {
+				saleController = new SellController();
+			}
+			
+		}else {
+			orderBox.setVisible(false);
+		}
 		
 		currentUserUsername.setText(currentChatUser.getUserID());
 		currentUserImage.setImage(new Image(currentChatUser.getProfilePicPath()));

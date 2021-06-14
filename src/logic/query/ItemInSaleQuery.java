@@ -40,14 +40,14 @@ public class ItemInSaleQuery extends Query{
 		preferredLocation = quote(preferredLocation);
 		userID = quote(userID);
 		
-		String query = "UPDATE TABLE iteminsale SET " +
+		String query = "UPDATE iteminsale SET " +
 						"price = %d," +
 						"saleDescription = %s," +
 						"availability = %d," +
 						"itemCondition = %s," +
 						"preferredLocation = %s," +
 						"referredItemID = %d," +
-						"userID = %s," +
+						"userID = %s " +
 						"WHERE itemInSaleID = %d;";
 
 		return String.format(query, price, saleDescription, availability, itemCondition, preferredLocation, referredItem, userID, itemInSaleID);

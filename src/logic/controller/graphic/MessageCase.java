@@ -16,6 +16,7 @@ public class MessageCase extends GraphicWidget{
 	private Pane boxBody;
 	private DateFormat format = new SimpleDateFormat("HH:mm");
 	
+	
 	public MessageCase(ChatBean messageData) {
 		try {
 			boxBody = new FXMLLoader(getClass().getResource("/logic/view/MessageBox.fxml")).load();

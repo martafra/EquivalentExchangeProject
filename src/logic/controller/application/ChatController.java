@@ -2,13 +2,16 @@ package logic.controller.application;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import logic.DAO.MessageDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ChatBean;
+import logic.bean.OrderBean;
 import logic.bean.UserBean;
 import logic.entity.ChatMessage;
 import logic.entity.Order;
@@ -36,6 +39,27 @@ public class ChatController{
 		sender.sendChatMessage(message.getSender(), message);
 		chatDAO.addMessageforUser(message, receiverID);
     }
+	
+	public Map<String, ChatBean> getLastMessagesSaved(UserBean loggedUser){
+		HashMap<String, ChatBean> lastMessages = new HashMap<>();
+		MessageDAO chatDAO = new MessageDAO();
+		for(UserBean user : getActiveChats(loggedUser)) {
+			ChatMessage message = chatDAO.getLastMessageSentByUsers(loggedUser.getUserID(), user.getUserID());
+			ChatBean messageBean = new ChatBean();
+			messageBean.setSender(message.getSender());
+			messageBean.setMessageText(message.getText());
+			messageBean.setDate(message.getDate());
+			
+			if(messageBean.getSender().equals(loggedUser.getUserID())) {
+				messageBean.setReceiver(user.getUserID());
+			}
+			else {
+				messageBean.setReceiver(loggedUser.getUserID());
+			}
+			lastMessages.put(user.getUserID(), messageBean);
+		}
+		return lastMessages;
+	}
 	
 	public List<UserBean> getActiveChats(UserBean user){
 		ArrayList<UserBean> activeUsers = new ArrayList<>();
@@ -76,19 +100,6 @@ public class ChatController{
 	
 	public List<ChatBean> getMessagesByUser(UserBean loggedUser, UserBean otherUser){
 		
-//		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getMessages();
-//		
-//		ArrayList<ChatBean> filteredMessages = new ArrayList<>();
-//		for(ChatMessage message : messages) {
-//			if(message.getSender().equals(sender.getUserID())) {
-//				ChatBean messageBean = new ChatBean();
-//				messageBean.setSender(message.getSender());
-//				messageBean.setMessageText(message.getText());
-//				filteredMessages.add(messageBean);
-//			}
-//		}
-//		return filteredMessages;
-		
 		MessageDAO chatDAO = new MessageDAO();
 		List<ChatMessage> messages = chatDAO.getMessagesByUsers(loggedUser.getUserID(), otherUser.getUserID());
 		ArrayList<ChatBean> messageBeans = new ArrayList<>();
@@ -114,12 +125,32 @@ public class ChatController{
 	
 	public ChatBean getLastMessageSent(MailBox box) {
 		ArrayList<ChatMessage> messages = (ArrayList<ChatMessage>) box.getMessages();
+		if(messages.isEmpty())
+			return null;
 		ChatMessage message = messages.get(messages.size()-1);
 		ChatBean messageBean = new ChatBean();
 		messageBean.setMessageText(message.getText());
 		messageBean.setSender(message.getSender());
 		messageBean.setDate(message.getDate());
 		return messageBean;
+	}
+	
+	public OrderBean getActiveOrderByUsers(UserBean loggedUser, UserBean otherUser) {
+		WalletController walletController = new WalletController();
+		List<OrderBean> orders = walletController.getOrderList(loggedUser);
+		
+		for(OrderBean order : orders) {
+			if(order.getBuyer().getUserID().equals(loggedUser.getUserID())) {
+				if(Boolean.FALSE.equals(order.getBuyerStatus())) {
+					return order;
+				}
+			}else if(order.getBuyer().getUserID().equals(otherUser.getUserID())){
+				if(Boolean.FALSE.equals(order.getSellerStatus())) {
+					return order;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public Boolean getChatNotifications(MailBox box) {

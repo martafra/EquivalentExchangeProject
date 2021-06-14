@@ -18,9 +18,10 @@ import logic.entity.Request;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
+import logic.support.interfaces.SaleController;
 import logic.support.other.Notification;
 
-public class SellController {
+public class SellController implements SaleController{
 	
 	public List<ItemInSaleBean> getItemList(UserBean userBean){
 		String username = userBean.getUserID();
@@ -115,6 +116,7 @@ public class SellController {
 		
 	}
 	
+	@Override
 	public void acceptOrder(OrderBean orderBean) {
 		Notification acceptedOrder = new Notification();
 		
@@ -145,7 +147,7 @@ public class SellController {
 		
 	}
 	
-	
+	@Override
 	public void rejectOrder(OrderBean orderBean) {
 		Notification rejectedOrder = new Notification();
 		
@@ -168,6 +170,7 @@ public class SellController {
 	}
 	
 	public OrderBean generateOrderSummary(Integer orderID) {
+		
 		OrderBean orderSummary = new OrderBean();
 		OrderDAO orderDAO = new OrderDAO();
 		Order order = orderDAO.selectOrder(orderID);
@@ -181,20 +184,21 @@ public class SellController {
 		itemData.setItemID(item.getItemInSaleID());
 		itemData.setItemName(item.getReferredItem().getName());
 		itemData.setPrice(item.getPrice());
-		//TODO gestire media
-		
+		itemData.setMediaPath(item.getMedia().get(0));
 		orderSummary.setBuyer(buyerData);
 		orderSummary.setInvolvedItem(itemData);
+		orderSummary.setBuyerStatus(order.getBuyerStatus());
+		orderSummary.setSellerStatus(order.getSellerStatus());
 		return orderSummary;
 	}
 	
 	public Boolean verifyPaymentCode(OrderBean orderBean){
 		String code = orderBean.getCode();
 		OrderDAO orderDAO = new OrderDAO();
-		Integer itemID = orderBean.getOrderID();
-		Order order = orderDAO.selectOrder(itemID);
+		Integer orderID = orderBean.getOrderID();
+		Order order = orderDAO.selectOrder(orderID);
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
-		ItemInSale item = itemDAO.selectItemInSale(itemID);
+		ItemInSale item = itemDAO.selectItemInSale(order.getInvolvedItem().getItemInSaleID());
 		
 		String sellerID = item.getSeller().getUsername();
 		UserDAO sellerDAO = new UserDAO();
