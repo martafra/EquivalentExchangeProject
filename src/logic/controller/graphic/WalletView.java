@@ -66,6 +66,14 @@ public class WalletView extends SceneManageable{
 		            goToScene("itemDetails");
 		        }
 		    });	
+			orderCase.getOrderLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	Bundle bundle = getBundle();
+		        	bundle.addBean("selectedOrder", order);
+		            goToScene("ordersummary");
+		        }
+		    });	
 			orderBox.getChildren().add(orderCase.getBody());
 		}	
 	}

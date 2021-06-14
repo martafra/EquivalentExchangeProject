@@ -72,6 +72,10 @@ public class OrderCase extends GraphicWidget{
 		return (Label) this.getComponent("orderUserLabel");
 	}
 	
+	public Label getOrderLabel() {
+		return (Label) this.getComponent("orderIDLabel");
+	}
+	
 	public Label getItemLabel() {
 		return (Label) this.getComponent("orderItemLabel");
 	}

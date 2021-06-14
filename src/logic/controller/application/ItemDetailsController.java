@@ -47,6 +47,7 @@ public class ItemDetailsController {
 		
 		ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(itemInSaleID);
 
+		bean.setItemName(itemInSale.getReferredItem().getName());
 		bean.setItemInSaleID(itemInSale.getItemInSaleID());
 		bean.setReferredItemID(itemInSale.getReferredItem().getItemID());
 		bean.setSeller(getUserData(itemInSale.getSeller().getUsername()));
