@@ -15,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import logic.bean.ItemAdBean;
 import logic.bean.ItemBean;
+import logic.bean.ItemDetailsBean;
 import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.ItemAdController;
@@ -34,8 +34,8 @@ public class PostAnAdView extends SceneManageable{
 	
 	private FileChooser chooser = new FileChooser();
 	
-	private UserBean user;
-	private ItemAdBean ad = new ItemAdBean();
+	private UserBean loggedUser;
+	private ItemDetailsBean ad = new ItemDetailsBean();
 	
 	@FXML
 	private HBox images;
@@ -55,7 +55,7 @@ public class PostAnAdView extends SceneManageable{
 	@Override
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
-		UserBean loggedUser = (UserBean) bundle.getBean("loggedUser");
+		loggedUser = (UserBean) bundle.getBean("loggedUser");
 		
 		if(loggedUser == null) {
 			goToScene("login");
@@ -63,7 +63,7 @@ public class PostAnAdView extends SceneManageable{
 		}
 		chooser.setTitle("Image selector");
 		chooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
-		user = loggedUser;
+		
 		
 		items = (ArrayList<ItemBean>) controller.getItemsList();
 		conditions = (ArrayList<String>) controller.getConditionTypes();
@@ -87,15 +87,15 @@ public class PostAnAdView extends SceneManageable{
 		
 		ad.setPrice(Integer.valueOf(price.getText()));
 		ad.setDescription(description.getText());
-		System.out.println(description.getText());
 		ad.setCondition(condition.getSelectionModel().getSelectedItem());
 		ad.setReferredItemID(selectedItem.getItemID());
-		
+		ad.setSeller(loggedUser);
+
 		if(ad.getMedia() == null) {
 			ad.setMedia(new ArrayList<>());
 		}
 		
-		controller.post(ad, user);
+		controller.post(ad);
 		goToScene("sellerpanel");
 	}
 	

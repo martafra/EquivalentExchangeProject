@@ -26,7 +26,7 @@ import logic.support.other.Notification;
 
 public class ItemDetailsController {
 	
-	public UserBean getUserByID(String username) {	
+	public UserBean getUserData(String username) {	
 		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		
@@ -41,15 +41,15 @@ public class ItemDetailsController {
 		return bean;
 	}
 	
-	public ItemDetailsBean getItemAdByID(Integer itemInSaleID) {
+	public ItemDetailsBean getItemDetails(Integer itemInSaleID) {
 		var bean = new ItemDetailsBean();
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
 		
 		ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(itemInSaleID);
-		
+
 		bean.setItemInSaleID(itemInSale.getItemInSaleID());
 		bean.setReferredItemID(itemInSale.getReferredItem().getItemID());
-		bean.setSellerID(itemInSale.getSeller().getUsername());
+		bean.setSeller(getUserData(itemInSale.getSeller().getUsername()));
 		bean.setPrice(itemInSale.getPrice());
 		bean.setAddress(itemInSale.getAddress());
 		bean.setCondition(itemInSale.getCondition().toString());

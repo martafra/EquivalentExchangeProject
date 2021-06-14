@@ -6,8 +6,8 @@ import java.util.List;
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.UserDAO;
-import logic.bean.ItemAdBean;
 import logic.bean.ItemBean;
+import logic.bean.ItemDetailsBean;
 import logic.bean.UserBean;
 import logic.entity.Item;
 import logic.entity.ItemInSale;
@@ -16,7 +16,7 @@ import logic.enumeration.Condition;
 
 public class ItemAdController {
 	
-	public boolean post(ItemAdBean itemBean, UserBean userBean) {
+	public boolean post(ItemDetailsBean itemBean) {
 		
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
 				
@@ -25,8 +25,9 @@ public class ItemAdController {
 		Condition condition = Condition.valueOfLabel(itemBean.getCondition());
 		ArrayList<String> media = itemBean.getMedia();
 		String address = itemBean.getAddress();
+		String sellerID = itemBean.getSeller().getUserID();
 
-		User seller = new UserDAO().selectUser(userBean.getUserID());
+		User seller = new UserDAO().selectUser(sellerID);
 		Item referredItem = new ItemDAO().selectItem(itemBean.getReferredItemID());
 		
 		ItemInSale item = new ItemInSale(price, description, condition, referredItem, seller);

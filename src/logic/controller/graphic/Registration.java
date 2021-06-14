@@ -29,11 +29,13 @@ public class Registration extends SceneManageable{
 	@FXML
 	private Button register;
 	
+	LoginController regController = new LoginController();
+	
 	@FXML
 	public void register() {
 		
 		RegistrationBean rBean = new RegistrationBean();
-		LoginController regController = new LoginController();
+		
 		
 		TextField arrayOfNodes[] = {firstName, lastName, username, email, password, confirmPassword};
 		for(TextField field : arrayOfNodes) {

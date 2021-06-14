@@ -59,8 +59,8 @@ public class ItemDetailsView extends SceneManageable {
     	loggedUser = (UserBean)bundle.getBean("loggedUser");
     	ItemInSaleBean itemInSale = (ItemInSaleBean)bundle.getBean("selectedItem");
     	
-    	itemDetails =  controller.getItemAdByID(itemInSale.getItemID());
-    	seller = controller.getUserByID(itemDetails.getSellerID());
+    	itemDetails =  controller.getItemDetails(itemInSale.getItemID());
+    	seller = itemDetails.getSeller();
     	item = controller.getItemByID(itemDetails.getReferredItemID());
     	
  

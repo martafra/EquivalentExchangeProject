@@ -4,29 +4,23 @@ import java.util.ArrayList;
 
 import logic.support.interfaces.Bean;
 
-public class ItemDetailsBean implements Bean {
-	private Integer itemInSaleID;
-	private Integer price;
+public class ItemDetailsBean extends ItemInSaleBean{
+	
 	private String description;
 	private String condition;
 	private ArrayList<String> media = new ArrayList<>();
 	private String address; //TODO da modificare? string -> Location
-	private Integer referredItemID;
-	private String sellerID;
-	
 	
 	public Integer getReferredItemID() {
-		return referredItemID;
+		return getReferredItem().getItemID();
 	}
 	public void setReferredItemID(Integer referredItemID) {
-		this.referredItemID = referredItemID;
+		if(this.getReferredItem() == null){
+			setReferredItem(new ItemBean());
+		}
+		this.getReferredItem().setItemID(referredItemID);
 	}
-	public Integer getPrice() {
-		return price;
-	}
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -43,7 +37,12 @@ public class ItemDetailsBean implements Bean {
 		return media;
 	}
 	public void setMedia(ArrayList<String> media) {
+		if(!media.isEmpty())
+			this.setMediaPath(media.get(0));
 		this.media = media;
+	}
+	public void addMedia(String selectedImagePath) {	
+		this.media.add(selectedImagePath);
 	}
 	public String getAddress() {
 		return address;
@@ -51,20 +50,11 @@ public class ItemDetailsBean implements Bean {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public void addMedia(String selectedImagePath) {	
-		this.media.add(selectedImagePath);
-	}
-	public String getSellerID() {
-		return sellerID;
-	}
-	public void setSellerID(String seller) {
-		this.sellerID = seller;
-	}
 	public Integer getItemInSaleID() {
-		return itemInSaleID;
+		return this.getItemID();
 	}
 	public void setItemInSaleID(Integer itemInSaleID) {
-		this.itemInSaleID = itemInSaleID;
+		this.setItemID(itemInSaleID);
 	}
 	
 

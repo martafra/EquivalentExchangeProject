@@ -4,12 +4,12 @@ import logic.support.interfaces.Bean;
 
 public class ItemInSaleBean implements Bean{
 	
-	Integer price;
-	Integer itemID;
-	String itemName;
-	String mediaPath;
-	UserBean seller;
-	
+	private Integer itemID;
+	private Integer price;
+	private ItemBean referredItem = new ItemBean();
+	private String mediaPath;
+	private UserBean seller = new UserBean();
+
 	public Integer getPrice() {
 		return price;
 	}
@@ -23,10 +23,10 @@ public class ItemInSaleBean implements Bean{
 		this.itemID = itemID;
 	}
 	public String getItemName() {
-		return itemName;
+		return referredItem.getItemName();
 	}
 	public void setItemName(String itemName) {
-		this.itemName = itemName;
+		this.referredItem.setItemName(itemName);;
 	}
 	public String getMediaPath() {
 		return mediaPath;
@@ -40,6 +40,15 @@ public class ItemInSaleBean implements Bean{
 	public void setSeller(UserBean seller) {
 		this.seller = seller;
 	}
+
+	protected ItemBean getReferredItem(){
+		return this.referredItem;
+	}
+
+	protected void setReferredItem(ItemBean item){
+		referredItem = item;
+	}
+
 	
 	
 }
