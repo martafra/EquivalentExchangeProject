@@ -30,3 +30,14 @@
 .rounded-pane{
 	-fx-border-radius: 15px;
 }
+.date-picker:editable > .arrow-button > * {
+    -fx-opacity: 0; /* Set the node in the button to be visible */
+}
+
+.date-picker > .arrow-button {
+	-fx-background-image: url("../assets/icons/calendar.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center center;
+	-fx-background-color: #FF6A00;
+	-fx-background-size: 18 18;
+}
