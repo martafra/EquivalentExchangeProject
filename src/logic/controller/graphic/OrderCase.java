@@ -1,6 +1,8 @@
 package logic.controller.graphic;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ public class OrderCase extends GraphicWidget{
 
 	private Pane boxBody;
 	private UserBean userData = null;
+	private DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public OrderCase(OrderBean orderData, UserBean loggedUser){
 		try {
@@ -36,10 +39,10 @@ public class OrderCase extends GraphicWidget{
 		Label dateLabel = (Label) getComponent("dateLabel");
 		
 		if(orderData.getOrderDate() != null) {
-			dateLabel.setText("Order finished on: " + orderData.getOrderDate());
+			dateLabel.setText("finished on: " + format.format(orderData.getOrderDate()));
 		}
 		else if(orderData.getStartDate() != null) {
-			dateLabel.setText("Order started on: " + orderData.getStartDate());
+			dateLabel.setText("started on: " + format.format(orderData.getStartDate()));
 		}
 		else {
 			dateLabel.setText("In Progress");

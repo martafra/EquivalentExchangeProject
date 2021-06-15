@@ -61,7 +61,7 @@ public class BuyController implements SaleController{
 			order.setCode(code);
 			//order.setStartDate(new Date());
 			//startTimer(order.getOrderID(), 259200000L - (new Date().getTime() - order.getStartDate().getTime()));
-			startTimer(order.getOrderID(), 10000L);
+			//startTimer(order.getOrderID(), 10000L);
 			orderD.updateOder(order);
 			
 			//TODO ORDER SUMMARY
@@ -152,28 +152,32 @@ public class BuyController implements SaleController{
         return sb.toString();
 	}
 	
-	private void startTimer(Integer orderId, Long delay) {
+	public Integer checkRemainingTime(OrderBean orderData) {
 		
-		Timer timer = new Timer("Order" + orderId);
-		TimerTask task = new TimerTask() {
-			public void run() {//azione svolta quando il timer scade
-				Platform.runLater(() -> {
-					OrderDAO orderD = new OrderDAO();
-					Order order = orderD.selectOrder(orderId);
-					order.setBuyerStatus(false);
-					order.setSellerStatus(false);
-					order.setStartDate(null);
-					order.setOrderDate(null);
-					order.setCode(null);
-					orderD.updateOder(order);
-					//TODO ripristinare credito
-					//orderD.deleteOrder(orderId);
-				});
-			}
-		};
-		
-		timer.schedule(task, delay);
-		
+		OrderDAO orderD = new OrderDAO();			
+		final Integer orderTime = 60*2;
+		Order order = orderD.selectOrder(orderData.getOrderID());
+
+		Integer remainingTime;
+		Long elapsedTime;
+		Date now = new Date();
+		System.out.println("buy controller " + now);
+		Date startDate = order.getStartDate();
+
+		elapsedTime = now.getTime() - startDate.getTime();
+		elapsedTime = elapsedTime / 1000;
+		remainingTime = orderTime - Integer.valueOf(elapsedTime.toString());
+
+		if(remainingTime <= 0){
+			order.setBuyerStatus(false);
+			order.setSellerStatus(false);
+			order.setStartDate(null);
+			order.setOrderDate(null);
+			order.setCode(null);
+			orderD.updateOder(order);
+		}
+
+		return Math.max(0, remainingTime);
 	}
 	
 

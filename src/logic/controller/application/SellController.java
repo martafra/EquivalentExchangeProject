@@ -186,9 +186,13 @@ public class SellController implements SaleController{
 		itemData.setPrice(item.getPrice());
 		itemData.setMediaPath(item.getMedia().get(0));
 		orderSummary.setBuyer(buyerData);
+		orderSummary.setOrderID(orderID);
 		orderSummary.setInvolvedItem(itemData);
 		orderSummary.setBuyerStatus(order.getBuyerStatus());
 		orderSummary.setSellerStatus(order.getSellerStatus());
+		orderSummary.setStartDate(order.getStartDate());
+		orderSummary.setOrderDate(order.getOrderDate());
+		orderSummary.setCode(order.getCode());
 		return orderSummary;
 	}
 	

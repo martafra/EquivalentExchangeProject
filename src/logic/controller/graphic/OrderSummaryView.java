@@ -3,6 +3,7 @@ package logic.controller.graphic;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import logic.bean.ItemDetailsBean;
 import logic.bean.OrderBean;
 import logic.bean.UserBean;
+import logic.controller.application.BuyController;
 import logic.controller.application.ItemDetailsController;
 import logic.controller.application.SellController;
 import logic.support.other.Bundle;
@@ -49,10 +51,14 @@ public class OrderSummaryView extends SceneManageable{
 	private GridPane summaryCode;
 	@FXML
 	private Button summaryVerify;
+	@FXML
+	private Label summaryTimer;
 	
 	private SellController sController = new SellController();
+	private BuyController bController = new BuyController();
 	private ItemDetailsController iController = new ItemDetailsController();
 	private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	private OrderBean order;
 	
 	@Override
 	public void onLoad(Bundle bundle){
@@ -64,10 +70,13 @@ public class OrderSummaryView extends SceneManageable{
 			goToScene("login");
 			return;
 		}
+
+		
+
 		
 		String logged = loggedUser.getUserID();
 		OrderBean selectedOrder = (OrderBean) bundle.getBean("selectedOrder");
-		OrderBean order = sController.generateOrderSummary(selectedOrder.getOrderID());
+		order = sController.generateOrderSummary(selectedOrder.getOrderID());
 		ItemDetailsBean item = iController.getItemDetails(order.getInvolvedItem().getItemID());
 		
 		summaryPic.setImage(new Image(item.getMediaPath()));
@@ -105,24 +114,89 @@ public class OrderSummaryView extends SceneManageable{
 			summaryCode.add(codeField, 0, 1);
 		}
 		if(order.getSellerStatus()) {
-			summarySeller.setText("Order accepted");
+			summarySeller.setText("Order accepted by seller");
 		}
 		else {
-			summarySeller.setText("Order not accepted yet");
+			summarySeller.setText("Order not accepted by seller");
 		}
 		if(order.getBuyerStatus()) {
-			summaryBuyer.setText("Order accepted");
+			summaryBuyer.setText("Order accepted by buyer");
 		}
 		else {
-			summaryBuyer.setText("Order not accepted yet");
+			summaryBuyer.setText("Order not accepted by buyer");
 		}
 		
-		if(order.getStartDate() != null)
-			summaryStart.setText(format.format(order.getStartDate()));
+		if( order.getStartDate() != null)
+			summaryStart.setText("Order started on: "+ format.format(order.getStartDate()));
 		
-		if(order.getOrderDate() != null)
-			summaryStart.setText(format.format(order.getOrderDate()));
-		
-		
+		if( order.getOrderDate() != null )
+			summaryStart.setText(format.format("Order finished on: " + order.getOrderDate()));
+
+		if(order.getStartDate() != null && order.getOrderDate() == null){
+			Integer remainingTime = bController.checkRemainingTime(order);
+			AnimationTimer timer = new CountdownTimer(remainingTime, summaryTimer);
+			timer.start();
+
+			
+		}
 	}
+
+	private class CountdownTimer extends AnimationTimer{
+
+    private long previousTime = 0;
+	private Double accumulator = 0d;
+	private Integer countdownValue = 0;
+	private Label countdownLabel;
+	
+
+	public CountdownTimer(Integer value, Label countdownLabel){
+
+		if(value > 0){
+			countdownValue = value;
+		}else{
+			countdownValue = 0;
+		}
+		this.countdownLabel = countdownLabel;
+	}
+
+
+	@Override
+	public void handle(long time) {
+        long deltaTime = time - previousTime;
+        previousTime = time;
+
+		accumulator += deltaTime * (Double) Math.pow(10, -9);
+
+		if(accumulator >= 1){
+			accumulator = 0d;
+			countdownValue--;
+
+			String composedTime = convertToTime(countdownValue);
+			countdownLabel.setText(composedTime);
+		}
+
+		if(countdownValue <= 0){
+			bController.checkRemainingTime(order);
+			stop();
+		}
+
+		//System.out.println((Double) (deltaTime * (Double) Math.pow(10, -9)));
+	}
+
+	private String convertToTime(Integer seconds){
+		
+		if(seconds <= 0) 
+			return "00:00:00";
+
+        Integer h = seconds / 3600;
+        Integer m = seconds % 3600 / 60;
+        Integer s = seconds % 60; // Less than 60 is the second, enough 60 is the minute
+                 
+		return String.format("%02d:%02d:%02d", h, m, s);
+
+	}
+
+
+}
+
 }

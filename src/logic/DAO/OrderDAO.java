@@ -46,9 +46,7 @@ public class OrderDAO {
 				startDate = format.parse(rs.getString("startDate"));
 				orderDate = format.parse(rs.getString("orderDate"));
 			} catch (NullPointerException | ParseException e) {
-				// TODO Auto-generated catch block
 				
-				e.printStackTrace();
 			}
 			Boolean sellerStatus = false;
 			if(rs.getInt("sellerStatus") == 1)

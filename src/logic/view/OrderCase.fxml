@@ -4,13 +4,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="707.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: #D4CEAB;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="707.0" style="-fx-border-width: 0 0 2 0; -fx-border-color: #D4CEAB; -fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="orderPic" fitHeight="85.0" fitWidth="85.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="orderIDLabel" layoutX="116.0" layoutY="24.0" text="Label" />
-      <Label fx:id="dateLabel" layoutX="274.0" layoutY="24.0" text="Label" textFill="#383838" />
-      <Label fx:id="orderUserLabel" layoutX="506.0" layoutY="60.0" text="Label" />
+      <Label fx:id="dateLabel" layoutX="274.0" layoutY="24.0" text="Label" textFill="#797979" />
+      <Label fx:id="orderUserLabel" layoutX="512.0" layoutY="60.0" text="Label" />
       <Label fx:id="orderItemLabel" layoutX="116.0" layoutY="61.0" text="Label" />
-      <Label fx:id="orderAmount" layoutX="506.0" layoutY="23.0" text="Label" />
+      <Label fx:id="orderAmount" layoutX="512.0" layoutY="23.0" text="Label" />
    </children>
 </Pane>

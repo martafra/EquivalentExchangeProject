@@ -85,19 +85,19 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label fx:id="summaryEnd" text="Label" GridPane.rowIndex="1">
+                        <Label fx:id="summaryEnd" GridPane.rowIndex="1">
                            <padding>
                               <Insets top="15.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="summaryStart" text="Label">
+                        <Label fx:id="summaryStart">
                            <padding>
                               <Insets top="15.0" />
                            </padding>
                         </Label>
                      </children>
                   </GridPane>
-                  <GridPane fx:id="summaryCode" layoutX="73.0" layoutY="482.0" prefHeight="66.0" prefWidth="156.0">
+                  <GridPane fx:id="summaryCode" layoutX="73.0" layoutY="466.0" prefHeight="66.0" prefWidth="156.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -109,7 +109,8 @@
                         <Label fx:id="summaryCodeLabel" prefHeight="34.0" prefWidth="160.0" text="Label" />
                      </children>
                   </GridPane>
-                  <Button fx:id="summaryVerify" layoutX="263.0" layoutY="515.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="46.0" text="Verify" />
+                  <Button fx:id="summaryVerify" layoutX="258.0" layoutY="499.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="65.0" text="Verify" />
+                  <Label fx:id="summaryTimer" layoutX="446.0" layoutY="406.0" text="Label" />
                </children>
             </Pane>
          </children>
