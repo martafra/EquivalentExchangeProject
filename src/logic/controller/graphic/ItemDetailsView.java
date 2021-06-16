@@ -1,14 +1,22 @@
 package logic.controller.graphic;
 
 
-import javafx.fxml.FXML;
 
+import java.io.IOException;
+
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
@@ -23,7 +31,8 @@ public class ItemDetailsView extends SceneManageable {
 	private UserBean seller;
 	private ItemBean item;
 	private ItemDetailsBean itemDetails;
-	
+	private Integer maxCharacter = 300;
+	private Stage secondaryStage;
 	private ItemDetailsController controller = new ItemDetailsController();
 	
 	@FXML
@@ -50,6 +59,16 @@ public class ItemDetailsView extends SceneManageable {
     private Button buyBtn;
 	@FXML
     private ImageView imgV;
+	@FXML
+	private Label back;
+	@FXML
+	private TextArea requestArea;
+	@FXML 
+	private Button send;
+	@FXML
+	private Label character;
+	
+	
     
     @Override
     public void onLoad(Bundle bundle) {
@@ -102,9 +121,55 @@ public class ItemDetailsView extends SceneManageable {
 			goToScene("login");
 			return;
 		}
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/Request.fxml"));
+    	loader.setController(this);
+    	
+    	try {
+    		secondaryStage = new Stage();
+    		Scene scene = new Scene(loader.load());
+    		secondaryStage.setScene(scene);
+    		secondaryStage.initModality(Modality.APPLICATION_MODAL);
+    		secondaryStage.showAndWait();
+			 //((Pane) vbox.getParent()).getChildren().add(loader.load());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+    
+    public void send() {
     	String buyerID = loggedUser.getUserID();
     	Integer itemInSaleID = itemDetails.getItemInSaleID();
-    	controller.clickOnBuy(buyerID, itemInSaleID); 	
+    	String request = requestArea.getText();
+    	controller.clickOnBuy(buyerID, itemInSaleID, request); 
+    	secondaryStage.close();
+    	//((Pane) vbox.getParent()).getChildren().remove(1);
+    }
+    
+    /*public void back() {
+    	((Pane) vbox.getParent()).getChildren().remove(1);
+    }*/
+    
+ 
+    
+    public void onTextChange() {
+    	Integer charactersLeft = maxCharacter - requestArea.getLength();
+    	
+    	if (charactersLeft > 0 ) {
+    		character.setTextFill(Color.BLACK);
+        	character.setText(charactersLeft.toString());
+    	}
+    	else if (charactersLeft == 0 ) {
+    		character.setTextFill(Color.RED);
+    		character.setText(charactersLeft.toString());	
+    	}
+    	else {
+    		var x = requestArea.getText().substring(0, maxCharacter);
+    		requestArea.setText(x);
+    		requestArea.positionCaret(maxCharacter);
+    	}
     }
     
     

@@ -2,33 +2,21 @@ package logic.controller.graphic;
 
 
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javafx.scene.Node;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import logic.bean.ItemInSaleBean;
 import logic.controller.application.CatalogueController;
 import logic.support.other.Bundle;
@@ -81,6 +69,7 @@ public class CatalogueView extends SceneManageable {
 		
 		itemInSaleBeanList = controller.getListItemInSaleBean();
 		
+		filters.clear();
 		genre.setVisible(false);
 		all.setSelected(true);
 		setPageBtn();
@@ -155,6 +144,13 @@ public class CatalogueView extends SceneManageable {
 		
 	}
 	
+	public void doSearch() {
+		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);	
+		setPageBtn();
+		fillCatalogue();
+	}
+	
+	
 	public void search(Event e){
     	var searchStr = searchBar.getText();
    	 
@@ -168,11 +164,6 @@ public class CatalogueView extends SceneManageable {
     	doSearch();
     }
 	
-	public void doSearch() {
-		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);	
-		setPageBtn();
-		fillCatalogue();
-	}
 	
 	public void all(){
 

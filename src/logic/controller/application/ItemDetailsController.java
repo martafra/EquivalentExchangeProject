@@ -1,18 +1,16 @@
 package logic.controller.application;
 
+
 import logic.support.connection.MessageSender;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
-import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.entity.Book;
 import logic.entity.Item;
@@ -90,14 +88,14 @@ public class ItemDetailsController {
 		return bean;
 	}
 
-	public void clickOnBuy(String buyerID, Integer itemInSaleID) {
+	public void clickOnBuy(String buyerID, Integer itemInSaleID, String requestMsg) {
 		
 		UserDAO userDAO = new UserDAO();
 		User buyer = userDAO.selectUser(buyerID);
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
 		ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(itemInSaleID);
 		
-		Request request = new Request(buyer, itemInSale, false, "Ciao, vorrei comprare questo oggetto"); //TODO far inserire il testo all'utente
+		Request request = new Request(buyer, itemInSale, false, requestMsg); 
 		RequestDAO requestD = new RequestDAO();
 		requestD.insertRequest(request);
 		
@@ -109,6 +107,7 @@ public class ItemDetailsController {
 		
 		MessageSender msgSender = new MessageSender();
 		msgSender.sendNotification(itemInSale.getSeller().getUsername(), notification);
+		
 		
 	}
 }
