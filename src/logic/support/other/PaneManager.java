@@ -124,6 +124,7 @@ public class PaneManager extends StackPane{
     	Bundle bundle = new Bundle();
     	
     	if(!getChildren().isEmpty()) {
+    		sceneControllers.get(getChildren().get(0)).onExit();
     		bundle = sceneControllers.get(getChildren().get(0)).getBundle();
     		getChildren().remove(0);
     	}

@@ -13,6 +13,10 @@ public abstract class SceneManageable {
 		this.bundle = bundle;
 	}
 	
+	public void onExit() {
+		
+	}
+	
 	public final Bundle getBundle() {
 		return bundle;
 	}

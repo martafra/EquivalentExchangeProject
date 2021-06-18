@@ -135,10 +135,13 @@ public class ChatController{
 		return messageBean;
 	}
 	
-	public OrderBean getActiveOrderByUsers(UserBean loggedUser, UserBean otherUser) {
+	public OrderBean getActiveOrderByUsers(UserBean loggedUser, UserBean otherUser, Boolean flag) {
 		WalletController walletController = new WalletController();
 		List<OrderBean> orders = walletController.getOrderList(loggedUser);
 		
+		if(Boolean.TRUE.equals(flag) && !(orders.isEmpty()) ) {
+			return orders.get(0);
+		}
 		for(OrderBean order : orders) {
 			if(order.getBuyer().getUserID().equals(loggedUser.getUserID())) {
 				if(Boolean.FALSE.equals(order.getBuyerStatus())) {

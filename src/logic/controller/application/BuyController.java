@@ -157,7 +157,9 @@ public class BuyController implements SaleController{
 		OrderDAO orderD = new OrderDAO();			
 		final Integer orderTime = 60*2;
 		Order order = orderD.selectOrder(orderData.getOrderID());
-
+		if(order.getStartDate() == null) {
+			return -1;
+		}
 		Integer remainingTime;
 		Long elapsedTime;
 		Date now = new Date();

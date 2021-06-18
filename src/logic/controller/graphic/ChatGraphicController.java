@@ -37,6 +37,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	private ChatController controller = new ChatController();
 	private HashMap<String, ChatBox> chatBoxes = new HashMap<>();
 	private SaleController saleController;
+	private BuyController bController = new BuyController();
 	private MailBox mailbox;
 	
 	@FXML
@@ -194,7 +195,11 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		ChatBox currentChatBox = chatBoxes.get(currentChatUser.getUserID());
 		currentChatBox.select();
 		
-		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData);
+		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData, true);
+		if(currentActiveOrder != null) {
+			bController.checkRemainingTime(currentActiveOrder);
+		}
+		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData, false);
 		
 		if(currentActiveOrder != null) {
 			orderBox.setVisible(true);

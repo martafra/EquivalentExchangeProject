@@ -1,7 +1,8 @@
 package logic.bean;
 
-import java.time.LocalDate;
-import java.time.Period;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import logic.support.interfaces.Bean;
 import logic.support.other.ProfileRules;
@@ -13,7 +14,7 @@ public class RegistrationBean implements Bean{
 	private String lastName;
 	private String email;
 	private String password;
-	private LocalDate birthDate;
+	private Date birthDate;
 	
 	
 	public String getUsername() {
@@ -36,7 +37,7 @@ public class RegistrationBean implements Bean{
 		return this.password;
 	}
 
-	public LocalDate getBirthDate() {
+	public Date getBirthDate() {
 		return this.birthDate;
 	}
 	
@@ -113,11 +114,10 @@ public class RegistrationBean implements Bean{
 	
 	}
 	
-	public boolean setBirthDate(LocalDate birthDate) {
+	public boolean setBirthDate(Date birthDate) {
 		int minimumAge = ProfileRules.getMinimumAge();
-		LocalDate todayDate = LocalDate.now();
 		
-		int userAge = Period.between(birthDate, todayDate).getYears();
+		int userAge = calculateAge(birthDate);
 		
 		if(userAge < minimumAge) {
 			return false;
@@ -125,6 +125,28 @@ public class RegistrationBean implements Bean{
 		
 		this.birthDate = birthDate;
 		return true;
+	}
+	
+	private Integer calculateAge(Date birthDate) {
+		Calendar calendar = new GregorianCalendar();
+		Date now = new Date();
+		calendar.setTime(now);
+		Integer todayYear = calendar.get(Calendar.YEAR);
+		Integer todayMonth = calendar.get(Calendar.MONTH);
+		Integer todayDay = calendar.get(Calendar.DAY_OF_MONTH);
+		calendar.setTime(birthDate);
+		Integer birthYear = calendar.get(Calendar.YEAR);
+		Integer birthMonth = calendar.get(Calendar.MONTH);
+		Integer birthDay = calendar.get(Calendar.DAY_OF_MONTH);
+		
+				
+		Integer age = todayYear - birthYear;
+		
+		if(todayMonth < birthMonth) 
+			age--;
+		else if(todayMonth.equals(birthMonth) && todayDay < birthDay)
+			age = age - 1;
+		return age;
 	}
 	
 	private boolean isAlphabetic(String word) {

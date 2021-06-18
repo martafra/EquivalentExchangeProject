@@ -131,7 +131,6 @@
                         </StackPane>
                      </children>
                   </GridPane>
-                  <Label fx:id="summaryTimer" layoutX="393.0" layoutY="373.0" text="Label" />
                   <Label fx:id="codeErrorLabel" layoutX="64.0" layoutY="556.0" prefHeight="17.0" prefWidth="539.0" style="-fx-text-fill: red;" />
                </children>
             </Pane>

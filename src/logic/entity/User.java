@@ -37,7 +37,7 @@ public class User {
 	
 	
 	public User() {
-		
+		this.wallet = new Wallet();
 	}
 	
 	public String getUsername() {

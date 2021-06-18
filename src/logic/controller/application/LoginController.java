@@ -1,13 +1,8 @@
 package logic.controller.application;
 import logic.bean.LoginBean;
+
 import logic.bean.RegistrationBean;
 import logic.bean.UserBean;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.entity.User;
@@ -34,6 +29,8 @@ public class LoginController {
 		newUser.setSurname(newUserData.getLastName());
 		newUser.setEmail(newUserData.getEmail());
 		newUser.setPassword(newUserData.getPassword());
+		newUser.setBirthDate(newUserData.getBirthDate());
+		newUser.getWallet().setCurrentCredit(500);
 		
 		//userDB.registerUser(newUser);
 		userDB.insertUser(newUser);

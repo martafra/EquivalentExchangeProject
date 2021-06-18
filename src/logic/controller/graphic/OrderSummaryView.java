@@ -53,8 +53,6 @@ public class OrderSummaryView extends SceneManageable{
 	private GridPane summaryCodePane;
 	@FXML
 	private Button summaryVerify;
-	@FXML
-	private Label summaryTimer;
 	@FXML 
 	private TextField codeField;
 	@FXML
@@ -72,6 +70,7 @@ public class OrderSummaryView extends SceneManageable{
 	private ItemDetailsBean item;
 	private HBox inputCodeBox = null;
 	private HBox outputCodeBox = null;
+	AnimationTimer timer;
 	
 	
 	@FXML
@@ -147,15 +146,23 @@ public class OrderSummaryView extends SceneManageable{
 			summaryUser.setText("Seller: " + seller);
 		}
 		
-
+		timer = null;
 		if(order.getStartDate() != null && order.getOrderDate() == null){
 			Integer remainingTime = bController.checkRemainingTime(order);
-			AnimationTimer timer = new CountdownTimer(remainingTime, summaryTimer);
-			//timer.start();	
+			timer = new CountdownTimer(remainingTime, summaryEnd);
+			timer.start();	
 		}
 	}
 	
-	public Integer getOrderStatus(UserBean loggedUser, OrderBean order) {
+	@Override
+	public void onExit() {
+		super.onExit();
+		if(timer != null) {
+			timer.stop();
+		}
+	}
+	
+	private Integer getOrderStatus(UserBean loggedUser, OrderBean order) {
 		
 		if(order.getStartDate() == null && order.getOrderDate() == null) {
 			//Order not started yet
@@ -206,7 +213,7 @@ public class OrderSummaryView extends SceneManageable{
 			summaryStart.setText("Order started on: " + format.format(order.getStartDate()));
 		
 		if( order.getOrderDate() != null )
-			summaryStart.setText("Order finished on: " + format.format(order.getOrderDate()));
+			summaryEnd.setText("Order finished on: " + format.format(order.getOrderDate()));
 	}
 	
 	
@@ -245,8 +252,8 @@ public class OrderSummaryView extends SceneManageable{
 		}
 
 		if(countdownValue <= 0){
-			bController.checkRemainingTime(order);
 			stop();
+			bController.checkRemainingTime(order);
 		}
 
 		//System.out.println((Double) (deltaTime * (Double) Math.pow(10, -9)));

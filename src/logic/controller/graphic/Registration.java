@@ -1,5 +1,8 @@
 package logic.controller.graphic;
 
+import java.time.ZoneId;
+import java.util.Date;
+
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -80,7 +83,8 @@ public class Registration extends SceneManageable{
 			return;
 		}
 		
-		if(!rBean.setBirthDate(birthDate.getValue())) {
+		Date date = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		if(!rBean.setBirthDate(date)) {
 			System.out.println("Errore nell'inserimento della Data");
 			return;
 		}
