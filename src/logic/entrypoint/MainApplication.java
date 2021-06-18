@@ -28,9 +28,11 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("chat", "/logic/view/Chat.fxml");
 		mainPanel.loadScene("postad", "/logic/view/PostAd.fxml");
 		mainPanel.loadScene("sellerpanel", "/logic/view/SellerPanel.fxml");
+		mainPanel.loadScene("reviewerpanel", "/logic/view/ReviewerPanel.fxml");
 		mainPanel.loadScene("itemDetails", "/logic/view/ItemDetails.fxml");
 		mainPanel.loadScene("wallet", "/logic/view/Wallet.fxml");
 		mainPanel.loadScene("ordersummary", "/logic/view/OrderSummary.fxml");
+		mainPanel.loadScene("profile", "/logic/view/Profile.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		mainPanel.loadMenu("/logic/view/Menu.fxml");

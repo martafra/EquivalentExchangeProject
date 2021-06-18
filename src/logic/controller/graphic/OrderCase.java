@@ -55,7 +55,7 @@ public class OrderCase extends GraphicWidget{
 			userData = orderData.getBuyer();
 		}
 		else {
-			orderUserLabel.setText("Seller: " + loggedUser.getUserID());
+			orderUserLabel.setText("Seller: " + orderData.getInvolvedItem().getSeller().getUserID());
 			userData = loggedUser;
 		}
 		

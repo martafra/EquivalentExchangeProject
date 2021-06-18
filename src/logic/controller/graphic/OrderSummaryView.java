@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import logic.bean.ItemDetailsBean;
 import logic.bean.OrderBean;
 import logic.bean.UserBean;
@@ -48,17 +50,41 @@ public class OrderSummaryView extends SceneManageable{
 	@FXML
 	private Label summaryCodeLabel;
 	@FXML
-	private GridPane summaryCode;
+	private GridPane summaryCodePane;
 	@FXML
 	private Button summaryVerify;
 	@FXML
 	private Label summaryTimer;
+	@FXML 
+	private TextField codeField;
+	@FXML
+	private StackPane codeStackPane;
+	@FXML
+	private TextField codeLabel;
+	@FXML
+	private Label codeErrorLabel;
 	
 	private SellController sController = new SellController();
 	private BuyController bController = new BuyController();
 	private ItemDetailsController iController = new ItemDetailsController();
 	private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private OrderBean order;
+	private ItemDetailsBean item;
+	private HBox inputCodeBox = null;
+	private HBox outputCodeBox = null;
+	
+	
+	@FXML
+	public void verifySummaryCode() {
+		String code = codeField.getText();
+		order.setCode(code);
+		if(Boolean.TRUE.equals(sController.verifyPaymentCode(order))) {
+			goToScene("wallet");
+		}else {
+			codeErrorLabel.setText("Wrong code! Contact the buyer if the error persists!");
+		}
+	}
+	
 	
 	@Override
 	public void onLoad(Bundle bundle){
@@ -70,49 +96,99 @@ public class OrderSummaryView extends SceneManageable{
 			goToScene("login");
 			return;
 		}
-
 		
-
+		codeErrorLabel.setText("");
+		summaryStart.setText("");
+		summaryEnd.setText("");
 		
-		String logged = loggedUser.getUserID();
+		if(codeStackPane.getChildren().size() == 2) {
+			inputCodeBox = (HBox) codeStackPane.getChildren().get(1);
+			outputCodeBox = (HBox) codeStackPane.getChildren().get(0);
+		}
+		codeStackPane.getChildren().clear();
+		
 		OrderBean selectedOrder = (OrderBean) bundle.getBean("selectedOrder");
 		order = sController.generateOrderSummary(selectedOrder.getOrderID());
-		ItemDetailsBean item = iController.getItemDetails(order.getInvolvedItem().getItemID());
+		item = iController.getItemDetails(order.getInvolvedItem().getItemID());
+		
+		requiredOperations();
+		
+		String seller = item.getSeller().getUserID();
+		
+		switch(getOrderStatus(loggedUser, order)) {
+			case 0:
+				summaryCodeLabel.setText("");
+				break;
+			case 1:
+				summaryCodeLabel.setText("Enter payment code");
+				codeStackPane.getChildren().add(inputCodeBox);
+				break;
+			case 2:
+				summaryCodeLabel.setText("Payment code");
+				codeStackPane.getChildren().add(outputCodeBox);
+				codeLabel.setText(order.getCode());
+				break;
+			case 3: 
+				summaryCodeLabel.setText("Payment code");
+				codeStackPane.getChildren().add(outputCodeBox);
+				codeLabel.setText(order.getCode());
+				break;
+			case 4:
+				break;
+			default:
+				break;
+		}
+		
+		
+		if(seller.equals(loggedUser.getUserID())){
+			summaryUser.setText("Buyer: " + order.getBuyer().getUserID());
+		}
+		else{
+			summaryUser.setText("Seller: " + seller);
+		}
+		
+
+		if(order.getStartDate() != null && order.getOrderDate() == null){
+			Integer remainingTime = bController.checkRemainingTime(order);
+			AnimationTimer timer = new CountdownTimer(remainingTime, summaryTimer);
+			//timer.start();	
+		}
+	}
+	
+	public Integer getOrderStatus(UserBean loggedUser, OrderBean order) {
+		
+		if(order.getStartDate() == null && order.getOrderDate() == null) {
+			//Order not started yet
+			return 0;	
+		}
+		if(order.getStartDate() != null && order.getOrderDate() == null) {
+			
+			//Order started but not finished
+			if(loggedUser.getUserID().equals(item.getSeller().getUserID())) {
+				//Seller View
+				return 1;
+			}else {
+				//Buyer View
+				return 2;
+			}
+		}
+		if(order.getStartDate() != null && order.getOrderDate() != null) {
+			//Order finished
+			return 3;
+		}
+		
+		return 4;
+		
+	}
+	
+	
+	public void requiredOperations() {
 		
 		summaryPic.setImage(new Image(item.getMediaPath()));
 		summaryName.setText(item.getItemName());
 		summaryCondition.setText(item.getCondition());
 		summaryPrice.setText(item.getPrice().toString());
-		String seller = item.getSeller().getUserID();
-		if(seller.equals(logged)){
-			summaryUser.setText("Buyer: " + order.getBuyer().getUserID());
-			summaryCodeLabel.setText("Enter payment code");
-			TextField codeField = new TextField();
-			
-			if(order.getOrderDate() != null) {
-				Label codeLabel = new Label(order.getCode());
-				summaryCode.add(codeLabel, 0, 1);
-				summaryCodeLabel.setText("Payment Code:");
-			}else {
-				summaryCode.add(codeField, 0, 1);
-			}
-				
-			summaryVerify.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					order.setCode(codeField.getText());
-					sController.verifyPaymentCode(order);
-				}
-			});
-		}
-		else{
-			summaryUser.setText("Seller: " + seller);
-			summaryCodeLabel.setText("Payment code");
-			Label codeField = new Label();
-			codeField.setText(order.getCode());
-			summaryVerify.setVisible(false);
-			summaryCode.add(codeField, 0, 1);
-		}
+		
 		if(order.getSellerStatus()) {
 			summarySeller.setText("Order accepted by seller");
 		}
@@ -127,20 +203,13 @@ public class OrderSummaryView extends SceneManageable{
 		}
 		
 		if( order.getStartDate() != null)
-			summaryStart.setText("Order started on: "+ format.format(order.getStartDate()));
+			summaryStart.setText("Order started on: " + format.format(order.getStartDate()));
 		
 		if( order.getOrderDate() != null )
-			summaryStart.setText(format.format("Order finished on: " + order.getOrderDate()));
-
-		if(order.getStartDate() != null && order.getOrderDate() == null){
-			Integer remainingTime = bController.checkRemainingTime(order);
-			AnimationTimer timer = new CountdownTimer(remainingTime, summaryTimer);
-			timer.start();
-
-			
-		}
+			summaryStart.setText("Order finished on: " + format.format(order.getOrderDate()));
 	}
-
+	
+	
 	private class CountdownTimer extends AnimationTimer{
 
     private long previousTime = 0;

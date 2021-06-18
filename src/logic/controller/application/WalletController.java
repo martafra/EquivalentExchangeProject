@@ -34,6 +34,7 @@ public class WalletController {
 			UserBean sellerBean = new UserBean();
 			ItemInSaleBean itemBean = new ItemInSaleBean();
 			orderBean.setStartDate(order.getStartDate());
+			orderBean.setOrderDate(order.getOrderDate());
 			orderBean.setOrderID(order.getOrderID());
 			buyerBean.setUserID(order.getBuyer().getUsername());
 			sellerBean.setUserID(order.getInvolvedItem().getSeller().getUsername());

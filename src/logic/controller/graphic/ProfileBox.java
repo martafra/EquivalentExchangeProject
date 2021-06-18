@@ -27,7 +27,6 @@ public class ProfileBox extends HBox{
 		profileName.setStyle("-fx-font-size: 18;");
 		this.setAlignment(Pos.CENTER_RIGHT);
 		
-		setProfilePic("/logic/view/assets/images/logo.png");
 		
 		HBox.setMargin(profileName, new Insets(0,20,0,0));
 		HBox.setMargin(profilePic, new Insets(0,20,0,0));

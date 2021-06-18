@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="orderSummary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.OrderSummaryView">
+<AnchorPane fx:id="orderSummary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.OrderSummaryView">
    <children>
       <StackPane layoutX="286.0" layoutY="43.0" prefHeight="635.0" prefWidth="709.0" style="-fx-background-color: #FFFFFF00; -fx-background-radius: 20px;" styleClass="rounded-pane">
          <children>
@@ -97,7 +100,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <GridPane fx:id="summaryCode" layoutX="73.0" layoutY="466.0" prefHeight="66.0" prefWidth="156.0">
+                  <GridPane fx:id="summaryCodePane" layoutX="63.0" layoutY="452.0" prefHeight="91.0" prefWidth="306.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -106,14 +109,37 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="summaryCodeLabel" prefHeight="34.0" prefWidth="160.0" text="Label" />
+                        <Label fx:id="summaryCodeLabel" prefHeight="34.0" prefWidth="295.0" text="Label" />
+                        <StackPane fx:id="codeStackPane" prefHeight="45.0" prefWidth="262.0" GridPane.rowIndex="1">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                                 <children>
+                                    <TextField fx:id="codeLabel" editable="false" prefHeight="31.0" prefWidth="299.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="257.0" style="-fx-background-color: #FFFFFF;">
+                                 <children>
+                                    <TextField fx:id="codeField" prefHeight="30.0" prefWidth="221.0" promptText="Insert your code here...">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="summaryVerify" mnemonicParsing="false" onAction="#verifySummaryCode" prefHeight="33.0" prefWidth="69.0" text="Verify" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
                      </children>
                   </GridPane>
-                  <Button fx:id="summaryVerify" layoutX="258.0" layoutY="499.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="65.0" text="Verify" />
-                  <Label fx:id="summaryTimer" layoutX="446.0" layoutY="406.0" text="Label" />
+                  <Label fx:id="summaryTimer" layoutX="393.0" layoutY="373.0" text="Label" />
+                  <Label fx:id="codeErrorLabel" layoutX="64.0" layoutY="556.0" prefHeight="17.0" prefWidth="539.0" style="-fx-text-fill: red;" />
                </children>
             </Pane>
          </children>
       </StackPane>
    </children>
+   <stylesheets>
+      <URL value="@style/Style.css" />
+      <URL value="@style/OrderSummary.css" />
+   </stylesheets>
 </AnchorPane>
