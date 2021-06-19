@@ -40,10 +40,21 @@ public class UserProfileDAO {
 			ImageCache mediaCache = ImageCache.getInstance();
 			String fileName = username + "_profilePic";
 			String filePath = mediaCache.addImage(fileName, rs.getBinaryStream("proPic"));
+			if(filePath.equals(mediaCache.getMissingImagePath()))
+				filePath = "/logic/view/assets/images/avatar.png";
+			
 			profileData.setProfilePicturePath(filePath);
 			
 			if(Boolean.FALSE.equals(onlyProPic)) {
 				
+				fileName = username + "_coverPic";
+				filePath = mediaCache.addImage(fileName, rs.getBinaryStream("coverPic"));
+				if(filePath.equals(mediaCache.getMissingImagePath()))
+					filePath = "/logic/view/assets/images/avatar.png";
+				
+				profileData.setCoverPicturePath(filePath);
+				profileData.setPhoneNumber(rs.getString("phoneNumber"));
+				profileData.setBioInfo(rs.getString("bioInfo"));
 				
 			}	
 		} catch (SQLException e) {
@@ -66,6 +77,34 @@ public class UserProfileDAO {
 		
 		return profileData;
 		
+	}
+
+	public void updateProfile(String username, UserProfile profileData) {
+		Statement stmt = null;
+		Connection con = connection.getConnection();
+		try {
+			stmt = con.createStatement();
+			String coverPicPath = profileData.getCoverPicturePath();
+			String profilePicPath = profileData.getProfilePicturePath();
+			String phoneNumber = profileData.getPhoneNumber();
+			String bio = profileData.getBioInfo();
+			
+			String query = profileQuery.updateProfile(username, profilePicPath, coverPicPath, bio, phoneNumber);
+			System.out.println(query);
+			stmt.executeUpdate(query);	
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

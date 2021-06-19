@@ -57,21 +57,21 @@ public class ImageCache {
 		
 	
 		try {
-			if(image.createNewFile()) {
+				image.createNewFile();
 				OutputStream output = new FileOutputStream(image);
 				IOUtils.copy(data, output);	
 				output.close();
 				data.close();
 				fileNames.add(name);
-			}else { 
-				filePath = MISSING_IMAGE_PATH;
-			}
+				
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			filePath = MISSING_IMAGE_PATH;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			filePath = MISSING_IMAGE_PATH;
 		}
 		
 		return filePath;
@@ -87,5 +87,9 @@ public class ImageCache {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getMissingImagePath() {
+		return MISSING_IMAGE_PATH;
 	}
 }

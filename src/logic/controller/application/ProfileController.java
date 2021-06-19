@@ -71,6 +71,28 @@ public class ProfileController {
 		return age;
 	}
 	
+	public void updateUserProfileData(UserProfileBean profileDataBean) {
+		String username = profileDataBean.getUserID();
+		UserProfileDAO profileDAO = new UserProfileDAO();
+		UserDAO userDAO = new UserDAO();
+		UserProfile profileData = profileDAO.selectProfileByUsername(username, false);
+		User user = userDAO.selectUser(username);
+		
+		if(profileDataBean.getProfilePicPath() != null) {
+			profileData.setProfilePicturePath(profileDataBean.getProfilePicPath());
+		}
+		
+		if(profileDataBean.getCoverPicPath() != null) {
+			profileData.setCoverPicturePath(profileDataBean.getCoverPicPath());
+		}
+		
+		if(profileDataBean.getDescription() != null) {
+			profileData.setBioInfo(profileDataBean.getDescription());
+		}
+		
+		userDAO.updateUser(user);
+		profileDAO.updateProfile(username, profileData);
+	}
 	
 	public List<ItemInSaleBean> getProductsByUser(UserBean user, Integer numberOfProducts) {
 		

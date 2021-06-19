@@ -1,9 +1,13 @@
 package logic.controller.graphic;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import logic.bean.ItemInSaleBean;
 import logic.bean.UserBean;
 import logic.bean.UserProfileBean;
@@ -21,6 +27,8 @@ import logic.support.other.SceneManageable;
 public class ProfileView extends SceneManageable{
 
 	private UserBean loggedUser;
+	private UserProfileBean userData;
+	private Boolean changed = false;
 	
 	@FXML
 	private Label nameLabel;
@@ -43,6 +51,9 @@ public class ProfileView extends SceneManageable{
 	@FXML
 	private HBox guideList;
 	
+	@FXML
+	private Button saveButton;
+	
 	private ProfileController controller = new ProfileController();
 	
 	@FXML
@@ -53,6 +64,40 @@ public class ProfileView extends SceneManageable{
 	@FXML
 	public void goToReviewerPanel() {
 		goToScene("reviewerpanel");
+	}
+	@FXML
+	public void changeProfilePic() {
+		String profilePicPath = getPicture();
+		if(profilePicPath != null) {
+			try {
+				profileImage.setFill(new ImagePattern(new Image(new FileInputStream(profilePicPath))));
+				userData.setProfilePicPath(profilePicPath);
+				changed = true;
+			} catch (FileNotFoundException e) {
+				
+			}
+		}
+		saveButton.setVisible(changed);
+	}
+	@FXML
+	public void changeCoverPic() {
+		String coverPicPath = getPicture();
+		if(coverPicPath != null) {
+			try {
+				coverImage.setImage(new Image(new FileInputStream(coverPicPath)));
+				userData.setCoverPicPath(coverPicPath);
+				changed = true;
+			} catch (FileNotFoundException e) {
+				
+			}
+		}
+		saveButton.setVisible(changed);
+	}
+	@FXML
+	public void saveProfile() {
+		controller.updateUserProfileData(userData);
+		changed = false;
+		saveButton.setVisible(changed);
 	}
 	
 	@Override
@@ -66,8 +111,9 @@ public class ProfileView extends SceneManageable{
 			return;
 		}
 		
-		UserProfileBean userData = controller.getUserProfileData(loggedUser);
-		
+		userData = controller.getUserProfileData(loggedUser);
+		changed = false;
+		saveButton.setVisible(changed);
 		nameLabel.setText(userData.getName() + " " + userData.getLastName());
 		usernameLabel.setText(userData.getUserID());
 		genderLabel.setText(userData.getGender());
@@ -104,6 +150,18 @@ public class ProfileView extends SceneManageable{
 			
 		}
 		
+	}
+	
+	private String getPicture() {
+		FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Open Resource File");
+		 fileChooser.getExtensionFilters().addAll(
+		         new ExtensionFilter("Image Files", "*.png", "*.jpg"));
+		 File selectedFile = fileChooser.showOpenDialog(null);
+		 if(selectedFile != null) {
+			 return selectedFile.getAbsolutePath();
+		 }
+		 return null;
 	}
 	
 	
