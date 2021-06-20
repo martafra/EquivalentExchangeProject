@@ -360,7 +360,7 @@ public class ItemInSaleDAO {
 			
 	}
 	
-	public List<ItemInSale> getItemsInSaleListFiltered(Map<String, String> filters){
+	public List<ItemInSale> getItemsInSaleListFiltered(String loggedUser, Map<String, String> filters){
 		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
@@ -369,7 +369,7 @@ public class ItemInSaleDAO {
 		try {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.getItemsInSaleFiltered(filters);
+			String query = itemInSaleQ.getItemsInSaleFiltered(loggedUser, filters);
 			rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {

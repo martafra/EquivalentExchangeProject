@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
 import logic.bean.ItemInSaleBean;
+import logic.bean.UserBean;
 import logic.controller.application.CatalogueController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
@@ -29,6 +30,7 @@ public class CatalogueView extends SceneManageable {
 	private ArrayList<String> genres = new ArrayList<>();
 	private HashMap<String, String> filters = new HashMap<>();
 	private int maxItem = 8;
+	private UserBean loggedUser;
 
 	private Integer pageNumber = 0;
 	
@@ -66,21 +68,18 @@ public class CatalogueView extends SceneManageable {
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
 
-		
-		itemInSaleBeanList = controller.getListItemInSaleBean();
-		
+
+		loggedUser = (UserBean) bundle.getBean("loggedUser");
 		filters.clear();
 		genre.setVisible(false);
 		all.setSelected(true);
-		setPageBtn();
 		
 		setOrderByList();
 		if (searchBar.getText()!=null) {
 			searchBar.setText("");
 		}
 		
-
-		fillCatalogue();
+		doSearch();
 	}
 
 	
@@ -145,15 +144,19 @@ public class CatalogueView extends SceneManageable {
 	}
 	
 	public void doSearch() {
-		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(filters);	
+		String username = null;
+		if (loggedUser != null) {
+			username = loggedUser.getUserID();
+		}
+		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(username, filters);	
 		setPageBtn();
 		fillCatalogue();
 	}
 	
 	
 	public void search(Event e){
+		
     	var searchStr = searchBar.getText();
-   	 
 		if (searchStr != null && !searchStr.isBlank()) {
 			
 			filters.put("searchKey", searchStr );
@@ -252,7 +255,6 @@ public class CatalogueView extends SceneManageable {
 	
 	public void setOrderByList() {
 		orderBy.getItems().clear();
-		//filters.remove("orderBy");
 		orderBy.getItems().add("Rising Price");
 		orderBy.getItems().add("Decreasing Price");
 	}

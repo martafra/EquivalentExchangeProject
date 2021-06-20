@@ -3,8 +3,9 @@ package logic.controller.graphic;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -12,10 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
@@ -67,6 +72,12 @@ public class ItemDetailsView extends SceneManageable {
 	private Button send;
 	@FXML
 	private Label character;
+	@FXML
+	private Circle imgSeller;
+	@FXML
+	private VBox imgItem;
+	@FXML
+	private Label msgLabel;
 	
 	
     
@@ -84,6 +95,8 @@ public class ItemDetailsView extends SceneManageable {
     	
  
     	titleText.setText(item.getItemName());
+    	imgV.setImage(new Image(itemInSale.getMediaPath()));
+    	fillImg();
     	descText.setText(itemDetails.getDescription());
     	descText.setWrapText(true);
     	genreText.setText(item.getGenre());
@@ -91,9 +104,14 @@ public class ItemDetailsView extends SceneManageable {
     	addressText.setText(itemDetails.getAddress());
     	addressText.setWrapText(true);
     	
+    	Image profileImage = new Image(seller.getProfilePicPath());
+    	imgSeller.setFill(new ImagePattern(profileImage));
     	sellerText.setText(seller.getName());
+    	
+    	
     	priceText.setText(itemInSale.getPrice().toString());
-    	imgV.setImage(new Image(itemInSale.getMediaPath()));
+    	checkRequest();
+    	
     	
     	String itemDetails;
     	if (item.getType() =='B') {
@@ -145,14 +163,15 @@ public class ItemDetailsView extends SceneManageable {
     	String request = requestArea.getText();
     	controller.clickOnBuy(buyerID, itemInSaleID, request); 
     	secondaryStage.close();
+    	buyBtn.setDisable(true);
+    	msgLabel.setText("Request Sent");
+    	msgLabel.setVisible(true);
     	//((Pane) vbox.getParent()).getChildren().remove(1);
     }
     
     /*public void back() {
     	((Pane) vbox.getParent()).getChildren().remove(1);
     }*/
-    
- 
     
     public void onTextChange() {
     	Integer charactersLeft = maxCharacter - requestArea.getLength();
@@ -172,5 +191,46 @@ public class ItemDetailsView extends SceneManageable {
     	}
     }
     
+    public void fillImg() {
+    	imgItem.getChildren().clear();
+    	for(String photo : itemDetails.getMedia()) {
+    		ImageView img = new ImageView();
+    		//img.resize(10, 10);
+    		img.setImage(new Image(photo));
+    		img.setFitHeight(140);
+    		img.setFitWidth(140);
+    		imgItem.getChildren().add(img);
+    		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	//apre una finestra popUp
+		        	/*Stage stage = new Stage();
+		        	VBox vbox = new VBox();
+		    		Scene scene = new Scene(vbox,600,600);
+		    		vbox.getChildren().add(img);
+		    		stage.setScene(scene);
+		    		stage.initModality(Modality.APPLICATION_MODAL);
+		    		stage.showAndWait();*/
+		    		
+		        	imgV.setImage(img.getImage());
+		        }
+		    });
+    	}
+    	
+    }
+    
+    public void checkRequest() {
+    	if (loggedUser != null && controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID()) ) {
+    		buyBtn.setDisable(true);
+    		msgLabel.setVisible(true);
+    		msgLabel.setText("Request Already Sent");
+    	}
+    	else {
+    		buyBtn.setDisable(false);
+    		msgLabel.setVisible(false);
+    	}
+    	
+    	
+    }
     
 }

@@ -59,13 +59,18 @@ public class ItemInSaleQuery extends Query{
 	}
 	
 	public String getAllItemsInSale() {
-		String query = "SELECT * FROM ItemInSale";
+		String query = "SELECT * FROM ItemInSale WHERE availability = 1";
 		return query;
 	}
 
-	public String getItemsInSaleFiltered(Map<String, String> filters) {
+	public String getItemsInSaleFiltered(String loggedUser, Map<String, String> filters) {
 		
 		String queryFilters = "";
+		
+		if ( loggedUser != null) { 
+			queryFilters += " AND userID != '" + loggedUser + "' ";
+		}
+		
 		
 		if ( filters.containsKey("searchKey") || filters.containsKey("type") ) { 
 			queryFilters += getItemFilters(filters);
@@ -75,9 +80,10 @@ public class ItemInSaleQuery extends Query{
 			queryFilters += getOrderFilter(filters.get("orderBy"));
 		}
 			
-		//System.out.println("SELECT * FROM ItemInSale "+  queryFilters);
-		
-		return "SELECT * FROM ItemInSale "+  queryFilters;
+		String query = 	"SELECT * FROM ItemInSale "+
+						"WHERE availability = 1 " +
+				        "%s"  ;
+		return String.format(query, queryFilters);
 		
 	}
 	
@@ -114,7 +120,7 @@ public class ItemInSaleQuery extends Query{
 				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters.get("console") + "') "; // TODO controllare tabelle database
 			}
 		}
-		return " WHERE referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") ";
+		return " AND referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") ";
 	}
 	
 	

@@ -1,5 +1,6 @@
 package logic.controller.application;
 
+
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Timer;
@@ -28,11 +29,22 @@ public class BuyController implements SaleController{
 		Order order = orderDAO.selectOrder(orderID);
 		
 		if (order.isAccepted()) {	//so già che il seller ha accettato, quindi verifivo il buyer
+			//Il buyer e' il secondo ad accettare
+			
 			if (!orderAccepted(orderID)){ 
-				//se orderAccepted non è andato a buon fine:
-				order.setBuyerStatus(false);
-				order.setStartDate(null);
-				orderDAO.updateOder(order);
+				//orderAccepted non è andato a buon fine, visto che il seller e' il secondo ad aver cliccato accetta gli invio la notifica
+				
+				String buyer = order.getBuyer().getUsername();
+			
+				Notification errorOrder = new Notification();
+				errorOrder.setSender(buyer);
+				errorOrder.setDate(new Date());
+				errorOrder.setType(NotificationType.ORDER);
+				errorOrder.addParameter("status", "insufficient credit");
+				errorOrder.addParameter("order", orderID.toString());
+				
+				MessageSender sender = new MessageSender();
+				sender.sendNotification(order.getInvolvedItem().getSeller().getUsername(), errorOrder);
 			}	
 			
 			return true;
@@ -46,33 +58,43 @@ public class BuyController implements SaleController{
 	private Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
 		
 		UserDAO userD = new UserDAO();
-		OrderDAO orderD = new OrderDAO();
-		Order order = orderD.selectOrder(orderID);
+		OrderDAO orderDAO = new OrderDAO();
+		Order order = orderDAO.selectOrder(orderID);
 		
 		User buyer = order.getBuyer();
 		ItemInSale involvedItem = order.getInvolvedItem();
-	
+		System.out.println("Sono dentro orderAccepted");
+		System.out.println("Credito attuale: " + buyer.getWallet().getCurrentCredit());
 		if (buyer.decreaseCredit(involvedItem.getPrice())) {
-			//se lo scalo del credito è andato a buon fine
+			//se lo scalo del credito e' andato a buon fine
+			System.out.println("Il credito è stato scalato");
+			System.out.println("Nuovo credito: " + buyer.getWallet().getCurrentCredit());
+			
 			userD.updateUser(buyer);
+			order.setBuyerStatus(true);
+			order.setCode(generateCode());
 			
-			String code = generateCode();
-			
-			order.setCode(code);
-			//order.setStartDate(new Date());
-			//startTimer(order.getOrderID(), 259200000L - (new Date().getTime() - order.getStartDate().getTime()));
-			//startTimer(order.getOrderID(), 10000L);
-			orderD.updateOder(order);
-			
-			//TODO ORDER SUMMARY
+			if(order.isAccepted()){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
+				//entrambi hanno già accettato:	
+				
+				System.out.println("Hanno entrambi accettato");
+				order.setStartDate(new Date());
+			}
+			orderDAO.updateOder(order);
 			return true;
 		}
 		
+		//order.setBuyerStatus(false);
+		//order.setStartDate(null);
+		//orderDAO.updateOder(order);
 		return false;
 	}
 	
 	@Override
-	public void acceptOrder(OrderBean orderBean) {
+	public void acceptOrder(OrderBean orderBean) { //buyer clicca su accetta ordine
+		
+		System.out.println("Sono in accetta ordine");
+		
 		Integer orderID = orderBean.getOrderID();
 		OrderDAO orderDAO = new OrderDAO();
 		Order order = orderDAO.selectOrder(orderID);
@@ -80,30 +102,19 @@ public class BuyController implements SaleController{
 		String buyer = order.getBuyer().getUsername();
 		Integer itemID = order.getInvolvedItem().getItemInSaleID();
 		
+		
+		if (!orderAccepted(order.getOrderID())){ 
+			//se orderAccepted non è andato a buon fine:
+			//non notifico nulla al venditore, per lui e' come se il buyer non avesse ancora mia cliccato su accetta
+			return;
+		}
+		
 		Notification acceptedOrder = new Notification();
 		acceptedOrder.setSender(buyer);
 		acceptedOrder.setDate(new Date());
 		acceptedOrder.setType(NotificationType.ORDER);
 		acceptedOrder.addParameter("status", "accepted");
 		acceptedOrder.addParameter("item", itemID.toString());
-		
-		order.setBuyerStatus(true);
-		order.setCode(generateCode());
-		orderDAO.updateOder(order);
-		
-		if(order.isAccepted()){
-			order.setStartDate(new Date());
-			orderDAO.updateOder(order);
-		//Se entrambi hanno già accettato:	
-			if (!orderAccepted(order.getOrderID())){ 
-				//se orderAccepted non è andato a buon fine:
-				order.setBuyerStatus(false);
-				order.setStartDate(null);
-				orderDAO.updateOder(order);
-				return;
-			}	
-			//TODO se orderAccepted è andato a buon fine:
-		}
 		
 		//Tranne nel caso in cui orderAccepted non è andato a buon fine -> invio la notifica al seller che il buyer ha accettato
 		MessageSender sender = new MessageSender();
@@ -157,6 +168,7 @@ public class BuyController implements SaleController{
 		OrderDAO orderD = new OrderDAO();			
 		final Integer orderTime = 60*2;
 		Order order = orderD.selectOrder(orderData.getOrderID());
+		
 		if(order.getStartDate() == null) {
 			return -1;
 		}
@@ -177,9 +189,23 @@ public class BuyController implements SaleController{
 			order.setOrderDate(null);
 			order.setCode(null);
 			orderD.updateOder(order);
+			restoreCredit(order);
+			
 		}
 
 		return Math.max(0, remainingTime);
+	}
+	
+	public void restoreCredit(Order order) {
+		
+		User user = order.getBuyer();
+		Integer price = order.getInvolvedItem().getPrice();
+		user.increaseCredit(price);
+		
+		UserDAO userDAO = new UserDAO();
+		userDAO.updateUser(user);
+		
+		
 	}
 	
 

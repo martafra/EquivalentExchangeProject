@@ -9,6 +9,7 @@ import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
+import logic.DAO.UserProfileDAO;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
 import logic.bean.UserBean;
@@ -18,6 +19,7 @@ import logic.entity.ItemInSale;
 import logic.entity.Movie;
 import logic.entity.Request;
 import logic.entity.User;
+import logic.entity.UserProfile;
 import logic.entity.Videogame;
 import logic.enumeration.NotificationType;
 import logic.support.other.Notification;
@@ -27,13 +29,15 @@ public class ItemDetailsController {
 	public UserBean getUserData(String username) {	
 		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
-		
+		UserProfileDAO profileDAO = new UserProfileDAO();
 		User seller = userDAO.selectUser(username);
+		
+		UserProfile sellerProfile = profileDAO.selectProfileByUsername(seller.getUsername(), true);
 		
 		bean.setEmail(seller.getEmail());
 		bean.setName(seller.getName());
 		bean.setLastName(seller.getSurname());
-		
+		bean.setProfilePicPath(sellerProfile.getProfilePicturePath());
 		bean.setUserID(seller.getUsername());
 		
 		return bean;
@@ -53,7 +57,8 @@ public class ItemDetailsController {
 		bean.setAddress(itemInSale.getAddress());
 		bean.setCondition(itemInSale.getCondition().toString());
 		bean.setDescription(itemInSale.getDescription());
-		bean.setMedia((ArrayList<String>)itemInSale.getMedia()); //cast a 'ArrayList<String>' poiche' itemInSale.getMedia() ritorna un List<String>, da modificare?
+		bean.setMedia((ArrayList<String>)itemInSale.getMedia()); 
+		//cast a 'ArrayList<String>' poiche' itemInSale.getMedia() ritorna un List<String>, da modificare?
 		
 		return bean;
 	}
@@ -108,6 +113,14 @@ public class ItemDetailsController {
 		MessageSender msgSender = new MessageSender();
 		msgSender.sendNotification(itemInSale.getSeller().getUsername(), notification);
 		
-		
+	}
+	
+	public boolean checkRequest(String buyer, Integer item) {
+		RequestDAO requestDAO = new RequestDAO();
+		Request request = requestDAO.selectRequest(buyer, item);
+		if (request == null) {
+			return false;
+		}
+		return true;
 	}
 }

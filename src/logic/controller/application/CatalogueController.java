@@ -23,9 +23,9 @@ public class CatalogueController {
 		return createItemInSaleBeanList(itemInSaleList);
 	}
 	
-	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(HashMap<String, String> filters) {
+	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(String loggedUser, HashMap<String, String> filters) {
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
-		List<ItemInSale> itemInSaleList = itemInSaleDAO.getItemsInSaleListFiltered(filters);
+		List<ItemInSale> itemInSaleList = itemInSaleDAO.getItemsInSaleListFiltered(loggedUser, filters);
 		
 		return createItemInSaleBeanList(itemInSaleList);
 	}
