@@ -1,5 +1,6 @@
 package logic.controller.graphic;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -33,7 +34,7 @@ public class ItemCatalogueView extends SceneManageable {
     	this.catalogueView = catalogueView;
     	itemInSale = item;
     	titleText.setText(item.getItemName());
-    	priceText.setText(item.getPrice().toString());
+    	priceText.setText(item.getPrice().toString() + " Coins");
     	imageView.setImage(new Image(item.getMediaPath()));
    		
     }

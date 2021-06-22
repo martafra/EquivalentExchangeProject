@@ -1,5 +1,6 @@
 package logic.controller.application;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -15,13 +16,6 @@ import logic.enumeration.MovieGenre;
 import logic.enumeration.VideoGameGenre;
 
 public class CatalogueController {
-	
-	public List<ItemInSaleBean> getListItemInSaleBean() {
-		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
-		List<ItemInSale> itemInSaleList = itemInSaleDAO.getItemsInSaleList();
-		
-		return createItemInSaleBeanList(itemInSaleList);
-	}
 	
 	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(String loggedUser, HashMap<String, String> filters) {
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();

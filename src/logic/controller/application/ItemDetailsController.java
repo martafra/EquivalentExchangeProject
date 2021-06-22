@@ -1,10 +1,14 @@
 package logic.controller.application;
 
 
+
 import logic.support.connection.MessageSender;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
@@ -12,6 +16,7 @@ import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
+import logic.bean.ItemInSaleBean;
 import logic.bean.UserBean;
 import logic.entity.Book;
 import logic.entity.Item;
@@ -61,6 +66,30 @@ public class ItemDetailsController {
 		//cast a 'ArrayList<String>' poiche' itemInSale.getMedia() ritorna un List<String>, da modificare?
 		
 		return bean;
+	}
+	
+	public List<ItemInSaleBean> getOtherItem(String seller, String itemInSale) {
+		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
+		List<ItemInSale> itemInSaleList = itemInSaleDAO.getOtherItem(seller, itemInSale);
+		
+		List<ItemInSaleBean> itemInSaleBeanList =  new ArrayList<>();
+		int i = 0;
+		for (ItemInSale item : itemInSaleList) {
+			i++;
+			if (i == 4) {
+				break;
+			}
+			
+			ItemInSaleBean itemInSaleBean = new ItemInSaleBean();
+			itemInSaleBean.setItemID(item.getItemInSaleID());
+			itemInSaleBean.setItemName(item.getReferredItem().getName());
+			itemInSaleBean.setPrice(item.getPrice());
+			itemInSaleBean.setMediaPath(item.getMedia().get(0));
+			itemInSaleBean.setSeller(getUserData(item.getSeller().getUsername()));
+			itemInSaleBeanList.add(itemInSaleBean);
+			
+		}
+		return itemInSaleBeanList;
 	}
 	
 	public ItemBean getItemByID(Integer itemID) {

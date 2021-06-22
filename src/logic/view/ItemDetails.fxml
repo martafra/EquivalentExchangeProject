@@ -15,7 +15,7 @@
       <children>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" text="Seller's information " textAlignment="CENTER">
             <font>
-               <Font name="System Bold" size="16.0" />
+               <Font size="14.0" />
             </font>
          </Label>
         <Label fx:id="sellerText" alignment="CENTER" contentDisplay="CENTER" layoutX="107.0" layoutY="235.0" text="Name" textAlignment="CENTER" />
@@ -29,12 +29,7 @@
                <Font size="14.0" />
             </font>
          </Button>
-        <Label fx:id="priceText" alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="27.0" text="Price" textAlignment="CENTER">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-         <Label layoutX="124.0" layoutY="27.0" text="Coins">
+        <Label fx:id="priceText" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="23.0" prefHeight="25.0" prefWidth="243.0" text="Price" textAlignment="CENTER">
             <font>
                <Font size="16.0" />
             </font>
@@ -46,7 +41,7 @@
          
                     <Label fx:id="titleText" alignment="CENTER" layoutX="78.0" layoutY="14.0" text="Title">
             <font>
-               <Font size="16.0" />
+               <Font name="System Bold" size="16.0" />
             </font>
          </Label> 
         <ImageView fx:id="imgV" fitHeight="250.0" fitWidth="250.0" layoutX="61.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
@@ -76,9 +71,9 @@
          <VBox fx:id="imgItem" prefWidth="140.0" spacing="15.0" style="-fx-background-color: #FFFFFF;" />
       </content>
    </ScrollPane>
-   <Pane layoutX="893.0" layoutY="454.0" prefHeight="179.0" prefWidth="344.0" style="-fx-background-color: #FFF1E9; -fx-background-radius: 12; -fx-border-radius: 12;">
+   <Pane layoutX="893.0" layoutY="454.0" prefHeight="210.0" prefWidth="344.0" style="-fx-background-color: #FFF1E9; -fx-background-radius: 12; -fx-border-radius: 12;">
       <children>
-         <HBox layoutX="3.0" layoutY="48.0" prefHeight="127.0" prefWidth="337.0" />
+         <HBox fx:id="otherItemBox" layoutX="3.0" layoutY="48.0" prefHeight="127.0" prefWidth="337.0" />
          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="21.0" prefHeight="20.0" prefWidth="344.0" text="FROM OTHER SELLER" textAlignment="RIGHT">
             <font>
                <Font name="System Bold" size="14.0" />
@@ -86,6 +81,6 @@
          </Label>
       </children>
    </Pane>
-   <Label fx:id="msgLabel" layoutX="621.0" layoutY="580.0" prefHeight="17.0" prefWidth="243.0" text="Label" textAlignment="CENTER" textFill="RED" />
+   <Label fx:id="msgLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="621.0" layoutY="580.0" prefHeight="17.0" prefWidth="243.0" text="Label" textAlignment="CENTER" textFill="RED" />
    
       </Pane>

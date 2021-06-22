@@ -1,6 +1,7 @@
 package logic.controller.application;
 
 
+
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Timer;
@@ -22,38 +23,6 @@ import logic.support.other.Notification;
 
 public class BuyController implements SaleController{
 	
-	//arriva la notifica che il seller ha accettato
-	public Boolean orderNotification(Integer orderID) {
-		
-		OrderDAO orderDAO = new OrderDAO();
-		Order order = orderDAO.selectOrder(orderID);
-		
-		if (order.isAccepted()) {	//so già che il seller ha accettato, quindi verifivo il buyer
-			//Il buyer e' il secondo ad accettare
-			
-			if (!orderAccepted(orderID)){ 
-				//orderAccepted non è andato a buon fine, visto che il seller e' il secondo ad aver cliccato accetta gli invio la notifica
-				
-				String buyer = order.getBuyer().getUsername();
-			
-				Notification errorOrder = new Notification();
-				errorOrder.setSender(buyer);
-				errorOrder.setDate(new Date());
-				errorOrder.setType(NotificationType.ORDER);
-				errorOrder.addParameter("status", "insufficient credit");
-				errorOrder.addParameter("order", orderID.toString());
-				
-				MessageSender sender = new MessageSender();
-				sender.sendNotification(order.getInvolvedItem().getSeller().getUsername(), errorOrder);
-			}	
-			
-			return true;
-		}
-		else {						// buyer non ha ancora accettato
-			return false;
-		}
-		
-	}
 	
 	private Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
 		
@@ -164,11 +133,13 @@ public class BuyController implements SaleController{
 	}
 	
 	public Integer checkRemainingTime(OrderBean orderData) {
-		
 		OrderDAO orderD = new OrderDAO();			
 		final Integer orderTime = 60*2;
 		Order order = orderD.selectOrder(orderData.getOrderID());
 		
+		if (order.getOrderDate() != null) {
+			return -2;
+		}
 		if(order.getStartDate() == null) {
 			return -1;
 		}
@@ -190,8 +161,7 @@ public class BuyController implements SaleController{
 			order.setCode(null);
 			orderD.updateOder(order);
 			restoreCredit(order);
-			
-		}
+		}	
 
 		return Math.max(0, remainingTime);
 	}

@@ -1,3 +1,4 @@
+
 package logic.DAO;
 
 import java.sql.Connection;
@@ -294,7 +295,8 @@ public class ItemInSaleDAO {
 		
 	}
 	
-	public List<ItemInSale> getItemsInSaleList(){
+	
+	public List<ItemInSale> getOtherItem(String seller, String itemName){
 		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
@@ -305,7 +307,7 @@ public class ItemInSaleDAO {
 		try {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.getAllItemsInSale();
+			String query = itemInSaleQ.getOtherItemInSale(seller, itemName);
 			rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {

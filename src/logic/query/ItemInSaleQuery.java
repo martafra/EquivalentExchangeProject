@@ -58,10 +58,13 @@ public class ItemInSaleQuery extends Query{
 		return String.format(query, itemInSaleID);
 	}
 	
-	public String getAllItemsInSale() {
-		String query = "SELECT * FROM ItemInSale WHERE availability = 1";
-		return query;
+	public String getOtherItemInSale(String seller, String itemName) {
+		itemName = quote(itemName);
+		seller = quote(seller);
+		String query = "SELECT * FROM ItemInSale WHERE referredItemID in (SELECT itemId FROM Item WHERE itemName = %s) AND userID != %s";
+		return String.format(query, itemName, seller);
 	}
+	
 
 	public String getItemsInSaleFiltered(String loggedUser, Map<String, String> filters) {
 		
@@ -80,9 +83,7 @@ public class ItemInSaleQuery extends Query{
 			queryFilters += getOrderFilter(filters.get("orderBy"));
 		}
 			
-		String query = 	"SELECT * FROM ItemInSale "+
-						"WHERE availability = 1 " +
-				        "%s"  ;
+		String query = 	"SELECT * FROM ItemInSale WHERE availability = 1 %s"  ;
 		return String.format(query, queryFilters);
 		
 	}
@@ -104,24 +105,26 @@ public class ItemInSaleQuery extends Query{
 		if (filters.containsKey("searchKey") ) { // Se e' presente la parola di ricerca
 			filter = " itemName like '%%" + filters.get("searchKey") + "%%' ";
 			if (filters.containsKey("type")) {
-				filter = filter + " and ";
+				filter += " and ";
 			}
 		}
 		
 		if (filters.containsKey("type")) { // Abbiamo il tipo
 			
-			filter = filter + " itemType = '" + filters.get("type") + "' ";
+			filter += " itemType = '" + filters.get("type") + "' ";
 			
 			if (filters.containsKey("genre")) { // Abbiamo il genere del tipo
-				filter = filter + " AND genre = '" + filters.get("genre") + "' ";
+				filter += " AND genre = '" + filters.get("genre") + "' ";
 			}
 			
 			if (filters.containsKey("console")) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
-				filter = filter + " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters.get("console") + "') "; // TODO controllare tabelle database
+				filter += " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters.get("console") + "') "; // TODO controllare tabelle database
 			}
 		}
 		return " AND referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") ";
 	}
+	
+	
 	
 	
 }

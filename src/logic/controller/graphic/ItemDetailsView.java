@@ -2,8 +2,10 @@ package logic.controller.graphic;
 
 
 
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -25,6 +29,7 @@ import javafx.scene.Scene;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
+import logic.bean.OrderBean;
 import logic.bean.UserBean;
 import logic.controller.application.ItemDetailsController;
 import logic.support.other.Bundle;
@@ -78,6 +83,13 @@ public class ItemDetailsView extends SceneManageable {
 	private VBox imgItem;
 	@FXML
 	private Label msgLabel;
+	@FXML
+	private Label sellerOther;
+	@FXML
+	private Label priceOther;
+	@FXML
+	private HBox otherItemBox;
+	
 	
 	
     
@@ -109,9 +121,10 @@ public class ItemDetailsView extends SceneManageable {
     	sellerText.setText(seller.getName());
     	
     	
-    	priceText.setText(itemInSale.getPrice().toString());
+    	priceText.setText(itemInSale.getPrice().toString() + " Coins");
     	checkRequest();
     	
+    	fillOtherSeller();
     	
     	String itemDetails;
     	if (item.getType() =='B') {
@@ -195,7 +208,6 @@ public class ItemDetailsView extends SceneManageable {
     	imgItem.getChildren().clear();
     	for(String photo : itemDetails.getMedia()) {
     		ImageView img = new ImageView();
-    		//img.resize(10, 10);
     		img.setImage(new Image(photo));
     		img.setFitHeight(140);
     		img.setFitWidth(140);
@@ -217,6 +229,28 @@ public class ItemDetailsView extends SceneManageable {
 		    });
     	}
     	
+    }
+    
+    public void fillOtherSeller() {
+    		List<ItemInSaleBean> itemInSale = controller.getOtherItem(seller.getUserID(), item.getItemName());
+    		otherItemBox.getChildren().clear();
+    		for(ItemInSaleBean item: itemInSale) {
+    			OtherItemCase otherItem = new OtherItemCase(item);
+    			otherItemBox.getChildren().add(otherItem.getBody());
+    			
+    			otherItem.getImg().setOnMouseClicked(new EventHandler<MouseEvent>() {
+    		        @Override
+    		        public void handle(MouseEvent event) {
+    		        	Bundle bundle = getBundle();
+    		        	bundle.addBean("selectedItem", item);
+    		            goToScene("itemDetails");
+    		        }
+    		    });
+    		}
+    		
+    		
+			
+			
     }
     
     public void checkRequest() {

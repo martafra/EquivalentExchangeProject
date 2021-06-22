@@ -12,48 +12,63 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="734.0" prefWidth="1271.0" spacing="10" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.CatalogueView">
-  <style>
-    -fx-padding: 10;
-    -fx-border-style: solid inside;
-    -fx-border-width: 2;
-    -fx-border-insets: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: blue;
-  </style>
   <children>
       <Pane prefHeight="722.0" prefWidth="1041.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <TextField fx:id="searchBar" layoutX="28.0" layoutY="14.0" prefHeight="25.0" prefWidth="1096.0" promptText="Search item name here!" />
-            <Button fx:id="searchBtn" layoutX="1124.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="99.0" text="Search" />
-            <Label layoutX="996.0" layoutY="89.0" text="Order by:" />
-            <HBox layoutX="28.0" layoutY="54.0" prefHeight="25.0" prefWidth="623.0" spacing="50.0" style="-fx-background-color: #FFFFFF;">
-               <children>
-                  <RadioButton fx:id="all" mnemonicParsing="false" onAction="#all" text="All">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="type" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="book" mnemonicParsing="false" onAction="#book" text="Book" toggleGroup="$type" />
-                  <RadioButton fx:id="movie" mnemonicParsing="false" onAction="#movie" text="Movie" toggleGroup="$type" />
-                  <RadioButton fx:id="videogame" mnemonicParsing="false" onAction="#videogame" text="VideoGame" toggleGroup="$type" />
-               </children>
-            </HBox>
-            <ComboBox fx:id="genre" layoutX="28.0" layoutY="85.0" onAction="#genre" prefWidth="150.0" promptText="GENRE" />
-            <ComboBox fx:id="orderBy" layoutX="1073.0" layoutY="85.0" onAction="#orderBy" prefWidth="150.0" />
-            <ScrollPane layoutX="28.0" layoutY="136.0" prefHeight="498.0" prefWidth="1195.0" style="-fx-background-color: #FFFFFF;">
+            <TextField fx:id="searchBar" layoutX="260.0" layoutY="14.0" prefHeight="10.0" prefWidth="883.0" promptText="Search item name here!" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #BDDDC0;" />
+            <Button fx:id="searchBtn" layoutX="1124.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="99.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #BDDDC0;" text="SEARCH" />
+            <Label layoutX="1010.0" layoutY="58.0" text="Order by:" />
+            <HBox layoutX="28.0" layoutY="54.0" prefHeight="25.0" prefWidth="623.0" spacing="50.0" style="-fx-background-color: #FFFFFF;" />
+            <ComboBox fx:id="orderBy" layoutX="1075.0" layoutY="54.0" onAction="#orderBy" prefWidth="150.0" style="-fx-background-color: #BDDDC0;" />
+            <ScrollPane layoutX="266.0" layoutY="98.0" prefHeight="554.0" prefWidth="957.0" style="-fx-background-color: #FFFFFF;">
                <content>
-                  <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="496.0" prefWidth="1179.0" style="-fx-background-color: #FFFFFF;" vgap="20.0">
+                  <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="551.0" prefWidth="938.0" style="-fx-background-color: #FFFFFF;" vgap="20.0">
                      <padding>
                         <Insets bottom="10.0" left="20.0" top="15.0" />
                      </padding>
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Button fx:id="nextPage" layoutX="1150.0" layoutY="654.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="25.0" prefWidth="73.0" text="NEXT" />
-            <Button fx:id="prevPage" layoutX="973.0" layoutY="654.0" mnemonicParsing="false" onAction="#prevPage" prefHeight="25.0" prefWidth="99.0" text="PREVIOUS" />
-            <Label fx:id="page" layoutX="1098.0" layoutY="658.0" text="Page" />
+            <Button fx:id="nextPage" layoutX="1150.0" layoutY="665.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="25.0" prefWidth="73.0" text="NEXT" />
+            <Button fx:id="prevPage" layoutX="973.0" layoutY="665.0" mnemonicParsing="false" onAction="#prevPage" prefHeight="25.0" prefWidth="99.0" text="PREVIOUS" />
+            <Label fx:id="page" layoutX="1098.0" layoutY="669.0" text="Page" />
+            <Pane layoutX="28.0" layoutY="79.0" prefHeight="598.0" prefWidth="200.0">
+               <children>
+               	<!-- layoutX="14.0" layoutY="7.0" prefHeight="43.0" prefWidth="173.0" wrapText="true"-->
+                  <Text layoutX="8.0" layoutY="29.0" text="Help us to understand what you really wish" wrappingWidth="190.99999999999977">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="14.0" layoutY="70.0" text="CATEGORY" />
+                  <Label fx:id="genreLabel" layoutX="14.0" layoutY="299.0" text="GENRE" />
+                  <ComboBox fx:id="genre" layoutX="14.0" layoutY="325.0" onAction="#genre" prefWidth="150.0" style="-fx-background-color: #BDDDC0;" />
+                  <VBox layoutX="14.0" layoutY="93.0" prefHeight="166.0" prefWidth="173.0" spacing="30.0">
+                     <children>
+                        <RadioButton fx:id="all" mnemonicParsing="false" onAction="#all" text="All">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="type" />
+                           </toggleGroup>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="book" mnemonicParsing="false" onAction="#book" text="BOOK" toggleGroup="$type" />
+                        <RadioButton fx:id="movie" mnemonicParsing="false" onAction="#movie" text="DVDs" toggleGroup="$type" />
+                        <RadioButton fx:id="videogame" mnemonicParsing="false" onAction="#videogame" text="VIDEOGAMES" toggleGroup="$type" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane layoutX="235.0" layoutY="98.0" prefHeight="600.0" prefWidth="2.0" style="-fx-background-color: #D4CEAB;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Pane>
          </children>
       </Pane>  
   </children>

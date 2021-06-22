@@ -1,5 +1,6 @@
 package logic.controller.graphic;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class CatalogueView extends SceneManageable {
 	private List<ItemInSaleBean> itemInSaleBeanList;
 	private ArrayList<String> genres = new ArrayList<>();
 	private HashMap<String, String> filters = new HashMap<>();
-	private int maxItem = 8;
+	private int maxItem = 9;
 	private UserBean loggedUser;
 
 	private Integer pageNumber = 0;
@@ -57,6 +58,9 @@ public class CatalogueView extends SceneManageable {
 	private Button prevPage;
 	@FXML
 	private Label page;
+	@FXML 
+	private Label genreLabel;
+	
 	
 	
 
@@ -69,6 +73,7 @@ public class CatalogueView extends SceneManageable {
 		loggedUser = (UserBean) bundle.getBean("loggedUser");
 		filters.clear();
 		genre.setVisible(false);
+		genreLabel.setVisible(false);
 		all.setSelected(true);
 		
 		setOrderByList();
@@ -84,7 +89,7 @@ public class CatalogueView extends SceneManageable {
 	public void fillCatalogue() {
 		flowPane.getChildren().clear();
 		for (int i = 0; i < maxItem; i++) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/itemCatalogue.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/ItemCatalogue.fxml"));
 			try {
 				
 				flowPane.getChildren().add(loader.load());
@@ -238,10 +243,11 @@ public class CatalogueView extends SceneManageable {
 
 	}
 	
-	public void setGenreList(String type) { //TODO far riapparire la scritta GENRE
+	public void setGenreList(String type) {
 		
 		genre.getItems().clear();
 		genre.setVisible(true);
+		genreLabel.setVisible(true);
 		genres = (ArrayList<String>) controller.getGenre(type.charAt(0));
 		
 		for(String gen : genres) {
