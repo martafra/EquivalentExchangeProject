@@ -13,7 +13,7 @@ public class ReviewerPanelView extends SceneManageable{
 	
 	@FXML
 	public void goToWriteReview() {
-		this.goToScene("writereview");
+		goToScene("writereview");
 	}
 	
 	

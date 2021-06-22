@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.WriteReviewView">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
@@ -68,15 +68,15 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TextField fx:id="titleTextField" layoutX="39.0" layoutY="46.0" prefHeight="25.0" prefWidth="500.0" promptText="Title..." />
+            <TextField fx:id="titleTextField" layoutX="39.0" layoutY="36.0" prefHeight="35.0" prefWidth="500.0" promptText="Title..." />
             <VBox alignment="TOP_CENTER" layoutX="548.0" layoutY="46.0" prefHeight="437.0" prefWidth="46.0">
                <children>
-                  <Button fx:id="underlineButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="U" textAlignment="CENTER" underline="true">
+                  <Button fx:id="underlineButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable" text="U" textAlignment="CENTER" underline="true">
                      <VBox.margin>
                         <Insets top="35.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="boldButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="B" textAlignment="CENTER">
+                  <Button fx:id="boldButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable" text="B" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -84,7 +84,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="italicButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="It" textAlignment="CENTER">
+                  <Button fx:id="italicButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable" text="It" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -92,12 +92,12 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="strikethroughButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="-S-" textAlignment="CENTER">
+                  <Button fx:id="strikethroughButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable" text="-S-" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="colorButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0">
+                  <Button fx:id="colorButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -109,7 +109,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="linkButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="&lt;a&gt;" textAlignment="CENTER">
+                  <Button fx:id="linkButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="orange-clickable" text="&lt;a&gt;" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -123,10 +123,7 @@
       <VBox fx:id="mediaContainer" alignment="TOP_CENTER" prefHeight="516.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Add Media" />
-            <Button fx:id="addMediaButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="229.0" text="+" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="31.0" />
-               </font>
+            <Button fx:id="addMediaButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="229.0" style="-fx-font-size: 35;" styleClass="orange-clickable" text="+" textAlignment="CENTER" wrapText="true">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -139,7 +136,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="569.0" prefWidth="306.0">
                <children>
-                  <Button fx:id="showPreviewButton" alignment="CENTER" mnemonicParsing="false" text="Show Preview">
+                  <Button fx:id="showPreviewButton" alignment="CENTER" mnemonicParsing="false" styleClass="orange-clickable" text="Show Preview">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -189,7 +186,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ComboBox fx:id="itemComboBox" prefHeight="25.0" prefWidth="209.0" promptText="Select the Item you are selling" />
+                  <ComboBox fx:id="itemComboBox" prefHeight="25.0" prefWidth="209.0" promptText="Select the Item you are selling" styleClass="orange-clickable" />
                   <Label text="Choose your Layout">
                      <VBox.margin>
                         <Insets top="10.0" />

@@ -33,6 +33,7 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("wallet", "/logic/view/Wallet.fxml");
 		mainPanel.loadScene("ordersummary", "/logic/view/OrderSummary.fxml");
 		mainPanel.loadScene("profile", "/logic/view/Profile.fxml");
+		mainPanel.loadScene("writereview", "/logic/view/WriteReview.fxml");
 		
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		mainPanel.loadMenu("/logic/view/Menu.fxml");
