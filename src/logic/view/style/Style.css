@@ -22,6 +22,13 @@
 .orange-clickable:pressed{
 	-fx-background-color: #FF6600;
 }
+.white-text-combobox{
+	-fx-font-size: 16;
+}
+.white-text-combobox .label{
+	-fx-text-fill: #FFFFFF;
+}
+
 
 .tab{
 	-fx-background-color: #FF6A00;

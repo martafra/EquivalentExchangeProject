@@ -25,7 +25,7 @@ public abstract class Item {
 		return this.language;
 	}*/
 	
-	public abstract char getType();
+	public abstract Character getType();
 	
 	public void setName(String name) {
 		this.name = name;

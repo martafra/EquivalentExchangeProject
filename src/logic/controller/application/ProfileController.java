@@ -42,7 +42,7 @@ public class ProfileController {
 		
 		userProfileData.setGender(gender);
 		userProfileData.setProfilePicPath(profileData.getProfilePicturePath());
-		userProfileData.setCoverPicPath(profileData.getProfilePicturePath());
+		userProfileData.setCoverPicPath(profileData.getCoverPicturePath());
 		userProfileData.setDescription(profileData.getBioInfo());
 		userProfileData.setAge(calculateAge(user.getBirthDate()));
 		

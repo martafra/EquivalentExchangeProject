@@ -38,11 +38,11 @@ public class ImageCache {
 	
 	public String addImage(String name, InputStream data) {
 		
-		if(fileNames.contains(name)){
-			String filePath = directoryPath.toString() + "/" + name;
-			filePath = "file:///" + filePath;
-			return filePath.replace('\\', '/');
-		}
+//		if(fileNames.contains(name)){
+//			String filePath = directoryPath.toString() + "/" + name;
+//			filePath = "file:///" + filePath;
+//			return filePath.replace('\\', '/');
+//		}
 
 
 		if(data == null) {
@@ -62,7 +62,7 @@ public class ImageCache {
 				IOUtils.copy(data, output);	
 				output.close();
 				data.close();
-				fileNames.add(name);
+//				fileNames.add(name);
 				
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

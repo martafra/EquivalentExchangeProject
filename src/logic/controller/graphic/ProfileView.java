@@ -28,6 +28,7 @@ public class ProfileView extends SceneManageable{
 
 	private UserBean loggedUser;
 	private UserProfileBean userData;
+	private UserProfileBean changedUserData;
 	private Boolean changed = false;
 	
 	@FXML
@@ -71,7 +72,7 @@ public class ProfileView extends SceneManageable{
 		if(profilePicPath != null) {
 			try {
 				profileImage.setFill(new ImagePattern(new Image(new FileInputStream(profilePicPath))));
-				userData.setProfilePicPath(profilePicPath);
+				changedUserData.setProfilePicPath(profilePicPath);
 				changed = true;
 			} catch (FileNotFoundException e) {
 				
@@ -85,7 +86,7 @@ public class ProfileView extends SceneManageable{
 		if(coverPicPath != null) {
 			try {
 				coverImage.setImage(new Image(new FileInputStream(coverPicPath)));
-				userData.setCoverPicPath(coverPicPath);
+				changedUserData.setCoverPicPath(coverPicPath);
 				changed = true;
 			} catch (FileNotFoundException e) {
 				
@@ -95,7 +96,7 @@ public class ProfileView extends SceneManageable{
 	}
 	@FXML
 	public void saveProfile() {
-		controller.updateUserProfileData(userData);
+		controller.updateUserProfileData(changedUserData);
 		changed = false;
 		saveButton.setVisible(changed);
 	}
@@ -112,6 +113,8 @@ public class ProfileView extends SceneManageable{
 		}
 		
 		userData = controller.getUserProfileData(loggedUser);
+		changedUserData = new UserProfileBean();
+		changedUserData.setUserID(loggedUser.getUserID());
 		changed = false;
 		saveButton.setVisible(changed);
 		nameLabel.setText(userData.getName() + " " + userData.getLastName());

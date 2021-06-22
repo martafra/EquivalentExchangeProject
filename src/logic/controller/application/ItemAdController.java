@@ -51,7 +51,9 @@ public class ItemAdController {
 		ArrayList<ItemBean> itemData = new ArrayList<>();
 		
 		for(Item item : items) {
-			itemData.add(new ItemBean(item.getItemID(), item.getName()));
+				ItemBean itemBean = new ItemBean(item.getItemID(), item.getName());
+				itemBean.setType(item.getType());
+				itemData.add(itemBean);
 		}
 		return itemData;
 	}

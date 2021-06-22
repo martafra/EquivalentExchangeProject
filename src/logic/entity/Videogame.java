@@ -24,7 +24,7 @@ public class Videogame extends Item {
 	public VideoGameGenre getGenre() {
 		return this.genre;
 	}
-	public char getType() {
+	public Character getType() {
 		return 'V';
 	}
 	public void addConsole(VGConsole console) {

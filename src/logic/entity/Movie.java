@@ -23,7 +23,7 @@ public class Movie extends Item {
 		return this.genre;
 	}
 	
-	public char getType() {
+	public Character getType() {
 		return 'M';
 	}
 	

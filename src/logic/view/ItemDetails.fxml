@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="759.0" prefWidth="1275.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
+<Pane prefHeight="759.0" prefWidth="1275.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemDetailsView">
    <Pane layoutX="618.0" layoutY="25.0" prefHeight="397.0" prefWidth="243.0" style="-fx-background-color: #FFF1E9; -fx-background-radius: 12; -fx-border-radius: 12;">
       <children>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" text="Seller's information " textAlignment="CENTER">

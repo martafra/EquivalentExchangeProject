@@ -46,7 +46,7 @@ public class Book extends Item {
 		return this.publishingHouse;
 	}
 	
-	public char getType() {
+	public Character getType() {
 		return 'B';
 	}
 	
