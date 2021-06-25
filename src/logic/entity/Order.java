@@ -12,6 +12,7 @@ public class Order {
 	private Boolean sellerStatus;
 	private Boolean buyerStatus;
 	private User buyer;
+	private OrderReview orderReview;
 
 	public Order(User buyer, ItemInSale involvedItem){
 		
@@ -94,4 +95,12 @@ public class Order {
 		return buyerStatus;
 	}
 
+	public OrderReview getOrderReview() {
+		return orderReview;
+	}
+
+	public void setOrderReview(OrderReview orderReview) {
+		this.orderReview = orderReview;
+	}
+	
 }

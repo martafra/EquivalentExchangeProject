@@ -15,17 +15,21 @@ import java.util.Date;
 import logic.support.database.MyConnection;
 import logic.entity.ItemInSale;
 import logic.entity.Order;
+import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.query.OrderQuery;
+import logic.query.OrderReviewQuery;
 
 public class OrderDAO {
 	MyConnection connection = MyConnection.getInstance();
 	OrderQuery orderQ = new OrderQuery();
+	OrderReviewQuery reviewQ = new OrderReviewQuery();
 	
 	public Order selectOrder(int orderID) {
 		Order order = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		ResultSet rsR = null;
 		try {
 
 			Connection con = connection.getConnection();
@@ -60,7 +64,19 @@ public class OrderDAO {
 			
 			order = new Order(rs.getInt("orderID"), rs.getString("code"), itemInSale, orderDate, startDate,
 				 user, buyerStatus, sellerStatus);
-
+			
+			query = reviewQ.selectOrderReview(rs.getInt("orderID"));
+			rsR = stmt.executeQuery(query);
+			if (rsR.next()) {
+				OrderReview review = new OrderReview();
+				review.setSellerReliability(rs.getInt("sellerReliability"));
+				review.setSellerAvailability(rs.getInt("sellerAvailability"));
+				review.setItemCondition(rs.getInt("itemCondition"));
+				review.setBuyerNote(rs.getString("buyerNote"));
+				order.setOrderReview(review);
+			}
+			
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -89,6 +105,7 @@ public class OrderDAO {
 		ArrayList<Order> orders = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs = null;
+		ResultSet rsR = null;
 		try {
 
 			Connection con = connection.getConnection();
@@ -120,8 +137,21 @@ public class OrderDAO {
 				if(rs.getInt("buyerStatus") == 1)
 					buyerStatus = true;
 				
-				orders.add(new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
-						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus));
+				Order order = new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
+						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus);
+				
+				query = reviewQ.selectOrderReview(rs.getInt("orderID"));
+				rsR = stmt.executeQuery(query);
+				if (rsR.next()) {
+					OrderReview review = new OrderReview();
+					review.setSellerReliability(rs.getInt("sellerReliability"));
+					review.setSellerAvailability(rs.getInt("sellerAvailability"));
+					review.setItemCondition(rs.getInt("itemCondition"));
+					review.setBuyerNote(rs.getString("buyerNote"));
+					order.setOrderReview(review);
+				}
+				
+				orders.add(order);
 			}
 
 		} catch (SQLException e) {
@@ -210,6 +240,11 @@ public class OrderDAO {
 			
 			String code = order.getCode();
 			
+			if (order.getOrderReview() != null) {
+				 String query = reviewQ.insertOrderReview(order.getOrderReview().getSellerReliability(), order.getOrderReview().getSellerAvailability(), order.getOrderReview().getItemCondition(), order.getOrderReview().getBuyerNote(), orderID);
+		         stmt.executeUpdate(query);
+			}
+			
 			String query = orderQ.updateOrder(orderID, orderDate, startDate, code, buyerStatus, sellerStatus);
 			stmt.executeUpdate(query);
 
@@ -255,6 +290,8 @@ public class OrderDAO {
 			}
 		}
 	}
+	
+	
 	
 
 }
