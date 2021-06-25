@@ -69,10 +69,10 @@ public class OrderDAO {
 			rsR = stmt.executeQuery(query);
 			if (rsR.next()) {
 				OrderReview review = new OrderReview();
-				review.setSellerReliability(rs.getInt("sellerReliability"));
-				review.setSellerAvailability(rs.getInt("sellerAvailability"));
-				review.setItemCondition(rs.getInt("itemCondition"));
-				review.setBuyerNote(rs.getString("buyerNote"));
+				review.setSellerReliability(rsR.getInt("sellerReliability"));
+				review.setSellerAvailability(rsR.getInt("sellerAvailability"));
+				review.setItemCondition(rsR.getInt("itemCondition"));
+				review.setBuyerNote(rsR.getString("buyerNote"));
 				order.setOrderReview(review);
 			}
 			
@@ -140,18 +140,21 @@ public class OrderDAO {
 				Order order = new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
 						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus);
 				
-				query = reviewQ.selectOrderReview(rs.getInt("orderID"));
+				orders.add(order);
+			}
+			
+			for(Order order: orders) {
+				query = reviewQ.selectOrderReview(order.getOrderID());
 				rsR = stmt.executeQuery(query);
 				if (rsR.next()) {
 					OrderReview review = new OrderReview();
-					review.setSellerReliability(rs.getInt("sellerReliability"));
-					review.setSellerAvailability(rs.getInt("sellerAvailability"));
-					review.setItemCondition(rs.getInt("itemCondition"));
-					review.setBuyerNote(rs.getString("buyerNote"));
+					review.setSellerReliability(rsR.getInt("sellerReliability"));
+					review.setSellerAvailability(rsR.getInt("sellerAvailability"));
+					review.setItemCondition(rsR.getInt("itemCondition"));
+					review.setBuyerNote(rsR.getString("buyerNote"));
 					order.setOrderReview(review);
 				}
-				
-				orders.add(order);
+				rsR.close();
 			}
 
 		} catch (SQLException e) {

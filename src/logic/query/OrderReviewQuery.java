@@ -8,7 +8,7 @@ public class OrderReviewQuery extends Query{
 	}
 	
 	public String selectOrderReview(Integer order) {
-		String query = "SELECT FROM OrderReview WHERE orderID = %d;";
+		String query = "SELECT * FROM OrderReview WHERE orderID = %d;";
 		return String.format(query, order);
 	}
 }
