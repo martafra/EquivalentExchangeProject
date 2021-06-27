@@ -13,6 +13,7 @@ import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
+import logic.DAO.WishlistDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
@@ -152,4 +153,8 @@ public class ItemDetailsController {
 		}
 		return true;
 	}
+	
+	
+	
+	
 }

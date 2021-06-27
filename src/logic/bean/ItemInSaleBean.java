@@ -9,6 +9,7 @@ public class ItemInSaleBean implements Bean{
 	private ItemBean referredItem = new ItemBean();
 	private String mediaPath;
 	private UserBean seller = new UserBean();
+	private Boolean availability;
 
 	public Integer getPrice() {
 		return price;
@@ -47,6 +48,13 @@ public class ItemInSaleBean implements Bean{
 
 	protected void setReferredItem(ItemBean item){
 		referredItem = item;
+	}
+	
+	public boolean getAvailability() {
+		return availability;
+	}
+	public void setAvailability(Boolean availability) {
+		this.availability = availability;
 	}
 
 	

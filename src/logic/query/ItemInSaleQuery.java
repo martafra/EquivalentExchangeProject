@@ -124,6 +124,12 @@ public class ItemInSaleQuery extends Query{
 		return " AND referredItemID in (SELECT itemId FROM Item WHERE " + filter + ") ";
 	}
 	
+	public String getItemInSaleWishlist(String userID) {
+		userID = quote(userID);
+		String query = "SELECT * FROM iteminsale where itemInSaleID in (select itemID from wishlist where userID = %s);" ;
+		return String.format(query, userID);
+	}
+	
 	
 	
 	

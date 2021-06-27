@@ -341,7 +341,7 @@ public class ItemInSaleDAO {
 		}catch(SQLException e) {
 			//TODO gestire eccezione
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.getAllItemInSale()");
+			System.out.println("Attenzione: Errore nella ItemInSaleDao.getOtherItem()");
 		}
 		
 		finally {
@@ -428,6 +428,82 @@ public class ItemInSaleDAO {
 		return itemInSaleList;
 			
 	}
+	
+	
+	public List<ItemInSale> getItemInSaleWishlist(String userID){
+		ArrayList<ItemInSale> itemList = new ArrayList<>();
+		ItemInSale itemInSale = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemInSaleQ.getItemInSaleWishlist(userID);
+			rs = stmt.executeQuery(query);
+
+			ItemDAO itemDAO= new ItemDAO();
+			UserDAO userDAO= new UserDAO();
+			
+			while (rs.next()) {
+				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
+											rs.getInt("price"),
+											rs.getString("saleDescription"), 
+											rs.getBoolean("availability"), 
+											rs.getString("itemCondition"),
+											rs.getString("preferredLocation"), 
+											itemDAO.selectItem(rs.getInt("referredItemID")), 
+											userDAO.selectUser(rs.getString("userID")));
+				itemList.add(itemInSale);
+			}
+			
+			ImageCache mediaCache = ImageCache.getInstance();
+			
+			for(ItemInSale item : itemList) {
+				Integer itemID = item.getItemInSaleID();
+				query = mediaQuery.selectItemMedia(itemID);
+				rs2 = stmt.executeQuery(query);
+				while(rs2.next()) {
+					Integer mediaIndex = rs2.getInt("imageIndex");
+					String fileName = itemID.toString() + "_" + mediaIndex.toString();
+					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+					item.addMedia(filePath);
+				}
+				if(item.getMedia().isEmpty())
+				{
+					item.addMedia("/logic/view/assets/images/missing.png");
+				}
+				rs2.close();
+			}	
+		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+
+				e.printStackTrace();
+				System.out.println("Attenzione: Errore nella ItemInSaleDao.getItemInSaleWishlist()");
+
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (rs2 != null) {
+						rs2.close();
+					}
+					if (stmt != null) {
+						stmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		return itemList;
+	}
+	
+	
 	
 	
 }
