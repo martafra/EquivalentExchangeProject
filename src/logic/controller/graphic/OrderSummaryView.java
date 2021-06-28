@@ -1,5 +1,6 @@
 package logic.controller.graphic;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -7,6 +8,8 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import logic.bean.ItemDetailsBean;
 import logic.bean.OrderBean;
 import logic.bean.UserBean;
@@ -61,6 +66,8 @@ public class OrderSummaryView extends SceneManageable{
 	private TextField codeLabel;
 	@FXML
 	private Label codeErrorLabel;
+	@FXML
+	private Button summaryReviewButton;
 	
 	private SellController sController = new SellController();
 	private BuyController bController = new BuyController();
@@ -70,6 +77,7 @@ public class OrderSummaryView extends SceneManageable{
 	private ItemDetailsBean item;
 	private HBox inputCodeBox = null;
 	private HBox outputCodeBox = null;
+	private Stage reviewStage;
 	AnimationTimer timer;
 	
 	
@@ -82,6 +90,24 @@ public class OrderSummaryView extends SceneManageable{
 		}else {
 			codeErrorLabel.setText("Wrong code! Contact the buyer if the error persists!");
 		}
+	}
+	
+	@FXML
+	public void insertSummaryReview(){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/OrderSummaryReview.fxml"));
+    	
+    	try {
+    		reviewStage = new Stage();
+			Scene reviewScene = new Scene(loader.load());
+			reviewStage.setScene(reviewScene);
+			reviewStage.initModality(Modality.APPLICATION_MODAL);
+			reviewStage.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
 	}
 	
 	
@@ -131,6 +157,10 @@ public class OrderSummaryView extends SceneManageable{
 				summaryCodeLabel.setText("Payment code");
 				codeStackPane.getChildren().add(outputCodeBox);
 				codeLabel.setText(order.getCode());
+				if( (loggedUser.getUserID() != seller) && (order.getReview() == null) ){
+					summaryReviewButton.setVisible(true);
+					summaryReviewButton.setDisable(false);
+				}
 				break;
 			case 4:
 				break;

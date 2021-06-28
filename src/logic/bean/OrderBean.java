@@ -12,6 +12,7 @@ public class OrderBean implements Bean{
 	private Boolean sellerStatus;
 	private Boolean buyerStatus;
 	private UserBean buyer;
+	private OrderReviewBean review;
 	
 	public ItemInSaleBean getInvolvedItem() {
 		return involvedItem;
@@ -60,5 +61,11 @@ public class OrderBean implements Bean{
 	}
 	public void setBuyer(UserBean user) {
 		this.buyer = user;
+	}
+	public OrderReviewBean getReview() {
+		return review;
+	}
+	public void setReview(OrderReviewBean review) {
+		this.review = review;
 	}
 }
