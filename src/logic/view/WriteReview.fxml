@@ -22,12 +22,12 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
-            <Polygon fx:id="backToProfileArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
+            <Polygon fx:id="backToProfileArrow" onMouseClicked="#goToProfile" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" HBox.hgrow="NEVER">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
             </Polygon>
-            <Label fx:id="backToProfileLabel" prefHeight="17.0" prefWidth="107.0" text="Back To profile">
+            <Label fx:id="backToProfileLabel" onMouseClicked="#goToProfile" prefHeight="17.0" prefWidth="107.0" text="Back To profile">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -123,7 +123,12 @@
       <VBox fx:id="mediaContainer" alignment="TOP_CENTER" prefHeight="516.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Add Media" />
-            <Button fx:id="addMediaButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="229.0" style="-fx-font-size: 35;" styleClass="orange-clickable" text="+" textAlignment="CENTER" wrapText="true">
+            <VBox fx:id="imageBox" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="225.0" spacing="10.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+            <Button fx:id="addMediaButton" alignment="CENTER" mnemonicParsing="false" onAction="#addImage" prefHeight="70.0" prefWidth="225.0" style="-fx-font-size: 35;" styleClass="orange-clickable" text="+" textAlignment="CENTER" wrapText="true">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -136,7 +141,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="569.0" prefWidth="306.0">
                <children>
-                  <Button fx:id="showPreviewButton" alignment="CENTER" mnemonicParsing="false" styleClass="orange-clickable" text="Show Preview">
+                  <Button fx:id="showPreviewButton" alignment="CENTER" mnemonicParsing="false" onAction="#viewPreview" styleClass="orange-clickable" text="Show Preview">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -148,13 +153,13 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="390.0">
                      <children>
-                        <Polygon fx:id="typeLeftArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="typeLeftArrow" onMouseClicked="#onTypeSwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Polygon>
                         <Label fx:id="typeChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" text="Label" />
-                        <Polygon fx:id="typeRightArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="typeRightArrow" onMouseClicked="#onTypeSwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -168,13 +173,13 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="390.0">
                      <children>
-                        <Polygon fx:id="categoryLeftArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="categoryLeftArrow" onMouseClicked="#onCategorySwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Polygon>
                         <Label fx:id="categoryChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" text="Label" />
-                        <Polygon fx:id="categoryRightArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="categoryRightArrow" onMouseClicked="#onCategorySwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -186,7 +191,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <ComboBox fx:id="itemComboBox" prefHeight="25.0" prefWidth="209.0" promptText="Select the Item you are selling" styleClass="orange-clickable" />
+                  <ComboBox fx:id="itemComboBox" prefHeight="30.0" prefWidth="355.0" promptText="Select the Item you are selling" styleClass="orange-clickable" />
                   <Label text="Choose your Layout">
                      <VBox.margin>
                         <Insets top="10.0" />

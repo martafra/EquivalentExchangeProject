@@ -35,6 +35,7 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("profile", "/logic/view/Profile.fxml");
 		mainPanel.loadScene("writereview", "/logic/view/WriteReview.fxml");
 		mainPanel.loadScene("wishlist", "/logic/view/WishList.fxml");
+		mainPanel.loadScene("reviewpreview", "/logic/view/ReviewPreview.fxml");
 
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		mainPanel.loadMenu("/logic/view/Menu.fxml");
@@ -51,11 +52,9 @@ public class MainApplication extends Application {
 		var scene = new Scene(root);
 		Font.loadFont(getClass().getResourceAsStream("/logic/view/assets/fonts/Spartan-Regular.ttf"), 22);
 		
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	         public void handle(WindowEvent we) {
+		stage.setOnCloseRequest((WindowEvent e) -> {
 	             stage.close();
 	             ((HeaderBar)mainPanel.getHeaderController()).logout();
-	         }
 	     });        
 		scene.getStylesheets().add(getClass().getResource("/logic/view/style/Style.css").toExternalForm());
 		stage.setScene(scene);

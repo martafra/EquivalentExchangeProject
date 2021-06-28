@@ -14,7 +14,7 @@ import logic.entity.ItemInSale;
 import logic.entity.User;
 import logic.enumeration.Condition;
 
-public class ItemAdController {
+public class ItemAdController extends ItemRetrieveController{
 	
 	public boolean post(ItemDetailsBean itemBean) {
 		
@@ -42,20 +42,6 @@ public class ItemAdController {
 		itemDAO.insertItemInSale(item);
 
 		return true;
-	}
-	
-	public List<ItemBean> getItemsList(){
-		ItemDAO itemDAO = new ItemDAO(); 
-		ArrayList<Item> items = (ArrayList<Item>) itemDAO.getItemsList();
-		
-		ArrayList<ItemBean> itemData = new ArrayList<>();
-		
-		for(Item item : items) {
-				ItemBean itemBean = new ItemBean(item.getItemID(), item.getName());
-				itemBean.setType(item.getType());
-				itemData.add(itemBean);
-		}
-		return itemData;
 	}
 	
 	public List<String> getConditionTypes(){

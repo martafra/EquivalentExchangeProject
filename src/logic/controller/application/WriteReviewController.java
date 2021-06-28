@@ -1,6 +1,6 @@
 package logic.controller.application;
 
-public class WriteReviewController {
+public class WriteReviewController extends ItemRetrieveController{
 	
 	
 	
