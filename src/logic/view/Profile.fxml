@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ProfileView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ProfileView">
    <children>
       <ImageView fx:id="coverImage" fitHeight="142.0" fitWidth="1280.0" pickOnBounds="true">
          <image>
@@ -34,13 +38,32 @@
                   </Button>
                </children>
             </Pane>
-            <Label fx:id="nameLabel" text="Name and Lastname" />
-            <Label fx:id="usernameLabel" text="(Username)" />
-            <Label text="(Number of ratings)" />
+            <Label fx:id="nameLabel" text="Name and Lastname">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
+            <Label fx:id="usernameLabel" text="(Username)">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
+            <HBox fx:id="userReviews" alignment="CENTER" prefHeight="13.0" prefWidth="213.0" />
+            <Label fx:id="ratingNumber2" style="-fx-font-size: 12;" text="(# ratings)">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
             <Label fx:id="genderLabel" text="gender" />
             <Label fx:id="ageLabel" text="age" />
-            <Label fx:id="cityLabel" text="city" />
-            <Label text="Find Me On:" />
+            <Label fx:id="cityLabel" text="city">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
+            <Label prefHeight="25.0" prefWidth="189.0" text="Find Me On:" />
+            <VBox fx:id="accounts" prefHeight="19.0" prefWidth="213.0" />
+            <Label style="-fx-font-size: 12;" styleClass="green-link" text="modify" underline="true">
+               <VBox.margin>
+                  <Insets left="120.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
       <VBox layoutX="213.0" layoutY="142.0" prefHeight="579.0" prefWidth="723.0">
@@ -48,15 +71,15 @@
             <Label fx:id="descriptionLabel" prefHeight="42.0" prefWidth="642.0" style="-fx-font-size: 14;" text="There is no description for this User..." wrapText="true" />
             <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="723.0">
                <children>
-                  <Label prefHeight="17.0" text="modify" underline="true" />
+                  <Label prefHeight="17.0" styleClass="green-link" text="modify" underline="true" />
                </children>
             </HBox>
             <Label text="Products In sale" />
-            <HBox fx:id="productList" prefHeight="175.0" prefWidth="723.0" />
-            <Label onMouseClicked="#goToSellerPanel" text="Go to seller panel" underline="true" />
+            <HBox fx:id="productList" prefHeight="175.0" prefWidth="723.0" spacing="10.0" />
+            <Label onMouseClicked="#goToSellerPanel" styleClass="green-link" text="Go to seller panel" underline="true" />
             <Label text="Guides" />
             <HBox fx:id="articleList" prefHeight="193.0" prefWidth="723.0" />
-            <Label onMouseClicked="#goToReviewerPanel" text="Go to reviewer panel" underline="true" />
+            <Label onMouseClicked="#goToReviewerPanel" styleClass="green-link" text="Go to reviewer panel" underline="true" />
          </children>
       </VBox>
       <Button layoutX="1184.0" layoutY="121.0" mnemonicParsing="false" onAction="#changeCoverPic" prefHeight="42.0" prefWidth="49.0">
@@ -67,6 +90,41 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="saveButton" layoutX="1170.0" layoutY="661.0" mnemonicParsing="false" onAction="#saveProfile" text="Save Profile" />
+      <Button fx:id="saveButton" layoutX="1156.0" layoutY="661.0" mnemonicParsing="false" onAction="#saveProfile" styleClass="orange-clickable" text="Save Profile" />
+      <VBox layoutX="961.0" layoutY="190.0" prefHeight="434.0" prefWidth="267.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="240.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="145.0" style="-fx-font-size: 16; -fx-text-fill: #FF6a00;" text="Average Ratings" />
+                  <Label fx:id="ratingNumber1" prefHeight="17.0" prefWidth="96.0" text="(# ratings)">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <GridPane prefHeight="92.0" prefWidth="257.0">
+              <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Reliability" GridPane.columnIndex="1" />
+                  <Label text="Availability" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Product Conditions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <HBox fx:id="reliabilityBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                  <HBox fx:id="availabilityBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <HBox fx:id="conditionsBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <Label styleClass="green-link" text="view all ratings" underline="true" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

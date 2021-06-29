@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -51,7 +52,14 @@ public class ProfileView extends SceneManageable{
 	private HBox productList;
 	@FXML
 	private HBox guideList;
-	
+	@FXML
+	private HBox userReviews;
+	@FXML
+	private HBox reliabilityBox;
+	@FXML
+	private HBox availabilityBox;
+	@FXML
+	private HBox conditionsBox;
 	@FXML
 	private Button saveButton;
 	
@@ -119,6 +127,9 @@ public class ProfileView extends SceneManageable{
 		saveButton.setVisible(changed);
 		nameLabel.setText(userData.getName() + " " + userData.getLastName());
 		usernameLabel.setText(userData.getUserID());
+		
+		setRatings();
+		
 		genderLabel.setText(userData.getGender());
 		ageLabel.setText("I'm " + userData.getAge().toString() + " years old");
 		cityLabel.setText(userData.getCity() + ", " + userData.getCountry());
@@ -140,13 +151,11 @@ public class ProfileView extends SceneManageable{
 		List<ItemInSaleBean> products = controller.getProductsByUser(loggedUser, numberOfProducts);
 		for(ItemInSaleBean product : products) {
 			ProductCase productCase = new ProductCase(product);
-			productCase.getProductName().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
+			productCase.getProductName().setOnMouseClicked((MouseEvent e) -> {
 		        	Bundle bundle = getBundle();
 		        	bundle.addBean("selectedItem", product);
 		            goToScene("itemDetails");
-		        }
+		        
 		    });
 			productList.getChildren().add(productCase.getBody());
 			
@@ -165,6 +174,30 @@ public class ProfileView extends SceneManageable{
 			 return selectedFile.getAbsolutePath();
 		 }
 		 return null;
+	}
+	
+	private void setRatings(){
+		RatingView ratings = new RatingView(5);
+		ratings.setEditable(false);
+		ratings.setValue(7);
+		ratings.setPaneWidth(140f);
+		userReviews.getChildren().add(ratings);
+		ratings = new RatingView(5);
+		ratings.setEditable(false);
+		ratings.setValue(8);
+		ratings.setPaneWidth(100f);
+		availabilityBox.getChildren().add(ratings);
+		ratings = new RatingView(5);
+		ratings.setEditable(false);
+		ratings.setValue(6);
+		ratings.setPaneWidth(100f);
+		reliabilityBox.getChildren().add(ratings);
+		ratings = new RatingView(5);
+		ratings.setEditable(false);
+		ratings.setValue(4);
+		ratings.setPaneWidth(100f);
+		conditionsBox.getChildren().add(ratings);
+
 	}
 	
 	

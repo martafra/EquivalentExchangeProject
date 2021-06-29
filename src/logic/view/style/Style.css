@@ -15,13 +15,21 @@
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 14px;
 }
+
 .orange-clickable:hover{
 	-fx-background-color: #FF7B00;
-	
 }
+
 .orange-clickable:pressed{
 	-fx-background-color: #FF6600;
 }
+.green-link{
+	-fx-text-fill: #5AC02A;
+}
+.green-link:hover{
+	-fx-text-fill: #5CC22C;
+}
+
 .white-text-combobox{
 	-fx-font-size: 16;
 }

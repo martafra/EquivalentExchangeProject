@@ -1,6 +1,7 @@
 package logic.controller.graphic;
 import java.util.ArrayList;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +65,15 @@ public class RatingView extends HBox{
 	
 	public Integer getValue() {
 		return this.ratingPoints;
+	}
+	
+	public void setPaneWidth(Float width) {
+		this.setPrefWidth(width);
+		Float starWidth = width / maxStars;
+		for(Node node : getChildren()) {
+			ImageView star = (ImageView) node;
+			star.setFitWidth(starWidth);
+		}
 	}
 	
 	public void setValue(Integer ratingPoints) {
