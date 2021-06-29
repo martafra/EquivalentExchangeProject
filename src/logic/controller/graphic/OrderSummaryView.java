@@ -200,7 +200,8 @@ public class OrderSummaryView extends SceneManageable{
 				summaryCodeLabel.setText("Payment code");
 				codeStackPane.getChildren().add(outputCodeBox);
 				codeLabel.setText(order.getCode());
-				if( (loggedUser.getUserID() != seller) && (order.getReview() == null) ){
+				System.out.println(order.getReview());
+				if( (!loggedUser.getUserID().equals(seller)) && (order.getReview() == null) ){
 					summaryReviewButton.setVisible(true);
 					summaryReviewButton.setDisable(false);
 				}

@@ -202,6 +202,9 @@ public class SellController implements SaleController{
 			reviewBean.setItemCondition(order.getOrderReview().getItemCondition());
 			reviewBean.setBuyerNote(order.getOrderReview().getBuyerNote());
 		}
+		else {
+			reviewBean = null;
+		}
 		orderSummary.setReview(reviewBean);
 		return orderSummary;
 	}
