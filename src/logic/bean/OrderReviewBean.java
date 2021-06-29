@@ -2,17 +2,18 @@ package logic.bean;
 
 public class OrderReviewBean {
 	
-	private Integer sellerrReliability;
+	private Integer sellerReliability;
 	private Integer sellerAvailability;
 	private Integer itemCondition;
 	private String buyerNote;
 	private Integer orderID;
 	
-	public Integer getSellerrReliability() {
-		return sellerrReliability;
+	
+	public Integer getSellerReliability() {
+		return sellerReliability;
 	}
-	public void setSellerrReliability(Integer sellerrReliability) {
-		this.sellerrReliability = sellerrReliability;
+	public void setSellerReliability(Integer sellerReliability) {
+		this.sellerReliability = sellerReliability;
 	}
 	public Integer getSellerAvailability() {
 		return sellerAvailability;

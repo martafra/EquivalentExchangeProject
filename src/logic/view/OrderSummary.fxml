@@ -132,7 +132,7 @@
                      </children>
                   </GridPane>
                   <Label fx:id="codeErrorLabel" layoutX="64.0" layoutY="556.0" prefHeight="17.0" prefWidth="539.0" style="-fx-text-fill: red;" />
-                  <Button fx:id="summaryReviewButton" disable="true" layoutX="61.0" layoutY="552.0" mnemonicParsing="false" onAction="#insertSummaryReview" prefHeight="30.0" prefWidth="120.0" styleClass="orange-clickable" text="Rate your purchase" visible="false" wrapText="true" />
+                  <Button fx:id="summaryReviewButton" disable="true" layoutX="61.0" layoutY="552.0" mnemonicParsing="false" onAction="#insertSummaryReview" prefHeight="30.0" prefWidth="150.0" styleClass="orange-clickable" text="Rate your purchase" visible="false" wrapText="true" />
                </children>
             </Pane>
          </children>

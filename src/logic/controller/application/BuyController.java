@@ -13,8 +13,10 @@ import logic.DAO.ItemInSaleDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.bean.OrderBean;
+import logic.bean.OrderReviewBean;
 import logic.entity.ItemInSale;
 import logic.entity.Order;
+import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
@@ -23,6 +25,17 @@ import logic.support.other.Notification;
 
 public class BuyController implements SaleController{
 	
+	public void updateReview(OrderReviewBean reviewBean) {
+		OrderDAO orderDAO = new OrderDAO();
+		Order order = orderDAO.selectOrder(reviewBean.getOrderID());
+		OrderReview review = new OrderReview();
+		review.setSellerReliability(reviewBean.getSellerReliability());
+		review.setSellerAvailability(reviewBean.getSellerAvailability());
+		review.setItemCondition(reviewBean.getItemCondition());
+		review.setBuyerNote(reviewBean.getBuyerNote());
+		order.setOrderReview(review);
+		orderDAO.updateOder(order);
+	}
 	
 	private Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
 		

@@ -10,6 +10,7 @@ import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderBean;
+import logic.bean.OrderReviewBean;
 import logic.bean.RequestBean;
 import logic.bean.UserBean;
 import logic.entity.ItemInSale;
@@ -179,6 +180,7 @@ public class SellController implements SaleController{
 		ItemInSale item = order.getInvolvedItem();
 		UserBean buyerData = new UserBean();
 		ItemInSaleBean itemData = new ItemInSaleBean();
+		OrderReviewBean reviewBean = new OrderReviewBean();
 		
 		buyerData.setUserID(buyer.getUsername());
 		itemData.setItemID(item.getItemInSaleID());
@@ -193,6 +195,14 @@ public class SellController implements SaleController{
 		orderSummary.setStartDate(order.getStartDate());
 		orderSummary.setOrderDate(order.getOrderDate());
 		orderSummary.setCode(order.getCode());
+		if (order.getOrderReview() != null) {
+			reviewBean.setOrderID(order.getOrderID());
+			reviewBean.setSellerReliability(order.getOrderReview().getSellerReliability());
+			reviewBean.setSellerAvailability(order.getOrderReview().getSellerAvailability());
+			reviewBean.setItemCondition(order.getOrderReview().getItemCondition());
+			reviewBean.setBuyerNote(order.getOrderReview().getBuyerNote());
+		}
+		orderSummary.setReview(reviewBean);
 		return orderSummary;
 	}
 	

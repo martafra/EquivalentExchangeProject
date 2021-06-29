@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.bean.ItemDetailsBean;
 import logic.bean.OrderBean;
+import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
 import logic.controller.application.BuyController;
 import logic.controller.application.ItemDetailsController;
@@ -68,6 +70,16 @@ public class OrderSummaryView extends SceneManageable{
 	private Label codeErrorLabel;
 	@FXML
 	private Button summaryReviewButton;
+	@FXML
+	private HBox sellerReliabilityInput;
+	@FXML
+	private HBox sellerAvailabilityInput;
+	@FXML
+	private HBox itemConditionInput;
+	@FXML
+	private TextArea buyerNoteInput;
+	@FXML
+	private Button summaryInsertReviewButton;
 	
 	private SellController sController = new SellController();
 	private BuyController bController = new BuyController();
@@ -78,6 +90,9 @@ public class OrderSummaryView extends SceneManageable{
 	private HBox inputCodeBox = null;
 	private HBox outputCodeBox = null;
 	private Stage reviewStage;
+	private RatingView relS = new RatingView(5);
+	private RatingView avaS = new RatingView(5);
+	private RatingView conS = new RatingView(5);
 	AnimationTimer timer;
 	
 	
@@ -95,12 +110,19 @@ public class OrderSummaryView extends SceneManageable{
 	@FXML
 	public void insertSummaryReview(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/logic/view/OrderSummaryReview.fxml"));
+    	loader.setController(this);
     	
     	try {
     		reviewStage = new Stage();
 			Scene reviewScene = new Scene(loader.load());
 			reviewStage.setScene(reviewScene);
 			reviewStage.initModality(Modality.APPLICATION_MODAL);
+			relS.setPaneWidth(100f);
+			avaS.setPaneWidth(100f);
+			conS.setPaneWidth(100f);
+			sellerReliabilityInput.getChildren().add(relS);
+			sellerAvailabilityInput.getChildren().add(avaS);
+			itemConditionInput.getChildren().add(conS);
 			reviewStage.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -108,6 +130,27 @@ public class OrderSummaryView extends SceneManageable{
 		}
     	
     	
+	}
+	
+	@FXML
+	public void insertReview() {
+		
+		OrderReviewBean reviewBean = new OrderReviewBean();
+		Integer rel = relS.getValue();
+		Integer ava = avaS.getValue();
+		Integer con = conS.getValue();
+		String note = buyerNoteInput.getText();
+		
+		if(rel != null && ava != null && con != null && note != null) {
+			reviewBean.setSellerReliability(rel);
+			reviewBean.setSellerAvailability(ava);
+			reviewBean.setItemCondition(con);
+			reviewBean.setBuyerNote(note);
+			reviewBean.setOrderID(order.getOrderID());
+			bController.updateReview(reviewBean);
+			reviewStage.close();
+			goToScene("ordersummary");
+		}
 	}
 	
 	
