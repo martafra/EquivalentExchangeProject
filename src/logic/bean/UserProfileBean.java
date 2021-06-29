@@ -8,6 +8,10 @@ public class UserProfileBean extends UserBean{
 	private String city;
 	private String country;
 	private String description;
+	private Integer sellerVote;
+	private Integer overallReliabiltyValue;
+	private Integer overallAvailabilityValue;
+	private Integer overallConditionsValue;
 	
 	public String getGender() {
 		return gender;
@@ -44,6 +48,30 @@ public class UserProfileBean extends UserBean{
 	}
 	public String getDescription() {
 		return this.description;
+	}
+	public Integer getSellerVote() {
+		return sellerVote;
+	}
+	public void setSellerVote(Integer sellerVote) {
+		this.sellerVote = sellerVote;
+	}
+	public Integer getOverallReliabiltyValue() {
+		return overallReliabiltyValue;
+	}
+	public void setOverallReliabiltyValue(Integer overallReliabiltyValue) {
+		this.overallReliabiltyValue = overallReliabiltyValue;
+	}
+	public Integer getOverallAvailabilityValue() {
+		return overallAvailabilityValue;
+	}
+	public void setOverallAvailabilityValue(Integer overallAvailabilityValue) {
+		this.overallAvailabilityValue = overallAvailabilityValue;
+	}
+	public Integer getOverallConditionsValue() {
+		return overallConditionsValue;
+	}
+	public void setOverallConditionsValue(Integer overallConditionsValue) {
+		this.overallConditionsValue = overallConditionsValue;
 	}
 	
 	

@@ -3,10 +3,13 @@ package logic.controller.graphic;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,12 +28,16 @@ import logic.controller.application.ProfileController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
-public class ProfileView extends SceneManageable{
+public class ProfileView extends SceneManageable implements Initializable{
 
 	private UserBean loggedUser;
 	private UserProfileBean userData;
 	private UserProfileBean changedUserData;
 	private Boolean changed = false;
+	private RatingView userR = new RatingView(5);
+	private RatingView avalR = new RatingView(5);
+	private RatingView relR = new RatingView(5);
+	private RatingView condR = new RatingView(5);
 	
 	@FXML
 	private Label nameLabel;
@@ -75,30 +82,22 @@ public class ProfileView extends SceneManageable{
 		goToScene("reviewerpanel");
 	}
 	@FXML
-	public void changeProfilePic() {
+	public void changeProfilePic() throws FileNotFoundException{
 		String profilePicPath = getPicture();
 		if(profilePicPath != null) {
-			try {
-				profileImage.setFill(new ImagePattern(new Image(new FileInputStream(profilePicPath))));
-				changedUserData.setProfilePicPath(profilePicPath);
-				changed = true;
-			} catch (FileNotFoundException e) {
-				
-			}
+			profileImage.setFill(new ImagePattern(new Image(new FileInputStream(profilePicPath))));
+			changedUserData.setProfilePicPath(profilePicPath);
+			changed = true;
 		}
 		saveButton.setVisible(changed);
 	}
 	@FXML
-	public void changeCoverPic() {
+	public void changeCoverPic() throws FileNotFoundException{
 		String coverPicPath = getPicture();
 		if(coverPicPath != null) {
-			try {
-				coverImage.setImage(new Image(new FileInputStream(coverPicPath)));
-				changedUserData.setCoverPicPath(coverPicPath);
-				changed = true;
-			} catch (FileNotFoundException e) {
-				
-			}
+			coverImage.setImage(new Image(new FileInputStream(coverPicPath)));
+			changedUserData.setCoverPicPath(coverPicPath);
+			changed = true;
 		}
 		saveButton.setVisible(changed);
 	}
@@ -145,8 +144,6 @@ public class ProfileView extends SceneManageable{
 	}
 	
 	private void loadProducts(Integer numberOfProducts) {
-		
-		
 		productList.getChildren().clear();
 		List<ItemInSaleBean> products = controller.getProductsByUser(loggedUser, numberOfProducts);
 		for(ItemInSaleBean product : products) {
@@ -155,13 +152,9 @@ public class ProfileView extends SceneManageable{
 		        	Bundle bundle = getBundle();
 		        	bundle.addBean("selectedItem", product);
 		            goToScene("itemDetails");
-		        
 		    });
-			productList.getChildren().add(productCase.getBody());
-			
-			
-		}
-		
+			productList.getChildren().add(productCase.getBody());	
+		}	
 	}
 	
 	private String getPicture() {
@@ -177,27 +170,44 @@ public class ProfileView extends SceneManageable{
 	}
 	
 	private void setRatings(){
-		RatingView ratings = new RatingView(5);
-		ratings.setEditable(false);
-		ratings.setValue(7);
-		ratings.setPaneWidth(140f);
-		userReviews.getChildren().add(ratings);
-		ratings = new RatingView(5);
-		ratings.setEditable(false);
-		ratings.setValue(8);
-		ratings.setPaneWidth(100f);
-		availabilityBox.getChildren().add(ratings);
-		ratings = new RatingView(5);
-		ratings.setEditable(false);
-		ratings.setValue(6);
-		ratings.setPaneWidth(100f);
-		reliabilityBox.getChildren().add(ratings);
-		ratings = new RatingView(5);
-		ratings.setEditable(false);
-		ratings.setValue(4);
-		ratings.setPaneWidth(100f);
-		conditionsBox.getChildren().add(ratings);
+		
+		if(userData.getSellerVote() != null) {
+			userR.setValue(userData.getSellerVote());
+		}else {
+			userR.setValue(0);
+		}
+		if(userData.getOverallAvailabilityValue() != null) {
+			avalR.setValue(userData.getOverallAvailabilityValue());
+		}else {
+			avalR.setValue(0);
+		}
+		if(userData.getOverallReliabiltyValue() != null) {
+			relR.setValue(userData.getOverallReliabiltyValue());
+		}else {
+			relR.setValue(0);
+		}
+		if(userData.getOverallConditionsValue() != null) {
+			condR.setValue(userData.getOverallConditionsValue());
+		}else {
+			condR.setValue(0);
+		}
 
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		userR.setEditable(false);
+		userR.setPaneWidth(100f);
+		userReviews.getChildren().add(userR);
+		avalR.setEditable(false);
+		avalR.setPaneWidth(100f);
+		availabilityBox.getChildren().add(avalR);
+		relR.setEditable(false);
+		relR.setPaneWidth(100f);
+		reliabilityBox.getChildren().add(relR);
+		condR.setEditable(false);
+		condR.setPaneWidth(100f);
+		conditionsBox.getChildren().add(condR);
 	}
 	
 	

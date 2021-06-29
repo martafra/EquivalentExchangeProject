@@ -138,8 +138,6 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		
 		types.add("Review");
 		types.add("Guide");
-		
-		
 	}
 	
 	private void loadItems(String string) {

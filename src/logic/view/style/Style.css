@@ -29,6 +29,13 @@
 .green-link:hover{
 	-fx-text-fill: #5CC22C;
 }
+.green-clickable{
+	-fx-background-color: #5AC02A;
+	-fx-text-fill: #FFFFFF;
+}
+.green-clickable:hover{
+	-fx-background-color: #5CC22C;
+}
 
 .white-text-combobox{
 	-fx-font-size: 16;

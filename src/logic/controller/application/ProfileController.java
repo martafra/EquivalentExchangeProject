@@ -7,11 +7,15 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
+import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ItemInSaleBean;
+import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
 import logic.bean.UserProfileBean;
+import logic.entity.Order;
+import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.entity.UserProfile;
 
@@ -21,12 +25,48 @@ public class ProfileController {
 	
 	public UserProfileBean getUserProfileData(UserBean userData) {
 		
+		Integer avalSum = 0;
+		Integer relSum = 0;
+		Integer condsSum = 0;
+		Integer totalVoteSum = 0;
+		Integer reviewCounter = 0;
+		
 		UserProfileBean userProfileData = new UserProfileBean();
 		String username = userData.getUserID();
 		UserProfileDAO profileDAO = new UserProfileDAO();
 		UserDAO userDAO = new UserDAO();
+		OrderDAO orderDAO = new OrderDAO();
 		UserProfile profileData = profileDAO.selectProfileByUsername(username, false);
 		User user = userDAO.selectUser(username);
+		
+		List<Order> orders = orderDAO.selectAllOrders(userData.getUserID());
+		for(Order order : orders) {
+			if(userData.getUserID().equals(order.getInvolvedItem().getSeller().getUsername())) {
+				OrderReview review = order.getOrderReview();
+				if(review != null) {
+					reviewCounter++;
+					relSum += review.getSellerReliability();
+					avalSum += review.getSellerAvailability();
+					condsSum += review.getItemCondition();
+					totalVoteSum = review.getSellerVote();
+				}
+			}
+		}
+		
+		if(reviewCounter == 0)
+			reviewCounter = 1;
+		
+		relSum /= reviewCounter;
+		avalSum /= reviewCounter;
+		condsSum /= reviewCounter;
+		
+		totalVoteSum /= reviewCounter;
+		
+		
+		userProfileData.setOverallAvailabilityValue(avalSum);
+		userProfileData.setOverallReliabiltyValue(relSum);
+		userProfileData.setOverallConditionsValue(condsSum);
+		userProfileData.setSellerVote(totalVoteSum);
 		
 		userProfileData.setUserID(user.getUsername());
 		userProfileData.setName(user.getName());
