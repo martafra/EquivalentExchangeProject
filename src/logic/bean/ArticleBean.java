@@ -8,5 +8,9 @@ public class ArticleBean implements Bean{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void removeMedia(String selectedImagePath) {
+		
+	}
 
 }
