@@ -153,13 +153,13 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="390.0">
                      <children>
-                        <Polygon fx:id="typeLeftArrow" onMouseClicked="#onTypeSwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="typeLeftArrow" fill="#ff6a00" onMouseClicked="#onTypeSwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Polygon>
-                        <Label fx:id="typeChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" text="Label" />
-                        <Polygon fx:id="typeRightArrow" onMouseClicked="#onTypeSwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Label fx:id="typeChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" style="-fx-background-color: #22222222;" text="Label" />
+                        <Polygon fx:id="typeRightArrow" fill="#ff6a00" onMouseClicked="#onTypeSwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -173,13 +173,13 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="390.0">
                      <children>
-                        <Polygon fx:id="categoryLeftArrow" onMouseClicked="#onCategorySwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Polygon fx:id="categoryLeftArrow" fill="#ff6a00" onMouseClicked="#onCategorySwapLeft" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Polygon>
-                        <Label fx:id="categoryChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" text="Label" />
-                        <Polygon fx:id="categoryRightArrow" onMouseClicked="#onCategorySwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                        <Label fx:id="categoryChooserLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="119.0" style="-fx-background-color: #22222222;" text="Label" />
+                        <Polygon fx:id="categoryRightArrow" fill="#ff6a00" onMouseClicked="#onCategorySwapRight" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -199,13 +199,13 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="390.0">
                      <children>
-                        <Polygon fx:id="layoutLeftArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0">
+                        <Polygon fx:id="layoutLeftArrow" fill="#ff6a00" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="270.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Polygon>
                         <ImageView fx:id="layoutChooseImage" fitHeight="93.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true" />
-                        <Polygon fx:id="layoutRightArrow" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0">
+                        <Polygon fx:id="layoutRightArrow" fill="#ff6a00" points="44.0, 38.99999237060547, 56.0, 38.99999237060547, 50.0, 26.940330505371094" rotate="90.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -216,13 +216,15 @@
                      </VBox.margin>
                   </HBox>
                   <Label text="Tags" />
+                  <TextField prefHeight="16.0" prefWidth="390.0" promptText="Insert new tag here...">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                  </TextField>
                   <FlowPane fx:id="tagsContainer" hgap="5.0" prefHeight="125.0" prefWidth="390.0" vgap="5.0">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" top="5.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="19.0" style="-fx-background-radius: 15;" styleClass="green-clickable" text="+" textOverrun="CLIP" />
-                     </children></FlowPane>
+                     </VBox.margin></FlowPane>
                </children>
             </VBox>
          </children>

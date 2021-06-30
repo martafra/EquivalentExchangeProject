@@ -6,9 +6,9 @@ public class OrderReview {
 	private Integer sellerAvailability;
 	private Integer itemCondition;
 	private String buyerNote;
-	private final static Double RELIABILITY_WEIGHT = 1.75;
-	private final static Double AVAILABILITY_WEIGHT = 1.5;
-	private final static Double CONDITION_WEIGHT = 1.0;
+	private final static Double RELIABILITY_WEIGHT = 0.41;
+	private final static Double AVAILABILITY_WEIGHT = 0.24;
+	private final static Double CONDITION_WEIGHT = 0.35;
 	
 	public Integer getSellerReliability() {
 		return sellerReliability;
@@ -35,8 +35,9 @@ public class OrderReview {
 		this.buyerNote = buyerNote;
 	}
 	public Integer getSellerVote() {
-		return (int) ((sellerReliability / RELIABILITY_WEIGHT + 
-				sellerAvailability / AVAILABILITY_WEIGHT +
-				itemCondition / CONDITION_WEIGHT) / (RELIABILITY_WEIGHT + AVAILABILITY_WEIGHT + CONDITION_WEIGHT));
+
+		return (int) (sellerReliability * RELIABILITY_WEIGHT + 
+				sellerAvailability * AVAILABILITY_WEIGHT +
+				itemCondition * CONDITION_WEIGHT);
 	}
 }
