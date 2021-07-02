@@ -147,10 +147,17 @@ public class ItemDetailsView extends SceneManageable {
     	sellerText.setText(seller.getName());
     	
     	priceText.setText(itemInSale.getPrice().toString() + " Coins");
-    
+    	
     	setRequestView();
     	setWishlistView(itemInSale);
     	fillOtherSeller();	
+    }
+    
+    @Override
+    public void onExit() {
+    	super.onExit();
+    	msgLabel.setVisible(false);
+    	buyBtn.setDisable(false);
     }
     
     public void clickOnBuy() {

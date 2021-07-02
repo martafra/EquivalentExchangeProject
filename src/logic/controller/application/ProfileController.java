@@ -153,4 +153,25 @@ public class ProfileController {
 		return filteredProducts;
 	}
 	
+	public List<OrderReviewBean> getReviewList(UserBean userBean){
+        String username = userBean.getUserID();
+        OrderDAO orderDAO = new OrderDAO();
+        ArrayList<Order> orders = orderDAO.selectAllOrders(username);
+        List<OrderReviewBean> reviewBeans = new ArrayList<>();
+        OrderReviewBean reviewBean = new OrderReviewBean();
+
+        for (Order order: orders) {
+        	if (username != order.getBuyer().getUsername() && order.getOrderReview()!= null) {
+        		reviewBean.setOrderID(order.getOrderID());
+        		reviewBean.setSellerReliability(order.getOrderReview().getSellerReliability());
+        		reviewBean.setSellerAvailability(order.getOrderReview().getSellerAvailability());
+        		reviewBean.setItemCondition(order.getOrderReview().getItemCondition());
+        		reviewBean.setBuyerNote(order.getOrderReview().getBuyerNote());
+        		reviewBeans.add(reviewBean);
+        	}
+        }
+
+        return reviewBeans;
+    }
+	
 }

@@ -1,27 +1,18 @@
 package logic.controller.graphic;
 
-import java.io.IOException;
-
 import java.util.List;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import logic.bean.ItemInSaleBean;
+import logic.bean.OrderReviewBean;
 import logic.bean.RequestBean;
 import logic.bean.UserBean;
+import logic.controller.application.ProfileController;
 import logic.controller.application.SellController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
@@ -34,8 +25,13 @@ public class SellerPanelView extends SceneManageable{
 	private FlowPane itemBox;
 	@FXML
 	private VBox requestBox;
+	@FXML
+	private ScrollPane reviewScrollPane;
+	@FXML 
+	private VBox reviewsBox;
 	
 	private SellController sellController = new SellController();
+	private ProfileController profileController = new ProfileController();
 	
 	@Override
 	public void onLoad(Bundle bundle) {
@@ -49,7 +45,6 @@ public class SellerPanelView extends SceneManageable{
 		}
 		
 		List<ItemInSaleBean> itemBeans = sellController.getItemList(loggedUser);
-		itemBox.getChildren().clear();
 		for(ItemInSaleBean itemBean : itemBeans) {
 			ProductCase productCase = new ProductCase(itemBean);
 			productCase.getProductName().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -65,7 +60,6 @@ public class SellerPanelView extends SceneManageable{
 		
 
 		List<RequestBean> requestBeans = sellController.getRequestList(loggedUser);
-		requestBox.getChildren().clear();
 		for(RequestBean requestBean: requestBeans) {
 			RequestCase requestCase = new RequestCase(requestBean);
 			
@@ -104,5 +98,20 @@ public class SellerPanelView extends SceneManageable{
 			
 			requestBox.getChildren().add(requestCase.getBody());
 		}
+		
+		List<OrderReviewBean> reviewBeans = profileController.getReviewList(loggedUser);
+		for (OrderReviewBean review: reviewBeans) {
+			ReviewCase reviewCase = new ReviewCase(review);
+			System.out.println(review.getBuyerNote());
+			reviewsBox.getChildren().add(reviewCase.getBody());
+		}
 	}
+	
+	@Override
+    public void onExit() {
+    	super.onExit();
+		reviewsBox.getChildren().clear();
+		itemBox.getChildren().clear();
+		requestBox.getChildren().clear();
+    }
 }
