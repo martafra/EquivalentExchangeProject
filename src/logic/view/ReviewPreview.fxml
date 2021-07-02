@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" vbarPolicy="NEVER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="logic.controller.graphic.ReviewPreviewView">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewPreviewView">
   <content>
     <AnchorPane minHeight="-Infinity" minWidth="0.0" prefHeight="720.0" prefWidth="1278.0">
          <children>
-            <Pane fx:id="ReviewContainer" layoutX="206.0" layoutY="35.0" maxWidth="-Infinity" minHeight="650.0" minWidth="-Infinity" prefWidth="866.0" />
+            <Pane fx:id="reviewContainer" layoutX="206.0" layoutY="35.0" maxWidth="-Infinity" minHeight="650.0" minWidth="-Infinity" prefWidth="866.0" />
             <Button fx:id="saveButton" layoutX="1116.0" layoutY="35.0" mnemonicParsing="false" onAction="#saveReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Save Review" />
             <Button fx:id="backButton" layoutX="1116.0" layoutY="78.0" mnemonicParsing="false" onAction="#backToEditor" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Back To Editor" />
          </children></AnchorPane>

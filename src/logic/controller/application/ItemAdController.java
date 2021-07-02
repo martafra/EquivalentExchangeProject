@@ -23,7 +23,7 @@ public class ItemAdController extends ItemRetrieveController{
 		Integer price = itemBean.getPrice();
 		String description = itemBean.getDescription();
 		Condition condition = Condition.valueOfLabel(itemBean.getCondition());
-		ArrayList<String> media = itemBean.getMedia();
+		List<String> media = itemBean.getMedia();
 		String address = itemBean.getAddress();
 		String sellerID = itemBean.getSeller().getUserID();
 

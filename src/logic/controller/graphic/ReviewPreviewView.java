@@ -3,6 +3,8 @@ package logic.controller.graphic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import logic.bean.ArticleBean;
+import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
 public class ReviewPreviewView extends SceneManageable{
@@ -22,6 +24,19 @@ public class ReviewPreviewView extends SceneManageable{
 	@FXML
 	public void backToEditor() {
 		goToScene("writereview");
+	}
+	
+	@Override
+	public void onLoad(Bundle bundle) {
+		super.onLoad(bundle);
+		
+		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
+		
+		ReviewContainer container = new ReviewContainer(articleData);
+		
+		reviewContainer.getChildren().add(container.getCaseBody());
+		
+		
 	}
 	
 }

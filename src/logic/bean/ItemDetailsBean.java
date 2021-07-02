@@ -1,6 +1,7 @@
 package logic.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import logic.support.interfaces.Bean;
 
@@ -33,16 +34,19 @@ public class ItemDetailsBean extends ItemInSaleBean{
 	public void setCondition(String condition) {
 		this.condition = condition;
 	}
-	public ArrayList<String> getMedia() {
+	public List<String> getMedia() {
 		return media;
 	}
-	public void setMedia(ArrayList<String> media) {
+	public void setMedia(List<String> media) {
 		if(!media.isEmpty())
 			this.setMediaPath(media.get(0));
-		this.media = media;
+		this.media = (ArrayList<String>) media;
 	}
 	public void addMedia(String selectedImagePath) {	
 		this.media.add(selectedImagePath);
+	}
+	public void removeMedia(String selectedImagePath) {
+		this.media.remove(selectedImagePath);
 	}
 	public String getAddress() {
 		return address;

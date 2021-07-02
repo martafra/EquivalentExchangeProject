@@ -109,6 +109,9 @@ public class ItemDetailsView extends SceneManageable {
     	loggedUser = (UserBean)bundle.getBean("loggedUser");
     	ItemInSaleBean itemInSale = (ItemInSaleBean)bundle.getBean("selectedItem");
     	itemDetails =  controller.getItemDetails(itemInSale.getItemID());
+    	
+    	System.out.println(itemDetails);
+    	
     	seller = itemDetails.getSeller();
     	item = controller.getItemByID(itemDetails.getReferredItemID());
     	
@@ -231,22 +234,29 @@ public class ItemDetailsView extends SceneManageable {
     }   
    
     public void setRequestView() {
+    	System.out.println("setRequestView");
     	if(loggedUser == null) {
     		msgLabel.setVisible(false);
         	return;
     	}
+    	
+    	if( seller.getUserID().equals(loggedUser.getUserID()) ) {
+    		buyBtn.setDisable(true);
+    		msgLabel.setVisible(false);
+    		System.out.println("2");
+    		return;
+    	}
+    	
     	if ( controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID()) ) {
     		buyBtn.setDisable(true);
     		msgLabel.setVisible(true);
     		msgLabel.setText("Request Already Sent");
-    	}
-    	if( seller.getUserID().equals(loggedUser.getUserID()) ) {
-    		buyBtn.setDisable(true);
-    		msgLabel.setVisible(false);
+    		System.out.println("1");
     	}
     	else {
     		buyBtn.setDisable(false);
     		msgLabel.setVisible(false);
+    		System.out.println("3");
     	}
     		
     }

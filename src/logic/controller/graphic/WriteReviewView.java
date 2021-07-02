@@ -25,14 +25,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import logic.bean.ArticleBean;
 import logic.bean.ItemBean;
+import logic.bean.UserBean;
 import logic.controller.application.WriteReviewController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
 public class WriteReviewView extends SceneManageable implements Initializable{
 
-	private ArrayList<String> texts = new ArrayList<>();
-	private Integer selectedPanel = 0;
 	private FileChooser fileChooser;
 	private ArticleBean article = new ArticleBean();
 	private WriteReviewController controller = new WriteReviewController();
@@ -40,6 +39,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	private Integer categoryPosition = 0;
 	private ArrayList<String> types = new ArrayList<>();
 	private Integer typePosition = 0;
+	private UserBean author;
 	private List<ItemBean> items;
 	
 	@FXML
@@ -59,7 +59,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	@FXML
 	private Label typeChooserLabel;
 	@FXML
-	private ComboBox<String> itemComboBox;
+	private ComboBox<ItemBean> itemComboBox;
 	@FXML
 	private TextField tagField;
 	@FXML
@@ -93,21 +93,34 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		if(tagField.getText().equals(""))
 			return;
 		
-		
-		
 		Button tagButton = new Button(tagField.getText()
 				.substring(0, Math.min(tagField.getText().length(), 20)));
 		tagButton.getStyleClass().add("green-clickable");
 		tagButton.setStyle("-fx-border-radius: 15");
-		tagButton.setOnAction((ActionEvent e) -> 
-			tagsContainer.getChildren().remove(tagButton)
-		);
+		final String tagText = tagField.getText();
+		tagButton.setOnAction((ActionEvent e) -> {
+			tagsContainer.getChildren().remove(tagButton);
+			article.removeTag(tagText);
+		});
 		
+		article.addTag(tagText);
 		tagsContainer.getChildren().add(tagButton);
 		tagField.setText("");
 	}
 	@FXML
 	public void viewPreview() {
+		
+		article.setTitle(titleTextField.getText());
+		article.setAuthor(author);
+		article.setCategory(categoryChooserLabel.getText());
+		article.setType(typeChooserLabel.getText());
+		article.setText(0, textPanel1.getText());
+		article.setText(1, textPanel2.getText());
+		article.setText(2, textPanel3.getText());
+		article.setText(3, textPanel4.getText());
+		
+		article.setReferredItem(itemComboBox.getSelectionModel().getSelectedItem());
+		getBundle().addBean("articleData", article);
 		goToScene("reviewpreview");
 	}
 	
@@ -130,7 +143,6 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 			imageBox.getChildren().add(image);
 			article.addMedia(selectedImagePath);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -148,6 +160,10 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	@Override
 	public void onLoad(Bundle bundle) {
 		super.onLoad(bundle);
+		
+		author = (UserBean) getBundle().getBean("loggedUser");
+		
+		article = new ArticleBean();
 		categoryPosition = 0;
 		typePosition = 0;
 		
@@ -170,11 +186,11 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		types.add("Guide");
 	}
 	
-	private void loadItems(String string) {
+	private void loadItems(String category) {
 		itemComboBox.getItems().clear();
 		for(ItemBean item : items) {
-			if(categories.get(categoryPosition).charAt(0) == item.getType()) {
-				itemComboBox.getItems().add(item.getItemName());
+			if(category.charAt(0) == item.getType()) {
+				itemComboBox.getItems().add(item);
 			}
 		}
 	}

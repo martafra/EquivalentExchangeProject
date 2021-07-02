@@ -105,4 +105,9 @@ public class ItemBean implements Bean{
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
+	
+	@Override
+	public String toString() {
+		return this.itemName;
+	}
 }

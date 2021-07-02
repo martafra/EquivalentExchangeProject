@@ -45,9 +45,9 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	private UserBean loggedUser;
 	private ItemDetailsBean ad = new ItemDetailsBean();
 	private String selectedType = " ";
-	private final String bookText = "Book";
-	private final String movieText = "Movie";
-	private final String videogameText = "Videogame";
+	private static final String BOOK_TEXT = "Book";
+	private static final String MOVIE_TEXT = "Movie";
+	private static final String VIDEOGAME_TEXT = "Videogame";
 	
 	@FXML
 	private HBox images;
@@ -88,9 +88,9 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		}
 		chooser.setTitle("Image selector");
 		chooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
-		itemFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
-			filterItems(selectedType);
-		});
+		itemFilterField.textProperty().addListener((observable, oldValue, newValue) -> 
+			filterItems(selectedType)
+		);
 
 		conditions = controller.getConditionTypes();
 		condition.getItems().addAll(conditions);
@@ -147,11 +147,14 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 			ImageView image = new ImageView(new Image(new FileInputStream(selectedImagePath)));
 			image.setFitHeight(100.0);
 			image.setPreserveRatio(true);
+			image.setOnMouseClicked((MouseEvent e) -> {
+				images.getChildren().remove(image);
+				ad.removeMedia(selectedImagePath);
+			});
 			
 			images.getChildren().add(image);
 			ad.addMedia(selectedImagePath);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -162,12 +165,11 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 			@Override
 			public void run() {
 				
-					types.add(bookText);
-					types.add(videogameText);
-					types.add(movieText);
+					types.add(BOOK_TEXT);
+					types.add(MOVIE_TEXT);
+					types.add(VIDEOGAME_TEXT);
 					
 					items = controller.getItemsList();
-					System.out.println("Items loaded");
 					itemTypeList.getItems().addAll(types);
 					Integer position = 0;
 					for(ItemBean item : items) {
@@ -181,13 +183,6 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 						itemList.getChildren().add(itemCase.getPane());
 						position++;
 					}
-					
-					
-				
-				
-				
-				
-				
 			}
 		}.start();
 		

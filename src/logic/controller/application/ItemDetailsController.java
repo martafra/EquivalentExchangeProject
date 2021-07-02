@@ -108,17 +108,20 @@ public class ItemDetailsController {
 			bean.setAuthor(book.getAuthor()); 
 			bean.setEdition(book.getEdtion()); 
 			bean.setNumberOfPages(book.getNumberOfPages());
-			bean.setGenre(book.getGenre().toString());	//TODO mettere controllo null se non è obbligatorio inserirlo
+			if(book.getGenre() != null)
+				bean.setGenre(book.getGenre().toString());	//TODO mettere controllo null se non è obbligatorio inserirlo
 			bean.setPublishingHouse(book.getPublishingHouse());
 		}
 		else if (itemType == 'M') {
 			Movie movie = (Movie)item;
 			bean.setDuration(movie.getDuration()); 
-			bean.setGenre(movie.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
+			if(movie.getGenre() != null)
+				bean.setGenre(movie.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
 		}
 		else {
 			Videogame videogame = (Videogame)item;
-			bean.setGenre(videogame.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
+			if(videogame.getGenre() != null)
+				bean.setGenre(videogame.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
 		}	
 		return bean;
 	}
