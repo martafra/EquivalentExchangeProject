@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import logic.query.UserQuery;
 import logic.support.database.MyConnection;
 import logic.entity.User;
@@ -14,6 +17,43 @@ public class UserDAO {
 	MyConnection connection = MyConnection.getInstance();
 	UserQuery userQ = new UserQuery();
 
+	public List<User> getModerators(){
+		List<User> moderators = new ArrayList<>();
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = userQ.selectModerators(true);
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				User mod = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"), rs.getInt("credit"));
+				moderators.add(mod);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return moderators;
+	}
+	
 	public User selectUser(String username) {
 		User user = null;
 		Statement stmt = null;

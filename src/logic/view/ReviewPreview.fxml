@@ -3,15 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewPreviewView">
-  <content>
-    <AnchorPane minHeight="-Infinity" minWidth="0.0" prefHeight="720.0" prefWidth="1278.0">
-         <children>
-            <Pane fx:id="reviewContainer" layoutX="206.0" layoutY="35.0" maxWidth="-Infinity" minHeight="650.0" minWidth="-Infinity" prefWidth="866.0" />
-            <Button fx:id="saveButton" layoutX="1116.0" layoutY="35.0" mnemonicParsing="false" onAction="#saveReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Save Review" />
-            <Button fx:id="backButton" layoutX="1116.0" layoutY="78.0" mnemonicParsing="false" onAction="#backToEditor" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Back To Editor" />
-         </children></AnchorPane>
-  </content>
-</ScrollPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewPreviewView">
+   <children>
+      <Button fx:id="saveButton" layoutX="1134.0" layoutY="43.0" mnemonicParsing="false" onAction="#saveReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Save Review" />
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="77.0" mnemonicParsing="false" onAction="#backToEditor" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Back To Editor" />
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="181.0" layoutY="43.0" prefHeight="628.0" prefWidth="918.0">
+         <content>
+            <VBox fx:id="reviewContainer" prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

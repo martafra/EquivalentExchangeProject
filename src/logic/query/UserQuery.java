@@ -5,6 +5,16 @@ import java.util.Date;
 
 public class UserQuery extends Query{
 
+	public String selectModerators(Boolean isModerator) {
+		
+		Integer isMod = 0;
+		if(Boolean.TRUE.equals(isModerator))
+			isMod = 1;
+		
+		String query = "SELECT * FROM User WHERE isModerator = %d";
+		return String.format(query, isMod);
+	}
+	
 	public String selectUser(String username) {
 		username = quote(username);
 		String query = "SELECT * FROM User WHERE username = %s;";

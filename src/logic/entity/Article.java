@@ -7,6 +7,9 @@ import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;
 
 public class Article {
+	
+	
+	private Integer articleID;
 	private String title;
 	private String text;
 	private ArrayList<String> tags;
@@ -18,6 +21,9 @@ public class Article {
 	private ArticleType type;
 	private LayoutType layout;
 	
+	public Integer getArticleID() {
+		return title.hashCode() + author.hashCode() + text.hashCode();
+	}
 	
 	public String getTitle() {
 		return title;

@@ -142,6 +142,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 			
 			imageBox.getChildren().add(image);
 			article.addMedia(selectedImagePath);
+			System.out.println(article.getMediaPaths().size());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
