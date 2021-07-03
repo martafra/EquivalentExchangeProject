@@ -1,16 +1,13 @@
 package logic.controller.graphic;
 
 import java.io.IOException;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import logic.bean.ItemInSaleBean;
-import logic.support.other.Bundle;
+
 
 public class ProductCase extends GraphicWidget{
 	
@@ -43,6 +40,12 @@ public class ProductCase extends GraphicWidget{
 	
 	public Label getProductName() {
 		return (Label) getComponent("productName");
+	}
+	
+	public void onSellerPanel() {
+		ImageView removeProduct = (ImageView) getComponent("removeProduct");
+		removeProduct.setDisable(false);
+		removeProduct.setVisible(true);
 	}
 	
 }

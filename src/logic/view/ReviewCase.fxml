@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="15.0" prefWidth="200.0">
          <children>
@@ -25,9 +25,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Seller reliability" />
-            <Label text="Seller availability" GridPane.rowIndex="1" />
-            <Label text="Item condition" GridPane.rowIndex="2" />
+            <Label prefHeight="18.0" prefWidth="106.0" text="Seller reliability" />
+            <Label prefHeight="18.0" prefWidth="106.0" text="Seller availability" GridPane.rowIndex="1" />
+            <Label prefHeight="18.0" prefWidth="108.0" text="Item condition" GridPane.rowIndex="2" />
             <HBox fx:id="sellerReliability" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <HBox fx:id="sellerAvailability" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox fx:id="itemCondition" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -269,10 +269,14 @@ public class ItemInSaleDAO {
 	
 	public void deleteItemInSale(int itemInSaleID) {
 		Statement stmt = null;
+		Statement stmtm = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
+			stmtm = con.createStatement();
+			String querym = mediaQuery.removeItemMedia(itemInSaleID);
+			stmtm.executeUpdate(querym);
 			String query = itemInSaleQ.deleteItemInSale(itemInSaleID);
 			stmt.executeUpdate(query);
 

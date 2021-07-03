@@ -17,5 +17,10 @@ public class MediaQuery extends Query{
     	return String.format(query, itemID);
     	
     }
+    
+    public String removeItemMedia(Integer itemID) {
+    	String query = "DELETE FROM media WHERE itemInSaleID = %d;";
+    	return String.format(query, itemID);
+    }
 
 }

@@ -63,3 +63,37 @@
 	-fx-background-color: #FF6A00;
 	-fx-background-size: 18 18;
 }
+
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 10px;    
+}
+
+.axis-label {
+  -fx-text-fill: #000000;
+}
+ 
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 10px;
+}
+ 
+.chart-legend-item-symbol{
+   -fx-background-radius: 0;
+}
+ 
+.chart-legend-item{
+    -fx-text-fill: #000000;
+}
+
+.chart-plot-background {
+    -fx-background-color: #FFFFFF;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #FFFFFF;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #FFFFFF;
+}

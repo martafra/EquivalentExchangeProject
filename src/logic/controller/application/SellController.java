@@ -244,6 +244,13 @@ public class SellController implements SaleController{
 			return false;
 	}
 	
+	public void removeProduct(ItemInSaleBean itemBean){
+		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
+		System.out.println(itemBean.getItemID());
+		itemDAO.deleteItemInSale(itemBean.getItemID());
+		return;
+	}
+	
 
 	
 }

@@ -3,8 +3,8 @@ package logic.controller.graphic;
 
 
 import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import logic.bean.OrderReviewBean;
@@ -36,7 +36,7 @@ public class ReviewCase extends GraphicWidget{
 		HBox sellerReliability = (HBox) getComponent("sellerReliability");
 		HBox sellerAvailability = (HBox) getComponent("sellerAvailability");
 		HBox itemCondition = (HBox) getComponent("itemCondition");
-		Label reviewID = (Label) getComponent("reviewID");
+
 		
 		relS.setValue(review.getSellerReliability());
 		avaS.setValue(review.getSellerAvailability());
@@ -45,7 +45,6 @@ public class ReviewCase extends GraphicWidget{
 		sellerReliability.getChildren().add(relS);
 		sellerAvailability.getChildren().add(avaS);
 		itemCondition.getChildren().add(conS);
-		reviewID.setText("Order ID #" + review.getOrderID());
 	}
 	
 	public Pane getBody() {
