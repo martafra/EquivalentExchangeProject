@@ -17,8 +17,6 @@ public class ArticleBean implements Bean{
 	private ItemBean referredItem = new ItemBean();
 	private UserBean author;
 	
-	
-	
 	public void addMedia(String selectedImagePath) {
 		this.media.add(selectedImagePath);
 	}

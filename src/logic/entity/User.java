@@ -13,6 +13,7 @@ public class User {
 	private String email;
 	private String password;
 	private Wallet wallet;
+	private Boolean isModerator = false;
 	
 	public User(String username, String name, String surname, String email, String password, Integer credit) {
 		this.username = username;
@@ -120,5 +121,13 @@ public class User {
 	
 	public Wallet getWallet() {
 		return this.wallet;
+	}
+	
+	public void setModerator(Boolean isModerator) {
+		this.isModerator = isModerator;
+	}
+	
+	public Boolean isModerator() {
+		return this.isModerator;
 	}
 }

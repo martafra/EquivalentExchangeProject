@@ -32,6 +32,7 @@ public class UserDAO {
 			
 			while(rs.next()) {
 				User mod = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"), rs.getInt("credit"));
+				mod.setModerator(true);
 				moderators.add(mod);
 			}
 			
@@ -72,6 +73,11 @@ public class UserDAO {
 			user = new User(rs.getString("username"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("passwd"), rs.getInt("credit"));
 			user.setGender(rs.getString("gender"));
 			user.setBirthDate(rs.getDate("birthDate"));
+			
+			if(rs.getInt("isModerator") == 1) {
+				user.setModerator(true);
+			}
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -151,8 +157,9 @@ public class UserDAO {
 				gender = user.getGender().toString().substring(0,1);
 			Date birthDate = user.getBirthDate();
 			Integer credit = user.getWallet().getCurrentCredit();
+			Boolean isModerator = user.isModerator();
 
-			String query = userQ.updateUser(username, password, name, lastName, email, gender, birthDate, credit);
+			String query = userQ.updateUser(username, password, name, lastName, email, gender, birthDate, credit, isModerator);
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {

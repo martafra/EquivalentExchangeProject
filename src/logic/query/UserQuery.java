@@ -40,7 +40,7 @@ public class UserQuery extends Query{
 		return String.format(query, username, name, lastName, email, password, gender, birthDateString, credit);
 	}
 
-	public String updateUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit) {
+	public String updateUser(String username, String password, String name, String lastName, String email, String gender, Date birthDate, Integer credit, Boolean isModerator) {
 		
 		DateFormat format = new SimpleDateFormat(dateFormat);
 		
@@ -60,6 +60,12 @@ public class UserQuery extends Query{
 			birthDateString = quote(birthDateString);
 		}
 
+		Integer isMod = 0;
+		
+		if(Boolean.TRUE.equals(isModerator)) {
+			isMod = 1;
+		}
+		
 		String query = "update User SET " +
 					   "passwd = %s," +
 					   "firstName = %s," +
@@ -68,9 +74,10 @@ public class UserQuery extends Query{
 					   "gender = %s," +
 					   "birthDate = %s," +
 					   "credit = %d " +
+					   "isModerator = %d " +
 					   "WHERE username = %s";
 					   
-		return String.format(query, password, name, lastName, email, gender, birthDateString, credit, username);
+		return String.format(query, password, name, lastName, email, gender, birthDateString, credit, isMod, username);
 	}
 	
 	public String deleteUser(String username) {
