@@ -3,12 +3,8 @@ package logic.controller.application;
 
 
 import java.security.SecureRandom;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javafx.application.Platform;
-import logic.DAO.ItemDAO;
+import java.util.Date;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
@@ -45,12 +41,7 @@ public class BuyController implements SaleController{
 		
 		User buyer = order.getBuyer();
 		ItemInSale involvedItem = order.getInvolvedItem();
-		System.out.println("Sono dentro orderAccepted");
-		System.out.println("Credito attuale: " + buyer.getWallet().getCurrentCredit());
 		if (buyer.decreaseCredit(involvedItem.getPrice())) {
-			//se lo scalo del credito e' andato a buon fine
-			System.out.println("Il credito è stato scalato");
-			System.out.println("Nuovo credito: " + buyer.getWallet().getCurrentCredit());
 			
 			userD.updateUser(buyer);
 			order.setBuyerStatus(true);
@@ -58,8 +49,6 @@ public class BuyController implements SaleController{
 			
 			if(order.isAccepted()){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
 				//entrambi hanno già accettato:	
-				
-				System.out.println("Hanno entrambi accettato");
 				order.setStartDate(new Date());
 			}
 			orderDAO.updateOder(order);
@@ -74,8 +63,7 @@ public class BuyController implements SaleController{
 	
 	@Override
 	public void acceptOrder(OrderBean orderBean) { //buyer clicca su accetta ordine
-		
-		System.out.println("Sono in accetta ordine");
+
 		
 		Integer orderID = orderBean.getOrderID();
 		OrderDAO orderDAO = new OrderDAO();
@@ -87,7 +75,7 @@ public class BuyController implements SaleController{
 		
 		if (!orderAccepted(order.getOrderID())){ 
 			//se orderAccepted non è andato a buon fine:
-			//non notifico nulla al venditore, per lui e' come se il buyer non avesse ancora mia cliccato su accetta
+			//non notifico nulla al venditore, per lui e' come se il buyer non avesse ancora mai cliccato su accetta
 			return;
 		}
 		
@@ -112,7 +100,9 @@ public class BuyController implements SaleController{
 		Order order = orderDAO.selectOrder(orderID);
 		
 		String buyer = order.getBuyer().getSurname();
-		Integer itemID = order.getInvolvedItem().getItemInSaleID();
+		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
+		ItemInSale item = order.getInvolvedItem();
+		Integer itemID = item.getItemInSaleID();
 		
 		Notification rejectedOrder = new Notification();
 		rejectedOrder.setSender(buyer);
@@ -120,6 +110,9 @@ public class BuyController implements SaleController{
 		rejectedOrder.setType(NotificationType.ORDER);
 		rejectedOrder.addParameter("status", "rejected");
 		rejectedOrder.addParameter("item", itemID.toString());
+		
+		item.setAvailability(true);
+		itemDAO.updateItemInSale(item);
 		
 		MessageSender sender = new MessageSender();
 		sender.sendNotification(order.getBuyer().getUsername(), rejectedOrder);
@@ -159,7 +152,6 @@ public class BuyController implements SaleController{
 		Integer remainingTime;
 		Long elapsedTime;
 		Date now = new Date();
-		System.out.println("buy controller " + now);
 		Date startDate = order.getStartDate();
 
 		elapsedTime = now.getTime() - startDate.getTime();

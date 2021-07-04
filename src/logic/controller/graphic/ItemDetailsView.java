@@ -161,6 +161,8 @@ public class ItemDetailsView extends SceneManageable {
     	super.onExit();
     	msgLabel.setVisible(false);
     	buyBtn.setDisable(false);
+    	wishlist.setDisable(true);
+		wishlist.setVisible(false);
     }
     
     public void clickOnBuy() {
@@ -234,7 +236,11 @@ public class ItemDetailsView extends SceneManageable {
     }   
    
     public void setRequestView() {
-    	System.out.println("setRequestView");
+    	if(!itemDetails.getAvailability()) {
+    		msgLabel.setVisible(false);
+    		buyBtn.setDisable(true);
+    		return;
+    	}
     	if(loggedUser == null) {
     		msgLabel.setVisible(false);
         	return;
@@ -243,7 +249,6 @@ public class ItemDetailsView extends SceneManageable {
     	if( seller.getUserID().equals(loggedUser.getUserID()) ) {
     		buyBtn.setDisable(true);
     		msgLabel.setVisible(false);
-    		System.out.println("2");
     		return;
     	}
     	
@@ -251,17 +256,20 @@ public class ItemDetailsView extends SceneManageable {
     		buyBtn.setDisable(true);
     		msgLabel.setVisible(true);
     		msgLabel.setText("Request Already Sent");
-    		System.out.println("1");
     	}
     	else {
     		buyBtn.setDisable(false);
     		msgLabel.setVisible(false);
-    		System.out.println("3");
     	}
     		
     }
     
     public void setWishlistView(ItemInSaleBean itemInSale) {
+    	if(!itemDetails.getAvailability()) {
+    		wishlist.setDisable(true);
+    		wishlist.setVisible(false);
+    		return;
+    	}
     	if(loggedUser == null) {
     		wishlist.setDisable(true);
         	wishlist.setVisible(false);

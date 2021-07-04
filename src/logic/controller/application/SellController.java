@@ -30,12 +30,14 @@ public class SellController implements SaleController{
 		ArrayList<ItemInSale> items = (ArrayList<ItemInSale>) itemSaleDAO.selectItemsInSaleByUser(username);
 		ArrayList<ItemInSaleBean> itemBeans = new ArrayList<>();
 		for(ItemInSale item: items) {
-			ItemInSaleBean itemBean = new ItemInSaleBean();
-			itemBean.setItemID(item.getItemInSaleID());
-			itemBean.setItemName(item.getReferredItem().getName());
-			itemBean.setMediaPath(item.getMedia().get(0));
-			itemBean.setPrice(item.getPrice());
-			itemBeans.add(itemBean);
+			if(item.getAvailability()) {
+				ItemInSaleBean itemBean = new ItemInSaleBean();
+				itemBean.setItemID(item.getItemInSaleID());
+				itemBean.setItemName(item.getReferredItem().getName());
+				itemBean.setMediaPath(item.getMedia().get(0));
+				itemBean.setPrice(item.getPrice());
+				itemBeans.add(itemBean);
+			}
 		}
 		return itemBeans;
 	}
@@ -86,6 +88,8 @@ public class SellController implements SaleController{
 		requestDAO.deleteRequest(buyer.getUsername(), item);
 		
 		ItemInSale involvedItem = itemDAO.selectItemInSale(item);
+		involvedItem.setAvailability(false);
+		itemDAO.updateItemInSale(involvedItem);
 
 		Order order = new Order(buyer, involvedItem);
 		OrderDAO orderDAO = new OrderDAO();
@@ -156,13 +160,18 @@ public class SellController implements SaleController{
 		OrderDAO orderDAO = new OrderDAO();
 		Order order = orderDAO.selectOrder(orderID);
 		String seller = order.getInvolvedItem().getSeller().getUsername();
-		Integer itemID = order.getInvolvedItem().getItemInSaleID();
+		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
+		ItemInSale item = order.getInvolvedItem();
+		Integer itemID = item.getItemInSaleID();
 		
 		rejectedOrder.setSender(seller);
 		rejectedOrder.setDate(new Date());
 		rejectedOrder.setType(NotificationType.ORDER);
 		rejectedOrder.addParameter("status", "rejected");
 		rejectedOrder.addParameter("item", itemID.toString());
+		
+		item.setAvailability(true);
+		itemDAO.updateItemInSale(item);
 		
 		MessageSender sender = new MessageSender();
 		sender.sendNotification(order.getBuyer().getUsername(), rejectedOrder);
@@ -246,9 +255,8 @@ public class SellController implements SaleController{
 	
 	public void removeProduct(ItemInSaleBean itemBean){
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
-		System.out.println(itemBean.getItemID());
-		itemDAO.deleteItemInSale(itemBean.getItemID());
-		return;
+		if(itemBean.getAvailability()) {
+			itemDAO.deleteItemInSale(itemBean.getItemID());}
 	}
 	
 

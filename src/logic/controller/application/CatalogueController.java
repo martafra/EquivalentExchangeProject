@@ -29,14 +29,15 @@ public class CatalogueController {
 		List<ItemInSaleBean> itemInSaleBeanList =  new ArrayList<>();
 		
 			for (ItemInSale item : itemInSaleList) {
+			if(item.getAvailability()) {
+				ItemInSaleBean itemInSaleBean = new ItemInSaleBean();
 			
-			ItemInSaleBean itemInSaleBean = new ItemInSaleBean();
-			
-			itemInSaleBean.setItemID(item.getItemInSaleID());
-			itemInSaleBean.setItemName(item.getReferredItem().getName());
-			itemInSaleBean.setPrice(item.getPrice());
-			itemInSaleBean.setMediaPath(item.getMedia().get(0));
-			itemInSaleBeanList.add(itemInSaleBean);
+				itemInSaleBean.setItemID(item.getItemInSaleID());
+				itemInSaleBean.setItemName(item.getReferredItem().getName());
+				itemInSaleBean.setPrice(item.getPrice());
+				itemInSaleBean.setMediaPath(item.getMedia().get(0));
+				itemInSaleBeanList.add(itemInSaleBean);
+			}
 		}
 		return itemInSaleBeanList;
 	}

@@ -16,8 +16,8 @@
       </HBox>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.39996337890625" minWidth="10.0" prefWidth="115.5999755859375" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.20001220703125" minWidth="10.0" prefWidth="104.4000244140625" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,9 +25,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="18.0" prefWidth="106.0" text="Seller reliability" />
-            <Label prefHeight="18.0" prefWidth="106.0" text="Seller availability" GridPane.rowIndex="1" />
-            <Label prefHeight="18.0" prefWidth="108.0" text="Item condition" GridPane.rowIndex="2" />
+            <Label prefHeight="18.0" prefWidth="126.0" text="Reliability" />
+            <Label prefHeight="18.0" prefWidth="130.0" text="Availability" GridPane.rowIndex="1" />
+            <Label prefHeight="18.0" prefWidth="126.0" text="Product condition" GridPane.rowIndex="2" />
             <HBox fx:id="sellerReliability" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <HBox fx:id="sellerAvailability" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox fx:id="itemCondition" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
