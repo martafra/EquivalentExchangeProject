@@ -51,13 +51,15 @@ public class ItemQuery extends Query{
 					   "WHERE itemID = %d;";
 		return String.format(query, movieDuration, genre, itemID);
 	}
-	public String insertVideogameData(Integer itemID, String genre) {
+	public String insertVideogameData(Integer itemID, String genre, String console) {
 		genre = quote(genre);
+		console = quote(console);
 		String query = "UPDATE Item SET " +
 				       "itemType = 'V', " +
-				       "genre = %s " +
+				       "genre = %s , " +
+				       "console = %s " +
 				       "WHERE itemID = %d;";	
-		return String.format(query, genre, itemID);
+		return String.format(query, genre, console, itemID);
 	}
 	
 	

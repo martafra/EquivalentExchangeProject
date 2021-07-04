@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
 
 import logic.query.ConsoleQuery;
 import logic.query.ItemQuery;
@@ -38,8 +39,8 @@ public class ItemDAO {
 			rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {
-				ArrayList<String> data = storeRs(rs, rs.getMetaData().getColumnCount());
-				itemList.add(factory.makeItem(data.get(6).charAt(0), data)); 
+				HashMap<String, String> data = storeRs(rs, rs.getMetaData().getColumnCount());
+				itemList.add(factory.makeItem(data)); 
 			}
 		}catch(SQLException e) {
 			//TODO gestire eccezione
@@ -81,9 +82,9 @@ public class ItemDAO {
 			}
 			
 			ItemFactory myFactory = new ItemFactory();
-			ArrayList<String> data = storeRs(rs, rs.getMetaData().getColumnCount());
+			HashMap<String, String> data = storeRs(rs, rs.getMetaData().getColumnCount());
 			
-			item = myFactory.makeItem(data.get(6).charAt(0), data); //chiamo il metodo makeItem della Factory passandogli itemType ed il resultSet della query inserito in un ArrayList
+			item = myFactory.makeItem(data); //chiamo il metodo makeItem della Factory passandogli itemType ed il resultSet della query inserito in un ArrayList
 	
 	
 		} catch (SQLException e) {
@@ -110,13 +111,15 @@ public class ItemDAO {
 
 	} 
 	
-	private ArrayList<String> storeRs(ResultSet rs, Integer columnCount) {//Inserisce tutti i dati del resultSet in un ArrayList
-		ArrayList<String> ret = new ArrayList<String>();
+	private HashMap<String, String> storeRs(ResultSet rs, Integer columnCount) {//Inserisce tutti i dati del resultSet in un ArrayList
+		HashMap<String, String> ret = new HashMap<>();
 
 		try {
 
 				for (int i = 1; i <= columnCount; i++) {
-					ret.add(rs.getString(i));
+					String columnName = rs.getMetaData().getColumnName(i);
+					ret.put(columnName , rs.getString(columnName));
+					//ret.add(rs.getString(i));
 				}
 
 
@@ -159,16 +162,19 @@ public class ItemDAO {
 					break;
 				case 'V':
 					String videogameGenre = ((Videogame) item).getGenre().toString();
-					query = itemQ.insertVideogameData(itemID, videogameGenre);
+					String console = ((Videogame) item).getConsole().toString();
+					query = itemQ.insertVideogameData(itemID, videogameGenre, console);
 					stmt.executeUpdate(query);
 					
-					ArrayList<VGConsole> consoles = ((Videogame) item).getConsoles();
+				
+					
+					/*ArrayList<VGConsole> consoles = ((Videogame) item).getConsoles();
 					
 					for(VGConsole console : consoles) {
 						String consoleName = console.toString();
 						query = consoleQ.insertConsole(itemID, consoleName);
 						stmt.executeUpdate(query);
-					}
+					}*/
 					
 					break;
 			}

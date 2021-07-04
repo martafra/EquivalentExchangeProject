@@ -140,7 +140,7 @@ public class ItemDetailsView extends SceneManageable {
     		typeText.setText("MOVIE");
     	}
     	else {
-    		itemDetails = "SWITCH, PLAY, XBOX"; //TODO prendere dalla bean
+    		itemDetails = item.getConsole(); //TODO prendere dalla bean
     		typeText.setText("VIDEOGAME");
     	}
     	label1.setText(itemDetails);

@@ -43,7 +43,7 @@ public class ItemCase extends GraphicWidget{
 				option2.setText("");
 				break;
 			case 'V':
-				option1.setText("Console: ");
+				option1.setText("Console: " + itemData.getConsole());
 				break;
 			default:
 				break;	

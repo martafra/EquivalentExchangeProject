@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import logic.entity.Book;
 import logic.entity.Item;
@@ -15,8 +17,9 @@ import logic.enumeration.VideoGameGenre;
 
 public class ItemFactory {
 	//
-	public Item makeItem(char itemType, ArrayList<String> data){//controlla la tipologia della classe da istanziare
+	public Item makeItem(HashMap<String, String> data){//controlla la tipologia della classe da istanziare
 		Item item = null;
+		char itemType = data.get("itemType").charAt(0);
 		if (itemType == 'B') { 
 			item = makeBook(data);
 		}
@@ -26,31 +29,31 @@ public class ItemFactory {
 		else { //if (itemType == 'M') {
 			item = makeMovie(data);
 		}
-		item.setItemID(Integer.parseInt(data.get(0)));
+		item.setItemID(Integer.parseInt(data.get("itemID")));
 		return item;
 	}
 	
-	private Item makeBook(ArrayList<String> data){ //popola e ritorna la classe Book
-		String author = data.get(8);
+	private Item makeBook(HashMap<String, String> data){ //popola e ritorna la classe Book
+		String author = data.get("bookAuthor");
 		//TODO fare il controllo
-		String editionStr = data.get(9);
+		String editionStr = data.get("bookEdition");
 		Integer edition = null;
 		Integer numberOfPages = null;
 		if (editionStr != null) {
 			edition = Integer.parseInt(editionStr);
 		}
 		
-		String numberOfPageStr = data.get(10);
+		String numberOfPageStr = data.get("bookPagesNumber");
 		if (numberOfPageStr != null) {
 			numberOfPages = Integer.parseInt(numberOfPageStr);
 		}
 
-		String genre = data.get(4);
-		String publishingHouse = data.get(5);
-		String name = data.get(1);
+		String genre = data.get("genre");
+		String publishingHouse = data.get("publisher");
+		String name = data.get("itemName");
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,25 +63,26 @@ public class ItemFactory {
 		
 	}
 	
-	private Item makeVideoGame(ArrayList<String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
-		String genre = data.get(4);
-		String name = data.get(1);
+	private Item makeVideoGame(HashMap<String, String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
+		String genre = data.get("genre");
+		String name = data.get("itemName");
+		String console = data.get("console");
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new Videogame(name,publishingDate,genre);
+		return new Videogame(name, publishingDate, genre, console);
 	}
 	
-	private Item makeMovie(ArrayList<String> data){ //popola e ritorna la classe Movie
-		String durationStr = data.get(7);
-		String name = data.get(1);
+	private Item makeMovie(HashMap<String, String> data){ //popola e ritorna la classe Movie
+		String durationStr = data.get("movieDuration");
+		String name = data.get("itemName");
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get(2));
+			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,7 +91,7 @@ public class ItemFactory {
 		if (durationStr != null) {
 			duration = Integer.parseInt(durationStr);
 		}
-		String genre = data.get(4);
+		String genre = data.get("genre");
 		return new Movie(name, publishingDate, duration, genre);
 	}
 

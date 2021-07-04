@@ -73,7 +73,7 @@ public class UserQuery extends Query{
 					   "email = %s," +
 					   "gender = %s," +
 					   "birthDate = %s," +
-					   "credit = %d " +
+					   "credit = %d, " +
 					   "isModerator = %d " +
 					   "WHERE username = %s";
 					   

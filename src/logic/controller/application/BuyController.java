@@ -5,6 +5,9 @@ package logic.controller.application;
 import java.security.SecureRandom;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
@@ -17,6 +20,7 @@ import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
 import logic.support.interfaces.SaleController;
+import logic.support.other.MailBox;
 import logic.support.other.Notification;
 
 public class BuyController implements SaleController{
@@ -181,6 +185,30 @@ public class BuyController implements SaleController{
 		userDAO.updateUser(user);
 		
 		
+	}
+	
+	public boolean checkNotification(MailBox mailbox, Integer orderID) {
+		List<Notification> notification = mailbox.getNotifications(NotificationType.ORDER);
+		System.out.println("Notifica ricevuta");
+		for ( Notification i : notification) {
+			Map<String, String> parameters = i.getParameters();
+			if (parameters.containsKey("orderID")) {
+				System.out.println("contiene orderID");
+				Integer order = Integer.parseInt(parameters.get("orderID"));
+				
+				System.out.println("orderID: " + orderID);
+				System.out.println("order: " + order);
+				if (orderID.equals(order)) {
+					
+					System.out.println("orderID trovato");
+					if (parameters.get("code").equals("valid")) {
+						System.out.println("Codice valido");
+						return true;
+					}
+				}	
+			}
+		}
+		return false;
 	}
 	
 

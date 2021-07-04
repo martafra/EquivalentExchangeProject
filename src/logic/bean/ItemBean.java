@@ -18,6 +18,7 @@ public class ItemBean implements Bean{
 	private String genre;
 	private String  publishingHouse;
 	private Integer duration;
+	private String console;
 	
 	public ItemBean(int itemID, String itemName) {
 		this.itemName = itemName;
@@ -88,6 +89,14 @@ public class ItemBean implements Bean{
 	
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}	
+	
+	public String getConsole() {
+		return this.console;
+	}
+	
+	public void setConsole(String console) {
+		this.console = console;
 	}	
 	
 	public String getPublishingHouse() {

@@ -29,10 +29,12 @@ import logic.bean.UserBean;
 import logic.controller.application.BuyController;
 import logic.controller.application.ItemDetailsController;
 import logic.controller.application.SellController;
+import logic.support.interfaces.Observer;
 import logic.support.other.Bundle;
+import logic.support.other.MailBox;
 import logic.support.other.SceneManageable;
 
-public class OrderSummaryView extends SceneManageable{
+public class OrderSummaryView extends SceneManageable implements Observer{
 	
 	@FXML
 	private AnchorPane orderSummary;
@@ -94,6 +96,7 @@ public class OrderSummaryView extends SceneManageable{
 	private RatingView avaS = new RatingView(5);
 	private RatingView conS = new RatingView(5);
 	AnimationTimer timer;
+	private MailBox mailbox;
 	
 	
 	@FXML
@@ -164,6 +167,9 @@ public class OrderSummaryView extends SceneManageable{
 			goToScene("login");
 			return;
 		}
+		
+		mailbox = (MailBox) bundle.getObject("mailbox");
+		mailbox.register(this);
 		
 		codeErrorLabel.setText("");
 		summaryStart.setText("");
@@ -348,5 +354,13 @@ public class OrderSummaryView extends SceneManageable{
 
 
 }
+	
+	@Override
+	public void update() {
+		if (bController.checkNotification(mailbox, order.getOrderID())) {
+			timer.stop();
+			onLoad(bundle);
+		}	
+	}
 
 }

@@ -13,6 +13,8 @@ public class Movie extends Item {
 		this.setPublishingDate(publishingDate);
 		this.duration = duration;
 		setGenre(genre);
+		
+		this.setItemID(name.hashCode() + genre.hashCode() + publishingDate.hashCode() % 2147483647);
 	}
 	
 	public Integer getDuration() {
