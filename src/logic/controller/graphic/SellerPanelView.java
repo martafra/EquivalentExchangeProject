@@ -9,6 +9,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -144,14 +145,14 @@ public class SellerPanelView extends SceneManageable{
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Values");
 
-        BarChart averageChart = new BarChart(xAxis, yAxis);
+        BarChart<String, Number> averageChart = new BarChart<>(xAxis, yAxis);
 
-        XYChart.Series dataSeries1 = new XYChart.Series();
+        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<>();
         dataSeries1.setName("Average rating");
 
-        dataSeries1.getData().add(new XYChart.Data("Reliability", loggedProfileBean.getOverallReliabiltyValue()));
-        dataSeries1.getData().add(new XYChart.Data("Availability"  , loggedProfileBean.getOverallAvailabilityValue()));
-        dataSeries1.getData().add(new XYChart.Data("Item Condition"  , loggedProfileBean.getOverallConditionsValue()));
+        dataSeries1.getData().add(new Data<String, Number>("Reliability", loggedProfileBean.getOverallReliabiltyValue()));
+        dataSeries1.getData().add(new Data<String, Number>("Availability"  , loggedProfileBean.getOverallAvailabilityValue()));
+        dataSeries1.getData().add(new Data<String, Number>("Item Condition"  , loggedProfileBean.getOverallConditionsValue()));
 
         averageChart.getData().add(dataSeries1);
         averageChart.applyCss();
