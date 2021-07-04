@@ -1,17 +1,24 @@
 package logic.controller.graphic;
 
 import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderReviewBean;
 import logic.bean.RequestBean;
 import logic.bean.UserBean;
+import logic.bean.UserProfileBean;
 import logic.controller.application.ProfileController;
 import logic.controller.application.SellController;
 import logic.support.other.Bundle;
@@ -29,6 +36,10 @@ public class SellerPanelView extends SceneManageable{
 	private ScrollPane reviewScrollPane;
 	@FXML 
 	private VBox reviewsBox;
+	@FXML
+	private VBox averageRatingBox;
+	@FXML
+	private VBox chartBox;
 	
 	private SellController sellController = new SellController();
 	private ProfileController profileController = new ProfileController();
@@ -55,8 +66,19 @@ public class SellerPanelView extends SceneManageable{
 		            goToScene("itemDetails");
 		        }
 		    });
+			productCase.getComponent("removeProduct").setOnMouseClicked(new EventHandler<MouseEvent>() {
+		        @Override
+		        public void handle(MouseEvent event) {
+		        	sellController.removeProduct(itemBean);
+		        	Bundle bundle = getBundle();
+		        	bundle.addBean("loggedUser", loggedUser);
+		            goToScene("sellerpanel");
+		        }
+		    });
+			productCase.onSellerPanel();
 			itemBox.getChildren().add(productCase.getBody());
 		}
+		
 		
 
 		List<RequestBean> requestBeans = sellController.getRequestList(loggedUser);
@@ -102,9 +124,40 @@ public class SellerPanelView extends SceneManageable{
 		List<OrderReviewBean> reviewBeans = profileController.getReviewList(loggedUser);
 		for (OrderReviewBean review: reviewBeans) {
 			ReviewCase reviewCase = new ReviewCase(review);
-			System.out.println(review.getBuyerNote());
+			((Label)reviewCase.getComponent("reviewID")).setText("Order ID #" + review.getOrderID());
 			reviewsBox.getChildren().add(reviewCase.getBody());
 		}
+		
+		UserProfileBean loggedProfileBean = profileController.getUserProfileData(loggedUser);
+		OrderReviewBean averageReview = new OrderReviewBean();
+		averageReview.setSellerReliability(loggedProfileBean.getOverallReliabiltyValue());
+		averageReview.setSellerAvailability(loggedProfileBean.getOverallAvailabilityValue());
+		averageReview.setItemCondition(loggedProfileBean.getOverallConditionsValue());
+		ReviewCase averageCase = new ReviewCase(averageReview);
+		((Label)averageCase.getComponent("reviewID")).setText("");
+		averageRatingBox.getChildren().add(averageCase.getBody());
+
+		
+		CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Parameters");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Values");
+
+        BarChart averageChart = new BarChart(xAxis, yAxis);
+
+        XYChart.Series dataSeries1 = new XYChart.Series();
+        dataSeries1.setName("Average rating");
+
+        dataSeries1.getData().add(new XYChart.Data("Reliability", loggedProfileBean.getOverallReliabiltyValue()));
+        dataSeries1.getData().add(new XYChart.Data("Availability"  , loggedProfileBean.getOverallAvailabilityValue()));
+        dataSeries1.getData().add(new XYChart.Data("Item Condition"  , loggedProfileBean.getOverallConditionsValue()));
+
+        averageChart.getData().add(dataSeries1);
+        averageChart.applyCss();
+        
+        chartBox.getChildren().add(averageChart);
+		
 	}
 	
 	@Override
@@ -113,5 +166,7 @@ public class SellerPanelView extends SceneManageable{
 		reviewsBox.getChildren().clear();
 		itemBox.getChildren().clear();
 		requestBox.getChildren().clear();
+		averageRatingBox.getChildren().clear();
+		chartBox.getChildren().clear();
     }
 }
