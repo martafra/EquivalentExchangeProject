@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Date;
+import java.util.Map;
 
 import logic.enumeration.NotificationType;
 import logic.support.other.MailBox;
@@ -27,8 +28,8 @@ public class ConnectionHandler implements Runnable {
 			String msg = reader.readLine();
 			if(msg == null)
 				return;
-				
-			String type = MessageParser.parseMessage(msg).get("type");
+			Map<String, String> message = MessageParser.parseMessage(msg);
+			String type = message.get("type");
 			int index;
 			if((index = type.indexOf('/')) == -1)
 				index = type.length();
@@ -40,9 +41,9 @@ public class ConnectionHandler implements Runnable {
 					mailbox.addMessage(msg);
 					Notification chatNotification = new Notification();
 					chatNotification.setType(NotificationType.CHAT);
-					chatNotification.setSender("Wibbley712");
+					chatNotification.setSender(message.get("sender"));
 					chatNotification.setDate(new Date());
-					//mailbox.addNotification(MessageParser.encodeNotification(chatNotification));
+					mailbox.addNotification(MessageParser.encodeNotification(chatNotification));
 					break;
 				case "notification":
 					mailbox.addNotification(msg);

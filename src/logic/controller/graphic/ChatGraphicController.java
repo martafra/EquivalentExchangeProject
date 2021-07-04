@@ -39,6 +39,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	private SaleController saleController;
 	private BuyController bController = new BuyController();
 	private MailBox mailbox;
+	private ChatBean lastMessageSent;
 	
 	@FXML
 	private TextField searchField;
@@ -127,6 +128,13 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	public void update() {
 		// TODO Auto-generated method stub
 		ChatBean chatBean = controller.getLastMessageSent(mailbox);
+		
+		if(lastMessageSent != null && lastMessageSent == chatBean)
+			return;
+		
+		lastMessageSent = chatBean;
+		System.out.println(lastMessageSent);
+		
 		
 		if(chatBean == null)
 			return;

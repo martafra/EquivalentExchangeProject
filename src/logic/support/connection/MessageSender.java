@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.DAO.NotificationDAO;
 import logic.entity.ChatMessage;
 import logic.support.other.Notification;
 
@@ -14,8 +15,7 @@ public class MessageSender {
 	
 	private List<ConnectionData> getConnections(String userID){
 		SessionHandler session = new SessionHandler();
-		ArrayList<ConnectionData> connections =  (ArrayList<ConnectionData>) session.getConnectionData(userID);
-		return connections;
+		return session.getConnectionData(userID);
 	}
 	
 	public void sendChatMessage(String receiverID, ChatMessage message) {
@@ -49,7 +49,18 @@ public class MessageSender {
 	}
 
 	public void sendNotification(String userID, Notification notification){
-		for(var connection : getConnections(userID)) {
+		
+		NotificationDAO notifDAO = new NotificationDAO();
+		
+		List<ConnectionData> connections = getConnections(userID);
+		
+		if(connections.isEmpty())
+		{
+			notifDAO.insertNotification(userID, notification);
+			return;
+		}
+		
+		for(var connection : connections) {
 		
 			new Thread() {
 				
@@ -65,8 +76,10 @@ public class MessageSender {
 						System.out.println(MessageParser.encodeNotification(notification));
 						
 					} catch (UnknownHostException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						
+						
+						
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
