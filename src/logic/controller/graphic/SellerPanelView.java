@@ -150,9 +150,9 @@ public class SellerPanelView extends SceneManageable{
         XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<>();
         dataSeries1.setName("Average rating");
 
-        dataSeries1.getData().add(new Data<String, Number>("Reliability", loggedProfileBean.getOverallReliabiltyValue()));
-        dataSeries1.getData().add(new Data<String, Number>("Availability"  , loggedProfileBean.getOverallAvailabilityValue()));
-        dataSeries1.getData().add(new Data<String, Number>("Item Condition"  , loggedProfileBean.getOverallConditionsValue()));
+        dataSeries1.getData().add(new Data<>("Reliability", loggedProfileBean.getOverallReliabiltyValue()));
+        dataSeries1.getData().add(new Data<>("Availability"  , loggedProfileBean.getOverallAvailabilityValue()));
+        dataSeries1.getData().add(new Data<>("Item Condition"  , loggedProfileBean.getOverallConditionsValue()));
 
         averageChart.getData().add(dataSeries1);
         averageChart.applyCss();
