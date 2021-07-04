@@ -36,6 +36,7 @@ public class SellController implements SaleController{
 				itemBean.setItemName(item.getReferredItem().getName());
 				itemBean.setMediaPath(item.getMedia().get(0));
 				itemBean.setPrice(item.getPrice());
+				itemBean.setAvailability(item.getAvailability());
 				itemBeans.add(itemBean);
 			}
 		}
