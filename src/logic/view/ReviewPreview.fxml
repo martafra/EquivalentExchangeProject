@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewPreviewView">
    <children>
-      <Button fx:id="saveButton" layoutX="1134.0" layoutY="43.0" mnemonicParsing="false" onAction="#saveReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Save Review" />
-      <Button fx:id="backButton" layoutX="1134.0" layoutY="77.0" mnemonicParsing="false" onAction="#backToEditor" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Back To Editor" />
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="181.0" layoutY="43.0" prefHeight="628.0" prefWidth="918.0">
+      <Button fx:id="saveButton" layoutX="1134.0" layoutY="77.0" mnemonicParsing="false" onAction="#saveReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Save Review" />
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="115.0" mnemonicParsing="false" onAction="#backToEditor" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Back To Editor" />
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="181.0" layoutY="77.0" prefHeight="628.0" prefWidth="918.0">
          <content>
             <VBox fx:id="reviewContainer" prefHeight="200.0" prefWidth="100.0" />
          </content>
       </ScrollPane>
+      <Button fx:id="acceptReviewButton" layoutX="30.0" layoutY="77.0" mnemonicParsing="false" onAction="#acceptReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Accept" />
+      <Button fx:id="rejectReviewButton" layoutX="30.0" layoutY="115.0" mnemonicParsing="false" onAction="#rejectReview" prefHeight="25.0" prefWidth="119.0" styleClass="orange-clickable" text="Reject" />
+      <Label fx:id="reviewTitle" layoutX="181.0" layoutY="32.0" style="-fx-font-size: 18;" text="Review Title" />
    </children>
 </AnchorPane>
