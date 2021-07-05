@@ -128,6 +128,7 @@ public class ChatController{
 		if(messages.isEmpty())
 			return null;
 		ChatMessage message = messages.get(messages.size()-1);
+		messages.remove(message);
 		ChatBean messageBean = new ChatBean();
 		messageBean.setMessageText(message.getText());
 		messageBean.setSender(message.getSender());

@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.controller.graphic.HeaderBar;
+import logic.support.other.ImageCache;
 import logic.support.other.PaneManager;
 
 public class MainApplication extends Application {	
@@ -55,6 +56,7 @@ public class MainApplication extends Application {
 		stage.setOnCloseRequest((WindowEvent e) -> {
 	             stage.close();
 	             ((HeaderBar)mainPanel.getHeaderController()).logout();
+	             ImageCache.getInstance().remove();
 	     });        
 		scene.getStylesheets().add(getClass().getResource("/logic/view/style/Style.css").toExternalForm());
 		stage.setScene(scene);

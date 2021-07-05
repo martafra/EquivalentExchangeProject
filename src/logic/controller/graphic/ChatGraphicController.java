@@ -129,6 +129,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		// TODO Auto-generated method stub
 		ChatBean chatBean = controller.getLastMessageSent(mailbox);
 		
+		
 		if(lastMessageSent != null && lastMessageSent == chatBean)
 			return;
 		
