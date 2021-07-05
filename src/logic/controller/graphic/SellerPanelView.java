@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -12,6 +13,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
@@ -123,10 +125,19 @@ public class SellerPanelView extends SceneManageable{
 		}
 		
 		List<OrderReviewBean> reviewBeans = profileController.getReviewList(loggedUser);
+		HBox hReviewBox = new HBox();
+		hReviewBox.setPrefWidth(486);
+		hReviewBox.setPrefHeight(100);
+		Label note = new Label();
+		note.setPrefWidth(250);
+		note.setWrapText(true);
 		for (OrderReviewBean review: reviewBeans) {
 			ReviewCase reviewCase = new ReviewCase(review);
 			((Label)reviewCase.getComponent("reviewID")).setText("Order ID #" + review.getOrderID());
-			reviewsBox.getChildren().add(reviewCase.getBody());
+			note.setText("Note from buyer: " + "\"" + review.getBuyerNote() + "\"");
+			hReviewBox.getChildren().add(reviewCase.getBody());
+			hReviewBox.getChildren().add(note);
+			reviewsBox.getChildren().add(hReviewBox);
 		}
 		
 		UserProfileBean loggedProfileBean = profileController.getUserProfileData(loggedUser);

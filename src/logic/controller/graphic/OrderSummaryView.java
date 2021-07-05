@@ -5,8 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -206,10 +205,13 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 				summaryCodeLabel.setText("Payment code");
 				codeStackPane.getChildren().add(outputCodeBox);
 				codeLabel.setText(order.getCode());
-				System.out.println(order.getReview());
 				if( (!loggedUser.getUserID().equals(seller)) && (order.getReview() == null) ){
 					summaryReviewButton.setVisible(true);
 					summaryReviewButton.setDisable(false);
+				}
+				if( (!loggedUser.getUserID().equals(seller)) && (order.getReview() != null) ){
+					summaryReviewButton.setVisible(false);
+					summaryReviewButton.setDisable(true);
 				}
 				break;
 			case 4:
