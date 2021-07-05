@@ -101,28 +101,33 @@ public class ItemDetailsController {
 		Item item = itemDAO.selectItem(itemID);
 		bean.setItemName(item.getName());
 		bean.setPublishingDate(item.getPublishingDate());
+		System.out.println(item.getLanguage());
+		if (item.getLanguage()!= null) {
+			
+			bean.setLanguage(item.getLanguage().toString());
+		}
 		char itemType = item.getType();
 		bean.setType(itemType);
 		
 		if (itemType == 'B') {
 			Book book = (Book)item;
 			bean.setAuthor(book.getAuthor()); 
-			bean.setEdition(book.getEdtion()); 
+			bean.setEdition(book.getEdition()); 
 			bean.setNumberOfPages(book.getNumberOfPages());
 			if(book.getGenre() != null)
-				bean.setGenre(book.getGenre().toString());	//TODO mettere controllo null se non è obbligatorio inserirlo
+				bean.setGenre(book.getGenre().toString());	
 			bean.setPublishingHouse(book.getPublishingHouse());
 		}
 		else if (itemType == 'M') {
 			Movie movie = (Movie)item;
 			bean.setDuration(movie.getDuration()); 
 			if(movie.getGenre() != null)
-				bean.setGenre(movie.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
+				bean.setGenre(movie.getGenre().toString()); 
 		}
 		else {
 			Videogame videogame = (Videogame)item;
 			if(videogame.getGenre() != null)
-				bean.setGenre(videogame.getGenre().toString()); //TODO mettere controllo null se non è obbligatorio inserirlo
+				bean.setGenre(videogame.getGenre().toString()); 
 			if (videogame.getConsole() != null)
 				bean.setConsole(videogame.getConsole().toString());
 		}	

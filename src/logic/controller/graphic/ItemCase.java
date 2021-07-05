@@ -36,14 +36,15 @@ public class ItemCase extends GraphicWidget{
 		switch(itemData.getType()) {
 			case 'B':
 				option1.setText("Edition: " + itemData.getEdtion());
-				option2.setText("Language: " );
+				option2.setText("Language: "+ itemData.getLanguage() );
 				break;
 			case 'M':
 				option1.setText("");
-				option2.setText("");
+				option2.setText("Language: "+ itemData.getLanguage());
 				break;
 			case 'V':
 				option1.setText("Console: " + itemData.getConsole());
+				option2.setText("Language: "+ itemData.getLanguage());
 				break;
 			default:
 				break;	

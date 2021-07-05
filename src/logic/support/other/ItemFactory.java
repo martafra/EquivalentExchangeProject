@@ -34,6 +34,7 @@ public class ItemFactory {
 	}
 	
 	private Item makeBook(HashMap<String, String> data){ //popola e ritorna la classe Book
+		String language = data.get("language");
 		String author = data.get("bookAuthor");
 		//TODO fare il controllo
 		String editionStr = data.get("bookEdition");
@@ -59,13 +60,14 @@ public class ItemFactory {
 			e.printStackTrace();
 		}
 		
-		return new Book(name, publishingDate, author, edition, numberOfPages, genre, publishingHouse);
+		return new Book(name, publishingDate, author, edition, numberOfPages, genre, publishingHouse, language);
 		
 	}
 	
 	private Item makeVideoGame(HashMap<String, String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
-		String genre = data.get("genre");
 		String name = data.get("itemName");
+		String genre = data.get("genre");
+		String language = data.get("language");
 		String console = data.get("console");
 		Date publishingDate = null;
 		try {
@@ -74,10 +76,11 @@ public class ItemFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new Videogame(name, publishingDate, genre, console);
+		return new Videogame(name, publishingDate, genre, console, language);
 	}
 	
 	private Item makeMovie(HashMap<String, String> data){ //popola e ritorna la classe Movie
+		String language = data.get("language");
 		String durationStr = data.get("movieDuration");
 		String name = data.get("itemName");
 		Date publishingDate = null;
@@ -92,7 +95,7 @@ public class ItemFactory {
 			duration = Integer.parseInt(durationStr);
 		}
 		String genre = data.get("genre");
-		return new Movie(name, publishingDate, duration, genre);
+		return new Movie(name, publishingDate, duration, genre, language);
 	}
 
 }

@@ -10,7 +10,7 @@ public class ItemBean implements Bean{
 	private int itemID;
 	private Date publishingDate;
 	private char type;
-	//private String language;
+	private String language;
 	//private enum target { }
 	private String author;
 	private Integer edition;
@@ -93,6 +93,14 @@ public class ItemBean implements Bean{
 	
 	public String getConsole() {
 		return this.console;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}	
+	
+	public String getLanguage() {
+		return this.language;
 	}
 	
 	public void setConsole(String console) {

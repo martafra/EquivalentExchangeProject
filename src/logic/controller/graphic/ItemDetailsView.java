@@ -127,20 +127,29 @@ public class ItemDetailsView extends SceneManageable {
     	addressText.setText(itemDetails.getAddress());
     	addressText.setWrapText(true);
     	String itemDetails;
+    	String language = "";
+    	if (item.getLanguage() != null) {
+			language = item.getLanguage().toLowerCase();
+		}
     	if (item.getType() =='B') {
-    		itemDetails = String.format("Author: %s %nEdition: %s %nNumber Of Pages: %s %nPublishing House: %s",
+    		itemDetails = String.format("Author: %s %nEdition: %s %nNumber Of Pages: %s %nPublishing House: %s %nLanguage: %s",
         			item.getAuthor(), 
         			item.getEdtion().toString(),
         			item.getNumberOfPages().toString(),
-        			item.getPublishingHouse());
+        			item.getPublishingHouse(),
+    				language);
     		typeText.setText("BOOK");
     	}
     	else if(item.getType() =='M') {
-    		itemDetails = String.format("Duration: %s", item.getDuration());	
+    		itemDetails = String.format("Duration: %s %nLanguage: %s", item.getDuration(), language);	
     		typeText.setText("MOVIE");
     	}
     	else {
-    		itemDetails = item.getConsole(); //TODO prendere dalla bean
+    		String console = "";
+    		if (item.getConsole() != null) {
+    			 console = item.getConsole().toLowerCase();
+    		}
+    		itemDetails = String.format("Console: %s %nLanguage: %s", console , language);		
     		typeText.setText("VIDEOGAME");
     	}
     	label1.setText(itemDetails);

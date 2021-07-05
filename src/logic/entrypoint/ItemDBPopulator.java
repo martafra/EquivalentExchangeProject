@@ -45,11 +45,12 @@ public class ItemDBPopulator {
 		String authors = bookMap.get("authors");
 		Integer edition = 1;
 		Integer numOfPages = Integer.valueOf(bookMap.get("num_pages"));
-		String genre = "generic";
+		String genre = "GENERIC";
 		String publisher = bookMap.get("publisher");
 		Date date = format.parse(bookMap.get("publication_date"));
+		String language = "MULTILINGUAL";
 		
-		return new Book(title, date, authors, edition, numOfPages, genre, publisher);
+		return new Book(title, date, authors, edition, numOfPages, genre, publisher, language);
 	}
 	
 	public static Map<String, String> parseLine(String keys, String itemString) {

@@ -16,7 +16,7 @@ public class ItemQuery extends Query{
 			   "FROM Item";
 	}
 
-	public String insertItem(Integer itemID, String itemName, Date publishingDate, String publisher) {
+	public String insertItem(Integer itemID, String itemName, Date publishingDate, String publisher, String language) {
 		
 		DateFormat format = new SimpleDateFormat(dateFormat);
 		
@@ -24,10 +24,11 @@ public class ItemQuery extends Query{
 		String publishingDateString = format.format(publishingDate);
 		publishingDateString = quote(publishingDateString);
 		publisher = quote(publisher);
+		language = quote(language);
 		
-		String query = "INSERT INTO Item (itemID, itemName, publishingDate, publisher) "+
-					   "VALUES (%d, %s, %s, %s);";
-		return String.format(query, itemID, itemName, publishingDateString, publisher);
+		String query = "INSERT INTO Item (itemID, itemName, publishingDate, publisher, language) "+
+					   "VALUES (%d, %s, %s, %s, %s);";
+		return String.format(query, itemID, itemName, publishingDateString, publisher, language);
 	}
 	
 	public String insertBookData(Integer itemID, String author, Integer edition, Integer pageNumber, String genre) {

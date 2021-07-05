@@ -143,13 +143,18 @@ public class ItemDAO {
 			String itemName = item.getName();
 			Date publishingDate = item.getPublishingDate();
 			String publisher = "";
-			String query = itemQ.insertItem(itemID, itemName, publishingDate, publisher);
+			String language = null;
+			if (item.getLanguage() != null) {
+				language = item.getLanguage().toString();
+			}
+			
+			String query = itemQ.insertItem(itemID, itemName, publishingDate, publisher, language);
 			stmt.executeUpdate(query);
 			switch(itemType) {
 				case 'B':
 					String author = ((Book) item).getAuthor();
 					Integer pageNumber = ((Book) item).getNumberOfPages();
-					Integer edition = ((Book) item).getEdtion();
+					Integer edition = ((Book) item).getEdition();
 					String bookGenre = ((Book) item).getGenre().toString();
 					query = itemQ.insertBookData(itemID, author, edition, pageNumber, bookGenre);
 					stmt.executeUpdate(query);	
@@ -165,17 +170,6 @@ public class ItemDAO {
 					String console = ((Videogame) item).getConsole().toString();
 					query = itemQ.insertVideogameData(itemID, videogameGenre, console);
 					stmt.executeUpdate(query);
-					
-				
-					
-					/*ArrayList<VGConsole> consoles = ((Videogame) item).getConsoles();
-					
-					for(VGConsole console : consoles) {
-						String consoleName = console.toString();
-						query = consoleQ.insertConsole(itemID, consoleName);
-						stmt.executeUpdate(query);
-					}*/
-					
 					break;
 			}
 				

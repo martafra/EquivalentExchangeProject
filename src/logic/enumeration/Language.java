@@ -1,0 +1,5 @@
+package logic.enumeration;
+
+public enum Language {
+	ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, JAPANESE, GERMAN, ITALIAN, MULTILINGUAL;
+}

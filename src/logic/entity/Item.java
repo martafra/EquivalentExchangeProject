@@ -2,11 +2,14 @@ package logic.entity;
 
 import java.util.Date;
 
+import logic.enumeration.BookGenre;
+import logic.enumeration.Language;
+
 public abstract class Item {
 	private int itemID;
 	private String name;
 	private Date publishingDate;
-	//private String language;
+	private Language language;
 	//private enum target { }
 	
 	public int getItemID() {
@@ -21,9 +24,9 @@ public abstract class Item {
 		return this.publishingDate;
 	}
 		
-	/*public String getLanguage() {
+	public Language getLanguage() {
 		return this.language;
-	}*/
+	}
 	
 	public abstract Character getType();
 	
@@ -46,10 +49,21 @@ public abstract class Item {
 		this.itemID = itemID;
 	}
 		
-	/*public void setLanguage(String language) {
+	public void setLanguage(Language language) {
 		this.language = language;
-	}*/
+	}
 	
+	public void setLanguage(String language) {
+		if(language != null) {
+			for (Language value : Language.values()) {
+				if (language.equals(value.toString())){
+					  this.language = value;
+					  return;
+				}
+			}
+		}
+		this.language = null;
+	}
 	
 	
 }

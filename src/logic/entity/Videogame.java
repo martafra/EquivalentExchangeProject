@@ -11,11 +11,12 @@ public class Videogame extends Item {
 	private VGConsole console;
 	private VideoGameGenre genre;
 	
-	public Videogame(String name, Date publishingDate, String genre, String console) {
+	public Videogame(String name, Date publishingDate, String genre, String console, String language) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		setGenre(genre);
 		setConsole(console);
+		setLanguage(language);
 		
 		this.setItemID(name.hashCode() + console.hashCode() + publishingDate.hashCode() % 2147483647);
 	}

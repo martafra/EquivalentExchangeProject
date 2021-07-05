@@ -21,12 +21,15 @@ public class ItemRetrieveController {
 				ItemBean itemBean = new ItemBean(item.getItemID(), item.getName());
 				itemBean.setType(item.getType());
 				
+				if (item.getLanguage()!= null) {
+					itemBean.setLanguage(item.getLanguage().toString());
+				}
 				//aggiunti per mostrare console e edizione nella lista di item in PostAD
 				char itemType = item.getType();
 				if (itemType == 'B') {
 					Book book = (Book)item;
 					itemBean.setAuthor(book.getAuthor()); 
-					itemBean.setEdition(book.getEdtion()); 
+					itemBean.setEdition(book.getEdition()); 
 					itemBean.setNumberOfPages(book.getNumberOfPages());
 					if(book.getGenre() != null)
 						itemBean.setGenre(book.getGenre().toString());	

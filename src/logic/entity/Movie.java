@@ -8,11 +8,12 @@ public class Movie extends Item {
 	private Integer duration;
 	private MovieGenre genre;
 	
-	public Movie(String name, Date publishingDate,Integer duration, String genre) {
+	public Movie(String name, Date publishingDate,Integer duration, String genre, String language) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.duration = duration;
 		setGenre(genre);
+		setLanguage(language);
 		
 		this.setItemID(name.hashCode() + genre.hashCode() + publishingDate.hashCode() % 2147483647);
 	}
