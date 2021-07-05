@@ -97,6 +97,22 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		
 	}
 	
+	@Override 
+	public void onExit() {
+		items = new ArrayList<>();
+		itemCases = new ArrayList<>();
+		ad = new ItemDetailsBean();
+		selectedType = " ";
+		images.getChildren().clear();
+		price.setText("");
+		description.setText("");
+		itemList.getChildren().clear();
+		condition.getSelectionModel().clearSelection();
+		itemTypeList.getSelectionModel().clearSelection();
+		itemFilterField.setText("");
+		chosenItemCase = null;
+	}
+	
 	private void filterItems(String type) {
 		String filterText = itemFilterField.getText();
 		

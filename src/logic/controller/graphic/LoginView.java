@@ -25,6 +25,7 @@ public class LoginView extends SceneManageable{
     @FXML
     private Button loginButton;
     
+    
     @FXML 
     public void login(Event e){
     	bean.setUserID(userText.getText());
@@ -46,9 +47,10 @@ public class LoginView extends SceneManageable{
     	goToScene("register");
     }
 	
-	
-
-
-  
+	@Override
+	public void onExit() {
+		userText.setText("");
+		passText.setText("");
+	}
 
 }

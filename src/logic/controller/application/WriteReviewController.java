@@ -1,5 +1,6 @@
 package logic.controller.application;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,14 @@ public class WriteReviewController extends ItemRetrieveController{
 	
 	public void acceptReview() {
 		
+	}
+	
+	public List<ArticleBean> getPendingArticles(){
+		List<ArticleBean> articles = new ArrayList<>();
+		
+		
+		
+		return articles;
 	}
 	
 	private void notifyModerators(Article articleData, List<User> mods) {

@@ -16,6 +16,10 @@ public class ReviewPreviewView extends SceneManageable{
 	private Button saveButton;
 	@FXML
 	private Button backButton;
+	@FXML
+	private Button acceptReviewButton;
+	@FXML
+	private Button rejectReviewButton;
 	
 	@FXML
 	public void saveReview() {

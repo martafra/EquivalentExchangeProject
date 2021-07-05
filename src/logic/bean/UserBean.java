@@ -9,6 +9,7 @@ public class UserBean implements Bean{
 	private String lastName;
 	private String email;
 	private String profilePicPath;
+	private Boolean moderator;
 	
 	public String getUserID() {
 		return this.username;
@@ -48,6 +49,14 @@ public class UserBean implements Bean{
 	
 	public void setProfilePicPath(String picPath) {
 		this.profilePicPath = picPath;
+	}
+	
+	public Boolean isModerator() {
+		return moderator;
+	}
+	
+	public void setModerator(Boolean mod) {
+		this.moderator = mod;
 	}
 	
 }

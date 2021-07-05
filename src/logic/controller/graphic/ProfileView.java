@@ -7,24 +7,29 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import logic.bean.ArticleBean;
 import logic.bean.ItemInSaleBean;
 import logic.bean.UserBean;
 import logic.bean.UserProfileBean;
 import logic.controller.application.ProfileController;
+import logic.controller.application.WriteReviewController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
@@ -69,8 +74,13 @@ public class ProfileView extends SceneManageable implements Initializable{
 	private HBox conditionsBox;
 	@FXML
 	private Button saveButton;
+	@FXML
+	private ScrollPane moderatorRequests;
+	@FXML
+	private VBox reviewAcceptBox;
 	
 	private ProfileController controller = new ProfileController();
+	private WriteReviewController modController = new WriteReviewController();
 	
 	@FXML
 	public void goToSellerPanel() {
@@ -119,6 +129,10 @@ public class ProfileView extends SceneManageable implements Initializable{
 			return;
 		}
 		
+		if(Boolean.TRUE.equals(loggedUser.isModerator())) {
+			setupModeratorView();
+		}
+		
 		userData = controller.getUserProfileData(loggedUser);
 		changedUserData = new UserProfileBean();
 		changedUserData.setUserID(loggedUser.getUserID());
@@ -141,6 +155,11 @@ public class ProfileView extends SceneManageable implements Initializable{
 		profileImage.setFill(new ImagePattern(new Image(userData.getProfilePicPath())));
 		
 		loadProducts(4);
+	}
+	
+	@Override 
+	public void onExit() {
+		reviewAcceptBox.getChildren().clear();
 	}
 	
 	private void loadProducts(Integer numberOfProducts) {
@@ -193,6 +212,23 @@ public class ProfileView extends SceneManageable implements Initializable{
 		}
 
 	}
+	
+	private void setupModeratorView() {
+		
+		moderatorRequests.setVisible(true);
+		
+		List<ArticleBean> articles = modController.getPendingArticles();
+		
+		for(ArticleBean article : articles) {
+			ArticleAcceptanceBox articleCase = new ArticleAcceptanceBox(article);
+			reviewAcceptBox.getChildren().add(articleCase.getPane());
+			articleCase.getToButton().setOnAction((ActionEvent e) -> {
+				getBundle().addBean("articleBean", article);
+				goToScene("reviewpreview");
+			});
+		}
+		
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -208,6 +244,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 		condR.setEditable(false);
 		condR.setPaneWidth(100f);
 		conditionsBox.getChildren().add(condR);
+		moderatorRequests.setVisible(false);
 	}
 	
 	
