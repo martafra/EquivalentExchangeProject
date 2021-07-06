@@ -64,6 +64,11 @@
 	-fx-background-size: 18 18;
 }
 
+.community-button{
+	-fx-background-color: #FFFFFF;
+	-fx-border-color: #BDDDC0;
+	-fx-border-width: 1 1 0 1;
+	}
 .chart {
     -fx-padding: 10px;
 }
