@@ -19,6 +19,7 @@ public class Article {
 	private ArrayList<String> mediaPaths;
 	private Item referredItem;
 	private User author;
+	private Integer reviewPoints;
 	
 	private ArticleType type;
 	private LayoutType layout;
@@ -38,6 +39,7 @@ public class Article {
 	}
 
 
+	
 	public Integer getArticleID() {
 		if(articleID != null)
 		{
@@ -160,6 +162,17 @@ public class Article {
 		return this.publishingDate;
 	}
 	
+	public void setreviewPoints(Integer points) {
+		this.reviewPoints = points;
+	}
+	
+	public Integer getReviewPoints() {
+		return this.reviewPoints;
+	}
+	
+	public void addReviewPoints(Integer points) {
+		this.reviewPoints += points;
+	}
 	
 	
 }

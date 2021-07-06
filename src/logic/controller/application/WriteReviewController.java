@@ -7,6 +7,8 @@ import java.util.List;
 import logic.DAO.ArticleDAO;
 import logic.DAO.UserDAO;
 import logic.bean.ArticleBean;
+import logic.bean.ItemBean;
+import logic.bean.UserBean;
 import logic.entity.Article;
 import logic.entity.User;
 import logic.enumeration.ArticleType;
@@ -15,7 +17,7 @@ import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
 import logic.support.other.Notification;
 
-public class WriteReviewController extends ItemRetrieveController{
+public class WriteReviewController extends ArticleDataController{
 	
 	
 	public void saveArticle(ArticleBean articleData) {
@@ -67,26 +69,66 @@ public class WriteReviewController extends ItemRetrieveController{
 		
 		if(Boolean.TRUE.equals(article.getAuthor().isModerator())) {
 			article.validate();
-			ArticleDAO articleDAO = new ArticleDAO();
-			articleDAO.insertArticle(article);
-			
 		}else {
 			notifyModerators(article, mods);
 		}
 		
-	}
-	
-	public void acceptReview() {
+		ArticleDAO articleDAO = new ArticleDAO();
+		articleDAO.insertArticle(article);
 		
 	}
+	
+	public void acceptArticle(ArticleBean articleData) {
+		
+		ArticleDAO articleDAO = new ArticleDAO();
+		UserDAO userDao = new UserDAO();
+		User author = userDao.selectUser(articleData.getAuthor().getUserID());
+		List<Article> articles = articleDAO.getAllArticles(false, author);
+		
+		for(Article article : articles) {
+			if(article.getArticleID().equals(articleData.getID())) {
+				article.setValidation(true);
+				articleDAO.updateArticle(article);
+				return;
+			}
+		}
+		
+	}
+	
+	public void rejectArticle(ArticleBean articleData) {
+		
+		ArticleDAO articleDAO = new ArticleDAO();
+		UserDAO userDao = new UserDAO();
+		User author = userDao.selectUser(articleData.getAuthor().getUserID());
+		List<Article> articles = articleDAO.getAllArticles(false, author);
+		
+		for(Article article : articles) {
+			
+			if(article.getArticleID().equals(articleData.getID())) {
+				articleDAO.deleteArticle(article);
+				return;
+			}
+		}
+	}
+	
+	
+	
 	
 	public List<ArticleBean> getPendingArticles(){
-		List<ArticleBean> articles = new ArrayList<>();
+		ArticleDAO articleDAO = new ArticleDAO();
+		List<ArticleBean> articleBeans = new ArrayList<>();
 		
+		List<Article> articles = articleDAO.getAllArticles(false, null);
 		
+		for(Article art : articles) {
+			ArticleBean artBean = fromArticleToBean(art);
+			articleBeans.add(artBean);
+		}
 		
-		return articles;
+		return articleBeans;
 	}
+	
+	
 	
 	private void notifyModerators(Article articleData, List<User> mods) {
 		

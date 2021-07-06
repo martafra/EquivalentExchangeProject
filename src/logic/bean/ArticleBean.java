@@ -7,6 +7,7 @@ import logic.support.interfaces.Bean;
 
 public class ArticleBean implements Bean{
 
+	private Integer articleID;
 	private String layout;
 	private String[] text = new String[4];
 	private String title;
@@ -16,6 +17,16 @@ public class ArticleBean implements Bean{
 	private String type;
 	private ItemBean referredItem = new ItemBean();
 	private UserBean author;
+	private Integer vote;
+	
+	
+	public void setID(Integer id) {
+		articleID = id;
+	}
+	
+	public Integer getID() {
+		return this.articleID;
+	}
 	
 	public void addMedia(String selectedImagePath) {
 		this.media.add(selectedImagePath);
@@ -95,6 +106,14 @@ public class ArticleBean implements Bean{
 	
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public void setVote(Integer vote) {
+		this.vote = vote;
+	}
+	
+	public Integer getVote() {
+		return vote;
 	}
 
 }

@@ -14,12 +14,15 @@ import java.util.List;
 
 import logic.entity.Article;
 import logic.entity.Item;
+import logic.entity.ItemInSale;
 import logic.entity.User;
 import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;
 import logic.query.ArticleMediaQuery;
 import logic.query.ArticleQuery;
+import logic.query.TagQuery;
 import logic.support.database.MyConnection;
+import logic.support.other.ImageCache;
 
 public class ArticleDAO {
 	
@@ -27,6 +30,7 @@ public class ArticleDAO {
 	private static Character ESCAPE_CHARACTER = 'ç';
 	private ArticleQuery articleQuery = new ArticleQuery();
 	private ArticleMediaQuery mediaQuery = new ArticleMediaQuery();
+	private TagQuery tagQuery = new TagQuery();
 	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
@@ -64,6 +68,11 @@ public class ArticleDAO {
 				mediaID++;
 			}
 			
+			for(String tag : article.getTags()) {
+				query = tagQuery.insertTagForArticle(tag, articleID);
+				stmt.executeUpdate(query);
+			}
+			
 			
 
 		} catch (SQLException e) {
@@ -82,6 +91,44 @@ public class ArticleDAO {
 			}
 		}
 		
+	}
+	
+	public void updateArticle(Article article) {
+		Statement stmt = null;
+		try {
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			Integer articleID = article.getArticleID();
+			String title = article.getTitle();
+			String body = "";
+			for(Integer i = 0; i < 4; i++) {
+				body += article.getText(i) + ESCAPE_CHARACTER.toString();
+			}
+			LayoutType layout = article.getLayout();
+			String layoutString = layout.toString().substring(0,1);
+			ArticleType type = article.getType();
+			String typeString = type.toString().substring(0,1);
+			Boolean validationStatus = article.isValidated();
+			Integer reviewPoints = 0;
+			
+			String query = articleQuery.updateArticle(articleID, title, body, layoutString, typeString, validationStatus, reviewPoints);
+			
+			stmt.executeUpdate(query);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+
+				e.printStackTrace();
+
+			} finally {
+				try {
+					if (stmt != null) {
+						stmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 	}
 	
 	public List<Article> getAllArticles(Boolean accepted, User author){
@@ -143,22 +190,40 @@ public class ArticleDAO {
 				}
 				
 				article.setPublishingDate(date);
-				
 				article.setLayout(rs.getString("layout"));
 				article.setType(rs.getString("articleType"));
-				
 				String body = rs.getString("body");
-				
-				String[] texts = body.split("ç");
-				
-				
+				String[] texts = body.split(ESCAPE_CHARACTER.toString());
 				for(Integer i = 0; i < texts.length - 1; i++)
-				{
-					article.setText(texts[i], i);
-				}
-				
+					article.setText(texts[i], i);	
+				articles.add(article);
 			}
 			
+			ImageCache mediaCache = ImageCache.getInstance();
+			
+			for(Article art : articles) {
+				Integer articleID = art.getArticleID();
+				query = mediaQuery.retrieveAllMedia(articleID);
+				rs2 = stmt.executeQuery(query);
+				while(rs2.next()) {
+					Integer mediaIndex = rs2.getInt("imageIndex");
+					String fileName = "A_" + articleID.toString() + "_" + mediaIndex.toString();
+					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+					art.addMedia(filePath);
+				}
+				rs2.close();	
+			}
+			for(Article art : articles) {
+				Integer articleID = art.getArticleID();
+				query = tagQuery.retrieveTags(articleID);
+				rs2 = stmt.executeQuery(query);
+				
+				while(rs2.next()) {
+					art.addTag(rs2.getString("tagValue"));
+				}
+				
+				rs2.close();
+			}
 			
 			
 			
@@ -184,6 +249,35 @@ public class ArticleDAO {
 		
 		
 		return articles;
+		
+	}
+
+	public void deleteArticle(Article article) {
+		
+		Statement stmt = null;
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = articleQuery.deleteArticle(article.getArticleID());
+			stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	

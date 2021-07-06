@@ -6,8 +6,44 @@ import java.util.Date;
 
 public class ArticleQuery extends Query{
 	
+	DateFormat format = new SimpleDateFormat(dateTimeFormat);
+	
+	public String deleteArticle(Integer articleID) {
+		String query = "DELETE from article WHERE articleID = %d;";
+		return String.format(query, articleID);
+	}
+	
+	public String updateArticle(Integer articleID, String title, String body, String layout, String type, Boolean status, Integer points) {
+		
+		
+		title = quote(title);
+		body = quote(body);
+		layout = quote(layout);
+		type = quote(type);
+		
+		Integer validationStatus = 0;
+		
+		if(Boolean.TRUE.equals(status)) {
+			validationStatus = 1;
+		}
+		
+		
+		String query = "UPDATE Article SET "
+					 + "title = %s, "
+					 + "body = %s, "
+					 + "layout = %s, "
+					 + "articleType = %s, "
+					 + "validationStatus = %d, "
+					 + "reviewPoints = %d "
+					 + "WHERE articleID = %d";
+		
+		return String.format(query, title, body, layout, type, validationStatus, points, articleID);
+		
+		
+	}
+	
 	public String insertArticle(Integer articleID, Integer itemID, String title, String body, String layout, String type, Boolean status, String author, Integer points, Date date){
-		DateFormat format = new SimpleDateFormat(dateTimeFormat);
+		
 		
 		String pubDate = "null";
 		
@@ -64,5 +100,7 @@ public class ArticleQuery extends Query{
 		return query;
 		
 	}
+
+	
 	
 }

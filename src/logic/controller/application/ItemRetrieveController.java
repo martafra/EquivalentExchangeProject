@@ -11,6 +11,7 @@ import logic.entity.Movie;
 import logic.entity.Videogame;
 
 public class ItemRetrieveController {
+	
 	public List<ItemBean> getItemsList(){
 		ItemDAO itemDAO = new ItemDAO(); 
 		ArrayList<Item> items = (ArrayList<Item>) itemDAO.getItemsList();
