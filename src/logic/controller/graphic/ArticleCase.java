@@ -35,6 +35,16 @@ public class ArticleCase extends GraphicWidget{
 		title.setText(article.getTitle());
 		author.setText(article.getAuthor().getUserID());
 		ratingBox.getChildren().add(averageRating);		
+		reviewsNum.setText("reviews");
+	}
+	
+	public void setBackgroundColor(String type) {
+		if (type.equals("REVIEW")) {
+			boxBody.setStyle("-fx-background-color: #D7E9D8");
+		}
+		if (type.equals("GUIDE")) {
+			boxBody.setStyle("-fx-background-color: #FFD9BD");
+		}
 	}
 	
 	public Pane getBody() {

@@ -5,12 +5,11 @@ import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import logic.bean.ArticleBean;
-import logic.bean.UserBean;
+import logic.controller.application.CommunityController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
@@ -58,6 +57,7 @@ public class CommunityView extends SceneManageable{
 		            goToScene("article");
 		        }
 		    });
+			articleCase.setBackgroundColor(article.getType());
 			articlePane.getChildren().add(articleCase.getBody());
 		}
 	}
