@@ -14,9 +14,9 @@ public class Article {
 	private Integer articleID;
 	private String title;
 	private String text[] = new String[4];
-	private ArrayList<String> tags;
+	private ArrayList<String> tags = new ArrayList<>();
 	private Boolean onValidation = false;
-	private ArrayList<String> mediaPaths;
+	private ArrayList<String> mediaPaths = new ArrayList<>();
 	private Item referredItem;
 	private User author;
 	private Integer reviewPoints;

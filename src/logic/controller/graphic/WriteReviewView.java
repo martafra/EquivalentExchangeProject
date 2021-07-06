@@ -118,7 +118,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		article.setText(1, textPanel2.getText());
 		article.setText(2, textPanel3.getText());
 		article.setText(3, textPanel4.getText());
-		
+		article.setLayout("grid");
 		article.setReferredItem(itemComboBox.getSelectionModel().getSelectedItem());
 		getBundle().addBean("articleData", article);
 		goToScene("reviewpreview");
@@ -146,11 +146,6 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@FXML
-	public void publish() {
-		
 	}
 	
 	@FXML

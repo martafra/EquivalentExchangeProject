@@ -95,7 +95,7 @@ public class ArticleQuery extends Query{
 			
 		}
 		
-		query = query + "validationStatus = 1;";
+		query = query + " WHERE validationStatus = 1";
 		
 		return query;
 		

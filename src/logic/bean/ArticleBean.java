@@ -18,6 +18,7 @@ public class ArticleBean implements Bean{
 	private ItemBean referredItem = new ItemBean();
 	private UserBean author;
 	private Integer vote;
+	private Integer numberOfReviews = 0;
 	
 	
 	public void setID(Integer id) {
@@ -115,5 +116,12 @@ public class ArticleBean implements Bean{
 	public Integer getVote() {
 		return vote;
 	}
+	
+	public void setNumberOfReviews(Integer number) {
+		numberOfReviews = number;
+	}
 
+	public Integer getNumberOfReviews() {
+		return this.numberOfReviews;
+	}
 }

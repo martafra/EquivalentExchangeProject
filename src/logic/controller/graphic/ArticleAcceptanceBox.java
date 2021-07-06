@@ -28,6 +28,9 @@ public class ArticleAcceptanceBox extends GraphicWidget{
 		Label userText = (Label) getComponent("userLabel");
 		Label titleText = (Label) getComponent("titleLabel");
 		
+		userText.setText(articleData.getAuthor().getUserID());
+		titleText.setText(articleData.getTitle());
+		
 	}
 	
 	public Pane getPane() {

@@ -37,6 +37,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 
 	private UserBean loggedUser;
 	private UserProfileBean userData;
+	private UserBean selectedUser;
 	private UserProfileBean changedUserData;
 	private Boolean changed = false;
 	private RatingView userR = new RatingView(5);
@@ -123,6 +124,11 @@ public class ProfileView extends SceneManageable implements Initializable{
 		super.onLoad(bundle);
 		
 		loggedUser = (UserBean) getBundle().getBean("loggedUser");
+		selectedUser = (UserBean) getBundle().getBean("selectedUser");
+		
+		if(selectedUser != null) {
+			loggedUser = selectedUser;
+		}
 		
 		if(loggedUser == null) {
 			goToScene("login");
@@ -160,6 +166,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 	@Override 
 	public void onExit() {
 		reviewAcceptBox.getChildren().clear();
+		getBundle().addBean("selectedUser", null);
 	}
 	
 	private void loadProducts(Integer numberOfProducts) {
@@ -223,7 +230,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 			ArticleAcceptanceBox articleCase = new ArticleAcceptanceBox(article);
 			reviewAcceptBox.getChildren().add(articleCase.getPane());
 			articleCase.getToButton().setOnAction((ActionEvent e) -> {
-				getBundle().addBean("articleBean", article);
+				getBundle().addBean("articleData", article);
 				goToScene("reviewpreview");
 			});
 		}

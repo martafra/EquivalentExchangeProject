@@ -20,9 +20,16 @@ public class NotificationQuery extends Query{
 		
 		
 		String query = "INSERT INTO Notification (sender, receiver, notificationType, options, date) "
-				     + "VALUES (%s, %s, %s, %s, %s, %s);";
+				     + "VALUES (%s, %s, %s, %s, %s);";
 					
 		return String.format(query, sender, receiver, type, options, dateString);
+	}
+	
+	public String getNotifications(String userID) {
+		userID = quote(userID);
+		String query = "SELECT * FROM Notification WHERE receiver = %s;";
+		
+		return String.format(query, userID);
 	}
 	
 }

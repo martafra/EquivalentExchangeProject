@@ -28,22 +28,26 @@ public class ArticleCase extends GraphicWidget{
 		Label title = (Label) getComponent("title");
 		Label author = (Label) getComponent("author");
 		Label reviewsNum = (Label) getComponent("reviewsNum");
+		Label articlePreview = (Label) getComponent("articlePreview");
 		
 		RatingView averageRating = new RatingView(5);
+		averageRating.setEditable(false);
+		averageRating.setPaneWidth(110f);
 		
 		coverPic.setImage(new Image( (article.getMediaPaths()).get(0) ));
 		title.setText(article.getTitle());
 		author.setText(article.getAuthor().getUserID());
 		ratingBox.getChildren().add(averageRating);		
-		reviewsNum.setText("reviews");
+		reviewsNum.setText(article.getNumberOfReviews().toString() + " reviews");
+		articlePreview.setText(article.getText()[0]);
 	}
 	
 	public void setBackgroundColor(String type) {
-		if (type.equals("REVIEW")) {
-			boxBody.setStyle("-fx-background-color: #D7E9D8");
+		if (type.equalsIgnoreCase("REVIEW")) {
+			boxBody.setStyle("-fx-background-color: #D7E9D8; -fx-background-radius : 15;");
 		}
-		if (type.equals("GUIDE")) {
-			boxBody.setStyle("-fx-background-color: #FFD9BD");
+		if (type.equalsIgnoreCase("GUIDE")) {
+			boxBody.setStyle("-fx-background-color: #FFD9BD; -fx-background-radius : 15;");
 		}
 	}
 	

@@ -8,6 +8,7 @@ import logic.DAO.ArticleReviewDAO;
 import logic.bean.ArticleBean;
 import logic.entity.Article;
 import logic.entity.ArticleReview;
+import logic.enumeration.ArticleType;
 
 public class CommunityController extends ArticleDataController{
 
@@ -37,14 +38,33 @@ public class CommunityController extends ArticleDataController{
 			else {
 				bean.setVote(0);
 			}
-			
-			
+			bean.setNumberOfReviews(reviews.size());
 		}
-		
-		
-		
 		return articleBeans;
-		
+	}
+	
+	private List<ArticleBean> getFilteredArticles(Character itemType, ArticleType type){
+		List<ArticleBean> all = this.getAllAcceptedArticles();
+		List<ArticleBean> filtered = new ArrayList<>();
+		for (ArticleBean article: all){
+			if (itemType == article.getReferredItem().getType() && type.toString().equalsIgnoreCase(article.getType())){
+				filtered.add(article);
+			}
+		}
+		return filtered;
+	}
+	
+	public List<ArticleBean> getBookReviews(){
+		return getFilteredArticles('B', ArticleType.REVIEW);
+	}
+	public List<ArticleBean> getMovieReviews(){
+		return getFilteredArticles('M', ArticleType.REVIEW);
+	}
+	public List<ArticleBean> getVideogameReviews(){
+		return getFilteredArticles('V', ArticleType.REVIEW);
+	}
+	public List<ArticleBean> getVideogameGuides(){
+		return getFilteredArticles('V', ArticleType.GUIDE);
 	}
 	
 }

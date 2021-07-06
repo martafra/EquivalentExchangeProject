@@ -7,7 +7,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="265.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="userLabel" layoutX="14.0" layoutY="6.0" style="-fx-font-size: 14;" text="usernameLabel" />
-      <Button fx:id="gotoReviewButton" layoutX="194.0" layoutY="13.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-font-size: 22;" styleClass="orange-clickable" stylesheets="@style/Style.css" text="→" />
+      <Button fx:id="goToReviewButton" layoutX="194.0" layoutY="13.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-font-size: 22;" styleClass="orange-clickable" stylesheets="@style/Style.css" text="→" />
       <Label fx:id="titleLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="27.0" prefHeight="32.0" prefWidth="170.0" text="Label" wrapText="true" />
    </children>
 </Pane>

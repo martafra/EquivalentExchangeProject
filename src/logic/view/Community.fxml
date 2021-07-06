@@ -12,11 +12,11 @@
       <Pane layoutX="207.0" layoutY="138.0" prefHeight="2.0" prefWidth="963.0" style="-fx-background-color: #BDDDC0;" />
       <HBox layoutX="397.0" layoutY="99.0" prefHeight="40.0" prefWidth="584.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BDDDC0;">
          <children>
-            <Button fx:id="allBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="78.0" styleClass="community-button" stylesheets="@style/Style.css" text="ALL" />
-            <Button fx:id="booksBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="78.0" styleClass="community-button" stylesheets="@style/Style.css" text="BOOKS" />
-            <Button fx:id="vgGuidesBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" styleClass="community-button" stylesheets="@style/Style.css" text="VIDEOGAME guides " />
-            <Button fx:id="vgReviewsBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" styleClass="community-button" stylesheets="@style/Style.css" text="VIDEOGAME reviews" />
-            <Button fx:id="moviesBtn" mnemonicParsing="false" prefHeight="37.0" prefWidth="86.0" styleClass="community-button" stylesheets="@style/Style.css" text="MOVIES" />
+            <Button fx:id="allBtn" mnemonicParsing="false" onAction="#allAction" prefHeight="37.0" prefWidth="78.0" styleClass="community-button" stylesheets="@style/Style.css" text="ALL" />
+            <Button fx:id="booksBtn" mnemonicParsing="false" onAction="#booksAction" prefHeight="37.0" prefWidth="78.0" styleClass="community-button" stylesheets="@style/Style.css" text="BOOKS" />
+            <Button fx:id="vgGuidesBtn" mnemonicParsing="false" onAction="#vgGuidesAction" prefHeight="37.0" prefWidth="170.0" styleClass="community-button" stylesheets="@style/Style.css" text="VIDEOGAME guides " />
+            <Button fx:id="vgReviewsBtn" mnemonicParsing="false" onAction="#vgReviewsAction" prefHeight="37.0" prefWidth="170.0" styleClass="community-button" stylesheets="@style/Style.css" text="VIDEOGAME reviews" />
+            <Button fx:id="moviesBtn" mnemonicParsing="false" onAction="#moviesAction" prefHeight="37.0" prefWidth="86.0" styleClass="community-button" stylesheets="@style/Style.css" text="MOVIES" />
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" layoutX="207.0" layoutY="170.0" style="-fx-background-color: #FFFFFF;" vbarPolicy="NEVER">

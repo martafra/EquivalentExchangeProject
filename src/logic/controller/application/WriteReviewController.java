@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import logic.DAO.ArticleDAO;
+import logic.DAO.ItemDAO;
 import logic.DAO.UserDAO;
 import logic.bean.ArticleBean;
 import logic.bean.ItemBean;
 import logic.bean.UserBean;
 import logic.entity.Article;
+import logic.entity.Item;
 import logic.entity.User;
 import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;
@@ -24,6 +26,7 @@ public class WriteReviewController extends ArticleDataController{
 		
 		UserDAO userDAO = new UserDAO();
 		Article article = new Article();
+		ItemDAO itemDAO = new ItemDAO();
 		article.setTitle(articleData.getTitle());
 		
 		for(Integer i = 0; i < 4; i++)
@@ -41,6 +44,8 @@ public class WriteReviewController extends ArticleDataController{
 		
 		User author = userDAO.selectUser(articleData.getAuthor().getUserID());
 		article.setAuthor(author);
+		Item item = itemDAO.selectItem(articleData.getReferredItem().getItemID());
+		article.setReferredItem(item);
 		
 		switch(articleData.getType()) {
 			case "Review":

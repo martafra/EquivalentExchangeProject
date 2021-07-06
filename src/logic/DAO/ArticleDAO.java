@@ -141,6 +141,9 @@ public class ArticleDAO {
 		
 		String query;
 		
+		if(author == null)
+			author = new User();
+		
 		if(Boolean.TRUE.equals(accepted)) {
 			query = articleQuery.selectAcceptedArticles(author.getUsername());
 		}else {
@@ -151,7 +154,9 @@ public class ArticleDAO {
 			
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
+			System.out.println(query);
 			rs = stmt.executeQuery(query);
+			
 			
 			while(rs.next()) {
 				
@@ -161,7 +166,7 @@ public class ArticleDAO {
 					status = true;
 				}
 			
-				if(author == null)
+				if(author.getUsername() == null)
 				{
 					author = new UserDAO().selectUser(rs.getString("authorID"));
 				}

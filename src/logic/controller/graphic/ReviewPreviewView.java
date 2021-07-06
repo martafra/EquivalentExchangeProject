@@ -6,11 +6,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import logic.bean.ArticleBean;
 import logic.bean.UserBean;
+import logic.controller.application.WriteReviewController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
 public class ReviewPreviewView extends SceneManageable{
 
+	private WriteReviewController controller = new WriteReviewController();
+	
 	@FXML
 	private VBox reviewContainer;
 	@FXML
@@ -21,6 +24,8 @@ public class ReviewPreviewView extends SceneManageable{
 	private Button acceptReviewButton;
 	@FXML
 	private Button rejectReviewButton;
+	
+	
 	
 	@FXML
 	public void acceptReview() {
@@ -33,7 +38,11 @@ public class ReviewPreviewView extends SceneManageable{
 	
 	@FXML
 	public void saveReview() {
-		System.out.println("Hello");
+
+		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
+		controller.saveArticle(articleData);
+		
+		goToScene("reviewerpanel");
 	}
 	
 	@FXML
