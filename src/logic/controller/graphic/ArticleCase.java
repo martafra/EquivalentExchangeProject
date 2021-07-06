@@ -29,10 +29,12 @@ public class ArticleCase extends GraphicWidget{
 		Label author = (Label) getComponent("author");
 		Label reviewsNum = (Label) getComponent("reviewsNum");
 		
+		RatingView averageRating = new RatingView(5);
+		
 		coverPic.setImage(new Image( (article.getMediaPaths()).get(0) ));
 		title.setText(article.getTitle());
 		author.setText(article.getAuthor().getUserID());
-				
+		ratingBox.getChildren().add(averageRating);		
 	}
 	
 	public Pane getBody() {
