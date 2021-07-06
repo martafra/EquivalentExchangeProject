@@ -34,4 +34,35 @@ public class ArticleQuery extends Query{
 
 		return String.format(query, articleID, itemID, title, body, layout, type, validationStatus, author, points, pubDate);
 	}
+	
+	public String selectAllArticles(String authorUserID) {
+		
+		String query = "SELECT * FROM Article";
+		
+		if(authorUserID != null) {
+			
+			authorUserID = quote(authorUserID);
+			query = query + " WHERE authorID = %s";
+			
+		}
+		
+		return String.format(query, authorUserID);
+	}
+	
+	public String selectAcceptedArticles(String authorUserID) {
+		
+		String query = selectAllArticles(authorUserID);
+		
+		if(authorUserID != null) {
+			
+			query = query + " AND ";
+			
+		}
+		
+		query = query + "validationStatus = 1;";
+		
+		return query;
+		
+	}
+	
 }

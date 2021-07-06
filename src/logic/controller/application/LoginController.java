@@ -80,6 +80,7 @@ public class LoginController {
 		bean.setName(loggedUser.getName());
 		bean.setLastName(loggedUser.getSurname());
 		bean.setUserID(loggedUser.getUsername());
+		bean.setModerator(loggedUser.isModerator());
 		bean.setProfilePicPath(profileData.getProfilePicturePath());
 		
 		return bean;

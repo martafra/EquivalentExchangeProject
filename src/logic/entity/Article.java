@@ -1,10 +1,12 @@
 package logic.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import logic.entity.Item;
 import logic.enumeration.ArticleType;
+import logic.enumeration.Gender;
 import logic.enumeration.LayoutType;
 
 public class Article {
@@ -20,8 +22,28 @@ public class Article {
 	
 	private ArticleType type;
 	private LayoutType layout;
+	private Date publishingDate = null;
 	
+	public Article(Integer id, String title, Boolean validated, Item item, User author) {
+		articleID = id;
+		this.title = title;
+		onValidation = validated;
+		this.referredItem = item;
+		this.author = author;
+	}
+	
+	
+	public Article() {
+		
+	}
+
+
 	public Integer getArticleID() {
+		if(articleID != null)
+		{
+			return articleID;
+		}
+		
 		return title.hashCode() + author.hashCode() + text.hashCode();
 	}
 	
@@ -44,6 +66,20 @@ public class Article {
 		this.type = type;
 	}
 	
+	public void setType(String type) {
+		
+		this.type = null;
+		
+		if(type != null) {
+			for (ArticleType value : ArticleType.values()) {
+				if (type.equals(value.toString().substring(0, 1))){
+					  this.type = value;
+					  return;
+				}
+			}
+		}
+	}
+	
 	public LayoutType getLayout() {
 		return layout;
 	}
@@ -52,8 +88,24 @@ public class Article {
 		this.layout = layout;
 	}
 	
+	public void setLayout(String layout) {
+		this.layout = null;
+		if(layout != null) {
+			for (LayoutType value : LayoutType.values()) {
+				if (layout.equals(value.toString().substring(0, 1))){
+					  this.layout = value;
+					  return;
+				}
+			}
+		}
+	}
+	
 	public String getMedia(Integer index) {
 		return mediaPaths.get(index);
+	}
+	
+	public List<String> getAllMedia(){
+		return mediaPaths;
 	}
 	
 	public void setReferredItem(Item item) {
@@ -96,6 +148,16 @@ public class Article {
 	
 	public void setValidation(Boolean validationStatus) {
 		onValidation = validationStatus;
+	}
+
+
+	public void setPublishingDate(Date date) {
+		this.publishingDate  = date;
+		
+	}
+	
+	public Date getPublishingDate() {
+		return this.publishingDate;
 	}
 	
 	

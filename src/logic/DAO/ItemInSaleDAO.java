@@ -71,9 +71,7 @@ public class ItemInSaleDAO {
 			}	
 		} catch (SQLException e) {
 				// TODO Auto-generated catch block
-
 				e.printStackTrace();
-				System.out.println("Attenzione: Errore nella ItemInSaleDao.selectItemInSale()");
 
 			} finally {
 				try {
@@ -197,7 +195,6 @@ public class ItemInSaleDAO {
 
 			for(String mediaPath : itemInSale.getMedia()){
 				query = mediaQuery.insertItemMedia(mediaPath, mediaID, itemInSale.getItemInSaleID());
-				System.out.println(query);
 				stmt.executeUpdate(query);
 
 				mediaID++;
@@ -209,7 +206,6 @@ public class ItemInSaleDAO {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.insertItemInSale()"); //TODO verbose - a cosa serve se c'è printStackTrace?
 
 		} finally {
 			try {

@@ -164,7 +164,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		
 		author = (UserBean) getBundle().getBean("loggedUser");
 		
-		article = new ArticleBean();
+		//article = new ArticleBean();
 		categoryPosition = 0;
 		typePosition = 0;
 		
