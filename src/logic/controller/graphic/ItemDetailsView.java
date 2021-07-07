@@ -141,7 +141,7 @@ public class ItemDetailsView extends SceneManageable {
     		typeText.setText("BOOK");
     	}
     	else if(item.getType() =='M') {
-    		itemDetails = String.format("Duration: %s %nLanguage: %s", item.getDuration(), language);	
+    		itemDetails = String.format("Duration: %s %nLanguage: %s", item.getDuration()+" min", language);	
     		typeText.setText("MOVIE");
     	}
     	else {

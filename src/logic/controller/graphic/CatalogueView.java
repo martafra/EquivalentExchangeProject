@@ -26,6 +26,7 @@ public class CatalogueView extends SceneManageable {
 	private CatalogueController controller = new CatalogueController();
 	private List<ItemInSaleBean> itemInSaleBeanList;
 	private ArrayList<String> genres = new ArrayList<>();
+	private ArrayList<String> consoles = new ArrayList<>();
 	private HashMap<String, String> filters = new HashMap<>();
 	private int maxItem = 9;
 	private UserBean loggedUser;
@@ -60,6 +61,10 @@ public class CatalogueView extends SceneManageable {
 	private Label page;
 	@FXML 
 	private Label genreLabel;
+	@FXML 
+	private Label consoleLabel;
+	@FXML
+	private ComboBox<String> consoleList;
 	
 	
 	
@@ -71,20 +76,45 @@ public class CatalogueView extends SceneManageable {
 
 
 		loggedUser = (UserBean) bundle.getBean("loggedUser");
-		filters.clear();
 		genre.setVisible(false);
 		genreLabel.setVisible(false);
+		consoleList.setVisible(false);
+		consoleLabel.setVisible(false);
+		/*filters.clear();
+		genre.setVisible(false);
+		genreLabel.setVisible(false);
+		consoleList.setVisible(false);
+		consoleLabel.setVisible(false);*/
 		all.setSelected(true);
 		
 		setOrderByList();
-		if (searchBar.getText()!=null) {
-			searchBar.setText("");
-		}
 		
+		/*if (searchBar.getText()!=null) {
+			searchBar.setText("");
+		}*/	
 		doSearch();
 	}
-
 	
+	@Override
+	public void onExit() {
+		genres = new ArrayList<>();
+		consoles = new ArrayList<>();
+		filters.clear();
+		if (searchBar.getText()!=null) {
+			searchBar.setText("");
+		}	
+		
+	}
+	
+	public void doSearch() {
+		String username = null;
+		if (loggedUser != null) {
+			username = loggedUser.getUserID();
+		}
+		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(username, filters);	
+		setPageBtn();
+		fillCatalogue();
+	}
 	
 	public void fillCatalogue() {
 		flowPane.getChildren().clear();
@@ -139,56 +169,46 @@ public class CatalogueView extends SceneManageable {
 		if (pageNumber == 1) {
 			prevPage.setDisable(true);
 		}
+		
 		pageNumber -= 1;
 		page.setText(pageNumber.toString());
 		fillCatalogue();
 		
 	}
 	
-	public void doSearch() {
-		String username = null;
-		if (loggedUser != null) {
-			username = loggedUser.getUserID();
-		}
-		itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(username, filters);	
-		setPageBtn();
-		fillCatalogue();
-	}
-	
-	
 	public void search(Event e){
-		
     	var searchStr = searchBar.getText();
+    	
 		if (searchStr != null && !searchStr.isBlank()) {
-			
 			filters.put("searchKey", searchStr );
 		}else {
 			filters.remove("searchKey");
 		}
-		
     	doSearch();
     }
 	
-	
 	public void all(){
-
 		filters.remove("type");
 		filters.remove("genre");
 		filters.remove("console");
 		
 		genre.setVisible(false);
+		genreLabel.setVisible(false);
+		consoleLabel.setVisible(false);
+		consoleList.setVisible(false);
 		doSearch();
 		
     }
 	
 	public void book(){
 		var typeStr = "B";
-	
 		filters.put("type", typeStr);
 		filters.remove("genre");
 		filters.remove("console");
-
+		
 		setGenreList(typeStr);
+		consoleLabel.setVisible(false);
+		consoleList.setVisible(false);
 		doSearch();
 		
     }
@@ -196,22 +216,23 @@ public class CatalogueView extends SceneManageable {
 	public void movie(){
 		var typeStr = "M";
 		filters.put("type", typeStr);
-		
 		filters.remove("genre");
 		filters.remove("console");
 		
 		setGenreList(typeStr);
+		consoleLabel.setVisible(false);
+		consoleList.setVisible(false);
 		doSearch();
 	}	
 	
 	public void videogame(){
 		var typeStr = "V";
 		filters.put("type", typeStr);
-		
 		filters.remove("genre");
 		filters.remove("console");
 		
 		setGenreList(typeStr);
+		setConsoleList();
 		doSearch();
 		
     }
@@ -227,24 +248,28 @@ public class CatalogueView extends SceneManageable {
 		doSearch();
 	}
 	
+	public void console() {
+		var consoleStr = consoleList.getValue();
+		
+		if(consoleStr != null) {
+		filters.put("console", consoleStr);
+		}else {
+			filters.remove("console");
+		}
+		doSearch();
+	}
+	
 	public void orderBy() {
-
 		var orderStr = orderBy.getValue();
-
 		if (orderStr != null) {
-
 			filters.put("orderBy", orderBy.getValue());
 		} else {
-
 			filters.remove("orderBy");
 		}
-
 		doSearch();
-
 	}
 	
 	public void setGenreList(String type) {
-		
 		genre.getItems().clear();
 		genre.setVisible(true);
 		genreLabel.setVisible(true);
@@ -254,6 +279,17 @@ public class CatalogueView extends SceneManageable {
 			genre.getItems().add(gen);
 		}
 	
+	}
+	
+	public void setConsoleList() {
+		consoleList.getItems().clear();
+		consoleList.setVisible(true);
+		consoleLabel.setVisible(true);
+		consoles = (ArrayList<String>) controller.getConsole();
+		
+		for(String con : consoles) {
+			consoleList.getItems().add(con);
+		}
 	}
 	
 	public void setOrderByList() {
@@ -270,3 +306,4 @@ public class CatalogueView extends SceneManageable {
 	
 	
 }
+

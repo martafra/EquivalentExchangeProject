@@ -54,6 +54,8 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	@FXML
 	private TextField price;
 	@FXML
+	private TextField address;
+	@FXML
 	private TextArea description;
 	@FXML
 	private ComboBox<String> itemTypeList;
@@ -105,6 +107,7 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		selectedType = " ";
 		images.getChildren().clear();
 		price.setText("");
+		address.setText("");
 		description.setText("");
 		itemList.getChildren().clear();
 		condition.getSelectionModel().clearSelection();
@@ -138,6 +141,7 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		ItemBean selectedItem = chosenItemCase.getData();
 		
 		ad.setPrice(Integer.valueOf(price.getText()));
+		ad.setAddress(address.getText());
 		ad.setDescription(description.getText());
 		ad.setCondition(condition.getSelectionModel().getSelectedItem());
 		ad.setReferredItemID(selectedItem.getItemID());

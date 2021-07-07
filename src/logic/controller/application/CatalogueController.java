@@ -13,6 +13,7 @@ import logic.entity.ItemInSale;
 import logic.enumeration.BookGenre;
 import logic.enumeration.Condition;
 import logic.enumeration.MovieGenre;
+import logic.enumeration.VGConsole;
 import logic.enumeration.VideoGameGenre;
 
 public class CatalogueController {
@@ -65,6 +66,13 @@ public class CatalogueController {
 		}
 	}
 	
+	public List<String> getConsole(){	
+		ArrayList<String> consoles = new ArrayList<>();
+		for(VGConsole console : VGConsole.values()) {
+				consoles.add(console.toString());
+			}
+			return consoles;
+	}
 	
-
+	
 }
