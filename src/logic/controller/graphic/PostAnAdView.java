@@ -72,6 +72,9 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	
 	@FXML
 	public void onItemTypeSelected() {
+		if (itemTypeList.getSelectionModel().getSelectedItem() == null) {
+			return;
+		}
 		if(!itemTypeList.getSelectionModel().getSelectedItem().equals(selectedType)) {
 			selectedType = itemTypeList.getSelectionModel().getSelectedItem();
 			filterItems(selectedType);
@@ -102,14 +105,14 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	@Override 
 	public void onExit() {
 		items = new ArrayList<>();
-		itemCases = new ArrayList<>();
+		//itemCases = new ArrayList<>();
 		ad = new ItemDetailsBean();
 		selectedType = " ";
 		images.getChildren().clear();
 		price.setText("");
 		address.setText("");
 		description.setText("");
-		itemList.getChildren().clear();
+		//itemList.getChildren().clear();
 		condition.getSelectionModel().clearSelection();
 		itemTypeList.getSelectionModel().clearSelection();
 		itemFilterField.setText("");
@@ -184,7 +187,7 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		new Thread() {
 			@Override
 			public void run() {
-				
+					
 					types.add(BOOK_TEXT);
 					types.add(MOVIE_TEXT);
 					types.add(VIDEOGAME_TEXT);

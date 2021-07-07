@@ -31,6 +31,7 @@ public class ItemAdController extends ItemRetrieveController{
 		Item referredItem = new ItemDAO().selectItem(itemBean.getReferredItemID());
 		
 		ItemInSale item = new ItemInSale(price, description, condition, referredItem, seller);
+		item.setAddress(address);
 
 		
 		if(!media.isEmpty())

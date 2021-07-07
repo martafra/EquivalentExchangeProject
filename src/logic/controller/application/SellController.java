@@ -178,6 +178,15 @@ public class SellController implements SaleController{
 		sender.sendNotification(order.getBuyer().getUsername(), rejectedOrder);
 		
 		orderDAO.deleteOrder(orderID);
+		
+		if (order.getBuyerStatus()) {
+			User buyer = order.getBuyer();
+			Integer price = order.getInvolvedItem().getPrice();
+			
+			buyer.increaseCredit(price);
+			UserDAO userDAO = new UserDAO();
+			userDAO.updateUser(buyer);
+		}
 	}
 	
 	public OrderBean generateOrderSummary(Integer orderID) {
