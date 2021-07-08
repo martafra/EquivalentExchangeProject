@@ -1,0 +1,43 @@
+@charset "ISO-8859-1";
+
+.box{
+	display: inline-block;
+	margin: 5%;
+}
+
+.itemBox{
+	text-align:center;
+	margin-left: 10%;
+	margin-top: 5%;
+	height: 678px;
+	width: 380px;
+	box-shadow: 8px 8px 5px #c0c0c0;
+	background-color: #FFF1E9;
+	border-radius: 12px;
+	padding: 10px;
+}
+
+.sellerBox{
+	text-align:center;
+	margin-left: 5%;
+	margin-top: 5%;
+	height: 397px;
+	width: 243px;
+	box-shadow: 8px 8px 5px #c0c0c0;
+	background-color: #FFF1E9;
+	border-radius: 12px;
+	padding: 10px;
+}
+
+
+#title{
+	font-size: 14pt;
+	margin-bottom: 50px;
+}
+#sellerLabel{
+	font-size: 16pt;
+	font-weight: regular;
+	margin-bottom: 50px;
+}
+
+
