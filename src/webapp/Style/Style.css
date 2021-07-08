@@ -1,0 +1,29 @@
+@font-face{
+	font-family: Spartan;
+	src: url(assets/fonts/Spartan-Regular.ttf);
+}
+
+
+*{
+	margin: 0;
+	font-family: Spartan;
+}
+
+.orange-clickable{
+	background-color: #FF6A00;
+	border: none;
+	text-decoration: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	padding: 10px 20px;
+}
+.bubble-background{
+	background-image : url('../assets/images/ee-bg.png');
+	background-repeat: no-repeat;
+	background-position: fixed;
+	background-size: cover;
+}
+.orange-clickable:hover{
+	background-color: #FE9A2C;
+}
