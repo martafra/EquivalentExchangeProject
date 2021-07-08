@@ -64,6 +64,7 @@ public class ArticleDAO {
 
 			for(String mediaPath : article.getAllMedia()){
 				query = mediaQuery.insertMedia(articleID, mediaPath, mediaID);
+				System.out.println(query);
 				stmt.executeUpdate(query);
 				mediaID++;
 			}
@@ -131,6 +132,92 @@ public class ArticleDAO {
 			}
 	}
 	
+	public Article selectArticle(Integer articleID) {
+		Article article = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		String query = articleQuery.selectArticleByID(articleID);
+		
+		try {
+			
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			System.out.println(query);
+			rs = stmt.executeQuery(query);
+			
+			if(!rs.next())
+				return null;
+			Boolean status = false;
+			
+			if(rs.getInt("validationStatus") == 1) {
+				status = true;
+			}
+		
+			
+			User author = new UserDAO().selectUser(rs.getString("authorID"));
+			
+			
+			Item item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
+			
+			article = new Article(
+						rs.getInt("articleID"),
+						rs.getString("title"),
+						status,
+						item,
+						author
+					);
+			
+			String dateString = rs.getString("publishingDate");
+			Date date = null;
+			
+			if(dateString != null) {
+				
+				try {
+					date = format.parse(dateString);
+				} catch (ParseException e) {
+					date = null;
+				}
+				
+			}
+			
+			article.setPublishingDate(date);
+			article.setLayout(rs.getString("layout"));
+			article.setType(rs.getString("articleType"));
+			String body = rs.getString("body");
+			String[] texts = body.split(ESCAPE_CHARACTER.toString());
+			for(Integer i = 0; i < texts.length - 1; i++)
+				article.setText(texts[i], i);
+			ImageCache mediaCache = ImageCache.getInstance();
+			query = mediaQuery.retrieveAllMedia(articleID);
+			rs2 = stmt.executeQuery(query);
+			while(rs2.next()) {
+				Integer mediaIndex = rs2.getInt("imageIndex");
+				String fileName = "A_" + articleID.toString() + "_" + mediaIndex.toString();
+				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+				article.addMedia(filePath);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs2 != null) {
+					rs2.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return article;
+	}
+	
 	public List<Article> getAllArticles(Boolean accepted, User author){
 		
 		List<Article> articles = new ArrayList<>();
@@ -147,7 +234,7 @@ public class ArticleDAO {
 		if(Boolean.TRUE.equals(accepted)) {
 			query = articleQuery.selectAcceptedArticles(author.getUsername());
 		}else {
-			query = articleQuery.selectAllArticles(author.getUsername());
+			query = articleQuery.selectNotAcceptedArticles(author.getUsername());
 		}
 		
 		try {

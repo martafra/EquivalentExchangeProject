@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReadArticleView">
+   <children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="181.0" layoutY="77.0" prefHeight="601.0" prefWidth="918.0">
+         <content>
+            <VBox fx:id="reviewContainer" prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+      <Label fx:id="reviewTitle" layoutX="181.0" layoutY="32.0" prefHeight="27.0" prefWidth="552.0" style="-fx-font-size: 18;" text="Review Title" />
+      <Label layoutX="181.0" layoutY="689.0" style="-fx-text-fill: #666666;" text="Article Written by: " />
+      <Label fx:id="authorName" layoutX="299.0" layoutY="689.0" styleClass="green-link" text="Wibbley712">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Label>
+      <HBox fx:id="rateBox" alignment="CENTER_LEFT" layoutX="748.0" layoutY="29.0" prefHeight="33.0" prefWidth="351.0">
+         <children>
+            <Label fx:id="rateReviewLabel" prefHeight="17.0" prefWidth="105.0" text="Rate the review: " />
+            <Pane fx:id="ratingContainer" prefHeight="33.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </Pane>
+            <Button fx:id="rateButton" mnemonicParsing="false" onAction="#rateArticle" prefHeight="30.0" prefWidth="77.0" styleClass="orange-clickable" text="Rate" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

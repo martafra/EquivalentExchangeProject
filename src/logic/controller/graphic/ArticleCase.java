@@ -33,7 +33,7 @@ public class ArticleCase extends GraphicWidget{
 		RatingView averageRating = new RatingView(5);
 		averageRating.setEditable(false);
 		averageRating.setPaneWidth(110f);
-		
+		averageRating.setValue(article.getVote());
 		coverPic.setImage(new Image( (article.getMediaPaths()).get(0) ));
 		title.setText(article.getTitle());
 		author.setText(article.getAuthor().getUserID());

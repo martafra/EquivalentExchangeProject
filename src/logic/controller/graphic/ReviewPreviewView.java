@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import logic.bean.ArticleBean;
 import logic.bean.UserBean;
 import logic.controller.application.WriteReviewController;
+import logic.support.other.ArticleBodyAdapter;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
@@ -58,9 +59,10 @@ public class ReviewPreviewView extends SceneManageable{
 		
 		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
 		
-		ReviewContainer container = new ReviewContainer(articleData);
+		ArticleBodyAdapter adapter = new ArticleBodyAdapter();
+		Pane container = adapter.buildArticleBody(articleData);
 		
-		reviewContainer.getChildren().add(container.getCaseBody());
+		reviewContainer.getChildren().add(container);
 		
 		Boolean isAuthor = loggedUser.getUserID().equals(articleData.getAuthor().getUserID());
 		Boolean isModAndNotAuthor = loggedUser.isModerator() && !isAuthor;

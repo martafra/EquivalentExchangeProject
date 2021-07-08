@@ -150,6 +150,13 @@ public class WriteReviewController extends ArticleDataController{
 		
 	}
 
-	
+	public void removeArticle(ArticleBean articleBean){
+		ArticleDAO articleDAO = new ArticleDAO();
+		
+		Article article = new Article();
+		article.setArticleID(articleBean.getID());
+		
+		articleDAO.deleteArticle(article);
+	}	
 
 }

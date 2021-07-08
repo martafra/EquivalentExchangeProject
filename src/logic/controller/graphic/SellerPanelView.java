@@ -43,6 +43,11 @@ public class SellerPanelView extends SceneManageable{
 	@FXML
 	private VBox chartBox;
 	
+	@FXML
+	private void goToPostAnAd(){
+		goToScene("postad");
+	}
+	
 	private SellController sellController = new SellController();
 	private ProfileController profileController = new ProfileController();
 	

@@ -48,11 +48,6 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="postAnAdButton" onAction="#goToPostAnAd" prefHeight="60.0" prefWidth="134.0" text="Post an Ad">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
             <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" opacity="0.0" prefHeight="60.0" prefWidth="64.0" HBox.hgrow="ALWAYS" />
             <HBox fx:id="loginBox" prefHeight="100.0" prefWidth="200.0">
                <children>

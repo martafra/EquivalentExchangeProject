@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -14,11 +15,19 @@
          <children>
             <VBox prefHeight="40.0" prefWidth="790.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style/Style.css">
                <children>
-                  <Label style="-fx-font-size: 16; -fx-text-fill: #FF6A00;" text="Products in sale">
+                  <HBox prefHeight="26.0" prefWidth="168.0">
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </VBox.margin>
-                  </Label>
+                     <children>
+                        <Label prefHeight="26.0" prefWidth="235.0" style="-fx-font-size: 16; -fx-text-fill: #FF6A00;" text="Products in sale" />
+                        <Label onMouseClicked="#goToPostAnAd" prefHeight="26.0" prefWidth="117.0" styleClass="green-link" stylesheets="@style/Style.css" text="post an ad">
+                           <HBox.margin>
+                              <Insets left="520.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <ScrollPane fx:id="itemPanel" hbarPolicy="NEVER" layoutY="20.0" prefHeight="400.0" prefWidth="2000.0" style="-fx-background-color: #FFFFFF;" vbarPolicy="NEVER">

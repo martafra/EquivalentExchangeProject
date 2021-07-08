@@ -5,7 +5,7 @@ public class ArticleMediaQuery extends Query{
 	public String insertMedia(Integer articleID, String imagePath, Integer imageIndex) {
 		
 		imagePath = quote(imagePath);
-		
+		imagePath = imagePath.replace('\\', '/');
 		String query = "INSERT INTO media_a (articleID, image, imageIndex) "
 					 + "VALUES(%d, LOAD_FILE(%s), %d);";
 		

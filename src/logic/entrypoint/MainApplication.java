@@ -37,6 +37,7 @@ public class MainApplication extends Application {
 		mainPanel.loadScene("writereview", "/logic/view/WriteReview.fxml");
 		mainPanel.loadScene("wishlist", "/logic/view/WishList.fxml");
 		mainPanel.loadScene("reviewpreview", "/logic/view/ReviewPreview.fxml");
+		mainPanel.loadScene("article", "/logic/view/ReadArticle.fxml");
 
 		mainPanel.loadHeaderBar("/logic/view/HeadBar.fxml");
 		mainPanel.loadMenu("/logic/view/Menu.fxml");

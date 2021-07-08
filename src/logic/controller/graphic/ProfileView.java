@@ -46,6 +46,8 @@ public class ProfileView extends SceneManageable implements Initializable{
 	private RatingView condR = new RatingView(5);
 	
 	@FXML
+	private HBox articleList;
+	@FXML
 	private Label nameLabel;
 	@FXML
 	private Label usernameLabel;
@@ -64,7 +66,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 	@FXML
 	private HBox productList;
 	@FXML
-	private HBox guideList;
+	private HBox atricleList;
 	@FXML
 	private HBox userReviews;
 	@FXML
@@ -161,6 +163,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 		profileImage.setFill(new ImagePattern(new Image(userData.getProfilePicPath())));
 		
 		loadProducts(4);
+		loadArticles(4);
 	}
 	
 	@Override 
@@ -180,6 +183,21 @@ public class ProfileView extends SceneManageable implements Initializable{
 		            goToScene("itemDetails");
 		    });
 			productList.getChildren().add(productCase.getBody());	
+		}	
+	}
+	
+	private void loadArticles(Integer numberOfArticles) {
+		articleList.getChildren().clear();
+		List<ArticleBean> articles = controller.getArticlesByUser(loggedUser, numberOfArticles);
+		for(ArticleBean article : articles) {
+			ProfileArticleCase profArticleCase = new ProfileArticleCase(article);
+			profArticleCase.getComponent("articleTitle").setOnMouseClicked((MouseEvent e) -> {
+		        	Bundle bundle = getBundle();
+		        	bundle.addBean("selectedArticle", article);
+		            goToScene("article");
+		    });
+			articleList.getChildren().add(profArticleCase.getBody());
+			
 		}	
 	}
 	
@@ -233,6 +251,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 				getBundle().addBean("articleData", article);
 				goToScene("reviewpreview");
 			});
+			
 		}
 		
 	}

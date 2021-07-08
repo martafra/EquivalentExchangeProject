@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.PostAnAdView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.PostAnAdView">
    <children>
       <TextArea fx:id="description" layoutX="127.0" layoutY="145.0" prefHeight="177.0" prefWidth="454.0" promptText="Type here the description of your product..." style="-fx-font-size: 16;" />
       <Label layoutX="127.0" layoutY="125.0" style="-fx-font-size: 14;" text="Description:" />
@@ -40,7 +40,7 @@
             <String fx:value="white-text-combobox" />
          </styleClass>
       </ComboBox>
-      <Pane layoutX="703.0" layoutY="145.0" prefHeight="390.0" prefWidth="432.0">
+      <Pane fx:id="itemSelector" layoutX="703.0" layoutY="145.0" prefHeight="390.0" prefWidth="432.0">
          <children>
             <VBox maxHeight="1.7976931348623157E308" prefHeight="390.0" prefWidth="432.0">
                <children>

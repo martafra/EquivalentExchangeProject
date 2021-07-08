@@ -173,6 +173,12 @@ public class Article {
 	public void addReviewPoints(Integer points) {
 		this.reviewPoints += points;
 	}
+
+
+	public void setArticleID(Integer id) {
+		this.articleID = id;
+		
+	}
 	
 	
 }

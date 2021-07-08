@@ -10,6 +10,7 @@ import java.util.Random;
 import logic.DAO.OrderDAO;
 import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
+import logic.bean.ArticleBean;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
@@ -134,6 +135,30 @@ public class ProfileController {
 		profileDAO.updateProfile(username, profileData);
 	}
 	
+	public List<ArticleBean> getArticlesByUser(UserBean user, Integer numberOfArticles){
+		
+		CommunityController controller = new CommunityController();
+		
+		List<ArticleBean> articles = controller.getAllAcceptedArticles(user);
+		
+		
+		
+		if(numberOfArticles >= articles.size()) {
+			return articles;
+		}	
+		
+		List<ArticleBean> chosenArticles = new ArrayList<>();
+		
+		for(Integer i = 0; i < numberOfArticles; i++) {
+			int position = random.nextInt(articles.size());
+			if(articles.get(position) != null) {
+				chosenArticles.add(articles.remove(position));
+			}
+		}
+		
+		return chosenArticles;
+	}
+	
 	public List<ItemInSaleBean> getProductsByUser(UserBean user, Integer numberOfProducts) {
 		
 		
@@ -147,8 +172,10 @@ public class ProfileController {
 		
 		for(Integer i = 0; i < numberOfProducts; i++) {
 			int position = random.nextInt(products.size());
-			if(products.get(position) != null)
+			if(products.get(position) != null) {
 				filteredProducts.add(products.remove(position));
+			}
+				
 		}
 		return filteredProducts;
 	}

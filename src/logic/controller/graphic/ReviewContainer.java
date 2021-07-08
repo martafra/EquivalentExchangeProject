@@ -15,9 +15,9 @@ public class ReviewContainer extends GraphicWidget{
 	
 	private Pane caseBody;
 	
-	public ReviewContainer(ArticleBean articleData) {
+	public ReviewContainer(ArticleBean articleData, String layoutFile) {
 		try {
-			caseBody = new FXMLLoader(getClass().getResource("/logic/view/ReviewLayouts/RLayout1.fxml")).load();
+			caseBody = new FXMLLoader(getClass().getResource(layoutFile)).load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,12 +42,9 @@ public class ReviewContainer extends GraphicWidget{
 		for(Integer i = 0; i < Math.min(articleData.getMediaPaths().size(), 4); i++) {
 			System.out.println("set image" + i);
 			System.out.println(articleData.getMediaPaths().get(i));
-			try {
-				images.get(i).setImage(new Image(new FileInputStream(articleData.getMediaPaths().get(i))));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			images.get(i).setImage(new Image(articleData.getMediaPaths().get(i)));
+			
 		}
 	}
 	

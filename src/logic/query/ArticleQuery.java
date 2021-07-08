@@ -100,6 +100,25 @@ public class ArticleQuery extends Query{
 		return query;
 		
 	}
+	
+	public String selectNotAcceptedArticles(String authorUserID) {
+		String query = selectAllArticles(authorUserID);
+		
+		if(authorUserID != null) {
+			
+			query = query + " AND ";
+			
+		}
+		
+		query = query + " WHERE validationStatus = 0";
+		
+		return query;
+	}
+
+	public String selectArticleByID(Integer articleID) {
+		String query = "SELECT * FROM Article WHERE articleID = %d;";
+		return String.format(query, articleID);
+	}
 
 	
 	

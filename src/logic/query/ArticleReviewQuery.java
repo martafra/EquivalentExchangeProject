@@ -11,7 +11,7 @@ public class ArticleReviewQuery extends Query{
 		
 		userID = quote(userID);
 		
-		String query = "INSERT INTO ArticleReview (articleIDm userID, value) VALUES (%d, %s, %d);";
+		String query = "INSERT INTO ArticleReview (articleID, userID, value) VALUES (%d, %s, %d);";
 		return String.format(query, articleID, userID, value);
 		
 	}

@@ -46,9 +46,7 @@ public class HeaderBar extends HeaderController implements Observer{
 	
 	@FXML
 	private Button logoutButton;
-	
-	@FXML
-	private Button postAnAdButton;
+
 	
 	@FXML
 	private HBox loginBox;
@@ -76,10 +74,6 @@ public class HeaderBar extends HeaderController implements Observer{
 		goToScene("login");
 	}
 	
-	@FXML
-	public void goToPostAnAd() {
-		goToScene("postad");
-	}
 
 	@Override
 	public void updateHeader() {

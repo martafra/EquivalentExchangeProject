@@ -1,8 +1,6 @@
 package logic.controller.graphic;
 
 import java.util.List;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -80,6 +78,15 @@ public class CommunityView extends SceneManageable{
 		setSelectedTabStyle();
 		loadCases(articles);
 	}
+	@FXML
+	public void searchAction(){
+		if(searchBar.getText().equals("")) {
+			return;
+		}
+		List<ArticleBean> articles = comController.getInputArticles(searchBar.getText());
+		articlePane.getChildren().clear();
+		loadCases(articles);
+	}
 	
 	@Override 
 	public void onLoad(Bundle bundle) {
@@ -92,6 +99,7 @@ public class CommunityView extends SceneManageable{
 	public void onExit() {
 		super.onExit();
 		articlePane.getChildren().clear();
+		searchBar.setText("");
 	}
 	
 	private void loadCases(List<ArticleBean> articles) {

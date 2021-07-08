@@ -79,7 +79,7 @@
             <HBox fx:id="productList" prefHeight="175.0" prefWidth="723.0" spacing="10.0" />
             <Label onMouseClicked="#goToSellerPanel" styleClass="green-link" text="Go to seller panel" underline="true" />
             <Label text="Guides" />
-            <HBox fx:id="articleList" prefHeight="193.0" prefWidth="723.0" />
+            <HBox fx:id="articleList" prefHeight="193.0" prefWidth="723.0" spacing="10.0" />
             <Label onMouseClicked="#goToReviewerPanel" styleClass="green-link" text="Go to reviewer panel" underline="true" />
          </children>
       </VBox>

@@ -69,15 +69,20 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	private VBox itemList;
 	@FXML
 	private TextField itemFilterField;
+	@FXML
+	private Pane itemSelector;
 	
 	@FXML
 	public void onItemTypeSelected() {
 		if (itemTypeList.getSelectionModel().getSelectedItem() == null) {
+			
 			return;
+			
 		}
 		if(!itemTypeList.getSelectionModel().getSelectedItem().equals(selectedType)) {
 			selectedType = itemTypeList.getSelectionModel().getSelectedItem();
 			filterItems(selectedType);
+			itemSelector.setVisible(true);
 		}
 	}	
 
@@ -91,6 +96,9 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 			goToScene("login");
 			return;
 		}
+		
+		itemSelector.setVisible(false);
+		
 		chooser.setTitle("Image selector");
 		chooser.getExtensionFilters().add(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
 		itemFilterField.textProperty().addListener((observable, oldValue, newValue) -> 

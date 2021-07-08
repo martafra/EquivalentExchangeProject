@@ -6,6 +6,7 @@ import java.util.List;
 import logic.DAO.ArticleDAO;
 import logic.DAO.ArticleReviewDAO;
 import logic.bean.ArticleBean;
+import logic.bean.UserBean;
 import logic.entity.Article;
 import logic.entity.ArticleReview;
 import logic.enumeration.ArticleType;
@@ -42,7 +43,18 @@ public class CommunityController extends ArticleDataController{
 		}
 		return articleBeans;
 	}
-	
+	public List<ArticleBean> getAllAcceptedArticles(UserBean userData) {
+		List<ArticleBean> articles = getAllAcceptedArticles();
+		
+		List<ArticleBean> filteredArticles = new ArrayList<>();
+		for(ArticleBean article : articles) {
+			if(article.getAuthor().getUserID().equals(userData.getUserID())) {
+				filteredArticles.add(article);
+			}
+		}
+			
+		return filteredArticles;
+	}
 	private List<ArticleBean> getFilteredArticles(Character itemType, ArticleType type){
 		List<ArticleBean> all = this.getAllAcceptedArticles();
 		List<ArticleBean> filtered = new ArrayList<>();
@@ -53,6 +65,7 @@ public class CommunityController extends ArticleDataController{
 		}
 		return filtered;
 	}
+	
 	
 	public List<ArticleBean> getBookReviews(){
 		return getFilteredArticles('B', ArticleType.REVIEW);
@@ -66,5 +79,23 @@ public class CommunityController extends ArticleDataController{
 	public List<ArticleBean> getVideogameGuides(){
 		return getFilteredArticles('V', ArticleType.GUIDE);
 	}
+	public List<ArticleBean> getInputArticles(String titleInput){
+		List<ArticleBean> all = this.getAllAcceptedArticles();
+		List<ArticleBean> filtered = new ArrayList<>();
+		for (ArticleBean article: all){
+			for(String tag : article.getTags()) {
+				if(tag.contains(titleInput)) {
+					filtered.add(article);
+					break;
+				}
+			}
+			
+			if (article.getTitle().contains(titleInput) && !filtered.contains(article)){
+				filtered.add(article);
+			}
+		}
+		return filtered;
+	}
+	
 	
 }

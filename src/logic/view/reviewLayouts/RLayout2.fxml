@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1043.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="image1" fitHeight="232.0" fitWidth="859.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="text1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="861.13671875" />
+      <ImageView fx:id="image2" fitHeight="232.0" fitWidth="859.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="text2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="861.13671875" />
+      <ImageView fx:id="image3" fitHeight="232.0" fitWidth="859.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="text3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="861.13671875" />
+      <ImageView fx:id="image4" fitHeight="232.0" fitWidth="859.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="text4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="861.13671875" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
