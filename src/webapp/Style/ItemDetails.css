@@ -2,42 +2,110 @@
 
 .box{
 	display: inline-block;
+	vertical-align:top;
 	margin: 5%;
+	font-size: 12pt;
+	margin-top: 5%;
+
 }
 
 .itemBox{
-	text-align:center;
+	text-align:left;
 	margin-left: 10%;
-	margin-top: 5%;
 	height: 678px;
 	width: 380px;
 	box-shadow: 8px 8px 5px #c0c0c0;
 	background-color: #FFF1E9;
 	border-radius: 12px;
-	padding: 10px;
+	padding-top: 20px;
+	padding-left: 20px;
 }
 
 .sellerBox{
 	text-align:center;
-	margin-left: 5%;
-	margin-top: 5%;
+
 	height: 397px;
 	width: 243px;
 	box-shadow: 8px 8px 5px #c0c0c0;
 	background-color: #FFF1E9;
 	border-radius: 12px;
-	padding: 10px;
+	padding-top: 20px;
 }
 
+.buyBox{
+	text-align:center;
+	margin-top: 15%;
+	height: 127px;
+	width: 243px;
+	box-shadow: 8px 8px 5px #c0c0c0;
+	background-color: #FFF1E9;
+	border-radius: 12px;
+	padding-top: 20px;
+}
 
 #title{
-	font-size: 14pt;
+	font-size: 16pt;
 	margin-bottom: 50px;
+	text-align:center;
 }
 #sellerLabel{
 	font-size: 16pt;
-	font-weight: regular;
 	margin-bottom: 50px;
+}
+
+#itemDetailsLabel{
+	font-size: 16pt;
+	margin-bottom: 20 px;
+}
+
+.description{
+	text-align:left;
+	padding-right: 20px;
+	text-align: justify;
+}
+
+#descriptionLabel{
+	font-size: 16pt;
+	margin-bottom:10px;
+}
+
+#type{
+	display: inline-block;
+	text-align:center;
+	width: 30%;
+	background-color: #D7E9E0;
+	color: #5AC02A;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#genre{
+	display: inline-block;
+	text-align:center;
+	width: 30%;
+	background-color: #5AC02A;
+	border-radius: 12px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#condition{
+	display: inline-block;
+	text-align:center;
+	width: 30%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#detailsItem{
+	margin-top:10px;
+}
+
+#buybtn{
+	margin-top: 10px;
+	padding: 5px 40px 5px 40px;
+	color: white;
+	background-color: #FF6A00;
+	border-radius: 12px;
 }
 
 

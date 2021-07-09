@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"
     
     %>
-    
+<%@page import= "logic.bean.UserBean"%>
+<%@page import= "logic.bean.ItemDetailsBean"%>
+<%@page import="logic.controller.application.ItemDetailsController" %>
+ 
+<%
+	ItemDetailsController controller = new ItemDetailsController();
+%>    
 <% if(request.getParameter("goToItemDetails")!=null)   {
-	session.setAttribute("Descrizione", "AAAAA");
+	UserBean loggedUser = controller.getUserData("EvilDwarf");
+	session.setAttribute("loggedUser", loggedUser);
+	session.setAttribute("itemID", "1");
 %>	
+	<jsp:forward page="ItemDetails.jsp"/>
 
-	<jsp:forward page="ItemDetails.jsp">
-	<jsp:param name="itemID" value="10"/>
-	</jsp:forward>
 <% 
 }
 %>
