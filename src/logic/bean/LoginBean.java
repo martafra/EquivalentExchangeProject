@@ -14,9 +14,8 @@ public class LoginBean implements Bean{
 		return userID;
 	}
 	
-	public boolean setPassword(String passwd) {
-		this.password = passwd;
-		return true;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getPassword() {
 		return password;
