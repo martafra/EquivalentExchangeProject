@@ -58,35 +58,54 @@ public class Registration extends SceneManageable{
 			return;
 		}
 		
-		if(!rBean.setName(firstName.getText())) {
+		if(!rBean.validateNames(firstName.getText())) {
 			System.out.println("Errore nell'inserimento del nome");
 			return;
 		}
+		else {
+			rBean.setName(firstName.getText());
+		}
 		
-		if(!rBean.setLastName(lastName.getText())) {
+		if(!rBean.validateNames(lastName.getText())) {
 			System.out.println("Errore nell'inserimento del cognome");
 			return;
 		}
+		else {
+			rBean.setLastName(lastName.getText());
+		}
 		
-		if(!rBean.setUsername(username.getText())) {
+		if(!rBean.validateUsername(username.getText())) {
 			System.out.println("Errore nell'inserimento dell'username");
 			return;
 		}
+		else {
+			rBean.setUsername(username.getText());
+		}
 		
-		if(!rBean.setEmail(email.getText())) {
+		
+		if(!rBean.validateEmail(email.getText())) {
 			System.out.println("Errore nell'inserimento della email");
 			return;
 		}
+		else {
+			rBean.setEmail(email.getText());
+		}
 		
-		if(!rBean.setPassword(password.getText())) {
+		if(!rBean.validatePassword(password.getText())) {
 			System.out.println("Errore nell'inserimento della Password");
 			return;
 		}
+		else {
+			rBean.setPassword(password.getText());
+		}
 		
 		Date date = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		if(!rBean.setBirthDate(date)) {
+		if(!rBean.validateBirthDate(date)) {
 			System.out.println("Errore nell'inserimento della Data");
 			return;
+		}
+		else {
+			rBean.setBirthDate(date);
 		}
 		
 		regController.register(rBean);

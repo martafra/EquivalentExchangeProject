@@ -41,19 +41,42 @@ public class RegistrationBean implements Bean{
 		return this.birthDate;
 	}
 	
-	public boolean setUsername(String username) {
+	public void setUsername(String username) {
 		
 		username = username.toLowerCase();
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
 		
+		this.password = password;	
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public void setEmail(String email){
+		email = email.toLowerCase();
+		this.email = email;
+	}
+	
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	
+	public Boolean validateUsername(String username) {
+
 		if(!username.matches("[a-z0-9]*"))
 			return false;
-		
-		this.username = username;
 		return true;
 	}
 	
-	public boolean setPassword(String password) {
-		
+	public Boolean validatePassword(String password) {
 		boolean presenceFlag = false;
 		
 		if(password.length() < ProfileRules.getMinPasswordLenght() &&
@@ -79,42 +102,22 @@ public class RegistrationBean implements Bean{
 			presenceFlag = false;			
 		}
 		
-		this.password = password;
-		return true;	
+		return true;
 	}
 	
-	public boolean setName(String name) {
-		
+	public Boolean validateNames(String name) {
 		if(!isAlphabetic(name))
 			return false;
-		this.name = name;
-		return true;
-
-	}
-	
-	public boolean setLastName(String lastName) {
-
-		if(!isAlphabetic(lastName))
-			return false;
-		this.lastName = lastName;
 		return true;
 	}
 	
-	
-
-	public boolean setEmail(String email){
-
-		email = email.toLowerCase();
-	
+	public Boolean validateEmail(String email) {
 		if(!email.matches("[0-9a-z]+[\\.[0-9a-z]+]*@[0-9a-z]+[\\.[0-9a-z]+]*"))
 			return false;
-		
-		this.email = email;
 		return true;
-	
 	}
 	
-	public boolean setBirthDate(Date birthDate) {
+	public Boolean validateBirthDate(Date birthDate) {
 		int minimumAge = ProfileRules.getMinimumAge();
 		
 		int userAge = calculateAge(birthDate);
@@ -123,7 +126,6 @@ public class RegistrationBean implements Bean{
 			return false;
 		}
 		
-		this.birthDate = birthDate;
 		return true;
 	}
 	
