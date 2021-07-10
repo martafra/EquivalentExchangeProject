@@ -10,16 +10,23 @@
 	ItemDetailsController controller = new ItemDetailsController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
 	
-	int itemID = Integer.parseInt((String)session.getAttribute("itemID"));
-	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
-	UserBean seller = itemDetails.getSeller();
-	ItemBean item = controller.getItemByID(itemDetails.getReferredItemID());
-	
-	if(request.getParameter("buyItem")!= null){
+	//int itemID = Integer.parseInt((String)session.getAttribute("itemID"));
+	int itemID;
+	if (request.getParameter("buyItem")!= null){
+		itemID = Integer.parseInt((String)request.getParameter("buyItem"));
+		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 		String buyerID = loggedUser.getUserID();
     	Integer itemInSaleID = itemDetails.getItemInSaleID();
     	controller.clickOnBuy(buyerID, itemInSaleID, "ciao sono " + buyerID +" e voglio comprare " + itemDetails.getItemName()); 
-	}	
+	}
+	else{
+		itemID = Integer.parseInt((String)request.getParameter("itemID"));
+	}
+	
+	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
+	UserBean seller = itemDetails.getSeller();
+	ItemBean item = controller.getItemByID(itemDetails.getReferredItemID());
+		
 %>  
 
 
@@ -102,15 +109,11 @@
 					<p id="price"> <%= itemDetails.getPrice() %> COINS </p>
 					<form action="ItemDetails.jsp" name="myform" method="POST">
 						
-					 	<input id = "buybtn" type="submit" name="buyItem" value="BUY ITEM"/>
+					 	<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>"> BUY ITEM</button>
 
 					 </form>
-				</div>
-				
+				</div>	
 			</div>
-			
-
-
 	</body>
 	
 </html>

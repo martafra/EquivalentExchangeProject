@@ -1,0 +1,50 @@
+@charset "ISO-8859-1";
+
+#searchBar{
+	border-color: #BDDDC0;
+	border-radius: 100px;
+	width: 1010px;
+	height: 25px;
+	font-size: 15pt;
+	
+}
+
+#searchBtn{
+	background-color: #BDDDC0;
+	border-radius: 100px;
+	width: 115px;
+	height: 32px;
+	font-size: 12pt;
+}
+
+.search{
+	display: inline-block;
+	margin-top: 3%;
+}
+
+.catalogue{
+	margin-left: 500px;
+}
+
+.items{
+	margin-top:3%;
+	padding-bottom: 0px;;
+	height:760px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.itemBox{
+	padding-top: 10px;
+	vertical-align:top;
+	display: inline-block;
+	margin-bottom: 5%;
+	margin-right:3%;
+	height: 290px;
+	width: 250px;
+	box-shadow: 8px 8px 5px #c0c0c0;
+	background-color: #FFF1E9;
+	border-radius: 12px;
+	text-align:center;
+	font-size: 14pt;
+}

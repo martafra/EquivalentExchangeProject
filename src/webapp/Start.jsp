@@ -7,14 +7,11 @@
  
 <%
 	ItemDetailsController controller = new ItemDetailsController();
-%>    
-<% if(request.getParameter("goToItemDetails")!=null)   {
-	UserBean loggedUser = controller.getUserData("EvilDwarf");
-	session.setAttribute("loggedUser", loggedUser);
-	session.setAttribute("itemID", "1");
+	if(request.getParameter("goToCatalogue")!=null)   {
+		UserBean loggedUser = controller.getUserData("EvilDwarf");
+		session.setAttribute("loggedUser", loggedUser);
 %>	
-	<jsp:forward page="ItemDetails.jsp"/>
-
+	<jsp:forward page="Catalogue.jsp"/>
 <% 
 }
 %>
@@ -28,7 +25,7 @@
 </head>
 <body>
 	 <form action="Start.jsp" name="myform" method="POST">
-		 <input type="submit" name="goToItemDetails" value="Go to itemDetails"/>
+		 <input type="submit" name="goToCatalogue" value="Go to Catalogue"/>
 	</form>
 </body>
 </html>
