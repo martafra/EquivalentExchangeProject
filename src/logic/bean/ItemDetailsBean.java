@@ -3,8 +3,6 @@ package logic.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.support.interfaces.Bean;
-
 public class ItemDetailsBean extends ItemInSaleBean{
 	
 	private String description;

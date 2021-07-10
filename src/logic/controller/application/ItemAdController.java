@@ -1,14 +1,13 @@
 package logic.controller.application;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.UserDAO;
-import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
-import logic.bean.UserBean;
 import logic.entity.Item;
 import logic.entity.ItemInSale;
 import logic.entity.User;

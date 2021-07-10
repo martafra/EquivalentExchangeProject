@@ -25,7 +25,7 @@
          </styleClass>
       </ComboBox>
       <Label layoutX="703.0" layoutY="56.0" style="-fx-font-size: 14;" text="Item type:" />
-      <Button fx:id="publish" layoutX="1121.0" layoutY="636.0" onAction="#publishAd" prefHeight="35.0" prefWidth="94.0" styleClass="orange-clickable" text="Publish" />
+      <Button fx:id="publish" layoutX="1040.0" layoutY="636.0" onAction="#publishAd" prefHeight="35.0" prefWidth="94.0" styleClass="orange-clickable" text="Publish" />
       <Label layoutX="127.0" layoutY="410.0" style="-fx-font-size: 14;" text="Condition:" />
       <Label layoutX="127.0" layoutY="501.0" prefHeight="20.0" prefWidth="94.0" style="-fx-font-size: 14;" text="Images:" />
       <HBox layoutX="127.0" layoutY="521.0" maxWidth="454.0" prefHeight="115.0" prefWidth="64.0">

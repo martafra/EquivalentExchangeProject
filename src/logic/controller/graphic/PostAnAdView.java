@@ -1,19 +1,17 @@
 package logic.controller.graphic;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,10 +24,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
-import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.ItemAdController;
-import logic.controller.application.LoginController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
