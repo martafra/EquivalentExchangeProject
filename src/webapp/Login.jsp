@@ -60,14 +60,11 @@
             <div style = "margin: 70px auto">
                 <span>password:</span>
                 <input type="password" id="password" name="password" style = "width: 321px; height: 34px; display: block; margin: 0 auto">
-                <div style = "width:100px; height: 39; margin: 33px auto; float:left">
-                    <input type="submit" id = "login" name = "login" value = "Login" class = "orange-clickable" style = "height: 39; float: left">
+                <div style ="margin: 33px auto">
+                	<a href="http://localhost:8080/EquivalentExchangeWeb/Registration.jsp"><input type="button" value="Create an account" class="orange-clickable" style="display:inline-block"/></a>
+                    <input type="submit" id = "login" name = "login" value = "Login" class = "orange-clickable" style = "height:39px; display:block; margin:0 auto; float: right">
+                    
                 </div>
-            </div>
-        </form>
-        <form action = "Registration.jsp" name = "goToRegistration" method = "POST">
-            <div style="margin: 10px auto; float: left">
-                <input type="submit" value="Create an account" class="orange-clickable" style="float: left">
             </div>
         </form>
         </div>
