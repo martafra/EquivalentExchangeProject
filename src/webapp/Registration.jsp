@@ -1,17 +1,36 @@
 <%@ page import="logic.bean.RegistrationBean" %>
 <%@ page import="logic.controller.application.LoginController" %>
-<%@page import="java.sql.Date" %>
+<%@page import="java.util.Date" %>
+<%@ page import ="java.text.SimpleDateFormat" %>
+<%@ page import ="java.text.DateFormat" %>
 <%@ page import = "java.time.ZoneId" %>
 
 <jsp:useBean id = "registrationBean" scope = "request" class = "logic.bean.RegistrationBean"/>
-<jsp:setProperty name="registrationBean" property ="*"/>
+
 
 <%
 	if(request.getParameter("registration") != null){
+		registrationBean.setName((String)request.getParameter("name"));
+		registrationBean.setLastName((String)request.getParameter("lastName"));
+		registrationBean.setEmail((String)request.getParameter("email"));
+		registrationBean.setUsername((String)request.getParameter("username"));
+		if( !(((String)request.getParameter("password")).equals(((String)request.getParameter("confirmPassword"))))   ){
+			%>
+    		<jsp:forward page="Registration.jsp"/>
+		<% 
+		}
+		else{
+			registrationBean.setPassword((String)request.getParameter("password"));
+		}
+		
 		String date=(String)request.getParameter("birthDate");
-		registrationBean.setBirthDate((Date.valueOf(date)));
+		System.out.println(date);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date birthDate = format.parse(date);
+		registrationBean.setBirthDate(birthDate);
 		LoginController regController = new LoginController();
 		if(Boolean.TRUE.equals(regController.register(registrationBean))){
+			
 			%>
         		<jsp:forward page="Login.jsp"/>
     		<% 
@@ -52,18 +71,22 @@
 		<form action="Registration.jsp" name = "registration" method = "POST">
 			<div>
 				<div>
-					<input type="text" id="name" name="name" style = "width: 200px; height: 34px; display: inline-block">
-					<input type="text" id="lastName" name="lastName" style = "width: 200px; height: 34px; display: block; margin: 0 auto; float: right">
+					<input type="text" id="name" name="name" placeholder = "name" style = "width: 200px; height: 34px; display: inline-block">
+					<input type="text" id="lastName" name="lastName" placeholder = "last name" style = "width: 200px; height: 34px; display: block; margin: 0 auto; float: right">
+				</div>
+				<div style = "margin: 33px auto">
+					<input type="text" id="email" name="email" placeholder = "email" style = "width: 200px; height: 34px; display: inline-block">
+					<input type="text" id="username" name="username" placeholder = "username" style = "width: 200px; height: 34px; display: block; margin: 0 auto; float: right">
 				</div>
 				<div>
-					<input type="text" id="email" name="email" style = "width: 200px; height: 34px; display: inline-block">
-					<input type="text" id="username" name="username" style = "width: 200px; height: 34px; display: block; margin: 0 auto; float: right">
+					<input type="password" id="password" name="password" placeholder = "password" style = "width: 200px; height: 34px; display:inline-block">
+					<input type="password" id="confirmPassword" name="confirmPassword" placeholder = "confirm password" style = "width: 200px; height: 34px; display:block; margin:0 auto; float:right">
+					
 				</div>
-				<div>
-					<input type="password" id="password" name="password" style = "width: 200px; height: 34px; display:inline-block">
-					<input type="date" name = "birthDate" id="birthDate" name="trip-start">
+				<div style="margin: 33px auto">
+				<input type="date" name = "birthDate" id="birthDate" placeholder = "gg/mm/aaaa" style = "width:200px; height: 34px; display:inline-block">
+				<input type="submit" id = "registration" name = "registration" value = "Register" class = "orange-clickable" style = "height: 39px; display:block; margin:0 auto; float: right">
 				</div>
-				<input type="submit" id = "registration" name = "registration" value = "Register" class = "orange-clickable" style = "height: 39; float: left">
 			</div>
 		</form>
 		</div>	
