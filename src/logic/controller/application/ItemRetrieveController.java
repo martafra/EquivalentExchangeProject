@@ -53,4 +53,38 @@ public class ItemRetrieveController {
 		}
 		return itemData;
 	}
+	
+	public List<ItemBean> getBooksList(){
+		List<ItemBean> books = new ArrayList<>();
+		
+		for(ItemBean item : getItemsList()) {
+			if(item.getType() == 'B') {
+				books.add(item);
+			}
+		}
+		
+		return books;
+	}
+	public List<ItemBean> getMoviesList(){
+		List<ItemBean> movies = new ArrayList<>();
+		
+		for(ItemBean item : getItemsList()) {
+			if(item.getType() == 'M') {
+				movies.add(item);
+			}
+		}
+		
+		return movies;
+	}
+	public List<ItemBean> getVideogamesList(){
+		List<ItemBean> vgs = new ArrayList<>();
+		
+		for(ItemBean item : getItemsList()) {
+			if(item.getType() == 'V') {
+				vgs.add(item);
+			}
+		}
+		
+		return vgs;
+	}
 }
