@@ -4,6 +4,10 @@
 	height: 50px;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	background-color: #FFFFFF;
+	position: absolute;
+	top: 0;
+	right: 0;
+	
 }
 #headerbar > *{
 	display: inline;
@@ -20,18 +24,58 @@
 #login{
 	float: right !important;
 	height: 50px;
-	width: 100px;
+	width: 200px;
+	
 }
 #login > button{
-
-	margin: 7px auto;
-	
+	margin-top: 6px;
+	margin-right: 10px;
+	float: right;
+}
+#user{
+	width: 200px;
+	float : left;
+	display: inline;
+}
+#user > div{
+	width: 150px;
+	margin: 15px 5px;
+	height: 20px;
+	display: inline-block;
+	text-align: right;
+}
+#user > img{
+	width: 30px;
+	height: 30px;
 }
 #logoImage{
 	width : 40px;
 	height: 40px;
 	margin: 5px;
 }
+
+#menu{
+	
+	background-color: #FFFFFF;
+	width: 180px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	margin-top: 50px;
+	margin-right: 10px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#menu > div > a{
+	
+	text-decoration: none;
+	color: black;
+	
+}
+#menu > div > a:hover{
+	color: #FF6A00;
+}
+#menu > div{
+	padding: 10px;
+}
+
 
 
 
