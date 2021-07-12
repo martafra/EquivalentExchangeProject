@@ -10,13 +10,21 @@
 <%
 	CatalogueController controller = new CatalogueController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
+	if(loggedUser !=null){
+		System.out.println("Catalogo: loggedUser = "+loggedUser.getUserID());
+	}
+	else{
+		System.out.println("Catalogo: loggedUser==null");
+	}
 	HashMap<String, String> filters = new HashMap<>();
 	ArrayList<String> genres = new ArrayList<>();
+	ArrayList<String> consoles = new ArrayList<>();
 	int pageNumber = 0;
 	int maxItem = 8;
 	String searchStr = null;
 	String typeStr ="A";
 	String genreStr ="";
+	String consoleStr ="";
 	
 	String username = null;
 	if (session.getAttribute("loggedUser") != null) {
@@ -40,14 +48,28 @@
 			filters.put("type", typeStr);
 			genres = (ArrayList<String>) controller.getGenre(typeStr.charAt(0));
 			
+			System.out.println("Parameter genre: " + request.getParameter("genre"));
 			if(request.getParameter("genre")!=null){
+				System.out.println(request.getParameter("genre"));
 				genreStr=request.getParameter("genre");
 				if(genres.contains(genreStr)){
 					filters.put("genre", genreStr);
 				}
 				
 			}
+			
+			if(typeStr.equals("V")){	
+				consoles = (ArrayList<String>) controller.getConsole();
+				if(request.getParameter("console")!=null){
+					consoleStr = request.getParameter("console");
+					if(!consoleStr.equals("nullConsole")){
+						filters.put("console", consoleStr);
+					}
+				}
+				
+			}
 		}
+	
 	}
 	
 	
@@ -78,7 +100,7 @@
 		</div>
 		
 		<form action="Catalogue.jsp">
-			<div class="cataloguePage">
+			<div class="cataloguePage" style ="margin-top: 3%;">
 				<div class = "filters">
 					<p style="font-size:16pt">Help us to understand what you really wish</p>
 					<p class = "filtersLabel"> CATEGORY </p>
@@ -107,22 +129,32 @@
 						<p class = "filtersLabel"> GENRE </p>
 						<select name="genre" onChange="this.form.submit()" style="margin-left:5%;">
 							<option value = "nullGenre" ></option>
-							<% 
-								for(String gen : genres) {
+							<% for(String gen : genres) {
 									%>
 									<option value="<%= gen %>" <%if(genreStr.equals(gen)) {%> selected ="selected" <% } %>><%= gen %></option>
 							<%
 								}
 							%>
 						</select>
-					<%} %>
-						
+						<%if (typeStr.equals("V")){ %>
+							<p class = "filtersLabel"> CONSOLE </p>
+							<select name="console" onChange="this.form.submit()" style="margin-left:5%;">
+								<option value = "nullConsole"></option>
+								<% for(String con : consoles) {
+									%>
+									<option value="<%= con %>" <%if(consoleStr.equals(con)) {%> selected ="selected" <% } %>><%= con %></option>
+								<%
+								}
+							%>		
+							</select>
+						<% } %>
+					<% } %>
 				</div>
 		
 				<div class = "catalogue">
 					<div class = "search">
 			 	
-						<input id = "searchBar" type="text" name="searchBar" placeholder="Search.." autocomplete="off" 
+						<input id = "searchBar" type="text" name="searchBar" placeholder="Search..." autocomplete="off" 
 						<%if (searchStr!=null){%> 
 							value ="<%= searchStr %>" 
 						<%} %>>
@@ -144,11 +176,11 @@
 						<% if (pageNumber > 0){ %>
 							<input id = "pageBtn" class="orange-clickable" type="submit" name="prevBtn" value ="PREVIOUS">
 						<%}else{%>
-							<input id = "pageBtn" class="orange-clickable" type="submit" name="prevBtn" value ="PREVIOUS" disabled = "disabled" style = "background-color:grey">
+							<input id = "pageBtn" class="orange-clickable" type="submit" name="prevBtn" value ="PREVIOUS" disabled = "disabled" style = "background-color:grey; opacity: 0.3">
 						<%} %>
 							<input id ="pageNumber" type ="number" name = "pageNumber" value = "<%= pageNumber %>" readonly> 
 						<%if(maxItem >= itemInSaleBeanList.size() || (pageNumber+1)*maxItem >= itemInSaleBeanList.size() ){ %>
-							<input id = "pageBtn" class="orange-clickable" type="submit" name="nextBtn" value = "NEXT" disabled = "disabled" style = "background-color:grey">
+							<input id = "pageBtn" class="orange-clickable" type="submit" name="nextBtn" value = "NEXT" disabled = "disabled" style = "background-color:grey; opacity: 0.3">
 						<%}else{ %>
 							<input id = "pageBtn" class="orange-clickable" type="submit" name="nextBtn" value = "NEXT">
 						<%} %>

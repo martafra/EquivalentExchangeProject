@@ -9,10 +9,22 @@
 <%
 	ItemDetailsController controller = new ItemDetailsController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
+	String mainImg = null;
 	
+	if(loggedUser !=null){
+		System.out.println("item Details: loggedUser =" + loggedUser.getUserID());
+		}
+	else{
+		System.out.println("Item Details: loggeduser == null");
+	}
 	//int itemID = Integer.parseInt((String)session.getAttribute("itemID"));
 	int itemID;
 	if (request.getParameter("buyItem")!= null){
+		if(loggedUser == null){
+			%>
+			<jsp:forward page="Login.jsp"/>
+			<% 
+		}
 		itemID = Integer.parseInt((String)request.getParameter("buyItem"));
 		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 		String buyerID = loggedUser.getUserID();
@@ -26,6 +38,14 @@
 	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 	UserBean seller = itemDetails.getSeller();
 	ItemBean item = controller.getItemByID(itemDetails.getReferredItemID());
+	
+	if(request.getParameter("selectedImg") !=null){
+		mainImg = request.getParameter("selectedImg");
+	}
+	else{
+		System.out.println(request.getParameter("selectedImg"));
+		mainImg = itemDetails.getMediaPath(); /*"././thewitcher.jpg";*/
+	}
 		
 %>  
 
@@ -34,9 +54,10 @@
 <html>
 
 	<head>
-		<link rel="stylesheet" href="Style/ItemDetails.css">
+
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
+		<link rel="stylesheet" href="Style/ItemDetails.css">
 		<meta charset="ISO-8859-1">
 		<title>ItemDetails</title>
 	</head>
@@ -57,10 +78,21 @@
             	</div>
 
         	</div>
+			<div class = "box" style="margin-left:10%;">
+				<div class="imgItem">
+					<% for (String photo : itemDetails.getMedia()){ %>
+						<a href="ItemDetails.jsp?itemID=<%= itemID %>&selectedImg=<%= photo %>">
+						<img  src="<%= photo %>" alt = "Image not found" style="width:180px; height:180px;"/>	
+						</a>
+					<%} %>
+					
+				</div>
+			</div>
 			<div class = "box">
 				<div class = "itemBox">
 					<p id="title"> <%= itemDetails.getItemName() %> </p>
-					<!--  img -->
+					<img src="<%= mainImg %>" alt ="Image not found" style ="width:300px; height:300px; display: block;margin-left: auto;margin-right: auto; margin-bottom:10px"/>
+								
 					<div class ="description">
 						<p id ="descriptionLabel"> Description: </p>
 						<p id="description"><%= itemDetails.getDescription() %></p>
@@ -125,8 +157,21 @@
 					<p id="price"> <%= itemDetails.getPrice() %> COINS </p>
 					<form action="ItemDetails.jsp" name="myform" method="POST">
 						
-					 	<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>"> BUY ITEM</button>
-
+						<%	if (loggedUser ==  null){
+							%>
+								<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>"> BUY ITEM</button>
+							<% 
+								return;
+							}
+							if( !seller.getUserID().equals(loggedUser.getUserID()) && !controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID())){
+							%>
+					 			<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>"> BUY ITEM</button>
+					 		<%
+					 		}
+							if (controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID()) ) {%>
+								<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>" disabled="disabled" style = "background-color:grey; opacity: 0.3"> BUY ITEM</button>
+								<p>Request Already Sent</p>
+							<%} %>
 					 </form>
 				</div>	
 			</div>

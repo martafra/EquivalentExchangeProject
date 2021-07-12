@@ -9,12 +9,26 @@
 	ItemDetailsController controller = new ItemDetailsController();
 	if(request.getParameter("goToCatalogue")!=null)   {
 		UserBean loggedUser = controller.getUserData("EvilDwarf");
-		//session.setAttribute("loggedUser", loggedUser);
+		session.setAttribute("loggedUser", loggedUser);
 %>	
 	<jsp:forward page="Catalogue.jsp"/>
 <% 
 }
+	if(request.getParameter("removeAttribute")!=null)   {
+		session.removeAttribute("loggedUser");
+%>	
+		<jsp:forward page="Catalogue.jsp"/>
+<% 
+}
+	if(request.getParameter("goToWishlist")!=null){
+		UserBean loggedUser = controller.getUserData("EvilDwarf");
+		session.setAttribute("loggedUser", loggedUser);
 %>
+		<jsp:forward page="WishList.jsp"/>
+<%
+	}
+%>
+
 
 
 
@@ -28,6 +42,8 @@
 	<body>
 		 <form action="Start.jsp" name="myform" method="POST">
 		 	<input type="submit" name="goToCatalogue" value="Go to Catalogue"/>
+		 	<input type="submit" name="removeAttribute" value="Remove Attribute user"/>
+		 	<!-- <input type="submit" name="goToWishlist" value="Go to wishlist"/> -->
 		</form>
 	</body>
 </html>
