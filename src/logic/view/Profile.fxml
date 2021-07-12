@@ -28,7 +28,7 @@
                <children>
                   <Circle fx:id="profileImage1" layoutX="107.0" layoutY="87.0" radius="79.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="107.0" layoutY="87.0" radius="79.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Button layoutX="150.0" layoutY="117.0" mnemonicParsing="false" onAction="#changeProfilePic" prefHeight="42.0" prefWidth="49.0">
+                  <Button fx:id="modifyPicture" layoutX="150.0" layoutY="117.0" mnemonicParsing="false" onAction="#changeProfilePic" prefHeight="42.0" prefWidth="49.0">
                      <graphic>
                         <ImageView fitHeight="27.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -58,13 +58,7 @@
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin></Label>
-            <Label prefHeight="25.0" prefWidth="189.0" text="Find Me On:" />
             <VBox fx:id="accounts" prefHeight="19.0" prefWidth="213.0" />
-            <Label style="-fx-font-size: 12;" styleClass="green-link" text="modify" underline="true">
-               <VBox.margin>
-                  <Insets left="120.0" />
-               </VBox.margin>
-            </Label>
          </children>
       </VBox>
       <VBox layoutX="213.0" layoutY="142.0" prefHeight="579.0" prefWidth="723.0">
@@ -72,18 +66,18 @@
             <Label fx:id="descriptionLabel" prefHeight="42.0" prefWidth="642.0" style="-fx-font-size: 14;" text="There is no description for this User..." wrapText="true" />
             <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="723.0">
                <children>
-                  <Label prefHeight="17.0" styleClass="green-link" text="modify" underline="true" />
+                  <Label fx:id="modifyDescriptionLabel" prefHeight="17.0" styleClass="green-link" text="modify" underline="true" />
                </children>
             </HBox>
             <Label text="Products In sale" />
             <HBox fx:id="productList" prefHeight="175.0" prefWidth="723.0" spacing="10.0" />
-            <Label onMouseClicked="#goToSellerPanel" styleClass="green-link" text="Go to seller panel" underline="true" />
+            <Label fx:id="sellerPanelLabel" onMouseClicked="#goToSellerPanel" styleClass="green-link" text="Go to seller panel" underline="true" />
             <Label text="Guides" />
             <HBox fx:id="articleList" prefHeight="193.0" prefWidth="723.0" spacing="10.0" />
-            <Label onMouseClicked="#goToReviewerPanel" styleClass="green-link" text="Go to reviewer panel" underline="true" />
+            <Label fx:id="reviewerPanelLabel" onMouseClicked="#goToReviewerPanel" styleClass="green-link" text="Go to reviewer panel" underline="true" />
          </children>
       </VBox>
-      <Button layoutX="1184.0" layoutY="121.0" mnemonicParsing="false" onAction="#changeCoverPic" prefHeight="42.0" prefWidth="49.0">
+      <Button fx:id="modifyCover" layoutX="1184.0" layoutY="121.0" mnemonicParsing="false" onAction="#changeCoverPic" prefHeight="42.0" prefWidth="49.0">
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

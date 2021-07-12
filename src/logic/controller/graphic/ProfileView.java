@@ -81,6 +81,17 @@ public class ProfileView extends SceneManageable implements Initializable{
 	private ScrollPane moderatorRequests;
 	@FXML
 	private VBox reviewAcceptBox;
+	@FXML
+	private Label sellerPanelLabel;
+	@FXML
+	private Label reviewerPanelLabel;
+	@FXML
+	private Label modifyDescriptionLabel;
+	@FXML
+	private Button modifyCover;
+	@FXML
+	private Button modifyPicture;
+	
 	
 	private ProfileController controller = new ProfileController();
 	private WriteReviewController modController = new WriteReviewController();
@@ -128,7 +139,18 @@ public class ProfileView extends SceneManageable implements Initializable{
 		loggedUser = (UserBean) getBundle().getBean("loggedUser");
 		selectedUser = (UserBean) getBundle().getBean("selectedUser");
 		
+		
+		
+		
 		if(selectedUser != null) {
+			if(loggedUser != null && !selectedUser.getUserID().equals(loggedUser.getUserID())) {
+				this.moderatorRequests.setVisible(false);
+				this.modifyDescriptionLabel.setVisible(false);
+				this.sellerPanelLabel.setVisible(false);
+				this.reviewerPanelLabel.setVisible(false);
+				this.modifyPicture.setVisible(false);
+				this.modifyCover.setVisible(false);
+			}
 			loggedUser = selectedUser;
 		}
 		

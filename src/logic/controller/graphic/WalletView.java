@@ -51,7 +51,7 @@ public class WalletView extends SceneManageable{
 		        public void handle(MouseEvent event) {
 		        	Bundle bundle = getBundle();
 		        	bundle.addBean("selectedUser", orderCase.getUserData());
-		            goToScene("userprofile");
+		            goToScene("profile");
 		        }
 		    });
 			
