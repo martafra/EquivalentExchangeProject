@@ -43,7 +43,12 @@ public class ReviewContainer extends GraphicWidget{
 			System.out.println("set image" + i);
 			System.out.println(articleData.getMediaPaths().get(i));
 			
-			images.get(i).setImage(new Image(articleData.getMediaPaths().get(i)));
+			try {
+				images.get(i).setImage(new Image(new FileInputStream(articleData.getMediaPaths().get(i))));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}
