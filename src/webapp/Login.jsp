@@ -46,28 +46,9 @@
 
 
             <div id="login">
-            <%
+          
+                 <a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
 
-                if(loggedUser==null){ %>
-
-                        <a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
-
-                <% }else {%>
-                        <div class="loggedUserLabel" id="user">
-                            <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="E:/Desktop/avatar.png" alt="e"/>
-
-                        </div>
-                        <div id="menu">
-
-                            <div><a href="Profile.jsp">Profile</a></div>
-                            <div><a href="Wallet.jsp">Wallet</a></div>
-                            <div><a href="Chat.jsp">Chat</a></div>
-                            <div><a href="Wishlist.jsp">WishList</a></div>
-                            <div><a href="Logout.jsp">Logout</a></div>
-
-                        </div>
-                <%}%>
             </div>
 
         </div>
