@@ -1,0 +1,106 @@
+#chat{
+	width: 1200px;
+	height: 800px;
+	margin: 100px auto 0;
+	background-color: white;
+	overflow: hidden;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#usersChatBox{
+	width: 400px;
+	height: 800px;
+
+	background-color: #DFF6DB;
+	overflow: auto;
+	float: left;
+}
+
+#userBox{
+	
+	width: 400px;
+	height: 40px;
+	
+}
+#userBox > *{
+	margin-top: 20px;
+	margin-left: 10px;
+	background-color: transparent;
+	border: 0px;
+}
+#chatView{
+	width: 800px;
+	height: 800px;
+	float: right;
+}
+#chatHeader{
+	width: 800px;
+	height: 100px;
+	background-color: #9ECB96;
+}
+#chatBody{
+	width: 800px;
+	height: 600px;
+	overflow: scroll;
+}
+#sendMessage{
+	width: 800px;
+	height: 100px;
+	background-color: #9ECB96;
+}
+#messageButton{
+	width: 60px;
+	height: 60px;
+	margin: 20px;
+}
+
+#messageBoxText{
+	width: 640px;
+	height: 60px;
+	margin: 20px;
+}
+.message{
+	width: 780px;
+	
+}
+.messageBox{
+	width: 450px;
+	float: left;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.35) 3px 3px 5px;
+	padding: 10px;
+	margin: 5px;
+}
+.date{
+	color: #777;
+	font-size: 12px;
+	text-align: right;
+}
+#currentChatUsername{
+	font-size: 20px;
+	padding: 40px;
+}
+#currentOrderContainer{
+	position: absolute;
+	background: #FFF7;
+	width: 800px;
+	padding: 10px;
+}
+
+#currentOrderContainer:hover{
+	background: #FFFA;
+}
+#currentOrderContainer > form > input{
+	border-radius: 10px;
+	border: 1px solid white;
+	height: 20px;
+	float: right;
+	margin-right: 10px; 
+}
+#orderName{
+	float : left;
+	height: 20px;
+	margin-left: 20px;
+}
