@@ -6,6 +6,7 @@
 <%@ page import ="logic.controller.application.ItemDetailsController"%>
 <%@ page import ="logic.controller.application.WalletController" %>
 <%@ page import ="logic.controller.application.SellController" %>
+<%@ page import ="logic.controller.application.BuyController" %>
 <%@page import="java.util.Date" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
 <%@ page import ="java.text.DateFormat" %>
@@ -15,17 +16,36 @@
 
 <%! ItemDetailsBean item = new ItemDetailsBean(); %>
 <%! ItemDetailsController iController = new ItemDetailsController(); %>
+<%! SellController sController = new SellController(); %>
 <%! String statusDate; %>
+<%! String sellerStatus; %>
+<%! String buyerStatus; %>
+<%! String startDate; %>
+<%! String endDate; %>
 <%! String involvedUser; %>
-<% if (session.getAttribute("loggedUser") == null){
+<%! String codeType;%>
+<%! String verifyAb; %>
+<%! String verifyVis; %>
+<%! String codeField; %>
+
+<%	if (session.getAttribute("loggedUser") == null){
 	%>
 	<jsp:forward page="Login.jsp"/>
 	<% 
 	} 
 %>
+
+<%	if (request.getParameter("verifyBtn")!=null){
+		order.setCode(((String)request.getParameter("code")));
+		if(Boolean.TRUE.equals(sController.verifyPaymentCode(order))) {
+			%>
+			<jsp:forward page="Wallet.jsp"/>
+			<% 
+		}
+} %>
+
 <%!OrderBean order = new OrderBean(); %>
 <% if (request.getParameter("selectedOrder") != null){
-	SellController sController = new SellController();
 	order = sController.generateOrderSummary(Integer.valueOf(((String)request.getParameter("selectedOrder"))));
 	item = iController.getItemDetails(order.getInvolvedItem().getItemID());
 	} 
@@ -108,7 +128,47 @@
 																	Condition:<%=item.getCondition() %><br>
 																	Price: <%=item.getPrice() %>coins<br>
 																	<%=involvedUser %></div>
-			
+			<div style ="display:block;margin-top:60px; margin-left:50px;font-size:15px;line-height:2">
+				<% if(order.getSellerStatus()) {
+					sellerStatus = "Order accepted by seller";
+				}
+				else {
+					sellerStatus = "Order not accepted by seller";
+				}
+				if(order.getBuyerStatus()) {
+					buyerStatus = "Order accepted by buyer";
+				}
+				else {
+					buyerStatus = "Order not accepted by buyer";
+				} %>
+				<%=sellerStatus %><br><%=buyerStatus %>
+			</div>
+			<div style ="display:block;margin-top:20px; margin-left:50px;font-size:15px;line-height:2">
+				<%  DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					if( order.getStartDate() != null)
+						startDate ="Order started on: " + format.format(order.getStartDate());
+					else{startDate="Order not started yet";}
+					if( order.getOrderDate() != null )
+						endDate="Order finished on: " + format.format(order.getOrderDate());
+					else{endDate = "";}%>
+				<%=startDate %><br><%=endDate %>
+			</div>
+			<div style = "margin-top:20px; margin-left:50px;font-size:15px">
+				<div >Payment code:</div>
+				<form>
+				<%  if(loggedUser.getUserID().equals(order.getBuyer().getUserID()) || order.getOrderDate()!= null){
+						codeField = order.getCode();
+						codeType="readonly";
+						verifyAb="disabled";
+						verifyVis="visibility:hidden";
+						codeField=order.getCode();}
+					else{codeType="";verifyAb="";verifyVis="";codeField="";}
+				%>
+				<input type="text" style="display:inline-block;width:221px; height:35px;" id="code" name="code" value="<%= codeField %>" <%=codeType %>>
+				<input type="submit" id="verifyBtn" name="verifyBtn" value="Verify" class="orange-clickable" style ="display:inline-block; height:35px; width:94px;<%=verifyVis%>"<%= verifyAb %>>
+				</form>
+				<div id="timer" style="display:inline-block"></div>
+			</div>		
 
     	</div>
   		
@@ -116,5 +176,43 @@
     </div>
 
 	</body>
+	
+	<script type="text/javascript">
+	<%if ((new BuyController().checkRemainingTime(order))>0){
+		%>timer = setInterval(myTimer, 1000);
+		<%
+	}%>
+	
+	<%Integer remTime = (new BuyController().checkRemainingTime(order));%>;
+	var d = <%=remTime%>; 
+	function myTimer() {
+	  d = d-1;
+	  if(d <= 0){
+	  	clearInterval(timer)
+	    window.location.replace("Wallet.jsp");
+	  }
+	  document.getElementById("timer").innerHTML = sec2hms(d);
+	}
+
+	function sec2hms(timect){
+
+	  if(timect=== undefined||timect==0||timect === null){return ''};
+	  var se=timect % 60; 
+	  timect = Math.floor(timect/60);
+	  var mi=timect % 60; 
+	  timect = Math.floor(timect/60);
+	  var hr = timect % 24; 
+	  var dy = Math.floor(timect/24);
+	  return padify (se, mi, hr, dy);
+	}
+
+	function padify (se, mi, hr, dy){
+	  hr = hr<10?"0"+hr:hr;
+	  mi = mi<10?"0"+mi:mi;
+	  se = se<10?"0"+se:se;
+	  dy = dy>0?dy+"d ":"";
+	  return dy+hr+":"+mi+":"+se;
+	}
+	</script>
 
 </html>

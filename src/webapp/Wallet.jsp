@@ -3,6 +3,7 @@
 <%@ page import="logic.bean.UserBean" %>
 <%@ page import="logic.bean.OrderBean" %>
 <%@ page import ="logic.controller.application.WalletController" %>
+<%@ page import ="logic.controller.application.BuyController" %>
 <%@page import="java.util.Date" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
 <%@ page import ="java.text.DateFormat" %>
@@ -10,7 +11,8 @@
 
 
 <%! WalletController wController = new WalletController();%>
-<%! List<OrderBean> orders = new ArrayList<>(); %>
+<%! BuyController bController = new BuyController(); %>
+<%! List<OrderBean> prevOrders = new ArrayList<>(); %>
 <%! String statusDate; %>
 <%! String involvedUser; %>
 <% if (session.getAttribute("loggedUser") == null){
@@ -20,7 +22,7 @@
 	} 
 %>
 
-<% orders = wController.getOrderList((UserBean)session.getAttribute("loggedUser")); %>
+<% prevOrders = wController.getOrderList((UserBean)session.getAttribute("loggedUser")); %>
 
 
 
@@ -92,8 +94,11 @@
     		<div style="text-align:center"> <%= wController.getCredit(loggedUser).toString() %> </div>
     	</div>
     	<div style = "width:709px; height:500px; overflow: scroll; background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin:66px auto">
-	
-			<% for(OrderBean order: orders){
+			<%	for (OrderBean prevOrder: prevOrders){
+					bController.checkRemainingTime(prevOrder);
+			} %>
+			<% 	List<OrderBean> orders = wController.getOrderList(loggedUser);
+				for(OrderBean order: orders){
 				
 				%><div style="border-bottom-style:solid;border-bottom-widht:2px;border-color: #D4CEAB;">
 					<% 
