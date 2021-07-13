@@ -33,7 +33,9 @@ import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderBean;
 import logic.bean.UserBean;
+import logic.bean.UserProfileBean;
 import logic.controller.application.ItemDetailsController;
+import logic.controller.application.ProfileController;
 import logic.controller.application.WishlistController;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
@@ -46,7 +48,9 @@ public class ItemDetailsView extends SceneManageable {
 	private ItemDetailsBean itemDetails;
 	private Integer maxCharacter = 300;
 	private Stage secondaryStage;
+	private RatingView userR = new RatingView(5);
 	private ItemDetailsController controller = new ItemDetailsController();
+	private ProfileController controllerProfile = new ProfileController();
 	private WishlistController wishlistController = new WishlistController();
 	
 	@FXML
@@ -97,6 +101,10 @@ public class ItemDetailsView extends SceneManageable {
 	private Text wishlist;
 	@FXML
 	private ScrollPane descScrollPane;
+	@FXML
+	private HBox sellerReviews;
+	@FXML
+	private Label sellerDetails;
 	
 	
 	
@@ -109,9 +117,7 @@ public class ItemDetailsView extends SceneManageable {
     	loggedUser = (UserBean)bundle.getBean("loggedUser");
     	ItemInSaleBean itemInSale = (ItemInSaleBean)bundle.getBean("selectedItem");
     	itemDetails =  controller.getItemDetails(itemInSale.getItemID());
-    	
-    	System.out.println(itemDetails);
-    	
+
     	seller = itemDetails.getSeller();
     	item = controller.getItemByID(itemDetails.getReferredItemID());
     	
@@ -126,13 +132,13 @@ public class ItemDetailsView extends SceneManageable {
     	conditionText.setText(itemDetails.getCondition());
     	addressText.setText(itemDetails.getAddress());
     	addressText.setWrapText(true);
-    	String itemDetails;
+    	String itemDetailsStr;
     	String language = "";
     	if (item.getLanguage() != null) {
 			language = item.getLanguage().toLowerCase();
 		}
     	if (item.getType() =='B') {
-    		itemDetails = String.format("Author: %s %nEdition: %s %nNumber Of Pages: %s %nPublishing House: %s %nLanguage: %s",
+    		itemDetailsStr = String.format("Author: %s %nEdition: %s %nNumber Of Pages: %s %nPublishing House: %s %nLanguage: %s",
         			item.getAuthor(), 
         			item.getEdtion().toString(),
         			item.getNumberOfPages().toString(),
@@ -141,7 +147,7 @@ public class ItemDetailsView extends SceneManageable {
     		typeText.setText("BOOK");
     	}
     	else if(item.getType() =='M') {
-    		itemDetails = String.format("Duration: %s %nLanguage: %s", item.getDuration()+" min", language);	
+    		itemDetailsStr = String.format("Duration: %s %nLanguage: %s", item.getDuration()+" min", language);	
     		typeText.setText("MOVIE");
     	}
     	else {
@@ -149,17 +155,26 @@ public class ItemDetailsView extends SceneManageable {
     		if (item.getConsole() != null) {
     			 console = item.getConsole().toLowerCase();
     		}
-    		itemDetails = String.format("Console: %s %nLanguage: %s", console , language);		
+    		itemDetailsStr = String.format("Console: %s %nLanguage: %s", console , language);		
     		typeText.setText("VIDEOGAME");
     	}
-    	label1.setText(itemDetails);
+    	label1.setText(itemDetailsStr);
     	
     	Image profileImage = new Image(seller.getProfilePicPath());
     	imgSeller.setFill(new ImagePattern(profileImage));
     	sellerText.setText(seller.getName());
+    	sellerDetails.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	        	Bundle bundle = getBundle();
+	        	bundle.addBean("selectedUser", seller);   	
+	            goToScene("profile");
+	        }
+	    });
     	
     	priceText.setText(itemInSale.getPrice().toString() + " Coins");
     	
+    	setRatingsSeller();
     	setRequestView();
     	setWishlistView(itemInSale);
     	fillOtherSeller();	
@@ -313,6 +328,19 @@ public class ItemDetailsView extends SceneManageable {
 	    });
     		
     	
+    }
+    
+    public void setRatingsSeller() {
+    	UserProfileBean profileBean = controllerProfile.getUserProfileData(seller);
+    	if(profileBean.getSellerVote() != null) {
+			userR.setValue(profileBean.getSellerVote());
+		}else {
+			userR.setValue(0);
+		}
+    	userR.setEditable(false);
+		userR.setPaneWidth(100f);
+		sellerReviews.getChildren().clear();
+		sellerReviews.getChildren().add(userR);	
     }
     
     //MEDOTI PER LA REQUEST:

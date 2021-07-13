@@ -50,7 +50,7 @@ public class WalletView extends SceneManageable{
 		        @Override
 		        public void handle(MouseEvent event) {
 		        	Bundle bundle = getBundle();
-		        	if(orderCase.getUserData().getUserID().equals(loggedUser.getUserID())) {
+		        	if(!orderCase.getUserData().getUserID().equals(loggedUser.getUserID())) {
 		        		bundle.addBean("selectedUser", orderCase.getUserData());
 		        	}else {
 		        		bundle.addBean("selectedUser", loggedUser);
