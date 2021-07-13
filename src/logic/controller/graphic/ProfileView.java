@@ -192,6 +192,12 @@ public class ProfileView extends SceneManageable implements Initializable{
 	public void onExit() {
 		reviewAcceptBox.getChildren().clear();
 		getBundle().addBean("selectedUser", null);
+		this.moderatorRequests.setVisible(true);
+		this.modifyDescriptionLabel.setVisible(true);
+		this.sellerPanelLabel.setVisible(true);
+		this.reviewerPanelLabel.setVisible(true);
+		this.modifyPicture.setVisible(true);
+		this.modifyCover.setVisible(true);
 	}
 	
 	private void loadProducts(Integer numberOfProducts) {
