@@ -35,3 +35,7 @@
 .link:hover{
 	color:#FF6A00;
 }
+.green-clickable{
+	text-decoration: underline;
+	color: #5AC02A;
+}
