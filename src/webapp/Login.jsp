@@ -4,7 +4,7 @@
 
 
 <jsp:useBean id = "loginBean" scope = "request" class = "logic.bean.LoginBean"/>
-<jsp:useBean id = "loggedUser" scope = "session" class = "logic.bean.UserBean"/>
+
 <jsp:setProperty name="loginBean" property ="*"/>
 
 <% 
@@ -12,6 +12,7 @@
         LoginController logController=new LoginController();
         Boolean result = logController.login(loginBean);
         if(Boolean.TRUE.equals(result)){
+        	%> <jsp:useBean id = "loggedUser" scope = "session" class = "logic.bean.UserBean"/> <%
             loggedUser = logController.getUserByLoginData(loginBean);
             request.getSession().setAttribute("loggedUser", loggedUser);
             %>
