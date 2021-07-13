@@ -40,6 +40,12 @@
 	
 	OrderBean order = controller.getActiveOrderByUsers(loggedUser, currentChat, false);
 	
+	if(order != null){
+		Integer result = new BuyController().checkRemainingTime(order);
+		if(result <= 0)
+			order = null;
+	}
+	
 	SaleController sController;
 	
 	if(order != null){
