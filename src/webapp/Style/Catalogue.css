@@ -29,10 +29,14 @@
 }
 
 .filters{
+	border-right-style:solid;
+	border-right-width:2px;
+	border-color: #D4CEAB;
 	vertical-align:top;
 	display: inline-block;
 	width:20%;
-	margin-top: 2%;
+	height:720px;	
+	margin-top: 5%;
 	margin-left:3%;
 
 }
@@ -41,12 +45,19 @@
 	margin-left:5%;
 }
 
+.list{
+	margin-left:5%;
+	background-color:#BDDDC0; 
+	border-radius:10px;
+	font-size: 12pt;
+}
+
 .catalogue{
 	display: inline-block;
 	vertical-align:top;
 	width:70%;
-	position: absolute;
-	right: 0;	
+	margin-left:2%;
+	right:0;
 }
 
 .items{
@@ -59,13 +70,14 @@
 
 .itemBox{
 	padding-top: 2%;
+	margin-left:1%;
 	vertical-align:top;
 	display: inline-block;
 	margin-bottom: 5%;
 	margin-right:3%;
 	height: 290px;
 	width: 250px;
-	box-shadow: 8px 8px 5px #c0c0c0;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
 	background-color: #FFF1E9;
 	border-radius: 12px;
 	text-align:center;

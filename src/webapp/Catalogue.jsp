@@ -20,11 +20,12 @@
 	ArrayList<String> genres = new ArrayList<>();
 	ArrayList<String> consoles = new ArrayList<>();
 	int pageNumber = 0;
-	int maxItem = 8;
+	int maxItem = 12;
 	String searchStr = null;
 	String typeStr ="A";
 	String genreStr ="";
 	String consoleStr ="";
+	String orderStr ="";
 	
 	String username = null;
 	if (session.getAttribute("loggedUser") != null) {
@@ -72,6 +73,17 @@
 	
 	}
 	
+	if(request.getParameter("orderBy")!=null){
+		orderStr = request.getParameter("orderBy");
+		if(!orderStr.equals("nullOrder")){
+			filters.put("orderBy", orderStr);
+		}
+		else{
+			filters.remove("orderBy");
+		}
+		
+	}
+	
 	
 	List<ItemInSaleBean> itemInSaleBeanList = controller.getListItemInSaleBeanFiltered(username, filters);	
 
@@ -82,22 +94,54 @@
 		<link rel="stylesheet" href="Style/Catalogue.css">
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<meta charset="ISO-8859-1">
 		<title>Catalogue</title>
 	</head>
 	<body>
-		<div id="headerbar">
-			<img id="logoImage" src="assets/images/logo.png" alt="logoImage">
-			<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span> 
-			
-			<span>HOME</span> 
-			<span>CATALOGUE</span>
-			<span>COMMUNITY</span>
+			<div id="headerbar">
+            	<img id="logoImage" src="assets/images/logo.png" alt="logoImage">
+           	 	<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
-			<div id="login">
-				<button text="Login" class="orange-clickable">Login</button>
-			</div>
-		</div>
+
+            	<span><a href="Home.jsp" class ="link">HOME</a></span>
+            	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
+            	<span>COMMUNITY</span>
+
+
+            	<div id="login">
+			<%	
+				if(loggedUser == null){ %>
+    				
+    					<a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
+    				
+				<% }else {%>
+						<div class="loggedUserLabel" id="user">
+							<div> <%=loggedUser.getUserID()%> </div>
+							<img src="E:/Desktop/avatar.png" alt="e"/>
+						
+						</div>
+						<div id="menu">
+							
+							<div><a href="Profile.jsp">Profile</a></div>
+							<div><a href="Wallet.jsp">Wallet</a></div>
+							<div><a href="Chat.jsp">Chat</a></div>
+							<div><a href="Wishlist.jsp">WishList</a></div>
+							<div><a href="Logout.jsp">Logout</a></div>
+							
+						</div>
+				<%}%>
+			</div>		
+		</div>			
+	<script>
+		$('#user').click(function(e){
+			
+			if($('#menu').css("visibility") == 'hidden')
+				$('#menu').css("visibility", "visible");
+			else
+				$('#menu').css("visibility", "hidden");
+		});	
+	</script>
 		
 		<form action="Catalogue.jsp">
 			<div class="cataloguePage" style ="margin-top: 3%;">
@@ -127,7 +171,7 @@
 						
 					<%if(!typeStr.equals("A")){ %>
 						<p class = "filtersLabel"> GENRE </p>
-						<select name="genre" onChange="this.form.submit()" style="margin-left:5%;">
+						<select name="genre" class = "list" onChange="this.form.submit()">
 							<option value = "nullGenre" ></option>
 							<% for(String gen : genres) {
 									%>
@@ -138,7 +182,7 @@
 						</select>
 						<%if (typeStr.equals("V")){ %>
 							<p class = "filtersLabel"> CONSOLE </p>
-							<select name="console" onChange="this.form.submit()" style="margin-left:5%;">
+							<select name="console" class = "list" onChange="this.form.submit()" >
 								<option value = "nullConsole"></option>
 								<% for(String con : consoles) {
 									%>
@@ -159,15 +203,25 @@
 							value ="<%= searchStr %>" 
 						<%} %>>
 						<input id ="searchBtn" type="submit" name="searchBtn" value="SEARCH">
-				
+						
+						
 					</div>
 					<div class ="items">
+						<label style="margin-bottom:10px; font-size:14pt; margin-left:1%;"> Order by: </label>
+							<select name="orderBy" class = "list" onChange="this.form.submit()" style="margin-bottom:10px;">
+								<option value="nullOrder" <%if (orderStr.equals("nullOrder")){ %> selected ="selected" <% } %> ></option>
+								<option value="Rising Price" <%if (orderStr.equals("Rising Price")){ %> selected ="selected" <% } %>>Rising Price</option>
+								<option value="Decreasing Price" <%if (orderStr.equals("Decreasing Price")){ %> selected ="selected" <% } %>>Decreasing Price</option>
+							</select>
+						<br>
 						<% for (int i = 0; i < maxItem && ( i+(maxItem*pageNumber) < itemInSaleBeanList.size() ); i++) { %>
 						<div class= "itemBox">
-							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" style = "text-decoration : none; color: black;"> 
+							<img src="assets/images/missing.png" alt="error" style="width:200px; height:200px; margin-left:2%; margin-right:2%;"/>
+							<br>
+							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" class="link" > 
 								<%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemName() %> 
 							</a>
-							<p id ="price"> <%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getPrice()  %> COINS</p>
+							<p id ="price" style="color:#FF6A00;"> <%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getPrice()  %> COINS</p>
 						</div>
 						<%} %>
 					</div>

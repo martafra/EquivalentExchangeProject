@@ -27,3 +27,11 @@
 .orange-clickable:hover{
 	background-color: #FE9A2C;
 }
+
+.link{
+	text-decoration : none; 
+	color: black;
+}
+.link:hover{
+	color:#FF6A00;
+}

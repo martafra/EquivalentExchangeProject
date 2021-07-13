@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+.box{
+	overflow: auto;
+	width: 720px; 
+	height: 800px; 
+	background-color: #FFFFFF; 
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+	margin-top: 86px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+.item{
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	border-color: #D4CEAB;
+	height:80px;
+	font-size:14pt;
+	display: flex;
+  	align-items: center;
+  	margin-left:2%; 
+  	margin-right:2%;
+}
+
+.infoLeft{
+	display:inline-block;
+	width:49%;
+
+}
+
+.infoRight{
+	display:inline-block;
+	width:49%;  
+	margin-left: 2%;
+	margin-right:2%;
+	
+}
+

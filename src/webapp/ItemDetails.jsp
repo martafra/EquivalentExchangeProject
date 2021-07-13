@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"
 	%>
 <%@page import="logic.controller.application.ItemDetailsController" %>
+<%@page import="logic.controller.application.WishlistController" %>
 <%@page import= "logic.bean.ItemDetailsBean"  %>
 <%@page import= "logic.bean.ItemBean"  %>
 <%@page import= "logic.bean.UserBean"  %>
 
 
 <%
+	response.setHeader("Pragma", "No-cache");
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setDateHeader("Expires", -1);
+	
 	ItemDetailsController controller = new ItemDetailsController();
+	WishlistController wishlistController = new WishlistController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
 	String mainImg = null;
 	
@@ -31,6 +37,11 @@
     	Integer itemInSaleID = itemDetails.getItemInSaleID();
     	controller.clickOnBuy(buyerID, itemInSaleID, "ciao sono " + buyerID +" e voglio comprare " + itemDetails.getItemName()); 
 	}
+	else if(request.getParameter("addItem")!= null){
+		itemID = Integer.parseInt((String)request.getParameter("addItem"));
+		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
+		wishlistController.addToWishlist(loggedUser.getUserID(), itemDetails.getItemID());
+	}
 	else{
 		itemID = Integer.parseInt((String)request.getParameter("itemID"));
 	}
@@ -46,6 +57,7 @@
 		System.out.println(request.getParameter("selectedImg"));
 		mainImg = itemDetails.getMediaPath(); /*"././thewitcher.jpg";*/
 	}
+	
 		
 %>  
 
@@ -58,6 +70,7 @@
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
 		<link rel="stylesheet" href="Style/ItemDetails.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<meta charset="ISO-8859-1">
 		<title>ItemDetails</title>
 	</head>
@@ -68,16 +81,45 @@
            	 	<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            	<span>HOME</span>
-            	<span>CATALOGUE</span>
+            	<span><a href="Home.jsp" class ="link">HOME</a></span>
+            	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
             	<span>COMMUNITY</span>
 
 
             	<div id="login">
-                	<button text="Login" class="orange-clickable">Login</button>
-            	</div>
-
-        	</div>
+			<%	
+				if(loggedUser == null){ %>
+    				
+    					<a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
+    				
+				<% }else {%>
+						<div class="loggedUserLabel" id="user">
+							<div> <%=loggedUser.getUserID()%> </div>
+							<img src="E:/Desktop/avatar.png" alt="e"/>
+						
+						</div>
+						<div id="menu">
+							
+							<div><a href="Profile.jsp">Profile</a></div>
+							<div><a href="Wallet.jsp">Wallet</a></div>
+							<div><a href="Chat.jsp">Chat</a></div>
+							<div><a href="Wishlist.jsp">WishList</a></div>
+							<div><a href="Logout.jsp">Logout</a></div>
+							
+						</div>
+				<%}%>
+			</div>		
+		</div>			
+	<script>
+		$('#user').click(function(e){
+			
+			if($('#menu').css("visibility") == 'hidden')
+				$('#menu').css("visibility", "visible");
+			else
+				$('#menu').css("visibility", "hidden");
+		});	
+	</script>
+	
 			<div class = "box" style="margin-left:10%;">
 				<div class="imgItem">
 					<% for (String photo : itemDetails.getMedia()){ %>
@@ -150,6 +192,7 @@
 			<div class = "box">
 				<div class = "sellerBox">
 					<p id ="sellerLabel">Seller's Information</p>
+					<img src="assets/images/avatar.png" alt="error" style="width:150px;height:150px;border-radius:110px;"/>
 					<p id ="sellerName"> <%= seller.getUserID() %></p>
 				</div>
 				
@@ -163,15 +206,31 @@
 							<% 
 								return;
 							}
-							if( !seller.getUserID().equals(loggedUser.getUserID()) && !controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID())){
+							if( !seller.getUserID().equals(loggedUser.getUserID()) 
+								&& !controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID()) 
+								&& itemDetails.getAvailability()){
 							%>
 					 			<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>"> BUY ITEM</button>
 					 		<%
-					 		}
+					 		}else{%>
+					 			<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>" disabled="disabled" style = "background-color:grey; opacity: 0.3"> BUY ITEM</button>
+					 		<%}
 							if (controller.checkRequest(loggedUser.getUserID(), itemDetails.getItemInSaleID()) ) {%>
-								<button id = "buybtn" type="submit" name = "buyItem" value = "<%= itemID%>" disabled="disabled" style = "background-color:grey; opacity: 0.3"> BUY ITEM</button>
-								<p>Request Already Sent</p>
+								<p style ="color:red;">Request Already Sent</p>
+							<%}
+							if (!seller.getUserID().equals(loggedUser.getUserID()) 
+								&& !wishlistController.checkWishlist(loggedUser.getUserID(), itemDetails.getItemID()) 
+								&& itemDetails.getAvailability()){
+							%>
+								<a href ="ItemDetails.jsp?addItem=<%=itemID%>" style="color:#5AC02A"> <br>Add To Wishlist </a>
+							<%} 
+							if (wishlistController.checkWishlist(loggedUser.getUserID(), itemDetails.getItemID())){
+							%>
+								<p style="color:#5AC02A"><br>In Wishlist</p>
 							<%} %>
+							
+							
+							
 					 </form>
 				</div>	
 			</div>
