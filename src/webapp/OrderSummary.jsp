@@ -27,6 +27,8 @@
 <%! String verifyAb; %>
 <%! String verifyVis; %>
 <%! String codeField; %>
+<%! String purchaseVis; %>
+<%! String purchaseAb; %>
 
 <%	if (session.getAttribute("loggedUser") == null){
 	%>
@@ -52,13 +54,11 @@
 %>
 
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	
 	<head>
-		<title>EE - Wallet</title>
+		<title>EE - Order Summary</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
@@ -115,7 +115,7 @@
         });
     </script>
     
-    <div style="width: 709px; height: 600px; background-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin: 86px auto">
+    <div style="width: 900px; height: 600px; background-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin: 86px auto">
     	<div>
     			<% if(!(order.getBuyer().getUserID().equals(loggedUser.getUserID()))) {
 					involvedUser="Buyer: " + order.getBuyer().getUserID();
@@ -168,7 +168,21 @@
 				<input type="submit" id="verifyBtn" name="verifyBtn" value="Verify" class="orange-clickable" style ="display:inline-block; height:35px; width:94px;<%=verifyVis%>"<%= verifyAb %>>
 				</form>
 				<div id="timer" style="display:inline-block"></div>
-			</div>		
+			</div>
+			<form action="OrderReview.jsp" method="POST">
+				<div>
+					<% if( (loggedUser.getUserID().equals(order.getBuyer().getUserID())) && (order.getReview() == null) ){
+						purchaseVis="";
+						purchaseAb="";
+					}
+					if( (!loggedUser.getUserID().equals(order.getBuyer().getUserID())) || (order.getReview() != null) ){
+						purchaseVis="visibility:hidden";
+						purchaseAb="disabled";
+					} %>
+					<input type="submit" id="ratePurchase" name="ratePurchase" value="Rate your purchase" class="orange-clickable" style ="display:inline-block; height:35px; width:221px;margin-top:20px; margin-left:50px;<%=purchaseVis%>"<%=purchaseAb %>>
+					<input type="text" id="selectedOrderReview" name="selectedOrderReview" value="<%= order.getOrderID() %>" style="visibility:hidden">				
+				</div>
+			</form>		
 
     	</div>
   		

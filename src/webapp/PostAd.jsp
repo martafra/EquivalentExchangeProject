@@ -20,7 +20,14 @@
 <%!ItemRetrieveController itemRetController = new ItemRetrieveController(); %>
 <%!List<String> itemTypes = new ArrayList<>(List.of("Book", "Movie", "Videogame"));%>
 <%!List<ItemBean> itemList = new ArrayList<>(); %>
+<% if (session.getAttribute("loggedUser") == null){
+	%>
+	<jsp:forward page="Login.jsp"/>
+	<% 
+	} 
+%>
 <% UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");%>
+
 <% 
 	
 	itemConditions = itemController.getConditionTypes();
@@ -73,7 +80,7 @@
 <html>
 	
 	<head>
-		<title>EE - Wallet</title>
+		<title>EE - Post an advertisement</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
