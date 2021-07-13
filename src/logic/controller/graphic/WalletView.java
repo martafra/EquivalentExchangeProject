@@ -34,7 +34,7 @@ public class WalletView extends SceneManageable{
 			return;
 		}
 		
-		creditLabel.setText(walletController.getCredit(loggedUser).toString());
+		creditLabel.setText(walletController.getCredit(loggedUser).toString() + "coins");
 		List<OrderBean> prevOrders = walletController.getOrderList(loggedUser);
 		for(OrderBean prevOrder: prevOrders) {
 			bController.checkRemainingTime(prevOrder);

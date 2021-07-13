@@ -275,8 +275,8 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 		
 		summaryPic.setImage(new Image(item.getMediaPath()));
 		summaryName.setText(item.getItemName());
-		summaryCondition.setText(item.getCondition());
-		summaryPrice.setText(item.getPrice().toString());
+		summaryCondition.setText("Condition: " + item.getCondition());
+		summaryPrice.setText("Price: " + item.getPrice().toString() + "coins");
 		
 		if(order.getSellerStatus()) {
 			summarySeller.setText("Order accepted by seller");
