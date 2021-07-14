@@ -8,14 +8,15 @@
 <%@ page import="java.util.HashMap" %>
 
 <%
+
+	response.setHeader("Pragma", "No-cache");
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setDateHeader("Expires", -1);
+
+
 	CatalogueController controller = new CatalogueController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
-	if(loggedUser !=null){
-		System.out.println("Catalogo: loggedUser = "+loggedUser.getUserID());
-	}
-	else{
-		System.out.println("Catalogo: loggedUser==null");
-	}
+
 	HashMap<String, String> filters = new HashMap<>();
 	ArrayList<String> genres = new ArrayList<>();
 	ArrayList<String> consoles = new ArrayList<>();

@@ -1,32 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-<%@page import="logic.controller.application.WishlistController" %>
+
 <%@page import= "logic.bean.UserBean"  %>
-<%@page import= "logic.bean.ItemInSaleBean"  %>
-<%@ page import="java.util.List" %>
-<%
-	WishlistController controller = new WishlistController();
+
+
+ <%
+ 
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
-	
-	
-	if(request.getParameter("removeItem")!=null){
-		int itemID = Integer.parseInt((String)request.getParameter("removeItem"));
-		controller.removeFromWishlist(loggedUser.getUserID(), itemID);	
+ 	if (request.getParameter("itemID")== null || request.getParameter("sellerID")== null || request.getParameter("itemName")==null){
+		%>
+		<jsp:forward page="Home.jsp"/>
+		<% 
 	}
+ 	int itemID = Integer.parseInt(request.getParameter("itemID"));
+	String sellerID = request.getParameter("sellerID");
+	String itemName = request.getParameter("itemName");
 	
-	List<ItemInSaleBean> wishlist = controller.getItemInWishlist(loggedUser);
-%>
+ 	
+ %>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="ISO-8859-1">
-		<title>Wishlist</title>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
-		<link rel="stylesheet" href="Style/Wishlist.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+		
 	</head>
+	
 	<body class="bubble-background">
 	<div id="headerbar">
             	<img id="logoImage" src="assets/images/logo.png" alt="logoImage">
@@ -62,7 +64,6 @@
 				<%}%>
 			</div>		
 		</div>			
-	</body>
 	<script>
 		$('#user').click(function(e){
 			
@@ -73,27 +74,14 @@
 		});	
 	</script>
 		
-		<div class ="box" >
-			<% for(ItemInSaleBean item: wishlist) {
-			%>
-				<div class ="item"> 
-					<div class="infoLeft">
-						<a href ="ItemDetails.jsp?itemID=<%= item.getItemID() %>" class="link"> <%= item.getItemName() %> </a>
-						<%if (item.getAvailability()) { %>
-							<p>Available</p>
-						<%} else { %>
-							<p style = "color:red;">Unavailable</p>
-						<%} %>
-					</div>
-					<div class= "infoRight">
-						<p> Seller: <%= item.getSeller().getUserID() %></p>
-						<p> <%= item.getPrice() %> Coins</p>
-					</div>
-						<form action="Wishlist.jsp" name="myform" method="POST">
-							<button id = "removebtn" class="orange-clickable" type="submit" name = "removeItem" value = "<%= item.getItemID()%>" style="float : right;"> REMOVE</button>
-						</form>
-				</div>
-			<%} %>
-		</div>
+		<form action="ItemDetails.jsp?itemID=<%=itemID %>" method="POST">
+			<div style = "margin-top: 15%;margin-left:auto;margin-right:auto;width:800px">
+				<p style ="display:inline-block; width:590px; font-size:15pt;"> Enter a message to send to <b><%=sellerID %></b> for the item <b><%= itemName %></b> : </p>
+				<label style ="font-size:15pt; margin-left:3%;"> Max character: 300 </label>
+     			<textarea name="requestText" maxlength="300" placeholder="Enter your text..." style = "width:800px;height:200px; font-size:15pt;"></textarea>
+     		
+     			<input class = "orange-clickable" type="submit" name ="send" value="SEND" style ="display:block; margin-top:2%;margin-left:90%">
+     		</div>
+		</form>
 	</body>
 </html>

@@ -17,13 +17,6 @@
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
 	String mainImg = null;
 	
-	if(loggedUser !=null){
-		System.out.println("item Details: loggedUser =" + loggedUser.getUserID());
-		}
-	else{
-		System.out.println("Item Details: loggeduser == null");
-	}
-	//int itemID = Integer.parseInt((String)session.getAttribute("itemID"));
 	int itemID;
 	if (request.getParameter("buyItem")!= null){
 		if(loggedUser == null){
@@ -33,17 +26,21 @@
 		}
 		itemID = Integer.parseInt((String)request.getParameter("buyItem"));
 		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
-		String buyerID = loggedUser.getUserID();
-    	Integer itemInSaleID = itemDetails.getItemInSaleID();
-    	controller.clickOnBuy(buyerID, itemInSaleID, "ciao sono " + buyerID +" e voglio comprare " + itemDetails.getItemName()); 
+		%><jsp:forward page="SendRequest.jsp">
+			<jsp:param name="itemID" value="<%=itemID %>"/>
+			<jsp:param name="sellerID" value="<%=itemDetails.getSeller().getUserID() %>"/>
+			<jsp:param name="itemName" value="<%=itemDetails.getItemName() %>"/>
+			</jsp:forward>
+		<% 
+				
 	}
 	else if(request.getParameter("addItem")!= null){
-		itemID = Integer.parseInt((String)request.getParameter("addItem"));
+		itemID = Integer.parseInt(request.getParameter("addItem"));
 		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 		wishlistController.addToWishlist(loggedUser.getUserID(), itemDetails.getItemID());
 	}
 	else{
-		itemID = Integer.parseInt((String)request.getParameter("itemID"));
+		itemID = Integer.parseInt(request.getParameter("itemID"));
 	}
 	
 	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
@@ -58,6 +55,15 @@
 		mainImg = itemDetails.getMediaPath(); /*"././thewitcher.jpg";*/
 	}
 	
+	if (request.getParameter("send")!=null){
+		System.out.println("Sono in send IF");
+ 		itemID = Integer.parseInt(request.getParameter("itemID"));
+ 		itemDetails = controller.getItemDetails(itemID);
+ 		String buyerID = loggedUser.getUserID();
+ 		Integer itemInSaleID = itemDetails.getItemInSaleID();
+ 		String requestText = request.getParameter("requestText");
+ 		controller.clickOnBuy(buyerID, itemInSaleID, requestText); 
+	}
 		
 %>  
 
