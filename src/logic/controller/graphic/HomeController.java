@@ -28,7 +28,7 @@ public class HomeController extends SceneManageable{
 			return;
 		}
 		
-		goToScene("sellerpanel");
+		goToScene("wishlist");
 	}
 	
 	@FXML
