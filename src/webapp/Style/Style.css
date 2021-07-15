@@ -18,6 +18,15 @@
 	font-size: 16px;
 	padding: 10px 20px;
 }
+.green-clickable-big{
+	background-color: #5AC02A;
+	border: none;
+	text-decoration: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	padding: 10px 20px;
+}
 .bubble-background{
 	background-image : url('../assets/images/ee-bg.png');
 	background-repeat: no-repeat;
@@ -26,6 +35,9 @@
 }
 .orange-clickable:hover{
 	background-color: #FE9A2C;
+}
+.green-clickable-big:hover{
+	background-color: #5AC02A;
 }
 
 .link{
