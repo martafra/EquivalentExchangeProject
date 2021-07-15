@@ -42,7 +42,7 @@
 	
 	if(order != null){
 		Integer result = new BuyController().checkRemainingTime(order);
-		if(result <= 0)
+		if(result == 0 || result == -2)
 			order = null;
 	}
 	
