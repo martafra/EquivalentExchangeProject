@@ -5,12 +5,12 @@
 <%@ page import="logic.bean.OrderReviewBean" %>
 <%@ page import ="logic.controller.application.BuyController" %>
 <%@ page import ="logic.controller.application.SellController" %>
-<jsp:useBean id = "order" scope = "session" class = "logic.bean.OrderBean"/>
+
 
 <%! BuyController bController = new BuyController(); %>
 <%! SellController sController = new SellController(); %>
 <%! List<OrderBean> prevOrders = new ArrayList<>(); %>
-<% order = ((OrderBean)(session.getAttribute("selectedOrder"))); %>
+<% OrderBean order = ((OrderBean)(session.getAttribute("selectedOrder"))); %>
 <% OrderReviewBean review = new OrderReviewBean(); %>
 <% if (session.getAttribute("loggedUser") == null){
 	%>
@@ -18,6 +18,11 @@
 	<% 
 	} 
 %>
+<% if (session.getAttribute("selectedOrder") == null){
+	%>
+	<jsp:forward page="Wallet.jsp"/>
+	<%
+} %>
 
 <%	if (request.getParameter("insertRevBtn") !=null){
 		if(request.getParameter("a") != null && request.getParameter("r") != null && request.getParameter("c") != null &&
