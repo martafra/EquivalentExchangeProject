@@ -167,7 +167,7 @@
 			<div style="color: #FF6A00; font-size: 20px; padding: 10px;">Average ratings</div>
 			<table id="ratings">
 				<tr>
-					<td>Seller Availability: </td>
+					<td>Seller availability: </td>
 					<td>
 					
 						<div class="rating">
@@ -191,7 +191,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Seller Reliability: </td>
+					<td>Seller reliability: </td>
 					<td>
 					
 						<div class="rating">
@@ -215,7 +215,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Product Condition: </td>
+					<td>Product condition: </td>
 					<td>
 					
 						<div class="rating">

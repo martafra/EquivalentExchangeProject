@@ -7,5 +7,17 @@
     <welcome-file>Home.htm</welcome-file>
   </welcome-file-list>
 
+<servlet>
+	<description>
+	</description>
+	<display-name>FileServlet</display-name>
+	<servlet-name>FileServlet</servlet-name>
+	<servlet-class>logic.view.servlet.FileServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>FileServlet</servlet-name>
+	<url-pattern>/file/*</url-pattern>
+</servlet-mapping>
 
 </web-app>
