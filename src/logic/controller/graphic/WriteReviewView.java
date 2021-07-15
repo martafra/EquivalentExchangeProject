@@ -39,6 +39,8 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	private Integer categoryPosition = 0;
 	private ArrayList<String> types = new ArrayList<>();
 	private Integer typePosition = 0;
+	private ArrayList<String> layouts = new ArrayList<>();
+	private Integer layoutPosition = 0;
 	private UserBean author;
 	private List<ItemBean> items;
 	
@@ -64,6 +66,34 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	private TextField tagField;
 	@FXML
 	private FlowPane tagsContainer;
+	@FXML
+	private ImageView layoutChooseImage;
+	
+	private void setLayoutImage(String layout) {
+		String imageName = "";
+		switch(layout) {
+			case "linear": 
+				imageName = "LinearLayout.png";
+				break;
+			case "grid":
+			default:
+				imageName = "GridLayout.png";
+				break;
+		}
+		layoutChooseImage.setImage(new Image("/logic/view/assets/images/" + imageName));
+	
+	}
+	
+	@FXML
+	private void onLayoutSwapLeft() {
+		layoutPosition = (layoutPosition + layouts.size() - 1) % layouts.size();
+		setLayoutImage(layouts.get(layoutPosition));
+	}
+	@FXML
+	private void onLayoutSwapRight() {
+		layoutPosition = (layoutPosition + 1) % layouts.size();
+		setLayoutImage(layouts.get(layoutPosition));
+	}
 	
 	@FXML
 	public void onCategorySwapLeft() {
@@ -118,7 +148,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		article.setText(1, textPanel2.getText());
 		article.setText(2, textPanel3.getText());
 		article.setText(3, textPanel4.getText());
-		article.setLayout("grid");
+		article.setLayout(layouts.get(layoutPosition));
 		article.setReferredItem(itemComboBox.getSelectionModel().getSelectedItem());
 		getBundle().addBean("articleData", article);
 		goToScene("reviewpreview");
@@ -165,6 +195,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		
 		categoryChooserLabel.setText(categories.get(categoryPosition));
 		typeChooserLabel.setText(types.get(typePosition));
+		setLayoutImage(layouts.get(layoutPosition));
 		items = controller.getItemsList();
 	}
 
@@ -180,6 +211,9 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		
 		types.add("Review");
 		types.add("Guide");
+		
+		layouts.add("grid");
+		layouts.add("linear");
 	}
 	
 	private void loadItems(String category) {

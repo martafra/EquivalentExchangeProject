@@ -90,13 +90,11 @@ public class ArticleQuery extends Query{
 		String query = selectAllArticles(authorUserID);
 		
 		if(authorUserID != null) {
-			
-			query = query + " AND ";
-			
+			query = query + " AND validationStatus = 1";
 		}
-		
-		query = query + " WHERE validationStatus = 1";
-		
+		else {
+			query = query + " WHERE validationStatus = 1";
+		}
 		return query;
 		
 	}
@@ -106,11 +104,13 @@ public class ArticleQuery extends Query{
 		
 		if(authorUserID != null) {
 			
-			query = query + " AND ";
+			query = query + " AND validationStatus = 0";
 			
+		}else {
+			query = query + " WHERE validationStatus = 0";
 		}
 		
-		query = query + " WHERE validationStatus = 0";
+		
 		
 		return query;
 	}

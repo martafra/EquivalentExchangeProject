@@ -15,7 +15,7 @@ import logic.support.other.SceneManageable;
 public class ReviewPreviewView extends SceneManageable{
 
 	private WriteReviewController controller = new WriteReviewController();
-	
+	private ArticleBean articleData;
 	@FXML
 	private VBox reviewContainer;
 	@FXML
@@ -32,17 +32,19 @@ public class ReviewPreviewView extends SceneManageable{
 	
 	@FXML
 	public void acceptReview() {
-		
+		controller.acceptArticle(articleData);
+		goToScene("profile");
 	}
 	@FXML
 	public void rejectReview() {
-		
+		controller.rejectArticle(articleData);
+		goToScene("profile");
 	}
 	
 	@FXML
 	public void saveReview() {
 
-		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
+		articleData = (ArticleBean) getBundle().getBean("articleData");
 		controller.saveArticle(articleData);
 		
 		goToScene("reviewerpanel");
@@ -59,7 +61,7 @@ public class ReviewPreviewView extends SceneManageable{
 		
 		UserBean loggedUser = (UserBean) getBundle().getBean("loggedUser");
 		
-		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
+		articleData = (ArticleBean) getBundle().getBean("articleData");
 		reviewTitle.setText(articleData.getTitle());
 		ArticleBodyAdapter adapter = new ArticleBodyAdapter();
 		Pane container = adapter.buildArticleBody(articleData);

@@ -13,11 +13,11 @@ public class ArticleBodyAdapter {
 			case "grid":
 				body = new GridReviewContainer(article).getCaseBody();
 				break;
-			case "vertical":
+			case "linear":
 				body = new VerticalReviewContainer(article).getCaseBody();
 				break;
 			default:
-				body = new GridReviewContainer(article).getCaseBody();
+				body = new VerticalReviewContainer(article).getCaseBody();
 		}
 		return body;	
 	}

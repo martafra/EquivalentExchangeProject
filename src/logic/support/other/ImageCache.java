@@ -30,6 +30,10 @@ public class ImageCache {
 		}
 	}
 	
+	public Path getDirectoryPath() {
+		return directoryPath;
+	}
+	
 	public static ImageCache getInstance() {
 		if(instance == null)
 			instance = new ImageCache();
