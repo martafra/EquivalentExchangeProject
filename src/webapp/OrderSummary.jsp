@@ -12,6 +12,7 @@
 <%@ page import ="java.text.DateFormat" %>
 <%@ page import = "java.time.ZoneId" %>
 
+<jsp:useBean id = "order" scope = "session" class = "logic.bean.OrderBean"/>
 
 
 <%! ItemDetailsBean item = new ItemDetailsBean(); %>
@@ -49,6 +50,7 @@
 <%!OrderBean order = new OrderBean(); %>
 <% if (request.getParameter("selectedOrder") != null){
 	order = sController.generateOrderSummary(Integer.valueOf(((String)request.getParameter("selectedOrder"))));
+	session.setAttribute("selectedOrder", order);
 	item = iController.getItemDetails(order.getInvolvedItem().getItemID());
 	} 
 %>
@@ -171,11 +173,11 @@
 			</div>
 			<form action="OrderReview.jsp" method="POST">
 				<div>
-					<% if( (loggedUser.getUserID().equals(order.getBuyer().getUserID())) && (order.getReview() == null) ){
+					<% if( (loggedUser.getUserID().equals(order.getBuyer().getUserID())) && (order.getReview() == null)){
 						purchaseVis="";
 						purchaseAb="";
 					}
-					if( (!loggedUser.getUserID().equals(order.getBuyer().getUserID())) || (order.getReview() != null) ){
+					if( (!loggedUser.getUserID().equals(order.getBuyer().getUserID())) || (order.getReview() != null) || (order.getOrderDate() == null)){
 						purchaseVis="visibility:hidden";
 						purchaseAb="disabled";
 					} %>
