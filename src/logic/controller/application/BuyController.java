@@ -37,7 +37,7 @@ public class BuyController implements SaleController{
 		orderDAO.updateOder(order);
 	}
 	
-	private Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
+	public Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
 		
 		UserDAO userD = new UserDAO();
 		OrderDAO orderDAO = new OrderDAO();
@@ -103,7 +103,7 @@ public class BuyController implements SaleController{
 		OrderDAO orderDAO = new OrderDAO();
 		Order order = orderDAO.selectOrder(orderID);
 		
-		String buyer = order.getBuyer().getSurname();
+		String buyer = order.getBuyer().getUsername();
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
 		ItemInSale item = order.getInvolvedItem();
 		Integer itemID = item.getItemInSaleID();
@@ -119,7 +119,7 @@ public class BuyController implements SaleController{
 		itemDAO.updateItemInSale(item);
 		
 		MessageSender sender = new MessageSender();
-		sender.sendNotification(order.getBuyer().getUsername(), rejectedOrder);
+		sender.sendNotification(order.getInvolvedItem().getSeller().getUsername(), rejectedOrder);
 		
 		orderDAO.deleteOrder(orderID);
 	}

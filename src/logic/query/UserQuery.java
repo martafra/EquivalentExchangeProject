@@ -81,6 +81,7 @@ public class UserQuery extends Query{
 	}
 	
 	public String deleteUser(String username) {
+		username = quote(username);
 		String query = "DELETE FROM user WHERE username = %s;";
 		return String.format(query, username);
 	}

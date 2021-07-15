@@ -63,6 +63,11 @@ public class ItemQuery extends Query{
 		return String.format(query, genre, console, itemID);
 	}
 	
+	public String deleteItem(Integer itemID) {
+		String query = "DELETE FROM item WHERE itemID = %d;";
+		return String.format(query, itemID);
+	}
+	
 	
 	
 }

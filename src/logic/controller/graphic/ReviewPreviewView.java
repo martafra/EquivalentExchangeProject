@@ -2,6 +2,7 @@ package logic.controller.graphic;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import logic.bean.ArticleBean;
@@ -25,7 +26,8 @@ public class ReviewPreviewView extends SceneManageable{
 	private Button acceptReviewButton;
 	@FXML
 	private Button rejectReviewButton;
-	
+	@FXML
+	private Label reviewTitle;
 	
 	
 	@FXML
@@ -58,7 +60,7 @@ public class ReviewPreviewView extends SceneManageable{
 		UserBean loggedUser = (UserBean) getBundle().getBean("loggedUser");
 		
 		ArticleBean articleData = (ArticleBean) getBundle().getBean("articleData");
-		
+		reviewTitle.setText(articleData.getTitle());
 		ArticleBodyAdapter adapter = new ArticleBodyAdapter();
 		Pane container = adapter.buildArticleBody(articleData);
 		

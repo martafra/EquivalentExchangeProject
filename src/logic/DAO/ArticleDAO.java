@@ -197,6 +197,12 @@ public class ArticleDAO {
 				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
 				article.addMedia(filePath);
 			}
+			
+			if(article.getAllMedia().isEmpty())
+			{
+				article.addMedia("/logic/view/assets/images/missing.png");
+			}
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -253,10 +259,10 @@ public class ArticleDAO {
 					status = true;
 				}
 			
-				if(author.getUsername() == null)
-				{
+				/*if(author.getUsername() == null)
+				{*/
 					author = new UserDAO().selectUser(rs.getString("authorID"));
-				}
+				//}
 				
 				Item item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
 				
@@ -303,6 +309,12 @@ public class ArticleDAO {
 					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
 					art.addMedia(filePath);
 				}
+				
+				if(art.getAllMedia().isEmpty())
+				{
+					art.addMedia("/logic/view/assets/images/missing.png");
+				}
+				
 				rs2.close();	
 			}
 			for(Article art : articles) {

@@ -191,5 +191,31 @@ public class ItemDAO {
 		}
 	}
 	
+	public void deleteItem(int itemID) {
+		Statement stmt = null;
+		try {
+
+			Connection con = connection.getConnection();
+			stmt = con.createStatement();
+			String query = itemQ.deleteItem(itemID);
+			stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 }
