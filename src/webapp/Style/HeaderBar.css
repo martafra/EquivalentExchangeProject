@@ -33,9 +33,9 @@
 	float: right;
 }
 #user{
-	width: 200px;
-	float : left;
-	display: inline;
+	width: 230px;
+	float : right;
+	
 }
 #user > div{
 	width: 150px;
@@ -47,10 +47,13 @@
 #user > img{
 	width: 30px;
 	height: 30px;
+	padding: 10px;
+	margin-right: 10px;
+	float: right;
 }
 #logoImage{
-	width : 40px;
-	height: 40px;
+	width : 30px;
+	height: 30px;
 	margin: 5px;
 }
 

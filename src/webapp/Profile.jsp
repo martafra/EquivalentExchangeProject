@@ -24,6 +24,8 @@
 	Integer age = profileBean.getAge();
 	String city = profileBean.getCity();
 	String bio = profileBean.getDescription();
+	String picPath = profileBean.getProfilePicPath();
+	String coverPic = profileBean.getCoverPicPath();
 	if(bio == null){
 		bio = "There is no description for this user...";
 	}
@@ -67,7 +69,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="E:/Desktop/avatar.png" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -86,7 +88,7 @@
 		
 		<div id="banner"></div>
 		<div id="personalInfo">
-			<div id="profileImage"></div>
+			<img id="profileImage" src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
 			<div id="name"><%= name + " " + lastName %></div>
 			<div id="username"><%= username %></div>
 			<div id="overallRatings">
@@ -125,7 +127,10 @@
 						
 						
 						%> <div class="product">
-							<div class="productImage"></div>
+							<div class="productImage">
+								<img src="file?path=<%=item.getMediaPath() %>" alt="product"/>
+								
+							</div>
 							
 							<div class="productName"><%=itemName %></div>
 							<div class="price"><%=priceText %></div>
@@ -149,7 +154,9 @@
 						}
 						
 						%> <div class="article">
-							<div class="articleImage"></div>
+							<div class="articleImage">
+								<img src="file?path=<%=art.getMediaPaths().get(0) %>" alt="product"/>
+							</div>
 							
 							<div class="title"><%=title %></div>
 							<div class="articleText"><%=articleText %></div>
