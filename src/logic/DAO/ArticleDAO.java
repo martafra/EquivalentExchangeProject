@@ -186,7 +186,7 @@ public class ArticleDAO {
 			article.setType(rs.getString("articleType"));
 			String body = rs.getString("body");
 			String[] texts = body.split(ESCAPE_CHARACTER.toString());
-			for(Integer i = 0; i < texts.length - 1; i++)
+			for(Integer i = 0; i < texts.length ; i++)
 				article.setText(texts[i], i);
 			ImageCache mediaCache = ImageCache.getInstance();
 			query = mediaQuery.retrieveAllMedia(articleID);
@@ -292,7 +292,7 @@ public class ArticleDAO {
 				article.setType(rs.getString("articleType"));
 				String body = rs.getString("body");
 				String[] texts = body.split(ESCAPE_CHARACTER.toString());
-				for(Integer i = 0; i < texts.length - 1; i++)
+				for(Integer i = 0; i < texts.length  ; i++)
 					article.setText(texts[i], i);	
 				articles.add(article);
 			}
