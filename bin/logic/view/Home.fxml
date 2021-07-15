@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.HomeController">
+   <children>
+      <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="363.0" prefHeight="109.0" prefWidth="547.0" style="-fx-font-size: 14;" text="if you don’t have enough credit to buy an item rightnow, or simply you would like to track the price of an object to be notified if it goes down at any time,then add the item to your wishlist and never worry again about the deals you may miss!  " textAlignment="CENTER" wrapText="true" />
+      <Label alignment="TOP_CENTER" layoutX="720.0" layoutY="363.0" prefHeight="136.0" prefWidth="547.0" style="-fx-font-size: 14;" text="if you do have the same passions as ours, you will be surelly full of plenty of old items like books or DVDs, so give them a new life selling these articles on our marketplace. You can trade all your stuff for in-app currency, that you can spend for other incredible stuff that other users want to sell. All of this without taking and to your wallet!" textAlignment="CENTER" wrapText="true" />
+      <Label alignment="TOP_CENTER" layoutX="385.0" layoutY="211.0" prefHeight="142.0" prefWidth="510.0" style="-fx-font-size: 14;" text="Write down your toughts about your favorite books, movies and videogames, in the form of a professional review or, in case you are a gamer, share your tips and tricks with other people by writing a guide or a tutorial.Every contribute to the community is essential and will be rewarded with in-app currency!" textAlignment="CENTER" wrapText="true" />
+      <Label alignment="TOP_CENTER" layoutX="231.0" layoutY="591.0" prefHeight="109.0" prefWidth="819.0" style="-fx-font-size: 14;" text="  Our goal is to create a place where people with the same passions can share them with others.We want to create a community where anyone can trade their used goods, from videogames to books,to let these objects to have a second life, also allowing his previous owner to make a profit out of them." textAlignment="CENTER" wrapText="true" />
+      <Label layoutX="205.0" layoutY="337.0" style="-fx-font-size: 17;" text="SELL A PRODUCT" />
+      <Label layoutX="569.0" layoutY="185.0" style="-fx-font-size: 17;" text="WRITE AN ARTICLE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="833.0" layoutY="337.0" prefHeight="26.0" prefWidth="320.0" style="-fx-font-size: 17;" text="CHECK YOUR WISHLIST" textAlignment="CENTER" />
+      <Label layoutX="586.0" layoutY="565.0" style="-fx-font-size: 17;" text="OUR MISSION" />
+      <ImageView fitHeight="177.0" fitWidth="167.0" layoutX="204.0" layoutY="157.0" onMouseClicked="#goToSellerPanel" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images/buy.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="177.0" fitWidth="167.0" layoutX="557.0" layoutY="14.0" onMouseClicked="#goToReviewerPanel" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images/article.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="177.0" fitWidth="167.0" layoutX="910.0" layoutY="157.0" onMouseClicked="#goToWishlist" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images/wishlist.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

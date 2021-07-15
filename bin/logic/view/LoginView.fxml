@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.LoginView">
+   <children>
+      <TextField fx:id="userText" layoutX="480.0" layoutY="219.0" prefHeight="34.0" prefWidth="321.0" promptText="type your username..." />
+      <PasswordField fx:id="passText" layoutX="480.0" layoutY="333.0" prefHeight="34.0" prefWidth="321.0" promptText="type your password..." />
+      <Button layoutX="480.0" layoutY="423.0" mnemonicParsing="false" onAction="#goToRegistration" prefHeight="34.0" styleClass="orange-clickable" text="Create an Account">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding></Button>
+      <Button fx:id="loginButton" layoutX="726.0" layoutY="423.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" styleClass="orange-clickable" text="Login">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding></Button>
+      <Label layoutX="480.0" layoutY="202.0" text="username:" />
+      <Label layoutX="480.0" layoutY="316.0" text="password:" />
+   </children>
+</AnchorPane>

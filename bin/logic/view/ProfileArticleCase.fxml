@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="profArticleCase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="157.0" style="-fx-background-color: FFD9BD; -fx-border-radius: 12; -fx-background-radius: 12;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="29.0" layoutY="14.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: BLACK;" />
+      <ImageView fx:id="articlePreview" fitHeight="100.0" fitWidth="100.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" />
+      <Label fx:id="articleTitle" alignment="TOP_CENTER" layoutY="132.0" prefHeight="64.0" prefWidth="157.0" text="Label" textAlignment="CENTER" wrapText="true" />
+   </children>
+</Pane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+
+<Pane prefHeight="269.0" prefWidth="218.0" style="-fx-background-color: #FFF1E9; -fx-background-radius: 12; -fx-border-radius: 12;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ItemCatalogueView">
+   <children>
+      <Label fx:id="titleText" alignment="TOP_CENTER" layoutX="7.0" layoutY="201.0" onMouseClicked="#click" prefHeight="34.0" prefWidth="205.0" text="Title" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="priceText" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="238.0" prefHeight="17.0" prefWidth="205.0" text="Price" textFill="#ff6a00" />
+      <ImageView fx:id="imageView" fitHeight="180.0" fitWidth="180.0" layoutX="19.0" layoutY="14.0" onMouseClicked="#click" pickOnBounds="true" preserveRatio="true">
+            	
+          	</ImageView> 
+   </children>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.5" />
+         </color>
+      </DropShadow>
+   </effect>
+</Pane>

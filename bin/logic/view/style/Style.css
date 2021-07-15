@@ -1,0 +1,104 @@
+
+
+.root{
+    -fx-font-family: "Spartan";
+}
+.bubble-background{
+	-fx-background-image: url("../assets/images/ee-bg.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 1280 720;
+    -fx-background-position: center center;
+}
+
+.orange-clickable{
+	-fx-background-color: #FF6A00;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 14px;
+}
+
+.orange-clickable:hover{
+	-fx-background-color: #FF7B00;
+}
+
+.orange-clickable:pressed{
+	-fx-background-color: #FF6600;
+}
+.green-link{
+	-fx-text-fill: #5AC02A;
+}
+.green-link:hover{
+	-fx-text-fill: #5CC22C;
+}
+.green-clickable{
+	-fx-background-color: #5AC02A;
+	-fx-text-fill: #FFFFFF;
+}
+.green-clickable:hover{
+	-fx-background-color: #5CC22C;
+}
+
+.white-text-combobox{
+	-fx-font-size: 16;
+}
+.white-text-combobox .label{
+	-fx-text-fill: #FFFFFF;
+}
+
+
+.tab{
+	-fx-background-color: #FF6A00;
+	-fx-text-fill: #FFFFFF;
+}
+.rounded-pane{
+	-fx-border-radius: 15px;
+}
+.date-picker:editable > .arrow-button > * {
+    -fx-opacity: 0; /* Set the node in the button to be visible */
+}
+
+.date-picker > .arrow-button {
+	-fx-background-image: url("../assets/icons/calendar.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center center;
+	-fx-background-color: #FF6A00;
+	-fx-background-size: 18 18;
+}
+
+.community-button{
+	-fx-background-color: #FFFFFF;
+	-fx-border-color: #BDDDC0;
+	-fx-border-width: 1 1 0 1;
+	}
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 10px;    
+}
+
+.axis-label {
+  -fx-text-fill: #000000;
+}
+ 
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 10px;
+}
+ 
+.chart-legend-item-symbol{
+   -fx-background-radius: 0;
+}
+ 
+.chart-legend-item{
+    -fx-text-fill: #000000;
+}
+
+.chart-plot-background {
+    -fx-background-color: #FFFFFF;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #FFFFFF;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #FFFFFF;
+}

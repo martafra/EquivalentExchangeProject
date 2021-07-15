@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" styleClass="bubble-background" stylesheets="@style/Style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.controller.graphic.ReviewerPanelView">
+   <children>
+      <VBox prefHeight="720.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="480.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="40.0" prefWidth="480.0" style="-fx-font-size: 16; -fx-text-fill: #5AC02A;" text="Accepted reviews">
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="680.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="reviewsBox" prefHeight="680.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox prefHeight="720.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="480.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="40.0" prefWidth="480.0" style="-fx-font-size: 16; -fx-text-fill: #FF6A00;" text="Accepted guides">
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="680.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="guidesBox" prefHeight="680.0" prefWidth="480.0" style="-fx-background-color: FFFFFF;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <Button fx:id="writeReviewButton" mnemonicParsing="false" onAction="#goToWriteReview" prefHeight="60.0" prefWidth="220.0" style="-fx-font-size: 16;" styleClass="green-clickable" stylesheets="@style/Style.css" text="Write article">
+         <HBox.margin>
+            <Insets left="50.0" right="50.0" top="300.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+</HBox>
