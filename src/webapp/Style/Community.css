@@ -1,6 +1,6 @@
 
 #filterText{
-	
+
 	margin: 80px auto 0px auto;
 	width: 1000px;
 }
@@ -17,21 +17,33 @@
 	width: 19%;
 	border: 2px solid #D7E9D8;
 	background-color: white;
+	font-size: 14pt;
 }
 #navBar > form > input:hover{
 	background-color: #D7E9D8;
 }
 .articleCase{
-	width: 44%;
+	display: inline-block;
+	width: 40%;
 	height: 300px;
-	margin: 1%;
+	margin: 2%;
 	border-radius: 10px;
 	padding : 2%;
+	
 }
 #reviewsContainer{
+	overflow: auto;
+	overflow-x: hidden;
+	
 	width: 1000px;
+	height:740px;
 	margin: 10px auto;
+	
 }
+#reviewsContainer::-webkit-scrollbar {
+    display: none;
+}
+
 .author{
 	float: right;
 	width: 50%;
@@ -62,4 +74,19 @@
 	height: 50%;
 	margin-bottom: 10px;
 	background-color: grey;
+}
+
+#searchBar{
+	border-color: #BDDDC0;
+	border-radius: 10px;
+	height: 20px;
+	font-size: 14pt;
+	
+}
+
+#searchBtn{
+	background-color: #BDDDC0;
+	border-radius: 10px;
+	height: 30px;
+	font-size: 12pt;
 }

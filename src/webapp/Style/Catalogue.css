@@ -66,6 +66,10 @@
 	height:700px;
 	overflow: auto;
 	overflow-x: hidden;
+	
+}
+.items::-webkit-scrollbar {
+    display: none;
 }
 
 .itemBox{

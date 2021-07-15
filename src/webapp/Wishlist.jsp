@@ -21,7 +21,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Wishlist</title>
+		<title>EE - Wishlist</title>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
 		<link rel="stylesheet" href="Style/Wishlist.css">
@@ -35,8 +35,7 @@
 
             	<span><a href="Home.jsp" class ="link">HOME</a></span>
             	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
-            	<span>COMMUNITY</span>
-
+            	<span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
             	<div id="login">
 			<%	

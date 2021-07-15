@@ -97,7 +97,7 @@
 		<link rel="stylesheet" href="Style/HeaderBar.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<meta charset="ISO-8859-1">
-		<title>Catalogue</title>
+		<title>EE - Catalogue</title>
 	</head>
 	<body>
 			<div id="headerbar">
@@ -107,7 +107,7 @@
 
             	<span><a href="Home.jsp" class ="link">HOME</a></span>
             	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
-            	<span>COMMUNITY</span>
+            	<span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             	<div id="login">

@@ -22,8 +22,8 @@
 			
 			
 			<span><a href="Home.jsp" class ="link">HOME</a></span>
-			<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
-			<span>COMMUNITY</span>
+            <span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 			
 			
 			<div id="login">
