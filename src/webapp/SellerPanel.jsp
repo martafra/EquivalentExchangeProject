@@ -24,14 +24,15 @@
 						
 %>
 <%List<ItemInSaleBean> items = sController.getItemList(((UserBean)session.getAttribute("loggedUser"))); %>
-<%	if( request.getParameter("accept") != null && reqMap.get((request.getParameter("reqBean")))!=null){
+<%	if(request.getParameter("accept") != null && reqMap.get((request.getParameter("reqBean")))!=null){
 		sController.acceptRequest(reqMap.get(request.getParameter("reqBean")));
 		requests = sController.getRequestList(((UserBean)session.getAttribute("loggedUser")));
+		reqMap.remove(request.getParameter("reqBean"));
 		items = sController.getItemList(((UserBean)session.getAttribute("loggedUser")));
 } %>
 <%	if( request.getParameter("reject") != null && reqMap.get((request.getParameter("reqBean")))!=null){
 		sController.rejectRequest(reqMap.get(request.getParameter("reqBean")));
-		requests = sController.getRequestList(((UserBean)session.getAttribute("loggedUser")));
+		reqMap.remove(request.getParameter("reqBean"));
 		items = sController.getItemList(((UserBean)session.getAttribute("loggedUser")));
 } %>
 
