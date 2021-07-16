@@ -75,9 +75,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -117,7 +117,7 @@
         });
     </script>
     
-    <div style="width: 900px; height: 600px; background-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin: 86px auto">
+    <div style="width: 40%; height: 650px; background-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin: 106px auto">
     	<div>
     			<% if(!(order.getBuyer().getUserID().equals(loggedUser.getUserID()))) {
 					involvedUser="Buyer: " + order.getBuyer().getUserID();
@@ -125,7 +125,7 @@
 				else {
 					involvedUser="Seller: " + item.getSeller().getUserID();
 				} %>
-			<div style ="display:inline-block;margin-top:50px; margin-left:50px; float:left; width:200px; height:150px; background-color:red;">img placeholder</div>
+			<div style ="display:inline-block;margin-top:50px; margin-left:50px; float:left; width:200px; height:150px;"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
 			<div style="display:inline-block;margin-top:50px;margin-left:100px;font-size:15px;line-height:2;"><%=order.getInvolvedItem().getItemName() %><br>
 																	Condition:<%=item.getCondition() %><br>
 																	Price: <%=item.getPrice() %>coins<br>
@@ -158,7 +158,7 @@
 			<div style = "margin-top:20px; margin-left:50px;font-size:15px">
 				<div >Payment code:</div>
 				<form>
-				<%  if(loggedUser.getUserID().equals(order.getBuyer().getUserID()) || order.getOrderDate()!= null){
+				<%  if(loggedUser.getUserID().equals(order.getBuyer().getUserID()) || order.getOrderDate()!= null || order.getStartDate()==null){
 						codeField = order.getCode();
 						codeType="readonly";
 						verifyAb="disabled";
