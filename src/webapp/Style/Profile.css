@@ -68,6 +68,7 @@
 }
 .articleText{
 	overflow: hidden;
+	height: 30px;
 }
 .article{
 	background-color: #FFD9BD !important;

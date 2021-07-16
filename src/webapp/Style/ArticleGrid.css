@@ -1,0 +1,49 @@
+.textDiv{
+	width: 1000px;
+	margin: 0 auto;
+	height: 300px;
+	padding: 10px;
+	background-color: white;
+	
+}
+
+#authorBar{
+	width: 1000px;
+	margin: 10px auto;
+}
+
+#articleHeader{
+	width: 1200px;
+	margin: 10px auto;
+	height: 50px;
+}
+#articleHeader > *{
+	display: inline;
+}
+#articleTitle{
+	font-size: 20px;
+	width: 800px;
+	float: left;
+}
+#header-right{
+	width: 400px;
+	float: right;
+	
+}
+#header-right > *{
+	display: inline;
+
+}
+.textDiv > img, .substitute{
+	width: 300px;
+	height: 300px;
+	display: inline;
+	float: left;
+}
+.textDiv > div{
+	width: 700px;
+	height: 300px;
+	overflow: hidden;
+	float: left;
+	display: inline;
+}

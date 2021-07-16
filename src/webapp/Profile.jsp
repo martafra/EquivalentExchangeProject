@@ -26,6 +26,9 @@
 	String bio = profileBean.getDescription();
 	String picPath = profileBean.getProfilePicPath();
 	String coverPic = profileBean.getCoverPicPath();
+	
+	
+	
 	if(bio == null){
 		bio = "There is no description for this user...";
 	}
@@ -85,10 +88,15 @@
 			</div>
 			
 		</div>		
-		
-		<div id="banner"></div>
+		<%if(coverPic == null){
+			%> <img id="banner" src="assets/images/ee-bg.png" alt="e"/> <%
+		}
+		else{
+			%> <img id="banner" src="file?path=<%= coverPic %>" alt="e"/> <%
+		}
+		%>
 		<div id="personalInfo">
-			<img id="profileImage" src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+			<img id="profileImage" src="file?path=<%=picPath %>" alt="e"/>
 			<div id="name"><%= name + " " + lastName %></div>
 			<div id="username"><%= username %></div>
 			<div id="overallRatings">
@@ -131,8 +139,11 @@
 								<img src="file?path=<%=item.getMediaPath() %>" alt="product"/>
 								
 							</div>
+							<form action="ItemDetails.jsp" method="POST">
+							<input type="text" style="width: 0px; height: 0px; visibility:hidden;" name="itemID" value = "<%=item.getItemID() %>"/>
+							<input type="submit" class="productName" name="itemName" value="<%=itemName %>">
+							</form>
 							
-							<div class="productName"><%=itemName %></div>
 							<div class="price"><%=priceText %></div>
 						</div><%
 						
