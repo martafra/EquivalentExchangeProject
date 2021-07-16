@@ -31,7 +31,6 @@ public class RequestDAO {
 			stmt.executeUpdate(query);
 	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -41,7 +40,6 @@ public class RequestDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -72,7 +70,6 @@ public class RequestDAO {
 			request = new Request(userDAO.selectUser(buyer), itemDAO.selectItemInSale(item), status, rs.getString("note"));
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -82,7 +79,6 @@ public class RequestDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -111,7 +107,6 @@ public class RequestDAO {
 				requests.add(new Request(userDAO.selectUser(rs.getString("buyer")), itemDAO.selectItemInSale(rs.getInt("referredItemID")), status, rs.getString("note")));
 			}		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -121,7 +116,6 @@ public class RequestDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -139,7 +133,6 @@ public class RequestDAO {
 			stmt.executeUpdate(query);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -149,7 +142,6 @@ public class RequestDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

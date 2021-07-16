@@ -79,7 +79,6 @@ public class OrderDAO {
 			
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -93,7 +92,6 @@ public class OrderDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -124,7 +122,6 @@ public class OrderDAO {
 					if(rs.getString("startDate") != null)
 						startDate = format.parse(rs.getString("startDate"));
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -158,7 +155,6 @@ public class OrderDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -172,7 +168,6 @@ public class OrderDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -205,7 +200,6 @@ public class OrderDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -215,7 +209,6 @@ public class OrderDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -252,7 +245,6 @@ public class OrderDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -262,7 +254,6 @@ public class OrderDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -278,7 +269,6 @@ public class OrderDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -288,7 +278,6 @@ public class OrderDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

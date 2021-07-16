@@ -36,7 +36,6 @@ public class ArticleReviewDAO {
 				votes.add(new ArticleReview(rs.getInt("value"), author));
 			}
 		} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 
 			} finally {
@@ -48,7 +47,6 @@ public class ArticleReviewDAO {
 						stmt.close();
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -71,7 +69,6 @@ public class ArticleReviewDAO {
 			stmt.executeUpdate(query);
 			
 		} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 
 			} finally {
@@ -80,7 +77,6 @@ public class ArticleReviewDAO {
 						stmt.close();
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

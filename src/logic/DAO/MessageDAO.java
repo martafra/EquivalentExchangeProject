@@ -44,7 +44,6 @@ public class MessageDAO {
 				messages.add(message);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		} finally {
@@ -56,7 +55,6 @@ public class MessageDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -89,7 +87,6 @@ public class MessageDAO {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		} finally {
@@ -101,7 +98,6 @@ public class MessageDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -119,10 +115,8 @@ public class MessageDAO {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
 			String query = mQuery.addMessage(senderID, receiverID, text, messageDate);
-			System.out.println(query);
 			stmt.executeUpdate(query);
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		} finally {
@@ -131,7 +125,6 @@ public class MessageDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -80,7 +80,6 @@ public class UserDAO {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -94,7 +93,6 @@ public class UserDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -124,7 +122,6 @@ public class UserDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -134,7 +131,6 @@ public class UserDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -163,7 +159,6 @@ public class UserDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -173,7 +168,6 @@ public class UserDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -189,7 +183,6 @@ public class UserDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -199,7 +192,6 @@ public class UserDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

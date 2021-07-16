@@ -58,7 +58,6 @@ public class UserProfileDAO {
 				
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
@@ -70,7 +69,6 @@ public class UserProfileDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -90,10 +88,8 @@ public class UserProfileDAO {
 			String bio = profileData.getBioInfo();
 			
 			String query = profileQuery.updateProfile(username, profilePicPath, coverPicPath, bio, phoneNumber);
-			System.out.println(query);
 			stmt.executeUpdate(query);	
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
@@ -101,7 +97,6 @@ public class UserProfileDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

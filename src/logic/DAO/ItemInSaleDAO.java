@@ -70,7 +70,6 @@ public class ItemInSaleDAO {
 				rs2.close();
 			}	
 		} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 
 			} finally {
@@ -85,7 +84,6 @@ public class ItemInSaleDAO {
 						stmt.close();
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -144,10 +142,8 @@ public class ItemInSaleDAO {
 
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.selectItemInSale()");
 
 		} finally {
 			try {
@@ -161,7 +157,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -190,7 +185,6 @@ public class ItemInSaleDAO {
 														itemCondition, preferredLocation, referredItem, userID);
 			stmt.executeUpdate(query);
 
-			//TODO valutare se avviare un thread per caricare ogni singola immagine
 			Integer mediaID = 0;
 
 			for(String mediaPath : itemInSale.getMedia()){
@@ -203,7 +197,6 @@ public class ItemInSaleDAO {
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -213,7 +206,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -244,10 +236,8 @@ public class ItemInSaleDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.updateItemInSale()");
 
 		} finally {
 			try {
@@ -255,7 +245,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -277,10 +266,8 @@ public class ItemInSaleDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.deleteItemInSale()");
 
 		} finally {
 			try {
@@ -288,7 +275,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -339,9 +325,7 @@ public class ItemInSaleDAO {
 				rs2.close();
 			}	
 		}catch(SQLException e) {
-			//TODO gestire eccezione
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.getOtherItem()");
 		}
 		
 		finally {
@@ -354,7 +338,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -406,9 +389,7 @@ public class ItemInSaleDAO {
 			}	
 			
 		}catch(SQLException e) {
-			//TODO gestire eccezione
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemInSaleDao.getItemsInSaleListFiltered()");
 		}
 		
 		finally {
@@ -421,7 +402,6 @@ public class ItemInSaleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -478,11 +458,8 @@ public class ItemInSaleDAO {
 				rs2.close();
 			}	
 		} catch (SQLException e) {
-				// TODO Auto-generated catch block
 
 				e.printStackTrace();
-				System.out.println("Attenzione: Errore nella ItemInSaleDao.getItemInSaleWishlist()");
-
 			} finally {
 				try {
 					if (rs != null) {
@@ -495,7 +472,6 @@ public class ItemInSaleDAO {
 						stmt.close();
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -38,7 +38,6 @@ public class WishlistDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -52,7 +51,6 @@ public class WishlistDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -72,7 +70,6 @@ public class WishlistDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -82,7 +79,6 @@ public class WishlistDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -100,7 +96,6 @@ public class WishlistDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -110,7 +105,6 @@ public class WishlistDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

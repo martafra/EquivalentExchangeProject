@@ -43,7 +43,6 @@ public class ItemDAO {
 				itemList.add(factory.makeItem(data)); 
 			}
 		}catch(SQLException e) {
-			//TODO gestire eccezione
 		}
 		finally {
 			try {
@@ -55,7 +54,6 @@ public class ItemDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -88,10 +86,8 @@ public class ItemDAO {
 	
 	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemDao.selectItem()");
 
 		} finally {
 			try {
@@ -103,7 +99,6 @@ public class ItemDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -119,13 +114,11 @@ public class ItemDAO {
 				for (int i = 1; i <= columnCount; i++) {
 					String columnName = rs.getMetaData().getColumnName(i);
 					ret.put(columnName , rs.getString(columnName));
-					//ret.add(rs.getString(i));
 				}
 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella 'storeRs()'");
 		}
 		return ret;
 	}
@@ -174,10 +167,8 @@ public class ItemDAO {
 			}
 				
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			System.out.println("Attenzione: Errore nella ItemDao.insertItem()");
 
 		} finally {
 			try {
@@ -185,7 +176,6 @@ public class ItemDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -201,7 +191,6 @@ public class ItemDAO {
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -211,7 +200,6 @@ public class ItemDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -1,6 +1,7 @@
 package logic.DAO;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import logic.entity.Article;
 import logic.entity.Item;
-import logic.entity.ItemInSale;
 import logic.entity.User;
 import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;
@@ -37,22 +36,22 @@ public class ArticleDAO {
 	public void insertArticle(Article article) {
 		Statement stmt = null;
 		try {
-			Connection con = connection.getConnection();
+			var con = connection.getConnection();
 			stmt = con.createStatement();
 			Integer articleID = article.getArticleID();
 			String title = article.getTitle();
-			String body = "";
+			var body = "";
 			for(Integer i = 0; i < 4; i++) {
 				body += article.getText(i) + ESCAPE_CHARACTER.toString();
 			}
 			LayoutType layout = article.getLayout();
-			String layoutString = layout.toString().substring(0,1);
+			var layoutString = layout.toString().substring(0,1);
 			ArticleType type = article.getType();
-			String typeString = type.toString().substring(0,1);
+			var typeString = type.toString().substring(0,1);
 			String authorID = article.getAuthor().getUsername();
 			Boolean validationStatus = article.isValidated();
 			Integer reviewPoints = 0;
-			Date publishingDate = article.getPublishingDate();
+			var publishingDate = article.getPublishingDate();
 			
 			Integer referredItemID = article.getReferredItem().getItemID();
 			
@@ -64,7 +63,6 @@ public class ArticleDAO {
 
 			for(String mediaPath : article.getAllMedia()){
 				query = mediaQuery.insertMedia(articleID, mediaPath, mediaID);
-				System.out.println(query);
 				stmt.executeUpdate(query);
 				mediaID++;
 			}
@@ -77,8 +75,6 @@ public class ArticleDAO {
 			
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
 			e.printStackTrace();
 
 		} finally {
@@ -87,7 +83,6 @@ public class ArticleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -97,18 +92,18 @@ public class ArticleDAO {
 	public void updateArticle(Article article) {
 		Statement stmt = null;
 		try {
-			Connection con = connection.getConnection();
+			var con = connection.getConnection();
 			stmt = con.createStatement();
 			Integer articleID = article.getArticleID();
 			String title = article.getTitle();
-			String body = "";
+			var body = "";
 			for(Integer i = 0; i < 4; i++) {
 				body += article.getText(i) + ESCAPE_CHARACTER.toString();
 			}
 			LayoutType layout = article.getLayout();
-			String layoutString = layout.toString().substring(0,1);
+			var layoutString = layout.toString().substring(0,1);
 			ArticleType type = article.getType();
-			String typeString = type.toString().substring(0,1);
+			var typeString = type.toString().substring(0,1);
 			Boolean validationStatus = article.isValidated();
 			Integer reviewPoints = 0;
 			
@@ -116,8 +111,6 @@ public class ArticleDAO {
 			
 			stmt.executeUpdate(query);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-
 				e.printStackTrace();
 
 			} finally {
@@ -126,7 +119,6 @@ public class ArticleDAO {
 						stmt.close();
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -141,9 +133,8 @@ public class ArticleDAO {
 		
 		try {
 			
-			Connection con = connection.getConnection();
+			var con = connection.getConnection();
 			stmt = con.createStatement();
-			System.out.println(query);
 			rs = stmt.executeQuery(query);
 			
 			if(!rs.next())
@@ -155,10 +146,10 @@ public class ArticleDAO {
 			}
 		
 			
-			User author = new UserDAO().selectUser(rs.getString("authorID"));
+			var author = new UserDAO().selectUser(rs.getString("authorID"));
 			
 			
-			Item item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
+			var item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
 			
 			article = new Article(
 						rs.getInt("articleID"),
@@ -168,7 +159,7 @@ public class ArticleDAO {
 						author
 					);
 			
-			String dateString = rs.getString("publishingDate");
+			var dateString = rs.getString("publishingDate");
 			Date date = null;
 			
 			if(dateString != null) {
@@ -184,11 +175,11 @@ public class ArticleDAO {
 			article.setPublishingDate(date);
 			article.setLayout(rs.getString("layout"));
 			article.setType(rs.getString("articleType"));
-			String body = rs.getString("body");
+			var body = rs.getString("body");
 			String[] texts = body.split(ESCAPE_CHARACTER.toString());
 			for(Integer i = 0; i < texts.length ; i++)
 				article.setText(texts[i], i);
-			ImageCache mediaCache = ImageCache.getInstance();
+			var mediaCache = ImageCache.getInstance();
 			query = mediaQuery.retrieveAllMedia(articleID);
 			rs2 = stmt.executeQuery(query);
 			while(rs2.next()) {
@@ -217,7 +208,6 @@ public class ArticleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -247,7 +237,6 @@ public class ArticleDAO {
 			
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			System.out.println(query);
 			rs = stmt.executeQuery(query);
 			
 			
@@ -258,13 +247,10 @@ public class ArticleDAO {
 				if(rs.getInt("validationStatus") == 1) {
 					status = true;
 				}
-			
-				/*if(author.getUsername() == null)
-				{*/
 					author = new UserDAO().selectUser(rs.getString("authorID"));
-				//}
+
 				
-				Item item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
+				var item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
 				
 				article = new Article(
 							rs.getInt("articleID"),
@@ -274,7 +260,7 @@ public class ArticleDAO {
 							author
 						);
 				
-				String dateString = rs.getString("publishingDate");
+				var dateString = rs.getString("publishingDate");
 				Date date = null;
 				
 				if(dateString != null) {
@@ -290,14 +276,14 @@ public class ArticleDAO {
 				article.setPublishingDate(date);
 				article.setLayout(rs.getString("layout"));
 				article.setType(rs.getString("articleType"));
-				String body = rs.getString("body");
+				var body = rs.getString("body");
 				String[] texts = body.split(ESCAPE_CHARACTER.toString());
 				for(Integer i = 0; i < texts.length  ; i++)
 					article.setText(texts[i], i);	
 				articles.add(article);
 			}
 			
-			ImageCache mediaCache = ImageCache.getInstance();
+			var mediaCache = ImageCache.getInstance();
 			
 			for(Article art : articles) {
 				Integer articleID = art.getArticleID();
@@ -346,7 +332,6 @@ public class ArticleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -361,13 +346,12 @@ public class ArticleDAO {
 		Statement stmt = null;
 		try {
 
-			Connection con = connection.getConnection();
+			var con = connection.getConnection();
 			stmt = con.createStatement();
 			String query = articleQuery.deleteArticle(article.getArticleID());
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 
 			e.printStackTrace();
 
@@ -377,7 +361,6 @@ public class ArticleDAO {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
