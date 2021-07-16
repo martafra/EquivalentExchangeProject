@@ -93,14 +93,14 @@
     	<div style="padding-top:30px">
     		<div style="text-align:center"> <%= wController.getCredit(loggedUser).toString() %> </div>
     	</div>
-    	<div style = "width:709px; height:500px; overflow: scroll; background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin:66px auto">
+    	<div style = "width:709px; height:800%; overflow: scroll; background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin:66px auto">
 			<%	for (OrderBean prevOrder: prevOrders){
 					bController.checkRemainingTime(prevOrder);
 			} %>
 			<% 	List<OrderBean> orders = wController.getOrderList(loggedUser);
 				for(OrderBean order: orders){
 				
-				%><div style="border-bottom-style:solid;border-bottom-widht:2px;border-color: #D4CEAB;">
+				%><div style="height:120px;width:100%;border-bottom-style:solid;border-bottom-widht:2px;border-color: #D4CEAB;">
 					<% 
 					DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					if(order.getOrderDate() != null) {
@@ -119,11 +119,13 @@
 						involvedUser="Seller: " + order.getInvolvedItem().getSeller().getUserID();
 					} %>
 					<div>
+						<div style="height:80px;width:80px"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" style="height:100%;width:100%;margin-top:20px; margin-left:15px;"></div>
 						<div style="display:inline-block;"><form action="OrderSummary.jsp" name = "orderSum" method = "POST"><div style="display:inline-block;margin-left:116px;margin-top:24px;font-size:12px">Order ID: #<input type="submit" name="selectedOrder" style="display:inline-block;margin-top:24px;font-size:12px;border-color:#FFFFFF;background-color:#FFFFFF;border:0px" value="<%= order.getOrderID() %>"></div></form></div>
-						<div style="display:inline-block;margin-left:50px;margin-top:24px;font-size:12px;color:#797979"><%=statusDate %></div>
-						<div style="display:inline-block;margin-left:50px;margin-top:24px;font-size:12px;"><%=order.getInvolvedItem().getPrice()%> coins</div>
+						<div style="display:inline-block;margin-left:80px;margin-top:24px;font-size:12px;color:#797979"><%=statusDate %></div>
+						<div style="display:inline-block;margin-left:80px;margin-top:24px;font-size:12px;"><%=order.getInvolvedItem().getPrice()%> coins</div>
 					</div>
 						<div>
+							
 							<div style="display:inline-block; margin-left:116px;margin-top:37px;font-size:12px;"><%= order.getInvolvedItem().getItemName() %></div>
 							<div style="display:inline-block; margin-left:50px;margin-top:24px;font-size:12px;"><%=involvedUser %></div>
 						</div>
