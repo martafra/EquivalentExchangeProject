@@ -22,7 +22,6 @@ public class ConnectionServer implements Runnable{
 	private static ConnectionServer instance = null;
 	
 	private ConnectionServer(){
-		// TODO valutare eventuale porta vuota
 		try {
 			
 			int port;
@@ -34,7 +33,6 @@ public class ConnectionServer implements Runnable{
 			handler = new ServerSocket(port);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		threadReference = new Thread(this);
@@ -60,8 +58,6 @@ public class ConnectionServer implements Runnable{
 		try {
 			this.handler.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Non sono riuscito a chiudere il server");
 		}
 	}
 	
@@ -72,21 +68,17 @@ public class ConnectionServer implements Runnable{
 	@Override
 	public void run() {
 		
-		// TODO valutare eventuale condizione di uscita
 		while(true) {
 			try {
 				if(!running.get())
 					break;
 				Socket connectedUser = handler.accept();
-				// TODO verbose
-				System.out.println("Connessione con utente eseguita");
 				var userHandler = new Thread(new ConnectionHandler(connectedUser, mailbox));
 				userHandler.start();
 			} catch(SocketException e) {
 				if(!running.get())
 					break;
 			}catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}
