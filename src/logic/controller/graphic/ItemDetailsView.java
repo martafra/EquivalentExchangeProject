@@ -232,15 +232,15 @@ public class ItemDetailsView extends SceneManageable {
     public void fillOtherSeller() {
     		List<ItemInSaleBean> itemInSale = controller.getOtherItem(seller.getUserID(), item.getItemName());
     		otherItemBox.getChildren().clear();
-    		for(ItemInSaleBean item: itemInSale) {
-    			OtherItemCase otherItem = new OtherItemCase(item);
+    		for(ItemInSaleBean itemInSaleBean: itemInSale) {
+    			OtherItemCase otherItem = new OtherItemCase(itemInSaleBean);
     			otherItemBox.getChildren().add(otherItem.getBody());
     			
     			otherItem.getImg().setOnMouseClicked(new EventHandler<MouseEvent>() {
     		        @Override
     		        public void handle(MouseEvent event) {
     		        	Bundle bundle = getBundle();
-    		        	bundle.addBean("selectedItem", item);
+    		        	bundle.addBean("selectedItem", itemInSaleBean);
     		            goToScene("itemDetails");
     		        }
     		    });
@@ -343,12 +343,7 @@ public class ItemDetailsView extends SceneManageable {
     	buyBtn.setDisable(true);
     	msgLabel.setText("Request Sent");
     	msgLabel.setVisible(true);
-    	//((Pane) vbox.getParent()).getChildren().remove(1);
     }
-    
-    /*public void back() {
-    	((Pane) vbox.getParent()).getChildren().remove(1);
-    }*/
     
     public void onTextChange() {
     	Integer charactersLeft = maxCharacter - requestArea.getLength();

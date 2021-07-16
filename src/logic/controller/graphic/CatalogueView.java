@@ -30,8 +30,9 @@ public class CatalogueView extends SceneManageable {
 	private HashMap<String, String> filters = new HashMap<>();
 	private int maxItem = 9;
 	private UserBean loggedUser;
-
 	private Integer pageNumber = 0;
+	private String genreStr = "genre";
+	private String consoleStr = "console";
 	
 	@FXML
 	private TextField searchBar;
@@ -80,18 +81,10 @@ public class CatalogueView extends SceneManageable {
 		genreLabel.setVisible(false);
 		consoleList.setVisible(false);
 		consoleLabel.setVisible(false);
-		/*filters.clear();
-		genre.setVisible(false);
-		genreLabel.setVisible(false);
-		consoleList.setVisible(false);
-		consoleLabel.setVisible(false);*/
 		all.setSelected(true);
 		
 		setOrderByList();
 		
-		/*if (searchBar.getText()!=null) {
-			searchBar.setText("");
-		}*/	
 		doSearch();
 	}
 	
@@ -123,12 +116,11 @@ public class CatalogueView extends SceneManageable {
 			try {
 				
 				flowPane.getChildren().add(loader.load());
-				ItemCatalogueView controller = loader.getController();	
+				ItemCatalogueView itemController = loader.getController();	
 				
-				controller.setView(this, itemInSaleBeanList.get(i+(maxItem*pageNumber)));
+				itemController.setView(this, itemInSaleBeanList.get(i+(maxItem*pageNumber)));
 			} catch (IndexOutOfBoundsException | IOException e) {
 				flowPane.getChildren().remove(i);
-				//e.printStackTrace();
 				return;
 			}
 			
@@ -142,9 +134,9 @@ public class CatalogueView extends SceneManageable {
 		
 		if (maxItem >= itemInSaleBeanList.size() ) {
 			nextPage.setDisable(true);
-		}else {
-			nextPage.setDisable(false);
+			return;
 		}
+		nextPage.setDisable(false);
 		
 	}
 	
@@ -189,8 +181,8 @@ public class CatalogueView extends SceneManageable {
 	
 	public void all(){
 		filters.remove("type");
-		filters.remove("genre");
-		filters.remove("console");
+		filters.remove(genreStr);
+		filters.remove(consoleStr);
 		
 		genre.setVisible(false);
 		genreLabel.setVisible(false);
@@ -203,8 +195,8 @@ public class CatalogueView extends SceneManageable {
 	public void book(){
 		var typeStr = "B";
 		filters.put("type", typeStr);
-		filters.remove("genre");
-		filters.remove("console");
+		filters.remove(genreStr);
+		filters.remove(consoleStr);
 		
 		setGenreList(typeStr);
 		consoleLabel.setVisible(false);
@@ -216,8 +208,8 @@ public class CatalogueView extends SceneManageable {
 	public void movie(){
 		var typeStr = "M";
 		filters.put("type", typeStr);
-		filters.remove("genre");
-		filters.remove("console");
+		filters.remove(genreStr);
+		filters.remove(consoleStr);
 		
 		setGenreList(typeStr);
 		consoleLabel.setVisible(false);
@@ -228,8 +220,8 @@ public class CatalogueView extends SceneManageable {
 	public void videogame(){
 		var typeStr = "V";
 		filters.put("type", typeStr);
-		filters.remove("genre");
-		filters.remove("console");
+		filters.remove(genreStr);
+		filters.remove(consoleStr);
 		
 		setGenreList(typeStr);
 		setConsoleList();
@@ -238,23 +230,23 @@ public class CatalogueView extends SceneManageable {
     }
 	
 	public void genre() {
-		var genreStr = genre.getValue();
+		var gen = genre.getValue();
 	
-		if(genreStr != null) {
-		filters.put("genre", genreStr);
+		if(gen != null) {
+		filters.put(genreStr, gen);
 		}else {
-			filters.remove("genre");
+			filters.remove(genreStr);
 		}
 		doSearch();
 	}
 	
 	public void console() {
-		var consoleStr = consoleList.getValue();
+		var con = consoleList.getValue();
 		
-		if(consoleStr != null) {
-		filters.put("console", consoleStr);
+		if(con != null) {
+		filters.put(consoleStr, con);
 		}else {
-			filters.remove("console");
+			filters.remove(consoleStr);
 		}
 		doSearch();
 	}

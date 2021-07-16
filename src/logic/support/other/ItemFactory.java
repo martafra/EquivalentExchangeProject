@@ -16,8 +16,13 @@ import logic.enumeration.MovieGenre;
 import logic.enumeration.VideoGameGenre;
 
 public class ItemFactory {
-	//
-	public Item makeItem(HashMap<String, String> data){//controlla la tipologia della classe da istanziare
+	String genreStr = "genre";
+	String itemNameStr = "itemName";
+	String languageStr = "language";
+	String  pubDate = "publishingDate";
+	String dateFormat = "yyyy-mm-dd";
+	
+	public Item makeItem(Map<String, String> data){//controlla la tipologia della classe da istanziare
 		Item item = null;
 		char itemType = data.get("itemType").charAt(0);
 		if (itemType == 'B') { 
@@ -26,17 +31,16 @@ public class ItemFactory {
 		else if (itemType == 'V') {
 			item = makeVideoGame(data);
 		}
-		else { //if (itemType == 'M') {
+		else {
 			item = makeMovie(data);
 		}
 		item.setItemID(Integer.parseInt(data.get("itemID")));
 		return item;
 	}
 	
-	private Item makeBook(HashMap<String, String> data){ //popola e ritorna la classe Book
-		String language = data.get("language");
+	private Item makeBook(Map<String, String> data){ //popola e ritorna la classe Book
+		String language = data.get(languageStr);
 		String author = data.get("bookAuthor");
-		//TODO fare il controllo
 		String editionStr = data.get("bookEdition");
 		Integer edition = null;
 		Integer numberOfPages = null;
@@ -49,14 +53,13 @@ public class ItemFactory {
 			numberOfPages = Integer.parseInt(numberOfPageStr);
 		}
 
-		String genre = data.get("genre");
+		String genre = data.get(genreStr);
 		String publishingHouse = data.get("publisher");
-		String name = data.get("itemName");
+		String name = data.get(itemNameStr);
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
+			publishingDate = new SimpleDateFormat(dateFormat).parse(data.get(pubDate));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -64,37 +67,35 @@ public class ItemFactory {
 		
 	}
 	
-	private Item makeVideoGame(HashMap<String, String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
-		String name = data.get("itemName");
-		String genre = data.get("genre");
-		String language = data.get("language");
+	private Item makeVideoGame(Map<String, String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo
+		String name = data.get(itemNameStr);
+		String genre = data.get(genreStr);
+		String language = data.get(languageStr);
 		String console = data.get("console");
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
+			publishingDate = new SimpleDateFormat(dateFormat).parse(data.get(pubDate));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new Videogame(name, publishingDate, genre, console, language);
 	}
 	
-	private Item makeMovie(HashMap<String, String> data){ //popola e ritorna la classe Movie
-		String language = data.get("language");
+	private Item makeMovie(Map<String, String> data){ //popola e ritorna la classe Movie
+		String language = data.get(languageStr);
 		String durationStr = data.get("movieDuration");
-		String name = data.get("itemName");
+		String name = data.get(itemNameStr);
 		Date publishingDate = null;
 		try {
-			publishingDate = new SimpleDateFormat("yyyy-mm-dd").parse(data.get("publishingDate"));
+			publishingDate = new SimpleDateFormat(dateFormat).parse(data.get(pubDate));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Integer duration = null;
 		if (durationStr != null) {
 			duration = Integer.parseInt(durationStr);
 		}
-		String genre = data.get("genre");
+		String genre = data.get(genreStr);
 		return new Movie(name, publishingDate, duration, genre, language);
 	}
 

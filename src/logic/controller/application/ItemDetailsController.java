@@ -6,14 +6,11 @@ import logic.support.connection.MessageSender;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
 import logic.DAO.ItemDAO;
 import logic.DAO.ItemInSaleDAO;
 import logic.DAO.RequestDAO;
 import logic.DAO.UserDAO;
-import logic.DAO.WishlistDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
@@ -158,10 +155,11 @@ public class ItemDetailsController {
 	public boolean checkRequest(String buyer, Integer item) {
 		RequestDAO requestDAO = new RequestDAO();
 		Request request = requestDAO.selectRequest(buyer, item);
+		Boolean ret = true;
 		if (request == null) {
-			return false;
+			ret = false;
 		}
-		return true;
+		return ret;
 	}
 	
 	

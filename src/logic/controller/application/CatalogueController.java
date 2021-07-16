@@ -2,23 +2,19 @@ package logic.controller.application;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.List;
-
-import javafx.scene.image.Image;
+import java.util.Map;
 import logic.DAO.ItemInSaleDAO;
 import logic.bean.ItemInSaleBean;
 import logic.entity.ItemInSale;
 import logic.enumeration.BookGenre;
-import logic.enumeration.Condition;
 import logic.enumeration.MovieGenre;
 import logic.enumeration.VGConsole;
 import logic.enumeration.VideoGameGenre;
 
 public class CatalogueController {
 	
-	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(String loggedUser, HashMap<String, String> filters) {
+	public List<ItemInSaleBean> getListItemInSaleBeanFiltered(String loggedUser, Map<String, String> filters) {
 		ItemInSaleDAO itemInSaleDAO = new ItemInSaleDAO();
 		List<ItemInSale> itemInSaleList = itemInSaleDAO.getItemsInSaleListFiltered(loggedUser, filters);
 		

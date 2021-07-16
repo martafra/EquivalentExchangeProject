@@ -58,10 +58,6 @@ public class BuyController implements SaleController{
 			orderDAO.updateOder(order);
 			return true;
 		}
-		
-		//order.setBuyerStatus(false);
-		//order.setStartDate(null);
-		//orderDAO.updateOder(order);
 		return false;
 	}
 	
@@ -193,12 +189,10 @@ public class BuyController implements SaleController{
 			Map<String, String> parameters = i.getParameters();
 			if (parameters.containsKey("orderID")) {
 				Integer order = Integer.parseInt(parameters.get("orderID"));
-				if (orderID.equals(order)) {
-					if (parameters.get("code").equals("valid")) {
-						return true;
-					}
-				}	
-			}
+				if (orderID.equals(order) && parameters.get("code").equals("valid")) {
+					return true;
+				}
+			}	
 		}
 		return false;
 	}
