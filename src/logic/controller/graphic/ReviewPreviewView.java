@@ -70,7 +70,6 @@ public class ReviewPreviewView extends SceneManageable{
 		
 		Boolean isAuthor = loggedUser.getUserID().equals(articleData.getAuthor().getUserID());
 		Boolean isModAndNotAuthor = loggedUser.isModerator() && !isAuthor;
-		System.out.println(isModAndNotAuthor);
 		
 		acceptReviewButton.setVisible(isModAndNotAuthor);
 		acceptReviewButton.setDisable(!isModAndNotAuthor);

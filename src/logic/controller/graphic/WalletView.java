@@ -45,7 +45,6 @@ public class WalletView extends SceneManageable{
 		orderBox.getChildren().clear();
 		for(OrderBean order: orders) {
 			OrderCase orderCase = new OrderCase(order, loggedUser);
-			System.out.println(order);
 			orderCase.getUserLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
 		        @Override
 		        public void handle(MouseEvent event) {

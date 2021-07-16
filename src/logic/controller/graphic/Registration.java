@@ -43,23 +43,19 @@ public class Registration extends SceneManageable{
 		TextField arrayOfNodes[] = {firstName, lastName, username, email, password, confirmPassword};
 		for(TextField field : arrayOfNodes) {
 			if(field.getText().equals("")) {
-				System.out.println("Manca il campo: " + field.getId());
 				return;
 			}
 		}
 		
 		if(birthDate.getValue() == null) {
-			System.out.println("Manca il campo: Data");
 			return;
 		}
 		
 		if(!password.getText().equals(confirmPassword.getText())) {
-			System.out.println("Le password inserite non coincidono");
 			return;
 		}
 		
 		if(!rBean.validateNames(firstName.getText())) {
-			System.out.println("Errore nell'inserimento del nome");
 			return;
 		}
 		else {
@@ -67,7 +63,6 @@ public class Registration extends SceneManageable{
 		}
 		
 		if(!rBean.validateNames(lastName.getText())) {
-			System.out.println("Errore nell'inserimento del cognome");
 			return;
 		}
 		else {
@@ -75,7 +70,6 @@ public class Registration extends SceneManageable{
 		}
 		
 		if(!rBean.validateUsername(username.getText())) {
-			System.out.println("Errore nell'inserimento dell'username");
 			return;
 		}
 		else {
@@ -84,7 +78,6 @@ public class Registration extends SceneManageable{
 		
 		
 		if(!rBean.validateEmail(email.getText())) {
-			System.out.println("Errore nell'inserimento della email");
 			return;
 		}
 		else {
@@ -92,7 +85,6 @@ public class Registration extends SceneManageable{
 		}
 		
 		if(!rBean.validatePassword(password.getText())) {
-			System.out.println("Errore nell'inserimento della Password");
 			return;
 		}
 		else {
@@ -101,7 +93,6 @@ public class Registration extends SceneManageable{
 		
 		Date date = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		if(!rBean.validateBirthDate(date)) {
-			System.out.println("Errore nell'inserimento della Data");
 			return;
 		}
 		else {

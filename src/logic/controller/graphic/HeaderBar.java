@@ -1,15 +1,10 @@
 package logic.controller.graphic;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import logic.bean.LoginBean;
 import logic.bean.UserBean;
 import logic.controller.application.ChatController;
 import logic.controller.application.LoginController;
@@ -102,7 +97,6 @@ public class HeaderBar extends HeaderController implements Observer{
 
 	@Override
 	public void onLoad() {
-		// TODO Auto-generated method stub
 		
 		
 	}
@@ -121,7 +115,6 @@ public class HeaderBar extends HeaderController implements Observer{
 	}
 
 	public void logout() {
-		// TODO Auto-generated method stub
 		if(logged)
 		{
 			logController.logout(loggedUser);

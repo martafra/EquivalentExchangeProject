@@ -172,7 +172,6 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 			
 			imageBox.getChildren().add(image);
 			article.addMedia(selectedImagePath);
-			System.out.println(article.getMediaPaths().size());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -189,7 +188,6 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		
 		author = (UserBean) getBundle().getBean("loggedUser");
 		
-		//article = new ArticleBean();
 		categoryPosition = 0;
 		typePosition = 0;
 		

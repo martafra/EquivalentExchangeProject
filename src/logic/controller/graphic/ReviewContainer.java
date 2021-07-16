@@ -40,8 +40,6 @@ public class ReviewContainer extends GraphicWidget{
 		images.add((ImageView) getComponent("image4"));
 		
 		for(Integer i = 0; i < Math.min(articleData.getMediaPaths().size(), 4); i++) {
-			System.out.println("set image" + i);
-			System.out.println(articleData.getMediaPaths().get(i));
 			
 			try {
 				images.get(i).setImage(new Image(articleData.getMediaPaths().get(i)));
@@ -49,7 +47,6 @@ public class ReviewContainer extends GraphicWidget{
 				try {
 					images.get(i).setImage(new Image(new FileInputStream(articleData.getMediaPaths().get(i))));
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

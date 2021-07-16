@@ -258,7 +258,6 @@ public class SellController implements SaleController{
 			enteredCode.addParameter("code", "valid");
 			enteredCode.addParameter("orderID", order.getOrderID().toString());
 			sender.sendNotification(order.getBuyer().getUsername(), enteredCode);
-			System.out.println("notifica inviata");
 			return true;
 		}
 		else

@@ -127,7 +127,6 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 			itemConditionInput.getChildren().add(conS);
 			reviewStage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
@@ -338,7 +337,7 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 			bController.checkRemainingTime(order);
 		}
 
-		//System.out.println((Double) (deltaTime * (Double) Math.pow(10, -9)));
+
 	}
 
 	private String convertToTime(Integer seconds){

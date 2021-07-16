@@ -101,7 +101,6 @@ public class ItemDetailsController {
 		Item item = itemDAO.selectItem(itemID);
 		bean.setItemName(item.getName());
 		bean.setPublishingDate(item.getPublishingDate());
-		System.out.println(item.getLanguage());
 		if (item.getLanguage()!= null) {
 			
 			bean.setLanguage(item.getLanguage().toString());

@@ -189,20 +189,12 @@ public class BuyController implements SaleController{
 	
 	public boolean checkNotification(MailBox mailbox, Integer orderID) {
 		List<Notification> notification = mailbox.getNotifications(NotificationType.ORDER);
-		System.out.println("Notifica ricevuta");
 		for ( Notification i : notification) {
 			Map<String, String> parameters = i.getParameters();
 			if (parameters.containsKey("orderID")) {
-				System.out.println("contiene orderID");
 				Integer order = Integer.parseInt(parameters.get("orderID"));
-				
-				System.out.println("orderID: " + orderID);
-				System.out.println("order: " + order);
 				if (orderID.equals(order)) {
-					
-					System.out.println("orderID trovato");
 					if (parameters.get("code").equals("valid")) {
-						System.out.println("Codice valido");
 						return true;
 					}
 				}	

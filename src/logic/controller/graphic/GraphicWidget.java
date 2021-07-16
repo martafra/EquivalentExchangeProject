@@ -43,7 +43,6 @@ public class GraphicWidget {
 	
 	protected void print() {
 		for(Entry<String, Node> node : internalComponents.entrySet()) {
-			System.out.println(node.getKey() + " -> " + node.getValue());
 		}
 	}
 	

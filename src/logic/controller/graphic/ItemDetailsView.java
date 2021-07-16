@@ -204,9 +204,7 @@ public class ItemDetailsView extends SceneManageable {
     		secondaryStage.setScene(scene);
     		secondaryStage.initModality(Modality.APPLICATION_MODAL);
     		secondaryStage.showAndWait();
-			 //((Pane) vbox.getParent()).getChildren().add(loader.load());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
@@ -223,15 +221,6 @@ public class ItemDetailsView extends SceneManageable {
     		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		        @Override
 		        public void handle(MouseEvent event) {
-		        	//apre una finestra popUp
-		        	/*Stage stage = new Stage();
-		        	VBox vbox = new VBox();
-		    		Scene scene = new Scene(vbox,600,600);
-		    		vbox.getChildren().add(img);
-		    		stage.setScene(scene);
-		    		stage.initModality(Modality.APPLICATION_MODAL);
-		    		stage.showAndWait();*/
-		    		
 		        	imgV.setImage(img.getImage());
 		        
 		        }
