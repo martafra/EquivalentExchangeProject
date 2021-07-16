@@ -107,7 +107,7 @@
 
             	<span><a href="Home.jsp" class ="link">HOME</a></span>
             	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
-            	<span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
+            	<span><a href="Community.jsp" class ="link" id="catalogue">COMMUNITY</a></span>
 
 
             	<div id="login">
@@ -149,22 +149,22 @@
 				<div class = "filters">
 					<p style="font-size:16pt">Help us to understand what you really wish</p>
 					<p class = "filtersLabel"> CATEGORY </p>
-						<Label class = "typeLabel"><input class ="type" type="radio" name="type" value ="A" onclick="this.form.submit()" 
+						<Label class = "typeLabel"><input id="all" class ="type" type="radio" name="type" value ="A" onclick="this.form.submit()" 
 						<%if(typeStr.equals("A")){ %> 
 							checked 
 						<%} %>
 						>ALL</Label>
-						<Label class = "typeLabel"><input class ="type" type="radio" name="type" value ="B" onclick="this.form.submit()"
+						<Label class = "typeLabel"><input id="book" class ="type" type="radio" name="type" value ="B" onclick="this.form.submit()"
 						<%if(typeStr.equals("B")){ %> 
 							checked 
 						<%} %>
 						>BOOKS</Label>
-						<Label class = "typeLabel"><input class ="type" type="radio" name="type" value ="M" onclick="this.form.submit()"
+						<Label class = "typeLabel"><input id="movie" class ="type" type="radio" name="type" value ="M" onclick="this.form.submit()"
 						<%if(typeStr.equals("M")){ %> 
 							checked 
 						<%} %>
 						>DVDs</Label>
-						<Label class = "typeLabel"><input class ="type" type="radio" name="type" value ="V" onclick="this.form.submit()"
+						<Label class = "typeLabel"><input id="videogame" class ="type" type="radio" name="type" value ="V" onclick="this.form.submit()"
 						<%if(typeStr.equals("V")){ %> 
 							checked 
 						<%} %>
@@ -217,9 +217,11 @@
 						<br>
 						<% for (int i = 0; i < maxItem && ( i+(maxItem*pageNumber) < itemInSaleBeanList.size() ); i++) { %>
 						<div class= "itemBox">
-							<img src="assets/images/missing.png" alt="error" style="width:200px; height:200px; margin-left:2%; margin-right:2%;"/>
+							<div id="img" style="width:200px; height:200px; margin:auto;">
+								<img src="file?path=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getMediaPath()%>" alt="error" style="width:200px; height:200px;"/>
+							</div>
 							<br>
-							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" class="link" > 
+							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" class="link" id="Item<%=i%>" > 
 								<%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemName() %> 
 							</a>
 							<p id ="price" style="color:#FF6A00;"> <%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getPrice()  %> COINS</p>

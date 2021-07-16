@@ -2,9 +2,11 @@
 	%>
 <%@page import="logic.controller.application.ItemDetailsController" %>
 <%@page import="logic.controller.application.WishlistController" %>
+<%@page import="logic.controller.application.ProfileController" %>
 <%@page import= "logic.bean.ItemDetailsBean"  %>
 <%@page import= "logic.bean.ItemBean"  %>
 <%@page import= "logic.bean.UserBean"  %>
+<%@page import="logic.bean.UserProfileBean" %>
 
 
 <%
@@ -14,6 +16,7 @@
 	
 	ItemDetailsController controller = new ItemDetailsController();
 	WishlistController wishlistController = new WishlistController();
+	ProfileController controllerProfile = new ProfileController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
 	String mainImg = null;
 	
@@ -46,6 +49,7 @@
 	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 	UserBean seller = itemDetails.getSeller();
 	ItemBean item = controller.getItemByID(itemDetails.getReferredItemID());
+	UserProfileBean profileBean = controllerProfile.getUserProfileData(seller);
 	
 	if(request.getParameter("selectedImg") !=null){
 		mainImg = request.getParameter("selectedImg");
@@ -130,7 +134,7 @@
 				<div class="imgItem">
 					<% for (String photo : itemDetails.getMedia()){ %>
 						<a href="ItemDetails.jsp?itemID=<%= itemID %>&selectedImg=<%= photo %>">
-						<img  src="<%= photo %>" alt = "Image not found" style="width:180px; height:180px;"/>	
+						<img  src="file?path=<%= photo %>" alt = "Image not found" style="width:180px; height:180px;"/>	
 						</a>
 					<%} %>
 					
@@ -139,26 +143,25 @@
 			<div class = "box">
 				<div class = "itemBox">
 					<p id="title"> <%= itemDetails.getItemName() %> </p>
-					<img src="<%= mainImg %>" alt ="Image not found" style ="width:300px; height:300px; display: block;margin-left: auto;margin-right: auto; margin-bottom:10px"/>
+					<img src="file?path=<%= mainImg %>" alt ="Image not found" style ="width:300px; height:300px; display: block;margin-left: auto;margin-right: auto; margin-bottom:10px"/>
 								
 					<div class ="description">
 						<p id ="descriptionLabel"> Description: </p>
 						<p id="description"><%= itemDetails.getDescription() %></p>
 					</div>
 					<div class ="info">
-						<label id ="type"> 
-						<% if (item.getType() =='B') {
-				    			out.print("BOOK");
+						<label id ="type"><% if (item.getType() =='B') {
+				    			%>BOOK<%
 				    		}
 				    		else if(item.getType() =='M') {
-				    			out.print("MOVIE");
+				    			%>MOVIE<%
 				    		}
 				    		else {
-				    			out.print("VIDEOGAME");
+				    			%>VIDEOGAME<%
 				    		}
-				    	%> </label>
-				    	<label id ="genre">  <%= item.getGenre() %>  </label>
-				    	<label id = "condition"> <%= itemDetails.getCondition() %> </label>					
+				    	%></label>
+				    	<label id ="genre"><%=item.getGenre()%></label>
+				    	<label id = "condition"><%= itemDetails.getCondition()%></label>					
 					</div>
 					<label id ="itemDetailsLabel"> Item Details:  </label>
 					<div class ="details">
@@ -198,8 +201,24 @@
 			<div class = "box">
 				<div class = "sellerBox">
 					<p id ="sellerLabel">Seller's Information</p>
-					<img src="assets/images/avatar.png" alt="error" style="width:150px;height:150px;border-radius:110px;"/>
+					<img src="file?path=<%=seller.getProfilePicPath() %>" alt="error" style="width:150px;height:150px;border-radius:110px;"/>
 					<p id ="sellerName"> <%= seller.getUserID() %></p>
+					<div id="overallRatings">
+					<%
+						int i = 0;
+						int vote = profileBean.getSellerVote();
+						for(i = 2; i <= vote; i+=2){
+							%> <img src="assets/images/full-star.png" alt="full_star"> <%
+						}
+						if(vote % 2 != 0){
+							%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+							i+=2;
+						}
+						for(int j = i; j <= 10; j+=2){
+						%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+						}
+						%>
+					</div>
 				</div>
 				
 				<div class = "buyBox">

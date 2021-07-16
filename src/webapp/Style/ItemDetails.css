@@ -65,6 +65,14 @@
 	
 }
 
+#overallRatings{
+	width : 80%;
+	padding: 10%;
+}
+#overallRatings > img{
+	width: 10%;
+}
+
 #itemDetailsLabel{
 	font-size: 16pt;
 	margin-bottom: 20 px;

@@ -12,6 +12,7 @@
 		<jsp:forward page="Home.jsp"/>
 		<% 
 	}
+ 
  	int itemID = Integer.parseInt(request.getParameter("itemID"));
 	String sellerID = request.getParameter("sellerID");
 	String itemName = request.getParameter("itemName");
@@ -49,7 +50,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="E:/Desktop/avatar.png" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
 						
 						</div>
 						<div id="menu">

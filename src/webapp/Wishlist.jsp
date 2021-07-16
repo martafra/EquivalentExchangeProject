@@ -8,7 +8,11 @@
 <%
 	WishlistController controller = new WishlistController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
-	
+ 	if (session.getAttribute("loggedUser") == null){
+		%>
+		<jsp:forward page="Login.jsp"/>
+		<% 
+	}
 	
 	if(request.getParameter("removeItem")!=null){
 		int itemID = Integer.parseInt((String)request.getParameter("removeItem"));
@@ -73,8 +77,11 @@
 	</script>
 		
 		<div class ="box" >
-			<% for(ItemInSaleBean item: wishlist) {
-			%>
+			<% if(wishlist.isEmpty()){%> 
+				<p style="font-size:14pt; text-align:center; margin-top:50%;">This list is empty.<br>Add items you wish to purchase.</p> 
+			<%}else{ %>
+			
+				<%for(ItemInSaleBean item: wishlist) {%>
 				<div class ="item"> 
 					<div class="infoLeft">
 						<a href ="ItemDetails.jsp?itemID=<%= item.getItemID() %>" class="link"> <%= item.getItemName() %> </a>
@@ -92,6 +99,7 @@
 							<button id = "removebtn" class="orange-clickable" type="submit" name = "removeItem" value = "<%= item.getItemID()%>" style="float : right;"> REMOVE</button>
 						</form>
 				</div>
+				<%} %>
 			<%} %>
 		</div>
 	</body>
