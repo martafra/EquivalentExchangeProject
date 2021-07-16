@@ -67,7 +67,6 @@ public class LoginController {
 	
 	public UserBean getUserByLoginData(LoginBean loginData) {
 		
-		//TODO Considerare se cambiare il parametro in un tipo LoginBean
 		var bean = new UserBean();
 		UserDAO userDAO = new UserDAO();
 		UserProfileDAO profileDAO = new UserProfileDAO();

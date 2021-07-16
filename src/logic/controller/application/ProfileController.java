@@ -22,7 +22,7 @@ import logic.entity.UserProfile;
 
 public class ProfileController {
 
-	private Random random = new Random(); //TODO Per regola di sonarcloud
+	private Random random = new Random();
 	
 	public UserProfileBean getUserProfileData(UserBean userData) {
 		
