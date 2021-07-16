@@ -11,6 +11,12 @@
 		<link rel="stylesheet" href="Style/HeaderBar.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<style>
+			
+			.HomeImage{
+				width: 250px;
+				height: 250px;
+			}
+		
 		</style>
 	</head>
 
@@ -52,6 +58,49 @@
 				<%}%>
 			</div>
 			
+			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
+			<table style="justify-content: center;">
+				<tr><td>
+				<a href="Catalogue.jsp" style="margin: 125px;">
+					<img class="HomeImage" src="assets/images/buy.png" alt="buy">
+				</a>
+				</td></tr>
+				<tr><td>
+				<p style="width: 500px; text-align: center;">if you don't have enough credit to buy an item right now, or simply you would like to track the price of an object to be notified if it goes down at any time,then add the item to your wishlist and never worry again about the deals you may miss!</p>
+				</td></tr>
+			</table>	
+			</div>
+			
+			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
+			<table style="justify-content: center;">
+				<tr><td>
+				<a href="Wishlist.jsp" style="margin: 125px;">
+					<img class="HomeImage" src="assets/images/wishlist.png" alt="wishlist">
+				</a>
+				</td></tr>
+				<tr><td>
+				<p style="width: 500px; text-align: center;">if you do have the same passions as ours, you will be surelly full of plenty of old items like books or DVDs, so give them a new life selling these articles on our marketplace. You can trade all your stuff for in-app currency, that you can spend for other incredible stuff that other users want to sell. All of this without taking and to your wallet!</p>
+				</td></tr>
+			</table>
+			
+			<div style="width: 30%;"></div>
+							
+			<table style="justify-content: center;">
+				<tr><td>
+				<a href="ReviewerPanel.jsp" style="margin: 125px;">
+					<img class="HomeImage" src="assets/images/article.png" alt="write article">
+				</a>
+				</td></tr>
+				<tr><td>
+				<p style="width: 500px; text-align: center;">Write down your toughts about your favorite books, movies and videogames, in the form of a professional review or, in case you are a gamer, share your tips and tricks with other people by writing a guide or a tutorial.Every contribute to the community is essential and will be rewarded with in-app currency!</p>
+				</td></tr>
+			</table>
+			</div>
+			
+			<div style="width: 50%; margin: 10px 25%;">
+			<p style="width: 100%; text-align: center;"><b>OUR MISSION</b></p>
+			<p style="width: 100%; text-align: center;">Our goal is to create a place where people with the same passions can share them with others.We want to create a community where anyone can trade their used goods, from videogames to books,to let these objects to have a second life, also allowing his previous owner to make a profit out of them.</p>
+			</div>
 		</div>		
 		
 		
