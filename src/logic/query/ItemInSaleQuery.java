@@ -117,9 +117,6 @@ public class ItemInSaleQuery extends Query{
 				filter += " AND genre = '" + filters.get("genre") + "' ";
 			}
 			
-			/*if (filters.containsKey("console")) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
-				filter += " AND itemID in (SELECT itemId FROM Console WHERE consoleName = '" + filters.get("console") + "') "; // TODO controllare tabelle database
-			}*/
 			if (filters.containsKey("console")) { // abbiamo un secondo attributo di filtro --> dovrebbe essere solo la console in caso di videogame
 				filter += " AND console = '" + filters.get("console") + "' "; 
 			}
