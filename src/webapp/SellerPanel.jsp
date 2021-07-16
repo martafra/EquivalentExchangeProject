@@ -77,7 +77,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 
                         </div>
                         <div id="menu">
@@ -118,7 +118,7 @@
 						String name = item.getItemName();
 					%>
 					<div style="background-color:#D7E9D8; display:inline-block; margin-top:10px;margin-left:5px; width:180px;height:250px;">
-						<div style = "width:125px;height:125px;margin-top:15px;margin:10px auto;"><img src="file?path=<%=item.getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
+						<div style = "width:125px;height:125px;margin-top:15px;margin:10px auto;"><img src="file?path=<%=item.getMediaPath() %>" onerror="this.src='assets/images/missing.png';" alt="missing" style="height:100%;width:100%;"></div>
 						<div style="font-size:14px; margin-top:15px; text-align:center"><%=name %><br><br><%=price %>coins</div>
 					</div>
 					<% } %>
@@ -140,7 +140,7 @@
 						
 					%>
 					<div style="width:100%;height:80px;border-width:0px 0px 2px 0px;border-style:solid;border-color:#D4CEAB;">
-						<div style = "width:70px;height:70px;display:inline-block;margin-top:5px;margin-left:10px;float:left"><img src="file?path=<%=reqB.getReferredItemBean().getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
+						<div style = "width:70px;height:70px;display:inline-block;margin-top:5px;margin-left:10px;float:left"><img src="file?path=<%=reqB.getReferredItemBean().getMediaPath() %>" alt="missing" onerror="this.src='assets/images/missing.png';" style="height:100%;width:100%;"></div>
 						<div style = "display:inline-block;font-size:14px;margin-top:8px;margin-left:15px;float:left;"><%=reqB.getReferredItemBean().getItemName() %><br><br><br><%= reqB.getNote() %></div>
 						<div style="display:inline-block;font-size:14px;margin-top:8px;margin-left:350px;float:left;"><%=reqB.getBuyer() %></div>
 						
