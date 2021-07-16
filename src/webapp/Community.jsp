@@ -119,6 +119,7 @@
 					String author = article.getAuthor().getUserID();
 					String text = article.getText()[0];
 					String type = article.getType();
+					Integer articleID = article.getID();
 					String color;
 					if(type.equals("Guide")){
 						color = "#FFD9BD";
@@ -129,7 +130,12 @@
 			%>
 			<div class="articleCase" style="background-color: <%= color %>">
 				<div class="image"></div>
-				<div class="title"><form action="ArticlePage.jsp" method="POST"><input type="submit" name="selectedArticle" value = "<%= title %>"></form></div>
+				<div class="title">
+				<form action="ArticleGrid.jsp" method="POST">
+					<input style="width: 0px; height: 0px; visibility: hidden" type="text" name="articleID" value="<%= articleID%>">
+					<input type="submit" name="selectedArticle" value = "<%= title %>">
+				</form>
+				</div>
 				<div class="text"><%= text %></div>
 				<div class="rating">
 				
