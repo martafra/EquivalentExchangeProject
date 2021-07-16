@@ -46,9 +46,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -119,16 +119,20 @@
 						involvedUser="Seller: " + order.getInvolvedItem().getSeller().getUserID();
 					} %>
 					<div>
-						<div style="height:80px;width:80px"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" style="height:100%;width:100%;margin-top:20px; margin-left:15px;"></div>
-						<div style="display:inline-block;"><form action="OrderSummary.jsp" name = "orderSum" method = "POST"><div style="display:inline-block;margin-left:116px;margin-top:24px;font-size:12px">Order ID: #<input type="submit" name="selectedOrder" style="display:inline-block;margin-top:24px;font-size:12px;border-color:#FFFFFF;background-color:#FFFFFF;border:0px" value="<%= order.getOrderID() %>"></div></form></div>
-						<div style="display:inline-block;margin-left:80px;margin-top:24px;font-size:12px;color:#797979"><%=statusDate %></div>
-						<div style="display:inline-block;margin-left:80px;margin-top:24px;font-size:12px;"><%=order.getInvolvedItem().getPrice()%> coins</div>
-					</div>
-						<div>
-							
-							<div style="display:inline-block; margin-left:116px;margin-top:37px;font-size:12px;"><%= order.getInvolvedItem().getItemName() %></div>
-							<div style="display:inline-block; margin-left:50px;margin-top:24px;font-size:12px;"><%=involvedUser %></div>
+						<div style="height:80px;width:80px;margin-top:20px; margin-left:15px; display:inline-block; float:left"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
+						<div style="width:220px;margin-left:35px;margin-top:0px;display:inline-block;float:left;">
+							<div style=""><form action="OrderSummary.jsp" name = "orderSum" method = "POST"><div style="display:inline-block;font-size:12px">Order ID: #<input type="submit" name="selectedOrder" style="display:inline-block;margin-top:24px;font-size:12px;border-color:#FFFFFF;background-color:#FFFFFF;border:0px" value="<%= order.getOrderID() %>"></div></form></div>
+							<div style="margin-top:40px;font-size:12px;"><%= order.getInvolvedItem().getItemName() %></div>
 						</div>
+						<div style="width:160px;display:inline-block;margin-left:20px;margin-top:24px;float:left">
+							<div style="font-size:12px;color:#797979;"><%=statusDate %></div>
+							<div style="margin-top:40px;font-size:12px;"><%=involvedUser %></div>
+						</div>
+						<div style="display:inline-block; margin-right:30px;margin-top:24px;float:right">
+							<div style="margin-top:0px;font-size:12px;"><%= order.getInvolvedItem().getPrice() %>coins</div>
+						</div>
+					</div>
+					
 					
 				</div>
 			<% } %>
