@@ -188,7 +188,7 @@ public class ProfileController {
         OrderReviewBean reviewBean = new OrderReviewBean();
 
         for (Order order: orders) {
-        	if (username != order.getBuyer().getUsername() && order.getOrderReview()!= null) {
+        	if (!username.equals(order.getBuyer().getUsername()) && order.getOrderReview()!= null) {
         		reviewBean.setOrderID(order.getOrderID());
         		reviewBean.setSellerReliability(order.getOrderReview().getSellerReliability());
         		reviewBean.setSellerAvailability(order.getOrderReview().getSellerAvailability());

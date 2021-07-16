@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -119,9 +118,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		mailbox.register(this);
 		loadUsers();
 		
-		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-			filterUsers();
-		});
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> filterUsers());
 	}
 
 	@Override
@@ -166,12 +163,7 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		for(UserBean userData : activeChats) {
 			ChatBox chatBox = new ChatBox(userData);
 			
-			chatBox.getPane().setOnMouseClicked(new EventHandler<>() {
-				@Override
-				public void handle(MouseEvent arg0) {
-					setActiveChat(userData);
-				}
-			});
+			chatBox.getPane().setOnMouseClicked((MouseEvent e) -> setActiveChat(userData));
 			
 			chatBoxes.put(userData.getUserID(), chatBox);
 			chatList.getChildren().add(chatBox.getPane());
@@ -201,7 +193,8 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 		ChatBox currentChatBox = chatBoxes.get(currentChatUser.getUserID());
 		currentChatBox.select();
 		
-		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData, true);
+		currentActiveOrder = controller.getActiveOrderByUsers(loggedUser, userData, false);
+		
 		if(currentActiveOrder != null) {
 			bController.checkRemainingTime(currentActiveOrder);
 		}

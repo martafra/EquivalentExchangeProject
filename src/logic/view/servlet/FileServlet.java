@@ -30,23 +30,13 @@ public class FileServlet extends HttpServlet {
     private String filePath;
 
     // Actions ------------------------------------------------------------------------------------
-
-    public void init() throws ServletException {
-
-        // Define base path somehow. You can define it as init-param of the servlet.
-    	
-        filePath = "";
-
-        // In a Windows environment with the Applicationserver running on the
-        // c: volume, the above path is exactly the same as "c:\files".
-        // In UNIX, it is just straightforward "/files".
-    }
-
+ 
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
     	
-    	System.out.println("Fatta la richiesta");
         // Get requested file by path info.
         String requestedFile = request.getParameter("path");
         
@@ -55,7 +45,6 @@ public class FileServlet extends HttpServlet {
         	requestedFile = requestedFile.substring(8);
         }
         
-        System.out.println(requestedFile);
 
         // Check if file is actually supplied to the request URI.
         if (requestedFile == null) {
@@ -67,7 +56,6 @@ public class FileServlet extends HttpServlet {
         
         // Decode the file name (might contain spaces and on) and prepare file object.
         File file = new File(requestedFile);
-        System.out.println(file.getAbsolutePath());
 
         // Check if file actually exists in filesystem.
         if (!file.exists()) {

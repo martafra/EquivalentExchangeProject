@@ -5,10 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import logic.DAO.MessageDAO;
 import logic.DAO.OrderDAO;
-import logic.DAO.UserDAO;
 import logic.DAO.UserProfileDAO;
 import logic.bean.ChatBean;
 import logic.bean.OrderBean;
@@ -140,18 +138,18 @@ public class ChatController{
 		WalletController walletController = new WalletController();
 		List<OrderBean> orders = walletController.getOrderList(loggedUser);
 		
+		
+		
 		if(Boolean.TRUE.equals(flag) && !(orders.isEmpty()) ) {
 			return orders.get(0);
 		}
 		for(OrderBean order : orders) {
-			if(order.getBuyer().getUserID().equals(loggedUser.getUserID())) {
+			if(order.getBuyer().getUserID().equals(loggedUser.getUserID()) && order.getInvolvedItem().getSeller().getUserID().equals(otherUser.getUserID())) {
 				if(Boolean.FALSE.equals(order.getBuyerStatus())) {
 					return order;
 				}
-			}else if(order.getBuyer().getUserID().equals(otherUser.getUserID())){
-				if(Boolean.FALSE.equals(order.getSellerStatus())) {
-					return order;
-				}
+			}else if(order.getBuyer().getUserID().equals(otherUser.getUserID()) && Boolean.FALSE.equals(order.getSellerStatus())){
+				return order;
 			}
 		}
 		return null;
