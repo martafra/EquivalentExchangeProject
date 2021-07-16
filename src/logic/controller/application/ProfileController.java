@@ -43,7 +43,7 @@ public class ProfileController {
 		List<Order> orders = orderDAO.selectAllOrders(userData.getUserID());
 		for(Order order : orders) {
 			if(userData.getUserID().equals(order.getInvolvedItem().getSeller().getUsername())) {
-				OrderReview review = order.getOrderReview();
+				var review = order.getOrderReview();
 				if(review != null) {
 					reviewCounter++;
 					relSum += review.getSellerReliability();
