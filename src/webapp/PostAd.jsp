@@ -95,9 +95,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -110,7 +110,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="E:/Desktop/avatar.png" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 
                         </div>
                         <div id="menu">
@@ -137,12 +137,12 @@
         });
     </script>
 		
-		<div style="width:1010px; margin: 76px auto">
+		<div style="width:70%; margin: 86px auto">
 		<form action="PostAd.jsp" name = "publishAD" method = "POST">
 			<div>			
-				<input type="text" id="price" name="price" placeholder = "Type here the price of your product..." style = "width: 454px; height: 35px; display: inline-block">
+				<input type="text" id="price" name="price" placeholder = "Type here the price of your product..." style = "width: 454px; height: 45px; display: inline-block">
 				
-				<select name="type" id="type" style = "width: 251px; height: 35px; background-color:#FF6A00; display:block; margin:0 auto; float:right;">
+				<select name="type" id="type" style = "width: 251px; height: 45px; background-color:#FF6A00; display:block; margin:0 auto; float:right;">
 					<option value="item type">item type</option>
     				<% 
 						for(String type: itemTypes){
@@ -154,8 +154,8 @@
 			
 			
 			<div style ="margin: 34px auto">
-				<textarea id="description" name="description" placeholder = "Type here the description of your product..." style = "width: 454px; height: 177px; display: inline-block; resize:none"><% adBean.getDescription(); %></textarea>
-				<select name="referredItem" id="referredItem" style = "width: 430px; height: 35px; color:#5AC02A; margin: auto; float: right">
+				<textarea id="description" name="description" placeholder = "Type here the description of your product..." style = "width: 454px; height: 200px; display: inline-block; resize:none"><% adBean.getDescription(); %></textarea>
+				<select name="referredItem" id="referredItem" style = "width: 430px; height: 45px; color:#5AC02A; margin: auto; float: right">
 				<option value="" disabled selected>referred item</option>
 					<% 
 						for(ItemBean item: items){
@@ -167,13 +167,13 @@
 			</div>
 			
 			<div style ="margin: 34px auto">
-				<input type="text" id="address" name="address" value = "<% adBean.getAddress(); %>" placeholder = "Type here where you want to sell your product..." style = "width: 454px; height: 35px; display: inline-block;">
-				<input type="submit" id="publishBtn" name="publishBtn" value="Publish" class="orange-clickable" style ="height:35px; width:94px; margin: auto; float: right;" />
+				<input type="text" id="address" name="address" value = "<% adBean.getAddress(); %>" placeholder = "Type here where you want to sell your product..." style = "width: 454px; height: 45px; display: inline-block;">
+				<input type="submit" id="publishBtn" name="publishBtn" value="Publish" class="orange-clickable" style ="height:45px; width:94px; margin: auto; float: right;" />
 			</div>
 			
 			
 			<div style ="margin: 34px auto">
-				<select name="condition" id="condition" style = "width: 251px; height: 35px; background-color:#FF6A00">
+				<select name="condition" id="condition" style = "width: 251px; height: 45px; background-color:#FF6A00">
 				<option value="" disabled selected>condition</option>
 					<% 
 						for(String condition: itemConditions){

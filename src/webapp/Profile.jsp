@@ -56,9 +56,9 @@
 			<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 			
 			
-			<span>HOME</span>
-			<span>CATALOGUE</span>
-			<span>COMMUNITY</span>
+			<span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 			
 			
 			<div id="login">
@@ -72,7 +72,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -92,11 +92,11 @@
 			%> <img id="banner" src="assets/images/ee-bg.png" alt="e"/> <%
 		}
 		else{
-			%> <img id="banner" src="file?path=<%= coverPic %>" alt="e"/> <%
+			%> <img id="banner" src="file?path=<%= coverPic %>" onerror="this.src='assets/images/ee-bg.png';"alt="e"/> <%
 		}
 		%>
 		<div id="personalInfo">
-			<img id="profileImage" src="file?path=<%=picPath %>" alt="e"/>
+			<img id="profileImage" src="file?path=<%=picPath %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 			<div id="name"><%= name + " " + lastName %></div>
 			<div id="username"><%= username %></div>
 			<div id="overallRatings">
@@ -136,7 +136,7 @@
 						
 						%> <div class="product">
 							<div class="productImage">
-								<img src="file?path=<%=item.getMediaPath() %>" alt="product"/>
+								<img src="file?path=<%=item.getMediaPath() %>" onerror="this.src='assets/images/missing.png';" alt="product"/>
 								
 							</div>
 							<form action="ItemDetails.jsp" method="POST">
@@ -166,7 +166,8 @@
 						
 						%> <div class="article">
 							<div class="articleImage">
-								<img src="file?path=<%=art.getMediaPaths().get(0) %>" alt="product"/>
+
+								<img src="file?path=<%=art.getMediaPaths().get(0)%>"  onerror="this.src='assets/images/missing.png';" alt="product"/>
 							</div>
 							
 							<div class="title"><%=title %></div>

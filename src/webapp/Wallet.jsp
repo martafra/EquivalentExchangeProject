@@ -61,7 +61,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getUserID()%>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 
                         </div>
                         <div id="menu">
@@ -119,7 +119,7 @@
 						involvedUser="Seller: " + order.getInvolvedItem().getSeller().getUserID();
 					} %>
 					<div>
-						<div style="height:80px;width:80px;margin-top:20px; margin-left:15px; display:inline-block; float:left"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
+						<div style="height:80px;width:80px;margin-top:20px; margin-left:15px; display:inline-block; float:left"><img src="file?path=<%=order.getInvolvedItem().getMediaPath() %>" alt="missing" onerror="this.src='assets/images/missing.png';" style="height:100%;width:100%;"></div>
 						<div style="width:220px;margin-left:35px;margin-top:0px;display:inline-block;float:left;">
 							<div style=""><form action="OrderSummary.jsp" name = "orderSum" method = "POST"><div style="display:inline-block;font-size:12px">Order ID: #<input type="submit" name="selectedOrder" style="display:inline-block;margin-top:24px;font-size:12px;border-color:#FFFFFF;background-color:#FFFFFF;border:0px" value="<%= order.getOrderID() %>"></div></form></div>
 							<div style="margin-top:40px;font-size:12px;"><%= order.getInvolvedItem().getItemName() %></div>

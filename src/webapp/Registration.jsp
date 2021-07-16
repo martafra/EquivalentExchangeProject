@@ -56,13 +56,13 @@
 			<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 			
 			
-			<span>HOME</span>
-			<span>CATALOGUE</span>
-			<span>COMMUNITY</span>
+			<span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 			
 			
 			<div id="login">
-				<button text="Login" class="orange-clickable">Login</button>
+				<a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
 			</div>
 			
 		</div>	

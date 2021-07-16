@@ -110,9 +110,9 @@
 			<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 			
 			
-			<span>HOME</span>
-			<span>CATALOGUE</span>
-			<span>COMMUNITY</span>
+			<span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 			
 			
 			<div id="login">
@@ -124,7 +124,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -150,9 +150,10 @@
 					for(UserBean activeChat : activeChats){
 						
 						String username = activeChat.getUserID();
+						String imagePath = activeChat.getProfilePicPath();
 						
 						%> 
-						   <div id="userBox"> <input type="submit" name="selectedUser" value="<%=username%>"> </div>
+						   <div id="userBox"> <img src="file?path=<%=imagePath%>" alt="user" onerror="this.src='assets/images/avatar.png';"/><input type="submit" name="selectedUser" value="<%=username%>"> </div>
 						<%
 						
 					}
@@ -162,7 +163,7 @@
 			</div>
 			<div id="chatView">
 				<div id="chatHeader">
-					
+					<img src="file?path=<%=currentChat.getProfilePicPath() %>" alt="user" onerror="this.src='assets/images/avatar.png';"/>
 					<div id="currentChatUsername"><%= currentChat.getUserID() %></div>
 					
 				</div>
@@ -172,7 +173,7 @@
 				%>
 					
 					<div id="currentOrderContainer">
-					<div id="orderName"><%=orderName%> Started On</div>
+					<div id="orderName">Started Order for item: <%=orderName%></div>
 					
 						<form>
 							<input type="submit" name="rejectOrder" value="reject"/>

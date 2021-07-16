@@ -22,7 +22,7 @@
     }
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd%22%3E
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 	<head>
@@ -41,9 +41,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -65,18 +65,19 @@
     </script>
 
 
-        <div style = "width: 321px; margin: 219px auto">
+        <div style = "width: 420px; margin: 219px auto">
         <form action="Login.jsp" name = "login" method = "POST">
             <div>
                 <div>username:</div>
-                <input type="text" id="userID" name="userID" style = "width: 321px; height: 34px; display: block; margin: 0 auto">
+                <input type="text" id="userID" name="userID" style = "width: 100%; height: 34px; display: block; margin: 0 auto">
             </div>
             <div style = "margin: 70px auto">
                 <span>password:</span>
-                <input type="password" id="password" name="password" style = "width: 321px; height: 34px; display: block; margin: 0 auto">
+                <input type="password" id="password" name="password" style = "width: 100%; height: 34px; display: block; margin: 0 auto">
                 <div style ="margin: 33px auto">
-                	<a href="http://localhost:8080/EquivalentExchangeWeb/Registration.jsp"><input type="button" value="Create an account" class="orange-clickable" style="display:inline-block"/></a>
-                    <input type="submit" id = "login" name = "login" value = "Login" class = "orange-clickable" style = "height:39px; display:block; margin:0 auto; float: right">
+                <input type="submit" id = "login" name = "login" value = "Login" class = "orange-clickable" style = "height:39px; display:block; margin:0 auto; float: right">
+                <a href="Registration.jsp"><input type="button" value="Create an account" class="orange-clickable" style="display:inline-block"/></a>
+                    
                     
                 </div>
             </div>

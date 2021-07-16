@@ -66,7 +66,7 @@
 			
 			
 			<span><a href="Home.jsp" class ="link">HOME</a></span>
-            <span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
             <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 			
 			
@@ -81,7 +81,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -120,6 +120,7 @@
 					String text = article.getText()[0];
 					String type = article.getType();
 					Integer articleID = article.getID();
+					String mediaPath = article.getMediaPaths().get(0);
 					String color;
 					if(type.equals("Guide")){
 						color = "#FFD9BD";
@@ -129,7 +130,7 @@
 					
 			%>
 			<div class="articleCase" style="background-color: <%= color %>">
-				<div class="image"></div>
+				<img class="image"/ src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';">
 				<div class="title">
 				<form action="ArticleGrid.jsp" method="POST">
 					<input style="width: 0px; height: 0px; visibility: hidden" type="text" name="articleID" value="<%= articleID%>">

@@ -3,16 +3,39 @@
 <%@page import="logic.controller.application.ArticleRetrievalController" %>
 <%
 	
-	if(request.getParameter("articleID") == null){
-		%> <jsp:forward page="Home.jsp"/> <% 
-	}
+	UserBean loggedUser = ((UserBean)session.getAttribute("loggedUser"));
+
+
+	
 	
 	ArticleRetrievalController controller = new ArticleRetrievalController();
 	Integer articleID = Integer.valueOf(request.getParameter("articleID"));
 	ArticleBean article = controller.getArticleData(articleID);
 	
+	if(request.getParameter("articleReview") != null){
+		articleID = Integer.valueOf(request.getParameter("articleID"));
+		article = controller.getArticleData(articleID);
+		 
+		if(!request.getParameter("vote").equals("0")){
+			Integer vote = Integer.valueOf(request.getParameter("vote"));
+			controller.rateArticle(loggedUser, article, vote);
+			%> <jsp:forward page="Home.jsp"/> <% 
+			
+		}
+	}
+
+
+	if(request.getParameter("articleID") == null){
+		%> <jsp:forward page="Home.jsp"/> <% 
+	}
+	
+	
 	String title = article.getTitle();
 	String authorName = article.getAuthor().getUserID();
+	Boolean alreadyVoted = true;
+	if(loggedUser != null){
+		alreadyVoted = controller.alreadyVoted(loggedUser, article);
+	}
 	
 	
 	String[] imagePaths = new String[4];
@@ -61,7 +84,7 @@
 			
 			<div id="login">
 			<%
-				UserBean loggedUser = ((UserBean)session.getAttribute("loggedUser"));
+				
 				
 				if(loggedUser == null){ %>
     				
@@ -70,7 +93,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						</div>
 						<div id="menu">
 							
@@ -90,6 +113,10 @@
 			<div id="articleHeader">
 			
 				<div id="articleTitle"><%=title %></div>
+				
+				
+				<%if(loggedUser != null && !alreadyVoted) {%>
+				
 				<div id="header-right">
 				<div class="rating">
 							<img src="assets/images/empty-star.png" alt="empty_star" id="r1" onClick="fillfoo('r1')">
@@ -100,16 +127,20 @@
                 </div>
                 
                 <form method="POST">
-                	<input type="text" name="vote" id="r" style="width:0px; heiglht: 0px; visibility: hidden;"/>
+                <input type="text" name="articleID" id="articleID" value="<%=articleID %>" style="width:0px; height: 0px; visibility: hidden;"/>
+                	<input type="text" name="vote" value="0" id="r" style="width:0px; height: 0px; visibility: hidden;"/>
                 	<input type="submit" name="articleReview" value="Rate this Article" class="orange-clickable"/>
                 </form>
                 </div>
+                
+                <% } %>
+                
 			
 			</div>
 			
 			<div id="par1" class="textDiv">
 				<% if(imagePaths[0] != null){ %>
-					<img src="file?path=<%= imagePaths[0]%>" alt="artImage"/>
+					<img src="file?path=<%= imagePaths[0]%>" alt="artImage" onerror="this.src='assets/images/missing.png';"/>
 				<% } else { %>
 					<div style="width: 300px; height: 300px;" class="substitute"></div>
 				<% } %>

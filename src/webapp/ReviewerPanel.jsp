@@ -60,9 +60,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -75,7 +75,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="E:/Desktop/avatar.png" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 
                         </div>
                         <div id="menu">
@@ -112,12 +112,13 @@
 					String author = review.getAuthor().getUserID();
 					String text = review.getText()[0];
 					String type = review.getType();
+					String mediaPath = review.getMediaPaths().get(0);
 					String color = "#D7E9D8";
 					
 					
 			%>
 			<div class="articleCase" style="background-color: <%= color %>">
-				<div class="image"></div>
+				<img class="image" src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';" alt="e"/>
 				<div class="title"><form action="ArticlePage.jsp" method="POST"><input type="submit" name="selectedArticle" value = "<%= title %>"></form></div>
 				<div class="text"><%= text %></div>
 				<div class="rating">
@@ -158,12 +159,13 @@
 					String author = review.getAuthor().getUserID();
 					String text = review.getText()[0];
 					String type = review.getType();
+					String mediaPath = review.getMediaPaths().get(0);
 					String color = "#FFD9BD";
 					
 					
 			%>
 			<div class="articleCase" style="background-color: <%= color %>">
-				<div class="image"></div>
+				<img class="image" src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';" alt="e"/>
 				<div class="title"><form action="ArticlePage.jsp" method="POST"><input type="submit" name="selectedArticle" value = "<%= title %>"></form></div>
 				<div class="text"><%= text %></div>
 				<div class="rating">

@@ -55,7 +55,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getUserID()%>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">

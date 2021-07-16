@@ -7,7 +7,7 @@
 <%@ page import ="logic.controller.application.WalletController" %>
 <%@ page import ="logic.controller.application.SellController" %>
 <%@ page import ="logic.controller.application.BuyController" %>
-<%@page import="java.util.Date" %>
+<%@ page import="java.util.Date" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
 <%@ page import ="java.text.DateFormat" %>
 <%@ page import = "java.time.ZoneId" %>
@@ -90,7 +90,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 
                         </div>
                         <div id="menu">

@@ -104,7 +104,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -133,7 +133,7 @@
 				<div class="imgItem">
 					<% for (String photo : itemDetails.getMedia()){ %>
 						<a href="ItemDetails.jsp?itemID=<%= itemID %>&selectedImg=<%= photo %>">
-						<img  src="file?path=<%= photo %>" alt = "Image not found" style="width:180px; height:180px;"/>	
+						<img  src="file?path=<%= photo %>" alt = "Image not found" onerror="this.src='assets/images/missing.png';" style="width:180px; height:180px;"/>	
 						</a>
 					<%} %>
 					
@@ -142,7 +142,7 @@
 			<div class = "box">
 				<div class = "itemBox">
 					<p id="title"> <%= itemDetails.getItemName() %> </p>
-					<img src="file?path=<%= mainImg %>" alt ="Image not found" style ="width:300px; height:300px; display: block;margin-left: auto;margin-right: auto; margin-bottom:10px"/>
+					<img src="file?path=<%= mainImg %>" alt ="Image not found" onerror="this.src='assets/images/missing.png';" style ="width:300px; height:300px; display: block;margin-left: auto;margin-right: auto; margin-bottom:10px"/>
 								
 					<div class ="description">
 						<p id ="descriptionLabel"> Description: </p>
@@ -201,7 +201,7 @@
 			<div class = "box">
 				<div class = "sellerBox">
 					<p id ="sellerLabel">Seller's Information</p>
-					<img src="file?path=<%=seller.getProfilePicPath() %>" alt="error" style="width:150px;height:150px;border-radius:110px;"/>
+					<img src="file?path=<%=seller.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="error" style="width:150px;height:150px;border-radius:110px;"/>
 					<p id ="sellerName"> <%= seller.getUserID() %></p>
 					<div id="overallRatings">
 					<%
