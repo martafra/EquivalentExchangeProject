@@ -185,9 +185,10 @@ public class ProfileController {
         OrderDAO orderDAO = new OrderDAO();
         ArrayList<Order> orders = orderDAO.selectAllOrders(username);
         List<OrderReviewBean> reviewBeans = new ArrayList<>();
-        OrderReviewBean reviewBean = new OrderReviewBean();
+        
 
         for (Order order: orders) {
+        	OrderReviewBean reviewBean = new OrderReviewBean();
         	if (!username.equals(order.getBuyer().getUsername()) && order.getOrderReview()!= null) {
         		reviewBean.setOrderID(order.getOrderID());
         		reviewBean.setSellerReliability(order.getOrderReview().getSellerReliability());

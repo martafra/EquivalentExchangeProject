@@ -129,13 +129,16 @@ public class SellerPanelView extends SceneManageable{
 		}
 		
 		List<OrderReviewBean> reviewBeans = profileController.getReviewList(loggedUser);
-		HBox hReviewBox = new HBox();
-		hReviewBox.setPrefWidth(486);
-		hReviewBox.setPrefHeight(100);
-		Label note = new Label();
-		note.setPrefWidth(250);
-		note.setWrapText(true);
+		
+		
 		for (OrderReviewBean review: reviewBeans) {
+			
+			Label note = new Label();
+			note.setPrefWidth(250);
+			note.setWrapText(true);
+			HBox hReviewBox = new HBox();
+			hReviewBox.setPrefWidth(486);
+			hReviewBox.setPrefHeight(100);
 			ReviewCase reviewCase = new ReviewCase(review);
 			((Label)reviewCase.getComponent("reviewID")).setText("Order ID #" + review.getOrderID());
 			note.setText("Note from buyer: " + "\"" + review.getBuyerNote() + "\"");
