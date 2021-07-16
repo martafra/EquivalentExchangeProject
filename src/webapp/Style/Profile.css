@@ -57,6 +57,10 @@
 .productName, .title{
 	height: 90px;
 	overflow: hidden;
+	width: 100%;
+	background-color: transparent;
+	white-space: normal;
+	border: 0px;
 	
 }
 .price{
