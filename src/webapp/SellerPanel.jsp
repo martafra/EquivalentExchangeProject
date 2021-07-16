@@ -3,10 +3,13 @@
 <%@ page import="logic.bean.UserBean" %>
 <%@ page import="logic.bean.ItemInSaleBean" %>
 <%@ page import="logic.bean.RequestBean" %>
-<%@page import="logic.controller.application.SellController" %>
+<%@ page import="logic.bean.OrderReviewBean" %>
+<%@ page import="logic.controller.application.SellController" %>
+<%@ page import="logic.controller.application.ProfileController" %>
 <%@page import="java.util.HashMap" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.ArrayList" %>
+
 
 <%	if (session.getAttribute("loggedUser") == null){
 	%>
@@ -16,7 +19,9 @@
 %>
 
 <%!SellController sController = new SellController(); %>
+<%!ProfileController pController = new ProfileController(); %>
 <%List<RequestBean> requests = sController.getRequestList(((UserBean)session.getAttribute("loggedUser")));%>
+<%List<OrderReviewBean> reviews = pController.getReviewList(((UserBean)session.getAttribute("loggedUser"))); %>
 
 <%	HashMap<String, RequestBean> reqMap = new HashMap<>();
 	for(RequestBean req : requests){
@@ -29,11 +34,13 @@
 		requests = sController.getRequestList(((UserBean)session.getAttribute("loggedUser")));
 		reqMap.remove(request.getParameter("reqBean"));
 		items = sController.getItemList(((UserBean)session.getAttribute("loggedUser")));
+		reviews = pController.getReviewList(((UserBean)session.getAttribute("loggedUser")));
 } %>
 <%	if( request.getParameter("reject") != null && reqMap.get((request.getParameter("reqBean")))!=null){
 		sController.rejectRequest(reqMap.get(request.getParameter("reqBean")));
 		reqMap.remove(request.getParameter("reqBean"));
 		items = sController.getItemList(((UserBean)session.getAttribute("loggedUser")));
+		reviews = pController.getReviewList(((UserBean)session.getAttribute("loggedUser")));
 } %>
 
 
@@ -42,7 +49,7 @@
 <html>
 	
 	<head>
-		<title>EE - Order Summary</title>
+		<title>EE - Seller Panel</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
@@ -55,9 +62,9 @@
             <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
 
 
-            <span>HOME</span>
-            <span>CATALOGUE</span>
-            <span>COMMUNITY</span>
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
+            <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             <div id="login">
@@ -70,7 +77,7 @@
                 <% }else {%>
                         <div class="loggedUserLabel" id="user">
                             <div> <%=loggedUser.getUserID()%> </div>
-                            <img src="E:/Desktop/avatar.png" alt="e"/>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
 
                         </div>
                         <div id="menu">
@@ -96,23 +103,23 @@
                 $('#menu').css("visibility", "hidden");
         });
     </script>
-	<div>
+
 	
-		<div style ="width:50%;height:720px;display:inline-block;background-color:#FFFFFF;border-width:0px 3px 0px 0px;border-style:solid;border-color:#D4CEAB;margin-left:0px;float:left">
+		<div style ="width:52%;height:1080px;display:inline-block;float:left">
    			
-   			<div style="height:400px">
-   				<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Products in sale</div>
+   			<div style="height:50%; margin-top:5%;margin-left:2%; background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+   				<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Products in sale<div style="float:right; margin-right:10px"><a href="PostAd.jsp">post an ad</a></div></div>
    				
-   				<div style="width:100%;height:100%;display:inline-block;overflow:scroll">
+   				<div style="width:100%;height:96%;display:inline-block;overflow:scroll">
    					<div>
 		
 					<%for(ItemInSaleBean item : items){
 						Integer price = item.getPrice();
 						String name = item.getItemName();
 					%>
-					<div style="background-color:#D7E9D8; display:inline-block; margin-top:10px;margin-left:3px; width:180px;height:250px;">
-						<div style = "width:125px;height:125px;margin-top:15px;margin:10px auto;background-color:#000000"></div>
-						<div style="font-size:14px; margin-top:15px; text-align:center"><%=name %><br><br><%=price %></div>
+					<div style="background-color:#D7E9D8; display:inline-block; margin-top:10px;margin-left:5px; width:180px;height:250px;">
+						<div style = "width:125px;height:125px;margin-top:15px;margin:10px auto;"><img src="file?path=<%=item.getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
+						<div style="font-size:14px; margin-top:15px; text-align:center"><%=name %><br><br><%=price %>coins</div>
 					</div>
 					<% } %>
 					</div>
@@ -122,10 +129,10 @@
    			
    			</div>
    			
-   			<div style="height:196px">
-   				<div style="margin-top:35px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Requests from buyer</div>
+   			<div style="height:35.0%; margin-top:5%; margin-left:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+   				<div style="margin-top:5px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Requests from buyers</div>
    				
-   				<div style="width:100%;height:100%;display:inline-block;overflow:scroll">
+   				<div style="width:100%;height:97%;display:inline-block;overflow:scroll">
    					<div>
 		
 					<%for(String key : reqMap.keySet()){
@@ -133,7 +140,7 @@
 						
 					%>
 					<div style="width:100%;height:80px;border-width:0px 0px 2px 0px;border-style:solid;border-color:#D4CEAB;">
-						<div style = "width:70px;height:70px;display:inline-block;margin-top:5px;margin-left:10px;background-color:#000000;float:left"></div>
+						<div style = "width:70px;height:70px;display:inline-block;margin-top:5px;margin-left:10px;float:left"><img src="file?path=<%=reqB.getReferredItemBean().getMediaPath() %>" alt="missing" style="height:100%;width:100%;"></div>
 						<div style = "display:inline-block;font-size:14px;margin-top:8px;margin-left:15px;float:left;"><%=reqB.getReferredItemBean().getItemName() %><br><br><br><%= reqB.getNote() %></div>
 						<div style="display:inline-block;font-size:14px;margin-top:8px;margin-left:350px;float:left;"><%=reqB.getBuyer() %></div>
 						
@@ -153,10 +160,35 @@
    			</div>
    		
    		</div>
-    
-    	
-    	
-    </div>
+   		
+   		<div style="height:1080px;width:47.5%;display:inline-block;float:right">
+   		
+   			<div style="height:50.0%; margin-top:5%; margin-right:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+   				<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Average rating</div>
+   				
+   			</div>
+   			
+   			<div style="height:35.0%; margin-top:5%; margin-right:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+   				<div style="margin-top:5px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Reviews from buyers</div>
+   				<div style="width:100%;height:97%;display:inline-block;overflow:scroll">
+   					<div>
+		
+					<%for(OrderReviewBean review: reviews){
+						
+						
+					%>
+					<div style="width:100%;height:150px;border-width:0px 0px 2px 0px;border-style:solid;border-color:#D4CEAB;">
+						mettere qui stelline
+					</div>
+					<% } %>
+					</div>
+					
+   				</div>
+   			</div>
+   			
+   			
+   		</div>
+
 	</body>
 
 </html>
