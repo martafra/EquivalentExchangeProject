@@ -56,11 +56,10 @@
 	}
 	else{
 		System.out.println(request.getParameter("selectedImg"));
-		mainImg = itemDetails.getMediaPath(); /*"././thewitcher.jpg";*/
+		mainImg = itemDetails.getMediaPath(); 
 	}
 	
 	if (request.getParameter("send")!=null){
-		System.out.println("Sono in send IF");
  		itemID = Integer.parseInt(request.getParameter("itemID"));
  		itemDetails = controller.getItemDetails(itemID);
  		String buyerID = loggedUser.getUserID();
@@ -92,7 +91,7 @@
 
 
             	<span><a href="Home.jsp" class ="link">HOME</a></span>
-            	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
+            	<span><a href="Catalogue.jsp" class ="link" id = "catalogue">CATALOGUE</a></span>
             	<span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
@@ -174,25 +173,26 @@
 			    			if (item.getType() =='B') {
 			    		%> 
 						<p id ="detailsItem">
-			    			Author: <% 	out.print(item.getAuthor()); %> <br>
-			    			Edition: <% 	out.print(item.getEdtion()); %> <br>
-			    			Number of Page: <% 	out.print(item.getNumberOfPages()); %> <br>
-			    			Publishing House:<% 	out.print(item.getPublishingHouse()); %> <br>
-			    			Language:<% out.print(language); %>
+			    			Author: <%=item.getAuthor()%> <br>
+			    			Edition: <%=item.getEdtion()%> <br>
+			    			Number of Page: <%=item.getNumberOfPages() %> <br>
+			    			Publishing House: <%=item.getPublishingHouse()%> <br>
+			    			Language: <%=language%>
 			    			
 			    			<% }else if(item.getType() =='M') {%>
-			    		<p id ="detailsItem">
-			    		Duration:<% out.print(item.getDuration()); %> min <br>
-			    		Language:<% out.print(language); %>
+			    				<p id ="detailsItem">
+			    				Duration: <%=item.getDuration()%> min <br>
+			    				Language: <%=language%>
 			    		<% } else {
 			    			String console = "";
     							if (item.getConsole() != null) {
     					 			console = item.getConsole().toLowerCase();
     							}	
     					%>
-			    		<p id ="detailsItem">
-			    		Console: <% out.print(console); %> <br>
-			    		Language: <% out.print(language); } %>
+			    			<p id ="detailsItem">
+			    			Console: <%=console%> <br>
+			    			Language: <%=language%>
+			    		<%} %>
 
 						</p>
 					</div>
@@ -222,7 +222,7 @@
 				</div>
 				
 				<div class = "buyBox">
-					<p id="price"> <%= itemDetails.getPrice() %> COINS </p>
+					<p id="price"> <%= itemDetails.getPrice() %> coins </p>
 					<form action="ItemDetails.jsp" name="myform" method="POST">
 						
 						<%	if (loggedUser ==  null){

@@ -106,8 +106,8 @@
 
 
             	<span><a href="Home.jsp" class ="link">HOME</a></span>
-            	<span><a href="Catalogue.jsp" class ="link">CATALOGUE</a></span>
-            	<span><a href="Community.jsp" class ="link" id="catalogue">COMMUNITY</a></span>
+            	<span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
+            	<span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
 
 
             	<div id="login">
@@ -208,7 +208,7 @@
 						
 					</div>
 					<div class ="items">
-						<label style="margin-bottom:10px; font-size:14pt; margin-left:1%;"> Order by: </label>
+						<label style="margin-bottom:10px; margin-left:1%;"> Order by: </label>
 							<select name="orderBy" class = "list" onChange="this.form.submit()" style="margin-bottom:10px;">
 								<option value="nullOrder" <%if (orderStr.equals("nullOrder")){ %> selected ="selected" <% } %> ></option>
 								<option value="Rising Price" <%if (orderStr.equals("Rising Price")){ %> selected ="selected" <% } %>>Rising Price</option>
@@ -224,7 +224,7 @@
 							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" class="link" id="Item<%=i%>" > 
 								<%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemName() %> 
 							</a>
-							<p id ="price" style="color:#FF6A00;"> <%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getPrice()  %> COINS</p>
+							<p id ="price" style="color:#FF6A00;"> <%= itemInSaleBeanList.get(i+(maxItem*pageNumber)).getPrice()  %> coins</p>
 						</div>
 						<%} %>
 					</div>

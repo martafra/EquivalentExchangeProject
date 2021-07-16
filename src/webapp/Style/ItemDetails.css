@@ -4,7 +4,7 @@
 	display: inline-block;
 	vertical-align:top;
 	margin: 3%;
-	font-size: 12pt;
+	
 	margin-top: 5%;
 	
 }
@@ -54,13 +54,13 @@
 }
 
 #title{
-	font-size: 16pt;
+
 	text-align:center;
 	margin-bottom:10px;
 
 }
 #sellerLabel{
-	font-size: 16pt;
+	
 	margin-bottom:10px;
 	
 }
@@ -74,7 +74,7 @@
 }
 
 #itemDetailsLabel{
-	font-size: 16pt;
+	
 	margin-bottom: 20 px;
 }
 
@@ -90,7 +90,6 @@
 }
 
 #descriptionLabel{
-	font-size: 16pt;
 	margin-bottom:10px;
 }
 
@@ -99,6 +98,7 @@
 	text-align:center;
 	width: 30%;
 	background-color: #D7E9E0;
+	padding-top:2px;
 	color: #5AC02A;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -107,6 +107,7 @@
 	display: inline-block;
 	text-align:center;
 	width: 30%;
+	padding-top:2px;
 	background-color: #5AC02A;
 	border-radius: 12px;
 	margin-top: 20px;

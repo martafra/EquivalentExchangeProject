@@ -6,6 +6,10 @@
 <%@page import= "logic.bean.ItemInSaleBean"  %>
 <%@ page import="java.util.List" %>
 <%
+	response.setHeader("Pragma", "No-cache");
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	response.setDateHeader("Expires", -1);
+
 	WishlistController controller = new WishlistController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
  	if (session.getAttribute("loggedUser") == null){
@@ -76,9 +80,9 @@
 		});	
 	</script>
 		
-		<div class ="box" >
+		<div class ="boxWishlist">
 			<% if(wishlist.isEmpty()){%> 
-				<p style="font-size:14pt; text-align:center; margin-top:50%;">This list is empty.<br>Add items you wish to purchase.</p> 
+				<p style=" text-align:center; margin-top:50%;">This list is empty.<br>Add items you wish to purchase.</p> 
 			<%}else{ %>
 			
 				<%for(ItemInSaleBean item: wishlist) {%>
@@ -96,7 +100,7 @@
 						<p> <%= item.getPrice() %> Coins</p>
 					</div>
 						<form action="Wishlist.jsp" name="myform" method="POST">
-							<button id = "removebtn" class="orange-clickable" type="submit" name = "removeItem" value = "<%= item.getItemID()%>" style="float : right;"> REMOVE</button>
+							<button id = "removebtn" class="orange-clickable" type="submit" name = "removeItem" value = "<%= item.getItemID()%>" style="float : right;">Remove</button>
 						</form>
 				</div>
 				<%} %>
