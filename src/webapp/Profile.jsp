@@ -185,6 +185,8 @@
 		<div id="rightPanel">
 			<div style="color: #FF6A00; font-size: 20px; padding: 10px;">Average ratings</div>
 			<table id="ratings">
+				<caption></caption>
+				<tr><th id="tab"></th></tr>
 				<tr>
 					<td>Seller availability: </td>
 					<td>

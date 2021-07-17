@@ -109,6 +109,8 @@
     <div style="width: 709px; height: 600px; padding-top:20px; background-color: #FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin: 86px auto">
   		
     	<table id="ratings" style="margin-left:40px;">
+    			<caption></caption>
+				<tr><th id="tab"></th></tr>
                 <tr>
                     <td>Seller availability: </td>
                     <td>

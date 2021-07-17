@@ -185,80 +185,82 @@
 						
 						<div style="float: left; width: 60%; height: 100%;">
 						<table id="ratings">
-				<tr>
-					<td>Seller availability: </td>
-					<td>
-					
-						<div class="rating">
-							<%
-								Integer i = 0;
+						<caption></caption>
+						<tr><th id="tab"></th></tr>
+						<tr>
+							<td>Seller availability: </td>
+							<td>
 							
+								<div class="rating">
+									<%
+										Integer i = 0;
+									
+										
+										for(i = 2; i <= availabilityVote; i+=2){
+											%> <img src="assets/images/full-star.png" alt="full_star"> <%
+											}
+										if(availabilityVote % 2 != 0){
+											%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+											i+=2;
+										}
+										for(int j = i; j <= 10; j+=2){
+											%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+										}
+										%>
 								
-								for(i = 2; i <= availabilityVote; i+=2){
-									%> <img src="assets/images/full-star.png" alt="full_star"> <%
-									}
-								if(availabilityVote % 2 != 0){
-									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
-									i+=2;
-								}
-								for(int j = i; j <= 10; j+=2){
-									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
-								}
-								%>
-						
-						</div>
-					
-					</td>
-				</tr>
-				<tr>
-					<td>Seller reliability: </td>
-					<td>
-					
-						<div class="rating">
-							<%
-								i = 0;
+								</div>
+							
+							</td>
+						</tr>
+						<tr>
+							<td>Seller reliability: </td>
+							<td>
+							
+								<div class="rating">
+									<%
+										i = 0;
+										
+										for(i = 2; i <= reliabilityVote; i+=2){
+											%> <img src="assets/images/full-star.png" alt="full_star"> <%
+											}
+										if(reliabilityVote % 2 != 0){
+											%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+											i+=2;
+										}
+										for(int j = i; j <= 10; j+=2){
+											%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+										}
+										%>
 								
-								for(i = 2; i <= reliabilityVote; i+=2){
-									%> <img src="assets/images/full-star.png" alt="full_star"> <%
-									}
-								if(reliabilityVote % 2 != 0){
-									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
-									i+=2;
-								}
-								for(int j = i; j <= 10; j+=2){
-									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
-								}
-								%>
-						
-						</div>
-					
-					</td>
-				</tr>
-				<tr>
-					<td>Product condition: </td>
-					<td>
-					
-						<div class="rating">
-							<%
-								i = 0;
-								for(i = 2; i <= conditions; i+=2){
-									%> <img src="assets/images/full-star.png" alt="full_star"> <%
-									}
-								if(conditions % 2 != 0){
-									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
-									i+=2;
-								}
-								for(int j = i; j <= 10; j+=2){
-									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
-								}
-								%>
-						
-						</div>
-					
-					</td>
-				</tr>
+								</div>
+							
+							</td>
+						</tr>
+						<tr>
+							<td>Product condition: </td>
+							<td>
+							
+								<div class="rating">
+									<%
+										i = 0;
+										for(i = 2; i <= conditions; i+=2){
+											%> <img src="assets/images/full-star.png" alt="full_star"> <%
+											}
+										if(conditions % 2 != 0){
+											%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+											i+=2;
+										}
+										for(int j = i; j <= 10; j+=2){
+											%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+										}
+										%>
+								
+								</div>
+							
+							</td>
+						</tr>
 			
-			</table>
+					</table>
 						
 						</div>
 						

@@ -61,7 +61,7 @@
 			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
 			<table style="justify-content: center;">
 				<caption></caption>
-				<tr><th></th></tr>
+				<tr><th id="tab"></th></tr>
 				<tr><td>
 				<a href="Catalogue.jsp" style="margin: 125px;">
 					<img class="HomeImage" src="assets/images/buy.png" alt="buy">
@@ -76,7 +76,7 @@
 			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
 			<table style="justify-content: center;">
 				<caption></caption>
-				<tr><th></th></tr>
+				<tr><th id="tab"></th></tr>
 				<tr><td>
 				<a href="Wishlist.jsp" style="margin: 125px;">
 					<img class="HomeImage" src="assets/images/wishlist.png" alt="wishlist">
@@ -91,7 +91,7 @@
 							
 			<table style="justify-content: center;">
 				<caption></caption>
-				<tr><th></th></tr>
+				<tr><th id="tab"></th></tr>
 				<tr><td>
 				<a href="ReviewerPanel.jsp" style="margin: 125px;">
 					<img class="HomeImage" src="assets/images/article.png" alt="write article">
