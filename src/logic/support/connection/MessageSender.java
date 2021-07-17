@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 import logic.DAO.NotificationDAO;
@@ -32,14 +31,10 @@ public class MessageSender {
 						receiver = new Socket(connection.getIP(), connection.getPort());
 						PrintWriter writer = new PrintWriter(receiver.getOutputStream(), true);
 						writer.println(MessageParser.encodeMessage(message));
-						//TODO verbose
-						System.out.println(MessageParser.encodeMessage(message));
 						
 					} catch (UnknownHostException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -72,8 +67,6 @@ public class MessageSender {
 						receiver = new Socket(connection.getIP(), connection.getPort());
 						PrintWriter writer = new PrintWriter(receiver.getOutputStream(), true);
 						writer.println(MessageParser.encodeNotification(notification));
-						//TODO verbose
-						System.out.println(MessageParser.encodeNotification(notification));
 						
 					} catch (UnknownHostException e) {
 						
@@ -81,7 +74,6 @@ public class MessageSender {
 						
 						
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

@@ -98,7 +98,6 @@ public class MessageParser {
 		try {
 			notification.setDate(format.parse(notificationFields.get("date")));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -109,8 +108,7 @@ public class MessageParser {
 		options = options.replace('-', ':');
 		options = options.replace('_', ';');
 		notification.setParameters(parseMessage(options.substring(1, options.length()-1)));
-	
-		//TODO inserire campi mancanti
+
 		return notification;
 
 	}
