@@ -139,6 +139,8 @@ public class ArticleDAO {
 			
 			article = rsToArticle(rs);
 			addImagesToArticle(stmt, article);
+			addTagsToArticle(stmt, article);
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -153,7 +155,6 @@ public class ArticleDAO {
 		List<Article> articles = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 		
 		String query;
 		
@@ -178,27 +179,12 @@ public class ArticleDAO {
 			}
 			for(Article art : articles) {
 				addImagesToArticle(stmt, art);
+				addTagsToArticle(stmt, art);
 			}
-			for(Article art : articles) {
-				Integer articleID = art.getArticleID();
-				query = tagQuery.retrieveTags(articleID);
-				rs2 = stmt.executeQuery(query);
-				
-				while(rs2.next()) {
-					art.addTag(rs2.getString("tagValue"));
-				}
-				
-				rs2.close();
-			}
-			
-			
-			
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (rs2 != null) rs2.close(); } catch (SQLException e) {e.printStackTrace();}
 			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
@@ -261,6 +247,19 @@ public class ArticleDAO {
 		
 		rs2.close();
 	}
+
+	private void addTagsToArticle(Statement stmt, Article art) throws SQLException {
+		
+		Integer articleID = art.getArticleID();
+		String query = tagQuery.retrieveTags(articleID);
+		ResultSet rs2 = stmt.executeQuery(query);
+		
+		while(rs2.next()) {
+			art.addTag(rs2.getString("tagValue"));
+		}
+		
+		rs2.close();
+	}
 	
 	private Article rsToArticle(ResultSet rs) throws SQLException {
 		Boolean status = false;
@@ -293,5 +292,5 @@ public class ArticleDAO {
 			article.setText(texts[i], i);
 		return article;
 	}
-	
+
 }
