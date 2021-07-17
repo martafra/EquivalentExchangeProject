@@ -201,7 +201,7 @@
 			 	
 						<input id = "searchBar" type="text" name="searchBar" placeholder="Search..." autocomplete="off" 
 						<%if (searchStr!=null){%> 
-							value ="<%= searchStr %>" 
+							value ="<% out.print(searchStr); %>" 
 						<%} %>>
 						<input id ="searchBtn" type="submit" name="searchBtn" value="SEARCH">
 						
