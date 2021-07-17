@@ -67,7 +67,7 @@ public class ItemInSaleDAO {
 			
 	}
 	
-	public ArrayList<ItemInSale> selectItems(String query) {
+	public List<ItemInSale> selectItems(String query) {
 		ArrayList<ItemInSale> itemList = new ArrayList<>();
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
@@ -101,16 +101,37 @@ public class ItemInSaleDAO {
 		return itemList;
 	}
 	
+	public String selectQuery(ItemInSale itemInSale, String queryType) {
+		Integer itemInSaleID = itemInSale.getItemInSaleID();
+		Integer price = itemInSale.getPrice();
+		String saleDescription = itemInSale.getDescription();
+		Integer availability = 0;
+		if(itemInSale.getAvailability())
+			availability = 1;
+		String itemCondition = itemInSale.getCondition().toString().substring(0,1);
+		String preferredLocation = itemInSale.getAddress();
+		Integer referredItem = itemInSale.getReferredItem().getItemID();
+		String userID = itemInSale.getSeller().getUsername();
+		String query;		
+		if(queryType.equals("insert")) {
+			query = itemInSaleQ.insertItemInSale(itemInSaleID, price, saleDescription, availability, 
+					itemCondition, preferredLocation, referredItem, userID);
+		}
+		else {
+			query = itemInSaleQ.updateItemInSale(itemInSaleID, price, saleDescription, availability, 
+					itemCondition, preferredLocation, referredItem, userID);	
+		}
+		return query;
+	}
 	
 	public List<ItemInSale> selectItemsInSaleByUser(String userID){
 		String query = itemInSaleQ.selectItemsByUser(userID);
-		ArrayList<ItemInSale> itemList = selectItems(query);	
-		return itemList;
+		return selectItems(query);	
 		
 	}
 	public ItemInSale selectItemInSale(int itemInSaleID) {
 		String query = itemInSaleQ.selectItemInSale(itemInSaleID);
-		ArrayList<ItemInSale> itemList = selectItems(query);	
+		List<ItemInSale> itemList = selectItems(query);	
 		if(itemList.isEmpty()) {
 			return null;
 		}
@@ -124,19 +145,7 @@ public class ItemInSaleDAO {
 		try {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			Integer itemInSaleID = itemInSale.getItemInSaleID();
-			Integer price = itemInSale.getPrice();
-			String saleDescription = itemInSale.getDescription();
-			Integer availability = 0;
-			if(itemInSale.getAvailability())
-				availability = 1;
-			String itemCondition = itemInSale.getCondition().toString().substring(0,1);
-			String preferredLocation = itemInSale.getAddress();
-			Integer referredItem = itemInSale.getReferredItem().getItemID();
-			String userID = itemInSale.getSeller().getUsername();
-
-			String query = itemInSaleQ.insertItemInSale(itemInSaleID, price, saleDescription, availability, 
-														itemCondition, preferredLocation, referredItem, userID);
+			String query = selectQuery(itemInSale, "insert");
 			stmt.executeUpdate(query);
 
 			Integer mediaID = 0;
@@ -171,19 +180,7 @@ public class ItemInSaleDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			Integer itemInSaleID = itemInSale.getItemInSaleID();
-			Integer price = itemInSale.getPrice();
-			String saleDescription = itemInSale.getDescription();
-			Integer availability = 0;
-			if(itemInSale.getAvailability())
-				availability = 1;
-			String itemCondition = itemInSale.getCondition().toString().substring(0,1);
-			String preferredLocation = itemInSale.getAddress();
-			Integer referredItem = itemInSale.getReferredItem().getItemID();
-			String userID = itemInSale.getSeller().getUsername();
-
-			String query = itemInSaleQ.updateItemInSale(itemInSaleID, price, saleDescription, availability, 
-														itemCondition, preferredLocation, referredItem, userID);
+			String query = selectQuery(itemInSale, "update");
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
@@ -230,23 +227,20 @@ public class ItemInSaleDAO {
 	
 	public List<ItemInSale> getOtherItem(String seller, String itemName){
 		String query = itemInSaleQ.getOtherItemInSale(seller, itemName);
-		ArrayList<ItemInSale> itemList = selectItems(query);	
-		return itemList;
+		return selectItems(query);
 			
 	}
 	
 	public List<ItemInSale> getItemsInSaleListFiltered(String loggedUser, Map<String, String> filters){
 		String query = itemInSaleQ.getItemsInSaleFiltered(loggedUser, filters);
-		ArrayList<ItemInSale> itemInSaleList = selectItems(query);	
-		return itemInSaleList;
+		return selectItems(query);
 			
 	}
 	
 	
 	public List<ItemInSale> getItemInSaleWishlist(String userID){
 		String query = itemInSaleQ.getItemInSaleWishlist(userID);
-		ArrayList<ItemInSale> itemList = selectItems(query);	
-		return itemList;
+		return selectItems(query);
 		
 	}
 	

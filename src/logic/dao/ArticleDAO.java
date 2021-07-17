@@ -193,19 +193,9 @@ public class ArticleDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (rs2 != null) {
-					rs2.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (rs2 != null) rs2.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		return article;
 	}
@@ -317,19 +307,9 @@ public class ArticleDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (rs2 != null) {
-					rs2.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (rs2 != null) rs2.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
 		

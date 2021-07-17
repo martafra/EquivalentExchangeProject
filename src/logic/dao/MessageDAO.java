@@ -47,16 +47,8 @@ public class MessageDAO {
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
 		return messages;
@@ -90,16 +82,8 @@ public class MessageDAO {
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
 		return lastMessage;
