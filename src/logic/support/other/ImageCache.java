@@ -46,7 +46,7 @@ public class ImageCache {
 			return MISSING_IMAGE_PATH;
 		}
 		
-		String filePath = directoryPath.toString() + "/" + name;
+		String filePath = directoryPath.toString() + File.separator + name;
 		File image = new File(filePath);
 		
 		filePath = "file:///" + filePath;
