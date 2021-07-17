@@ -22,9 +22,10 @@ import logic.support.other.ImageCache;
 public class ArticleDAO {
 	
 	private MyConnection connection = MyConnection.getInstance();
-	private static Character ESCAPE_CHARACTER = 'ç';
+	private static final  Character ESCAPE_CHARACTER = 'ç';
 	private ArticleQuery articleQuery = new ArticleQuery();
 	private ArticleMediaQuery mediaQuery = new ArticleMediaQuery();
+	private ImageCache mediaCache = ImageCache.getInstance();
 	private TagQuery tagQuery = new TagQuery();
 	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -36,9 +37,9 @@ public class ArticleDAO {
 			stmt = con.createStatement();
 			Integer articleID = article.getArticleID();
 			String title = article.getTitle();
-			var body = "";
+			StringBuilder body = new StringBuilder();
 			for(Integer i = 0; i < 4; i++) {
-				body += article.getText(i) + ESCAPE_CHARACTER.toString();
+				body.append(article.getText(i) + ESCAPE_CHARACTER.toString());
 			}
 			LayoutType layout = article.getLayout();
 			var layoutString = layout.toString().substring(0,1);
@@ -51,7 +52,7 @@ public class ArticleDAO {
 			
 			Integer referredItemID = article.getReferredItem().getItemID();
 			
-			String query = articleQuery.insertArticle(articleID, referredItemID, title, body, layoutString, typeString, validationStatus, authorID, reviewPoints, publishingDate);
+			String query = articleQuery.insertArticle(articleID, referredItemID, title, body.toString(), layoutString, typeString, validationStatus, authorID, reviewPoints, publishingDate);
 			
 			stmt.executeUpdate(query);
 			
@@ -92,10 +93,11 @@ public class ArticleDAO {
 			stmt = con.createStatement();
 			Integer articleID = article.getArticleID();
 			String title = article.getTitle();
-			var body = "";
+			StringBuilder body = new StringBuilder();
 			for(Integer i = 0; i < 4; i++) {
-				body += article.getText(i) + ESCAPE_CHARACTER.toString();
+				body.append(article.getText(i) + ESCAPE_CHARACTER.toString());
 			}
+			
 			LayoutType layout = article.getLayout();
 			var layoutString = layout.toString().substring(0,1);
 			ArticleType type = article.getType();
@@ -103,7 +105,7 @@ public class ArticleDAO {
 			Boolean validationStatus = article.isValidated();
 			Integer reviewPoints = 0;
 			
-			String query = articleQuery.updateArticle(articleID, title, body, layoutString, typeString, validationStatus, reviewPoints);
+			String query = articleQuery.updateArticle(articleID, title, body.toString(), layoutString, typeString, validationStatus, reviewPoints);
 			
 			stmt.executeUpdate(query);
 			} catch (SQLException e) {
@@ -156,17 +158,7 @@ public class ArticleDAO {
 					);
 			
 			var dateString = rs.getString("publishingDate");
-			Date date = null;
-			
-			if(dateString != null) {
-				
-				try {
-					date = format.parse(dateString);
-				} catch (ParseException e) {
-					date = null;
-				}
-				
-			}
+			Date date = stringToDate(dateString);
 			
 			article.setPublishingDate(date);
 			article.setLayout(rs.getString("layout"));
@@ -175,7 +167,6 @@ public class ArticleDAO {
 			String[] texts = body.split(ESCAPE_CHARACTER.toString());
 			for(Integer i = 0; i < texts.length ; i++)
 				article.setText(texts[i], i);
-			var mediaCache = ImageCache.getInstance();
 			query = mediaQuery.retrieveAllMedia(articleID);
 			rs2 = stmt.executeQuery(query);
 			while(rs2.next()) {
@@ -206,7 +197,6 @@ public class ArticleDAO {
 		Statement stmt = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		Article article = null;
 		
 		String query;
 		
@@ -224,70 +214,13 @@ public class ArticleDAO {
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
-			
-			
+				
 			while(rs.next()) {
-				
-				Boolean status = false;
-				
-				if(rs.getInt("validationStatus") == 1) {
-					status = true;
-				}
-					author = new UserDAO().selectUser(rs.getString("authorID"));
-
-				
-				var item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
-				
-				article = new Article(
-							rs.getInt("articleID"),
-							rs.getString("title"),
-							status,
-							item,
-							author
-						);
-				
-				var dateString = rs.getString("publishingDate");
-				Date date = null;
-				
-				if(dateString != null) {
-					
-					try {
-						date = format.parse(dateString);
-					} catch (ParseException e) {
-						date = null;
-					}
-					
-				}
-				
-				article.setPublishingDate(date);
-				article.setLayout(rs.getString("layout"));
-				article.setType(rs.getString("articleType"));
-				var body = rs.getString("body");
-				String[] texts = body.split(ESCAPE_CHARACTER.toString());
-				for(Integer i = 0; i < texts.length  ; i++)
-					article.setText(texts[i], i);	
+				Article article = rsToArticle(rs);	
 				articles.add(article);
 			}
-			
-			var mediaCache = ImageCache.getInstance();
-			
 			for(Article art : articles) {
-				Integer articleID = art.getArticleID();
-				query = mediaQuery.retrieveAllMedia(articleID);
-				rs2 = stmt.executeQuery(query);
-				while(rs2.next()) {
-					Integer mediaIndex = rs2.getInt("imageIndex");
-					String fileName = "A_" + articleID.toString() + "_" + mediaIndex.toString();
-					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					art.addMedia(filePath);
-				}
-				
-				if(art.getAllMedia().isEmpty())
-				{
-					art.addMedia("/logic/view/assets/images/missing.png");
-				}
-				
-				rs2.close();	
+				addImagesToArticle(stmt, art);
 			}
 			for(Article art : articles) {
 				Integer articleID = art.getArticleID();
@@ -332,16 +265,76 @@ public class ArticleDAO {
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try {if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
 		
+	}
+	
+	private Date stringToDate(String dateString) {
+		Date date = null;
+		
+		if(dateString != null) {
+			
+			try {
+				date = format.parse(dateString);
+				return date;
+			} catch (ParseException e) {
+				return null;
+			}	
+		}
+		return date;
+	}
+	
+	private void addImagesToArticle(Statement stmt, Article art) throws SQLException {
+		Integer articleID = art.getArticleID();
+		String query = mediaQuery.retrieveAllMedia(articleID);
+		ResultSet rs2 = stmt.executeQuery(query);
+		while(rs2.next()) {
+			Integer mediaIndex = rs2.getInt("imageIndex");
+			String fileName = "A_" + articleID.toString() + "_" + mediaIndex.toString();
+			String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
+			art.addMedia(filePath);
+		}
+		
+		if(art.getAllMedia().isEmpty())
+		{
+			art.addMedia("/logic/view/assets/images/missing.png");
+		}
+		
+		rs2.close();
+	}
+	
+	private Article rsToArticle(ResultSet rs) throws SQLException {
+		Boolean status = false;
+		
+		if(rs.getInt("validationStatus") == 1) {
+			status = true;
+		}
+		User author = new UserDAO().selectUser(rs.getString("authorID"));
+
+		
+		var item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
+		
+		Article article = new Article(
+					rs.getInt("articleID"),
+					rs.getString("title"),
+					status,
+					item,
+					author
+				);
+		
+		var dateString = rs.getString("publishingDate");
+		Date date = stringToDate(dateString);
+		
+		article.setPublishingDate(date);
+		article.setLayout(rs.getString("layout"));
+		article.setType(rs.getString("articleType"));
+		var body = rs.getString("body");
+		String[] texts = body.split(ESCAPE_CHARACTER.toString());
+		for(Integer i = 0; i < texts.length  ; i++)
+			article.setText(texts[i], i);
+		return article;
 	}
 	
 }

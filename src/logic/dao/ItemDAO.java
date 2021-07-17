@@ -18,7 +18,6 @@ import logic.entity.Book;
 import logic.entity.Item;
 import logic.entity.Movie;
 import logic.entity.Videogame;
-import logic.enumeration.VGConsole;
 
 
 public class ItemDAO {
@@ -42,7 +41,8 @@ public class ItemDAO {
 				HashMap<String, String> data = storeRs(rs, rs.getMetaData().getColumnCount());
 				itemList.add(factory.makeItem(data)); 
 			}
-		}catch(SQLException e) {
+		}catch(SQLException e) { 
+			//Do nothing 
 		}
 		finally {
 			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
@@ -145,6 +145,8 @@ public class ItemDAO {
 					String console = ((Videogame) item).getConsole().toString();
 					query = itemQ.insertVideogameData(itemID, videogameGenre, console);
 					stmt.executeUpdate(query);
+					break;
+				default: 
 					break;
 			}
 				

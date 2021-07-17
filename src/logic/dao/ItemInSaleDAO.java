@@ -106,7 +106,7 @@ public class ItemInSaleDAO {
 		Integer price = itemInSale.getPrice();
 		String saleDescription = itemInSale.getDescription();
 		Integer availability = 0;
-		if(itemInSale.getAvailability())
+		if(Boolean.TRUE.equals(itemInSale.getAvailability()))
 			availability = 1;
 		String itemCondition = itemInSale.getCondition().toString().substring(0,1);
 		String preferredLocation = itemInSale.getAddress();
