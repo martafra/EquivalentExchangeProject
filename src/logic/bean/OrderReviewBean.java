@@ -8,35 +8,34 @@ public class OrderReviewBean {
 	private String buyerNote;
 	private Integer orderID;
 	
-	
-	public Integer getSellerReliability() {
-		return sellerReliability;
-	}
-	public void setSellerReliability(Integer sellerReliability) {
-		this.sellerReliability = sellerReliability;
-	}
-	public Integer getSellerAvailability() {
-		return sellerAvailability;
-	}
-	public void setSellerAvailability(Integer sellerAvailability) {
-		this.sellerAvailability = sellerAvailability;
-	}
-	public Integer getItemCondition() {
-		return itemCondition;
-	}
-	public void setItemCondition(Integer itemCondition) {
-		this.itemCondition = itemCondition;
-	}
-	public String getBuyerNote() {
-		return buyerNote;
-	}
-	public void setBuyerNote(String buyerNote) {
-		this.buyerNote = buyerNote;
+	public void setOrderID(Integer orderID) {
+		this.orderID = orderID;
 	}
 	public Integer getOrderID() {
 		return orderID;
 	}
-	public void setOrderID(Integer orderID) {
-		this.orderID = orderID;
+	public void setBuyerNote(String buyerNote) {
+		this.buyerNote = buyerNote;
+	}
+	public String getBuyerNote() {
+		return buyerNote;
+	}
+	public void setItemCondition(Integer itemCondition) {
+		this.itemCondition = itemCondition;
+	}
+	public Integer getItemCondition() {
+		return itemCondition;
+	}
+	public void setSellerAvailability(Integer sellerAvailability) {
+		this.sellerAvailability = sellerAvailability;
+	}
+	public Integer getSellerAvailability() {
+		return sellerAvailability;
+	}
+	public void setSellerReliability(Integer sellerReliability) {
+		this.sellerReliability = sellerReliability;
+	}
+	public Integer getSellerReliability() {
+		return sellerReliability;
 	}
 }
