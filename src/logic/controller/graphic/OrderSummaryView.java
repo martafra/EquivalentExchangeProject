@@ -322,7 +322,7 @@ public class OrderSummaryView extends SceneManageable implements Observer{
         long deltaTime = time - previousTime;
         previousTime = time;
 
-		accumulator += deltaTime * (Double) Math.pow(10, -9);
+		accumulator += deltaTime * Math.pow(10, -9);
 
 		if(accumulator >= 1){
 			accumulator = 0d;

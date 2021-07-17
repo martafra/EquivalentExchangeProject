@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 
 public class RatingView extends HBox{
 
-	private Boolean isEditable = true;
+	private Boolean isEditable;
 	private Integer maxStars = 0;
 	private Integer ratingPoints = 0;
 	
@@ -28,7 +28,7 @@ public class RatingView extends HBox{
 		emptyRatingElement = new Image(getClass().getResourceAsStream("/logic/view/assets/images/empty-star.png"));
 		semiRatingElement = new Image(getClass().getResourceAsStream("/logic/view/assets/images/semi-star.png"));
 		fullRatingElement = new Image(getClass().getResourceAsStream("/logic/view/assets/images/full-star.png"));
-	
+		isEditable = true;
 		Integer position;
 		for(position = 0; position < maxStars; position++) {
 			ImageView ratingElementImage = new ImageView(emptyRatingElement);
