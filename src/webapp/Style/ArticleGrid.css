@@ -39,6 +39,7 @@
 	height: 300px;
 	display: inline;
 	float: left;
+	object-fit: cover;
 }
 .textDiv > div{
 	width: 700px;

@@ -12,12 +12,12 @@
 	margin: 20px auto 10px auto;
 }
 #navBar > form > input{
-	padding: 10px;
+	padding: 8px;
 	margin: 0px;
 	width: 19%;
 	border: 2px solid #D7E9D8;
 	background-color: white;
-	font-size: 14pt;
+	font-size: 12pt;
 }
 #navBar > form > input:hover{
 	background-color: #D7E9D8;
