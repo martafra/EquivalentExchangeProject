@@ -126,7 +126,6 @@ public class ArticleDAO {
 		Article article = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 		String query = articleQuery.selectArticleByID(articleID);
 		
 		try {
@@ -137,55 +136,13 @@ public class ArticleDAO {
 			
 			if(!rs.next())
 				return null;
-			Boolean status = false;
 			
-			if(rs.getInt("validationStatus") == 1) {
-				status = true;
-			}
-		
-			
-			var author = new UserDAO().selectUser(rs.getString("authorID"));
-			
-			
-			var item = new ItemDAO().selectItem(rs.getInt("referredItemID"));
-			
-			article = new Article(
-						rs.getInt("articleID"),
-						rs.getString("title"),
-						status,
-						item,
-						author
-					);
-			
-			var dateString = rs.getString("publishingDate");
-			Date date = stringToDate(dateString);
-			
-			article.setPublishingDate(date);
-			article.setLayout(rs.getString("layout"));
-			article.setType(rs.getString("articleType"));
-			var body = rs.getString("body");
-			String[] texts = body.split(ESCAPE_CHARACTER.toString());
-			for(Integer i = 0; i < texts.length ; i++)
-				article.setText(texts[i], i);
-			query = mediaQuery.retrieveAllMedia(articleID);
-			rs2 = stmt.executeQuery(query);
-			while(rs2.next()) {
-				Integer mediaIndex = rs2.getInt("imageIndex");
-				String fileName = "A_" + articleID.toString() + "_" + mediaIndex.toString();
-				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-				article.addMedia(filePath);
-			}
-			
-			if(article.getAllMedia().isEmpty())
-			{
-				article.addMedia("/logic/view/assets/images/missing.png");
-			}
-			
+			article = rsToArticle(rs);
+			addImagesToArticle(stmt, article);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (rs2 != null) rs2.close(); } catch (SQLException e) {e.printStackTrace();}
 			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		return article;
