@@ -71,9 +71,8 @@ public class RegistrationBean implements Bean{
 	
 	public Boolean validateUsername(String username) {
 
-		if(!username.matches("[a-z0-9]*"))
-			return false;
-		return true;
+		return !username.matches("[a-z0-9]*");
+			
 	}
 	
 	public Boolean validatePassword(String password) {
@@ -106,15 +105,13 @@ public class RegistrationBean implements Bean{
 	}
 	
 	public Boolean validateNames(String name) {
-		if(!isAlphabetic(name))
-			return false;
-		return true;
+		return !isAlphabetic(name);
+			
 	}
 	
 	public Boolean validateEmail(String email) {
-		if(!email.matches("[0-9a-z]+[\\.[0-9a-z]+]*@[0-9a-z]+[\\.[0-9a-z]+]*"))
-			return false;
-		return true;
+		return !email.matches("[0-9a-z]+[\\.[0-9a-z]+]*@[0-9a-z]+[\\.[0-9a-z]+]*");
+			
 	}
 	
 	public Boolean validateBirthDate(Date birthDate) {
@@ -122,11 +119,9 @@ public class RegistrationBean implements Bean{
 		
 		int userAge = calculateAge(birthDate);
 		
-		if(userAge < minimumAge) {
-			return false;
-		}
+		return (userAge >= minimumAge);
+			
 		
-		return true;
 	}
 	
 	private Integer calculateAge(Date birthDate) {

@@ -27,7 +27,7 @@ public class ItemInSaleBean implements Bean{
 		return referredItem.getItemName();
 	}
 	public void setItemName(String itemName) {
-		this.referredItem.setItemName(itemName);;
+		this.referredItem.setItemName(itemName);
 	}
 	public String getMediaPath() {
 		return mediaPath;

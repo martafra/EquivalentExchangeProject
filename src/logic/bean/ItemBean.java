@@ -11,7 +11,6 @@ public class ItemBean implements Bean{
 	private Date publishingDate;
 	private char type;
 	private String language;
-	//private enum target { }
 	private String author;
 	private Integer edition;
 	private Integer numberOfPages;
