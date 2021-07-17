@@ -89,25 +89,24 @@ public class ItemInSaleDAO {
 			for(ItemInSale item : itemInSaleList) {
 				putImg(stmt, item);
 			}
-
+			rs.close(); 
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		} finally {
-			closeRs(rs);
-			closeStmt(stmt);
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return itemInSaleList;
 	}
 	
-	private void closeRs(ResultSet rs) {
-		try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-	}
-	
-	private void closeStmt(Statement stmt) {
-		try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
-	}
+
 	
 	public String selectQuery(ItemInSale itemInSale, String queryType) {
 		Integer itemInSaleID = itemInSale.getItemInSaleID();

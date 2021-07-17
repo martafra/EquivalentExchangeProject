@@ -26,13 +26,6 @@ public class ItemDAO {
 	ItemQuery itemQ = new ItemQuery();
 	ConsoleQuery consoleQ = new ConsoleQuery();
 	
-	private void closeRs(ResultSet rs) {
-		try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-	}
-	
-	private void closeStmt(Statement stmt) {
-		try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
-	}
 	
 	public List<Item> getItemsList(){
 		ArrayList<Item> itemList = new ArrayList<>();
@@ -49,12 +42,18 @@ public class ItemDAO {
 				HashMap<String, String> data = storeRs(rs, rs.getMetaData().getColumnCount());
 				itemList.add(factory.makeItem(data)); 
 			}
+			
+			rs.close();
 		}catch(SQLException e) { 
 			//Do nothing 
 		}
 		finally {
-			closeRs(rs);
-			closeStmt(stmt);
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return itemList;
 		
@@ -82,15 +81,20 @@ public class ItemDAO {
 			HashMap<String, String> data = storeRs(rs, rs.getMetaData().getColumnCount());
 			
 			item = myFactory.makeItem(data); //chiamo il metodo makeItem della Factory passandogli itemType ed il resultSet della query inserito in un ArrayList
-	
+			
+			rs.close();
 	
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		} finally {
-			closeRs(rs);
-			closeStmt(stmt);
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return item;
 
