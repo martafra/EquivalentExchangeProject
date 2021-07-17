@@ -52,7 +52,7 @@ public class UserQuery extends Query{
 		lastName = quote(lastName);
 		email = quote(email);
 		
-		if(gender != "NULL")
+		if(!gender.equals("NULL"))
 			gender = quote(gender);
 		if(birthDate != null)
 		{
