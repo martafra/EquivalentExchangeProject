@@ -8,7 +8,7 @@ public class ItemDetailsBean extends ItemInSaleBean{
 	private String description;
 	private String condition;
 	private ArrayList<String> media = new ArrayList<>();
-	private String address; //TODO da modificare? string -> Location
+	private String address; 
 	
 	public Integer getReferredItemID() {
 		return getReferredItem().getItemID();

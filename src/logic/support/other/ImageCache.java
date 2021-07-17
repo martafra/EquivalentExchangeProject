@@ -25,7 +25,6 @@ public class ImageCache {
 			directoryPath = path.toAbsolutePath();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -42,11 +41,6 @@ public class ImageCache {
 	
 	public String addImage(String name, InputStream data) {
 		
-//		if(fileNames.contains(name)){
-//			String filePath = directoryPath.toString() + "/" + name;
-//			filePath = "file:///" + filePath;
-//			return filePath.replace('\\', '/');
-//		}
 
 
 		if(data == null) {
@@ -66,14 +60,11 @@ public class ImageCache {
 				IOUtils.copy(data, output);	
 				output.close();
 				data.close();
-//				fileNames.add(name);
 				
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			filePath = MISSING_IMAGE_PATH;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			filePath = MISSING_IMAGE_PATH;
 		}
@@ -88,7 +79,6 @@ public class ImageCache {
 			FileUtils.cleanDirectory(mainDirectory);
 			FileUtils.deleteDirectory(mainDirectory);		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

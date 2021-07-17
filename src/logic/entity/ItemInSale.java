@@ -14,7 +14,7 @@ public class ItemInSale {
 	private Boolean availability;
 	private Condition condition;
 	private ArrayList<String> media;
-	private String address; //TODO da modificare? string -> Location
+	private String address;
 	private Item referredItem;
 	private User seller;
 	
@@ -32,7 +32,7 @@ public class ItemInSale {
 							new Random().nextInt();
 		this.media = new ArrayList<>();
 	}
-	//TODO a cosa serve?!
+
 	
 	public ItemInSale(int itemInSaleID, int price, String description, boolean availability, String condition, String preferredLocation, Item referredItem, User seller) {
 		this.itemInSaleID = itemInSaleID;

@@ -45,8 +45,7 @@ public class SessionHandler {
 	public boolean makeResponselessRequest(String request) {
 		if(connectToServer()) {
 			try {
-				var writer = new PrintWriter(server.getOutputStream(), true);
-				System.out.println(request);					
+				var writer = new PrintWriter(server.getOutputStream(), true);					
 				writer.println(request);
 				return true;
 			}catch(IOException E) {
@@ -69,11 +68,9 @@ public class SessionHandler {
 				writer.println(request);
 				String response = reader.readLine();
 				String connections = MessageParser.parseMessage(response).get("data");
-				System.out.println("conns: " + connections);
 				return MessageParser.parseIPList(connections);
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

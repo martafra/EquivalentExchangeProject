@@ -31,7 +31,6 @@ public class PaneManager extends StackPane{
 			this.headerContent = loader.load();
 			bindHeaderBarController((HeaderController) loader.getController());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -53,7 +52,6 @@ public class PaneManager extends StackPane{
 			menuController.attachToHeader(headerBarController);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -109,7 +107,6 @@ public class PaneManager extends StackPane{
 			
 			this.addScene(name, newScene);
 		} catch (IOException e) {
-			System.out.println("Error in file: " + resourcePath);
 		} catch (NullPointerException e) {
 			SceneManageable defaultController = new DefaultGraphicController();
 			defaultController.setPaneManager(this);
