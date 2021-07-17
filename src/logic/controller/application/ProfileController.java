@@ -151,9 +151,8 @@ public class ProfileController {
 		for(Integer i = 0; i < numberOfArticles; i++) {
 			int position = random.nextInt(articles.size());
 			if(articles.get(position) != null) {
-				articles.remove(articles.get(position));
 				chosenArticles.add(articles.get(position));
-				
+				articles.remove(articles.get(position));
 			}
 		}
 		
@@ -174,8 +173,8 @@ public class ProfileController {
 		for(Integer i = 0; i < numberOfProducts; i++) {
 			int position = random.nextInt(products.size());
 			if(products.get(position) != null) {
-				products.remove(products.get(position));
 				filteredProducts.add(products.get(position));
+				products.remove(products.get(position));
 			}
 				
 		}
