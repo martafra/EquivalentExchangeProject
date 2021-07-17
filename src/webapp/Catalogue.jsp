@@ -33,8 +33,7 @@
 		username = loggedUser.getUserID();
 	}
 	if(request.getParameter("searchBar")!=null){
-			String searchParam = request.getParameter("searchBar");
-			searchStr = searchParam;
+			searchStr= "" + request.getParameter("searchBar");
 			filters.put("searchKey",request.getParameter("searchBar"));
 	}	
 	if (request.getParameter("nextBtn")!= null){

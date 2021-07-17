@@ -2,25 +2,28 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@page import= "logic.bean.UserBean"  %>
+<%@page import= "logic.bean.ItemDetailsBean"  %>
+<%@page import="logic.controller.application.ItemDetailsController" %>
 
 
  <%
- 
+ 	ItemDetailsController controller = new ItemDetailsController();
 	UserBean loggedUser = (UserBean)session.getAttribute("loggedUser");
  	if(loggedUser == null){
 		%>
 		<jsp:forward page="Login.jsp"/>
 		<% 
 	}
- 	if (request.getParameter("itemID")== null || request.getParameter("sellerID")== null || request.getParameter("itemName")==null){
+ 	if (request.getParameter("itemID")== null){
 		%>
 		<jsp:forward page="Home.jsp"/>
 		<% 
 	}
  
  	int itemID = Integer.parseInt(request.getParameter("itemID"));
-	String sellerID = request.getParameter("sellerID");
-	String itemName = request.getParameter("itemName");
+ 	ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
+	String sellerID = itemDetails.getSeller().getUserID();
+	String itemName = itemDetails.getItemName();
 	
  	
  %>
