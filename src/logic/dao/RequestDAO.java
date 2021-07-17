@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import logic.entity.Request;
 import logic.query.RequestQuery;
@@ -85,7 +86,7 @@ public class RequestDAO {
 		return request;
 	}
 	
-	public ArrayList<Request> selectAllRequests(String seller) {
+	public List<Request> selectAllRequests(String seller) {
 		ArrayList<Request> requests = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs;

@@ -68,7 +68,7 @@ public class ItemInSaleDAO {
 	}
 	
 	public List<ItemInSale> selectItems(String query) {
-		ArrayList<ItemInSale> itemList = new ArrayList<>();
+		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
 		ResultSet rs = null;	
@@ -84,9 +84,9 @@ public class ItemInSaleDAO {
 			
 			while (rs.next()) {
 				itemInSale = makeItemInSale(rs, itemDAO, userDAO);
-				itemList.add(itemInSale);
+				itemInSaleList.add(itemInSale);
 			}
-			for(ItemInSale item : itemList) {
+			for(ItemInSale item : itemInSaleList) {
 				putImg(stmt, item);
 			}
 
@@ -98,7 +98,7 @@ public class ItemInSaleDAO {
 			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
 			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
-		return itemList;
+		return itemInSaleList;
 	}
 	
 	public String selectQuery(ItemInSale itemInSale, String queryType) {

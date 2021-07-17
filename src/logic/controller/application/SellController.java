@@ -48,7 +48,7 @@ public class SellController implements SaleController{
 	public List<RequestBean> getRequestList(UserBean userBean){
 		String username = userBean.getUserID();
 		RequestDAO requestDAO = new RequestDAO();
-		ArrayList<Request> requests = requestDAO.selectAllRequests(username);
+		List<Request> requests = requestDAO.selectAllRequests(username);
 		ArrayList<RequestBean> requestBeans = new ArrayList<>();
 		for(Request request: requests) {
 			RequestBean requestBean = new RequestBean();

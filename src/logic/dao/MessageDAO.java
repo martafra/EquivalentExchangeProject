@@ -22,7 +22,7 @@ public class MessageDAO {
 	
 	public List<ChatMessage> getMessagesByUsers(String myUsername, String otherUsername){
 		ArrayList<ChatMessage> messages = new ArrayList<>();
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -33,12 +33,9 @@ public class MessageDAO {
 			while(rs.next()) {
 				ChatMessage message = new ChatMessage();
 				message.setSender(rs.getString("senderID"));
-				Date messageDate = null;
-				try {
-					messageDate = format.parse(rs.getString("sDateTime"));
-				} catch (ParseException e) {
-					messageDate = new Date();
-				}
+				
+				Date messageDate = setMessageDate(rs.getString("sDataTime"));
+				
 				message.setDate(messageDate);
 				message.setText(rs.getString("body"));
 				messages.add(message);
@@ -54,6 +51,16 @@ public class MessageDAO {
 		return messages;
 	}
 	
+	public Date setMessageDate(String sDateTimeStr) {	
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			return format.parse(sDateTimeStr);
+		} catch (ParseException e) {
+			return new Date();
+		}
+		
+	}
+	
 	public ChatMessage getLastMessageSentByUsers(String myUsername, String otherUsername) {
 		
 		ChatMessage lastMessage = new ChatMessage();
@@ -66,19 +73,13 @@ public class MessageDAO {
 			String query = mQuery.getLastMessageByUsers(myUsername, otherUsername);
 			rs = stmt.executeQuery(query);
 			
-			if(rs.next())
-			{
-				try {
-					lastMessage.setDate(format.parse(rs.getString("sDateTime")));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				
+			if(rs.next()){
 				lastMessage.setSender(rs.getString("senderID"));
 				lastMessage.setText(rs.getString("body"));
+				lastMessage.setDate(format.parse(rs.getString("sDateTime")));
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException | ParseException e) {
 			e.printStackTrace();
 
 		} finally {

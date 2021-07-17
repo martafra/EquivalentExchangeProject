@@ -14,7 +14,6 @@ public class NotificationDAO {
 
 	private MyConnection connection = MyConnection.getInstance();
 	private NotificationQuery nQuery = new NotificationQuery();
-	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public void insertNotification(String receiver, Notification notification) {
 		
 		Statement stmt = null;
