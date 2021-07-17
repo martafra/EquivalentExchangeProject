@@ -1,5 +1,5 @@
 
-package logic.DAO;
+package logic.dao;
 
 import java.sql.Connection;
 

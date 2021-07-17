@@ -3,8 +3,8 @@ import logic.bean.LoginBean;
 
 import logic.bean.RegistrationBean;
 import logic.bean.UserBean;
-import logic.DAO.UserDAO;
-import logic.DAO.UserProfileDAO;
+import logic.dao.UserDAO;
+import logic.dao.UserProfileDAO;
 import logic.entity.User;
 import logic.entity.UserProfile;
 import logic.support.connection.ConnectionData;

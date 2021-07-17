@@ -3,11 +3,11 @@ package logic.controller.application;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.DAO.ItemInSaleDAO;
-import logic.DAO.UserDAO;
-import logic.DAO.WishlistDAO;
 import logic.bean.ItemInSaleBean;
 import logic.bean.UserBean;
+import logic.dao.ItemInSaleDAO;
+import logic.dao.UserDAO;
+import logic.dao.WishlistDAO;
 import logic.entity.ItemInSale;
 import logic.entity.User;
 

@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import logic.DAO.NotificationDAO;
+import logic.dao.NotificationDAO;
 import logic.entity.ChatMessage;
 import logic.support.other.Notification;
 

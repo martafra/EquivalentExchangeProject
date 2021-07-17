@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import logic.DAO.ItemInSaleDAO;
-import logic.DAO.OrderDAO;
-import logic.DAO.UserDAO;
 import logic.bean.OrderBean;
 import logic.bean.OrderReviewBean;
+import logic.dao.ItemInSaleDAO;
+import logic.dao.OrderDAO;
+import logic.dao.UserDAO;
 import logic.entity.ItemInSale;
 import logic.entity.Order;
 import logic.entity.OrderReview;

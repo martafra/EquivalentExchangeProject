@@ -5,12 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import logic.DAO.MessageDAO;
-import logic.DAO.OrderDAO;
-import logic.DAO.UserProfileDAO;
+
 import logic.bean.ChatBean;
 import logic.bean.OrderBean;
 import logic.bean.UserBean;
+import logic.dao.MessageDAO;
+import logic.dao.OrderDAO;
+import logic.dao.UserProfileDAO;
 import logic.entity.ChatMessage;
 import logic.entity.Order;
 import logic.entity.User;

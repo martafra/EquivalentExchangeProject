@@ -3,10 +3,10 @@ package logic.controller.application;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.DAO.ArticleDAO;
-import logic.DAO.ArticleReviewDAO;
 import logic.bean.ArticleBean;
 import logic.bean.UserBean;
+import logic.dao.ArticleDAO;
+import logic.dao.ArticleReviewDAO;
 import logic.entity.Article;
 import logic.entity.ArticleReview;
 import logic.enumeration.ArticleType;

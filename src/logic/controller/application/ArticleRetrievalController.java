@@ -2,11 +2,11 @@ package logic.controller.application;
 
 import java.util.List;
 
-import logic.DAO.ArticleDAO;
-import logic.DAO.ArticleReviewDAO;
-import logic.DAO.UserDAO;
 import logic.bean.ArticleBean;
 import logic.bean.UserBean;
+import logic.dao.ArticleDAO;
+import logic.dao.ArticleReviewDAO;
+import logic.dao.UserDAO;
 import logic.entity.Article;
 import logic.entity.ArticleReview;
 import logic.entity.User;

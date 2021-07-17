@@ -4,8 +4,9 @@ package logic.controller.application;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import logic.DAO.ItemInSaleDAO;
+
 import logic.bean.ItemInSaleBean;
+import logic.dao.ItemInSaleDAO;
 import logic.entity.ItemInSale;
 import logic.enumeration.BookGenre;
 import logic.enumeration.MovieGenre;

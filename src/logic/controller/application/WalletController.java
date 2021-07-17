@@ -3,12 +3,12 @@ package logic.controller.application;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.DAO.OrderDAO;
-import logic.DAO.UserDAO;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderBean;
 import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
+import logic.dao.OrderDAO;
+import logic.dao.UserDAO;
 import logic.entity.Order;
 import logic.entity.User;
 

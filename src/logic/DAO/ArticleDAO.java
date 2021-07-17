@@ -1,7 +1,4 @@
-package logic.DAO;
-
-import java.io.IOException;
-
+package logic.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import logic.entity.Article;
-import logic.entity.Item;
 import logic.entity.User;
 import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;

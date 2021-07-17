@@ -7,14 +7,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import logic.DAO.OrderDAO;
-import logic.DAO.UserDAO;
-import logic.DAO.UserProfileDAO;
 import logic.bean.ArticleBean;
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
 import logic.bean.UserProfileBean;
+import logic.dao.OrderDAO;
+import logic.dao.UserDAO;
+import logic.dao.UserProfileDAO;
 import logic.entity.Order;
 import logic.entity.OrderReview;
 import logic.entity.User;

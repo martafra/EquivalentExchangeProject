@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import logic.DAO.ItemDAO;
-import logic.DAO.ItemInSaleDAO;
-import logic.DAO.UserDAO;
 import logic.bean.ItemDetailsBean;
+import logic.dao.ItemDAO;
+import logic.dao.ItemInSaleDAO;
+import logic.dao.UserDAO;
 import logic.entity.Item;
 import logic.entity.ItemInSale;
 import logic.entity.User;
