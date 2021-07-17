@@ -34,11 +34,10 @@ public class ItemInSale {
 	}
 
 	
-	public ItemInSale(int itemInSaleID, int price, String description, boolean availability, String condition, String preferredLocation, Item referredItem, User seller) {
+	public ItemInSale(int itemInSaleID, int price, String description, String condition, String preferredLocation, Item referredItem, User seller) {
 		this.itemInSaleID = itemInSaleID;
 		this.price = price;
 		this.description = description;
-		this.availability = availability;
 		setCondition(condition);
 		this.address = preferredLocation;
 		this.referredItem = referredItem;

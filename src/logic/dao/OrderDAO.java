@@ -59,8 +59,9 @@ public class OrderDAO {
 			UserDAO userDAO= new UserDAO();
 			User user = userDAO.selectUser(rs.getString("buyerID"));
 			
-			order = new Order(rs.getInt(orderIDStr), rs.getString("code"), itemInSale, orderDate, startDate,
+			order = new Order(rs.getInt(orderIDStr), itemInSale, orderDate, startDate,
 				 user, buyerStatus, sellerStatus);
+			order.setCode(rs.getString("code"));
 			
 			query = reviewQ.selectOrderReview(rs.getInt(orderIDStr));
 			rsR = stmt.executeQuery(query);
@@ -127,8 +128,9 @@ public class OrderDAO {
 				if(rs.getInt("buyerStatus") == 1)
 					buyerStatus = true;
 				
-				Order order = new Order(rs.getInt(orderIDStr), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
+				Order order = new Order(rs.getInt(orderIDStr), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
 						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus);
+				order.setCode(rs.getString("code"));
 				
 				orders.add(order);
 			}

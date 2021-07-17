@@ -33,14 +33,15 @@ public class ItemInSaleDAO {
 	
 	public ItemInSale makeItemInSale(ResultSet rs, ItemDAO itemDAO, UserDAO userDAO) throws SQLException {
 		
-		return new ItemInSale(rs.getInt(itemInSaleIDStr), 
+		ItemInSale item = new ItemInSale(rs.getInt(itemInSaleIDStr), 
 				rs.getInt(priceStr),
-				rs.getString(saleDescriptionStr), 
-				rs.getBoolean(availabilityStr), 
+				rs.getString(saleDescriptionStr),  
 				rs.getString(itemConditionStr),
 				rs.getString(preferredLocationStr), 
 				itemDAO.selectItem(rs.getInt(referredItemIDStr)), 
 				userDAO.selectUser(rs.getString(userIDStr)));
+		item.setAvailability(rs.getBoolean(availabilityStr));
+		return item;
 		
 	}
 	

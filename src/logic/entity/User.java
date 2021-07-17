@@ -24,18 +24,6 @@ public class User {
 		this.wallet = new Wallet();
 		wallet.setCurrentCredit(credit);
 	}
-	public User(String username, String name, String surname,String gender, Date birthDate, String email, String password, Integer credit) {
-		this.username = username;
-		this.name = name;
-		this.surname = surname;
-		setGender(gender);
-		this.birthDate = birthDate;
-		this.email = email;
-		this.password = password;
-		this.wallet = new Wallet();
-		wallet.setCurrentCredit(credit);
-	}
-	
 	
 	public User() {
 		this.wallet = new Wallet();

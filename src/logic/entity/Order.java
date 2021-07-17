@@ -23,9 +23,8 @@ public class Order {
 
 	}
 	
-	public Order(int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, User buyer, Boolean buyerStatus, Boolean sellerStatus) {
+	public Order(int orderID, ItemInSale involvedItem, Date orderDate, Date startDate, User buyer, Boolean buyerStatus, Boolean sellerStatus) {
 		this.orderID = orderID;
-		this.code = code;
 		this.involvedItem = involvedItem;
 		this.orderDate = orderDate;
 		this.startDate = startDate;
