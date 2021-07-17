@@ -51,33 +51,35 @@ public class ReviewerPanelView extends SceneManageable{
 		guidesBox.getChildren().clear();
 	}
 	private void loadCases(List<ArticleBean> articles) {
-		for(ArticleBean article: articles) {
-			ArticleCase articleCase = new ArticleCase(article);
-			articleCase.getComponent("title").setOnMouseClicked((MouseEvent e) -> {
+		for(ArticleBean art: articles) {
+			ArticleCase artCase = new ArticleCase(art);
+			artCase.getComponent("title").setOnMouseClicked((MouseEvent e) -> {
 		       
-				getBundle().addBean("selectedArticle", article);
+				getBundle().addBean("selectedArticle", art);
 		        goToScene("article");
 		        
 		    });
-			articleCase.getComponent("author").setOnMouseClicked((MouseEvent e) -> {
+			artCase.getComponent("author").setOnMouseClicked((MouseEvent e) -> {
 		  	
-				getBundle().addBean("loggedUser", article.getAuthor());
+				getBundle().addBean("loggedUser", art.getAuthor());
 		        goToScene("profile");
 		        
 			});
-			Node removeArticle = articleCase.getComponent("removeArticle");
-			removeArticle.setVisible(true);
-			removeArticle.setDisable(false);
-			removeArticle.setOnMouseClicked((MouseEvent e) -> {
-				writeController.removeArticle(article);
+			
+			Node removeArt = artCase.getComponent("removeArticle");
+			removeArt.setVisible(true);
+			removeArt.setDisable(false);
+			removeArt.setOnMouseClicked((MouseEvent e) -> {
+				writeController.removeArticle(art);
 		        goToScene("reviewerpanel");
 			});
-			articleCase.setBackgroundColor(article.getType());
-			if(article.getType().equalsIgnoreCase("review")){
-				reviewsBox.getChildren().add(articleCase.getBody());
+			
+			artCase.setBackgroundColor(art.getType());
+			if(art.getType().equalsIgnoreCase("review")){
+				reviewsBox.getChildren().add(artCase.getBody());
 			}
 			else{
-				guidesBox.getChildren().add(articleCase.getBody());
+				guidesBox.getChildren().add(artCase.getBody());
 			}
 		}
 	}
