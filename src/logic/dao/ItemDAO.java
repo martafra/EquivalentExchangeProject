@@ -26,6 +26,14 @@ public class ItemDAO {
 	ItemQuery itemQ = new ItemQuery();
 	ConsoleQuery consoleQ = new ConsoleQuery();
 	
+	private void closeRs(ResultSet rs) {
+		try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	private void closeStmt(Statement stmt) {
+		try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+	}
+	
 	public List<Item> getItemsList(){
 		ArrayList<Item> itemList = new ArrayList<>();
 		ItemFactory factory = new ItemFactory();
@@ -45,8 +53,8 @@ public class ItemDAO {
 			//Do nothing 
 		}
 		finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			closeRs(rs);
+			closeStmt(stmt);
 		}
 		return itemList;
 		
@@ -81,8 +89,8 @@ public class ItemDAO {
 			e.printStackTrace();
 
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			closeRs(rs);
+			closeStmt(stmt);
 		}
 		return item;
 

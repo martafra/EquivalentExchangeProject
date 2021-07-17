@@ -95,10 +95,18 @@ public class ItemInSaleDAO {
 			e.printStackTrace();
 
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			closeRs(rs);
+			closeStmt(stmt);
 		}
 		return itemInSaleList;
+	}
+	
+	private void closeRs(ResultSet rs) {
+		try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+	}
+	
+	private void closeStmt(Statement stmt) {
+		try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 	}
 	
 	public String selectQuery(ItemInSale itemInSale, String queryType) {
