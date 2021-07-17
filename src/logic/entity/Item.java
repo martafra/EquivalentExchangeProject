@@ -1,8 +1,6 @@
 package logic.entity;
 
 import java.util.Date;
-
-import logic.enumeration.BookGenre;
 import logic.enumeration.Language;
 
 public abstract class Item {
@@ -10,7 +8,6 @@ public abstract class Item {
 	private String name;
 	private Date publishingDate;
 	private Language language;
-	//private enum target { }
 	
 	public int getItemID() {
 		return this.itemID;
@@ -37,13 +34,6 @@ public abstract class Item {
 	public void setPublishingDate(Date publishingDate) {
 		this.publishingDate = publishingDate;
 	}
-	
-//	public void setPublishingDate(String publishingDate) {
-//		if (publishingDate!= null) {
-//			this.publishingDate = Date.valueOf(publishingDate);
-//		}
-//	
-//	}
 	
 	public void setItemID(int itemID) {
 		this.itemID = itemID;

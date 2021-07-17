@@ -1,5 +1,6 @@
 package logic.entity;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wallet {
 	
@@ -12,7 +13,7 @@ public class Wallet {
 	public Order getOrder(int index) {
 		return this.orderList.get(index);
 	}
-	public ArrayList<Order> getOrderList(){
+	public List<Order> getOrderList(){
 		return this.orderList;
 	}
 	

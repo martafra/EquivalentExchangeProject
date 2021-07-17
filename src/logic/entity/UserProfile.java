@@ -4,8 +4,6 @@ public class UserProfile {
 	
 	private String profilePicturePath;
 	private String coverPicturePath;
-	/*private accounts;
-	private address;*/
 	private String bioInfo;
 	private String phoneNumber;
 	

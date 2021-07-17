@@ -13,12 +13,11 @@ public class Book extends Item {
 	private BookGenre genre;
 	private String  publishingHouse;
 	
-	public Book (String name, Date publishingDate, String author, Integer edition, Integer numberOfPages, String genre, String publishingHouse, String language) {
+	public Book (String name, Date publishingDate, String author, Integer edition, String genre, String publishingHouse, String language) {
 		this.setName(name);
 		this.setPublishingDate(publishingDate);
 		this.author = author;
 		this.edition = edition;
-		this.numberOfPages = numberOfPages;
 		setGenre(genre);
 		this.publishingHouse = publishingHouse;
 		setLanguage(language);

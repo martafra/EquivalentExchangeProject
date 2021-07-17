@@ -6,9 +6,9 @@ public class OrderReview {
 	private Integer sellerAvailability;
 	private Integer itemCondition;
 	private String buyerNote;
-	private final static Double RELIABILITY_WEIGHT = 0.41;
-	private final static Double AVAILABILITY_WEIGHT = 0.24;
-	private final static Double CONDITION_WEIGHT = 0.35;
+	private static final Double RELIABILITY_WEIGHT = 0.41;
+	private static final Double AVAILABILITY_WEIGHT = 0.24;
+	private static final Double CONDITION_WEIGHT = 0.35;
 	
 	public Integer getSellerReliability() {
 		return sellerReliability;

@@ -1,10 +1,7 @@
 package logic.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-
 import logic.enumeration.VideoGameGenre;
-import logic.enumeration.BookGenre;
 import logic.enumeration.VGConsole;
 
 public class Videogame extends Item {
@@ -23,21 +20,12 @@ public class Videogame extends Item {
 	public VGConsole getConsole() {
 		return this.console;
 	}
-	/*public ArrayList<VGConsole> getConsoles() {
-		return this.consoles;
-	}*/
 	public VideoGameGenre getGenre() {
 		return this.genre;
 	}
 	public Character getType() {
 		return 'V';
 	}
-	/*public void addConsole(VGConsole console) {
-		this.consoles.add(console);
-	}*/
-	/*public void removeConsole(int index) {
-		this.consoles.remove(index);
-	}*/
 	
 	public void setConsole(VGConsole console) {
 		this.console = console;

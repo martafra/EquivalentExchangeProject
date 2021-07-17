@@ -1,19 +1,17 @@
 package logic.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import logic.entity.Item;
 import logic.enumeration.ArticleType;
-import logic.enumeration.Gender;
 import logic.enumeration.LayoutType;
 
 public class Article {
 	
 	private Integer articleID;
 	private String title;
-	private String text[] = new String[4];
+	private String[] text = new String[4];
 	private ArrayList<String> tags = new ArrayList<>();
 	private Boolean onValidation = false;
 	private ArrayList<String> mediaPaths = new ArrayList<>();
@@ -46,7 +44,7 @@ public class Article {
 			return articleID;
 		}
 		
-		return title.hashCode() + author.hashCode() + text.hashCode();
+		return title.hashCode() + author.hashCode() + Arrays.hashCode(text);
 	}
 	
 	public String getTitle() {
