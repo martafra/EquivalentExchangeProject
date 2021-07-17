@@ -1,7 +1,6 @@
 package logic.support.other;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import logic.entity.ChatMessage;

@@ -5,14 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import logic.entity.ChatMessage;
-
 public class SessionHandler {
 
 	private String serverAddress = "localhost";

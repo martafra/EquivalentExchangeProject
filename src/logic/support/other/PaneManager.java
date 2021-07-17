@@ -61,7 +61,7 @@ public class PaneManager extends StackPane{
 		
 		if(!getChildren().isEmpty()) {
 			
-			if(!menuState) {
+			if(Boolean.FALSE.equals(menuState)) {
 				getChildren().add(1, menuContent);
 			}else {
 				getChildren().remove(1);
@@ -81,15 +81,6 @@ public class PaneManager extends StackPane{
         this.loadedScenes.put(name, scene);
     }
 
-    private boolean removeScene(String name){
-
-        if (this.loadedScenes.get(name) != null){
-            
-            this.loadedScenes.remove(name);
-            return true;
-        }
-        return false;
-    }
     
     public void loadScene(String name, String resourcePath) {
     	
@@ -107,6 +98,7 @@ public class PaneManager extends StackPane{
 			
 			this.addScene(name, newScene);
 		} catch (IOException e) {
+			//Do nothing
 		} catch (NullPointerException e) {
 			SceneManageable defaultController = new DefaultGraphicController();
 			defaultController.setPaneManager(this);

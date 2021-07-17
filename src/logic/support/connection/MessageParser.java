@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import logic.entity.ChatMessage;
 import logic.enumeration.NotificationType;
@@ -16,8 +17,10 @@ public class MessageParser {
 
 	private static String dateTimeFormat = "yyyy-MM-dd_HH-mm-ss";
 	
+	private MessageParser() {}
+	
 	public static Map<String, String> parseMessage(String message){
-		if(message == "" || message == null)
+		if("".equals(message) || message == null)
 			return null;
 		
 		String[] params = message.split(";");
@@ -81,9 +84,12 @@ public class MessageParser {
 			return result;
 		}
 
-		for(String key : options.keySet()){
-			result += key + "-" + options.get(key) + "_";
+		StringBuilder strBld = new StringBuilder();
+		
+		for(Entry<String, String> entry : options.entrySet()){
+			strBld.append(entry.getKey()).append("-").append(entry.getValue()).append("_");
 		}
+		result += strBld.toString();
 		result = result.substring(0, result.length()-1);
 		result += "}";	
 		return result;
@@ -93,7 +99,11 @@ public class MessageParser {
 		var notificationFields = parseMessage(notificationString);
 		Notification notification = new Notification();
 		DateFormat format = new SimpleDateFormat(dateTimeFormat);
-
+		
+		if(notificationFields == null) {
+			return new Notification();
+		}
+		
 		notification.setSender(notificationFields.get("sender"));
 		try {
 			notification.setDate(format.parse(notificationFields.get("date")));

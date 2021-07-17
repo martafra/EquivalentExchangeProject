@@ -16,8 +16,8 @@ public class ConnectionServer implements Runnable{
 	private ServerSocket handler = null; 
 	private MailBox mailbox;
 	private AtomicBoolean running = new AtomicBoolean(false);
-	private final int minPort = 4096;
-	private final int maxPort = 65000;
+	private static final int MIN_PORT = 4096;
+	private static final int MAX_PORT = 65000;
 	private Thread threadReference;
 	private static ConnectionServer instance = null;
 	
@@ -26,7 +26,7 @@ public class ConnectionServer implements Runnable{
 			
 			int port;
 			do {
-				port = new Random().nextInt(maxPort - minPort) + minPort;
+				port = new Random().nextInt(MAX_PORT - MIN_PORT) + MIN_PORT;
 			}while(!available(port));
 			
 			
@@ -58,6 +58,9 @@ public class ConnectionServer implements Runnable{
 		try {
 			this.handler.close();
 		} catch (IOException e) {
+			
+			//Do nothing
+			
 		}
 	}
 	
@@ -71,13 +74,13 @@ public class ConnectionServer implements Runnable{
 		while(true) {
 			try {
 				if(!running.get())
-					break;
+					return;
 				Socket connectedUser = handler.accept();
 				var userHandler = new Thread(new ConnectionHandler(connectedUser, mailbox));
 				userHandler.start();
 			} catch(SocketException e) {
 				if(!running.get())
-					break;
+					return;
 			}catch (IOException e) {
 				e.printStackTrace();
 			} 

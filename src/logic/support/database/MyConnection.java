@@ -19,9 +19,7 @@ public class MyConnection {
 			Class.forName(driver);
 			con = DriverManager.getConnection("jdbc:mysql://localhost:" + portaDB + "/" + nomeDB, usernameDB,
 					passwordDB);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

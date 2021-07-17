@@ -10,14 +10,10 @@ public abstract class Subject {
 	
 	public void notifyObservers() {
 	
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				for(Observer ob : observers) {
-					ob.update();
-				}
+		Platform.runLater(() -> {
+				for(Observer ob : observers) { ob.update();}
 			}	
-		});
+		);
 	}
 	
 	public void register(Observer ob) {

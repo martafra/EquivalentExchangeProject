@@ -2,18 +2,12 @@ package logic.support.other;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-
 import logic.entity.Book;
 import logic.entity.Item;
 import logic.entity.Videogame;
 import logic.entity.Movie;
-import logic.enumeration.BookGenre;
-import logic.enumeration.MovieGenre;
-import logic.enumeration.VideoGameGenre;
 
 public class ItemFactory {
 	String genreStr = "genre";
@@ -66,7 +60,6 @@ public class ItemFactory {
 		Book book = new Book(name, publishingDate, author, edition, genre, publishingHouse, language);
 		book.setNumberOfPages(numberOfPages);
 		return book;
-		
 	}
 	
 	private Item makeVideoGame(Map<String, String> data){ //popola e ritorna la classe VideoGame, per ora non è presente VGConsole perché devo capire come gestirlo

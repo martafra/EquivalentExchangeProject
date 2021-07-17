@@ -35,7 +35,6 @@ public class ConnectionCache {
 		
 		list.add(client);
 		onlineUsers.put(username, list);
-		return;
 	}
 	
 	// remove user from online users
@@ -54,20 +53,9 @@ public class ConnectionCache {
 			}
 		}
 		catch(NullPointerException e) {
-			
+			//Do noting if there is an error
 		}
 	}
 	
-	// get connections list from a certain user
-	public ArrayList<String> getConnections(String username){
 
-//		
-//        ArrayList<String> connections = new ArrayList<>();
-//		for(ConnectionData data : onlineUsers.get(username)){
-//            connections.add(data.getStringData());
-//        }
-//
-//        return connections;
-		return null;
-	}
 }

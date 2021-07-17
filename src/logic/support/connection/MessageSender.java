@@ -3,7 +3,6 @@ package logic.support.connection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.List;
 
 import logic.dao.NotificationDAO;
@@ -25,17 +24,14 @@ public class MessageSender {
 				
 				@Override
 				public void run(){
-					Socket receiver = null;
-					
-					try {
-						receiver = new Socket(connection.getIP(), connection.getPort());
+			
+					try (Socket receiver = new Socket(connection.getIP(), connection.getPort())){
+						
 						PrintWriter writer = new PrintWriter(receiver.getOutputStream(), true);
 						writer.println(MessageParser.encodeMessage(message));
 						
-					} catch (UnknownHostException e) {
-						e.printStackTrace();
 					} catch (IOException e) {
-						e.printStackTrace();
+						//Do nothing
 					}
 				}
 			}.start();
@@ -61,20 +57,15 @@ public class MessageSender {
 				
 				@Override
 				public void run(){
-					Socket receiver = null;
 					
-					try {
-						receiver = new Socket(connection.getIP(), connection.getPort());
+					
+					try(Socket receiver = new Socket(connection.getIP(), connection.getPort())){
+						
 						PrintWriter writer = new PrintWriter(receiver.getOutputStream(), true);
 						writer.println(MessageParser.encodeNotification(notification));
 						
-					} catch (UnknownHostException e) {
-						
-						
-						
-						
 					} catch (IOException e) {
-						e.printStackTrace();
+						//Do nothing
 					}
 				}
 			}.start();
