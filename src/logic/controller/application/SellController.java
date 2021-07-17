@@ -68,24 +68,16 @@ public class SellController implements SaleController{
 	
 	
 	public void acceptRequest(RequestBean requestBean) {
-		Notification rejectedRequest = new Notification();
 		
-		Integer item = requestBean.getReferredItem();
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
-		String seller = itemDAO.selectItemInSale(item).getSeller().getUsername();
-		String itemID = item.toString();
+		Notification acceptedRequest = createRequestNotification(requestBean, "accept");
+		Integer item = requestBean.getReferredItem();
 		
-		rejectedRequest.setSender(seller);
-		rejectedRequest.setDate(new Date());
-		rejectedRequest.setType(NotificationType.REQUEST);
-		rejectedRequest.addParameter(STATUS_STRING, "accepted");
-		rejectedRequest.addParameter("item", itemID);
-
 		UserDAO userDAO = new UserDAO();
 		User buyer = userDAO.selectUser(requestBean.getBuyer());
 		
 		MessageSender sender = new MessageSender();
-		sender.sendNotification(buyer.getUsername(), rejectedRequest);
+		sender.sendNotification(buyer.getUsername(), acceptedRequest);
 		
 		RequestDAO requestDAO = new RequestDAO();
 		requestDAO.deleteRequest(buyer.getUsername(), item);
@@ -102,23 +94,29 @@ public class SellController implements SaleController{
 		
 	}
 	
-	public void rejectRequest(RequestBean requestBean) {
-		Notification rejectedRequest = new Notification();
+	private Notification createRequestNotification(RequestBean requestBean, String status) {
+		Notification notification = new Notification();
 		
 		Integer item = requestBean.getReferredItem();
 		ItemInSaleDAO itemDAO = new ItemInSaleDAO();
 		String seller = itemDAO.selectItemInSale(item).getSeller().getUsername();
 		String itemID = item.toString();
 		
-		rejectedRequest.setSender(seller);
-		rejectedRequest.setDate(new Date());
-		rejectedRequest.setType(NotificationType.REQUEST);
-		rejectedRequest.addParameter(STATUS_STRING, "rejected");
-		rejectedRequest.addParameter("item", itemID);
+		notification.setSender(seller);
+		notification.setDate(new Date());
+		notification.setType(NotificationType.REQUEST);
+		notification.addParameter(STATUS_STRING, status);
+		notification.addParameter("item", itemID);
+		
+		return notification;
+	}
+	
+	public void rejectRequest(RequestBean requestBean) {
+		Notification rejectedRequest = createRequestNotification(requestBean, "reject");
+		Integer item = requestBean.getReferredItem();
 		
 		MessageSender sender = new MessageSender();
 		sender.sendNotification(requestBean.getBuyer(), rejectedRequest);
-		
 		RequestDAO requestDAO = new RequestDAO();
 		requestDAO.deleteRequest(requestBean.getBuyer(), item);
 		
