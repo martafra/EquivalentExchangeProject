@@ -31,8 +31,6 @@
 		ItemDetailsBean itemDetails = controller.getItemDetails(itemID);
 		%><jsp:forward page="SendRequest.jsp">
 			<jsp:param name="itemID" value="<%=itemID %>"/>
-			<jsp:param name="sellerID" value="<%=itemDetails.getSeller().getUserID() %>"/>
-			<jsp:param name="itemName" value="<%=itemDetails.getItemName() %>"/>
 			</jsp:forward>
 		<% 
 				
@@ -52,10 +50,16 @@
 	UserProfileBean profileBean = controllerProfile.getUserProfileData(seller);
 	
 	if(request.getParameter("selectedImg") !=null){
-		mainImg = request.getParameter("selectedImg");
+		int imgIndex = Integer.parseInt(request.getParameter("selectedImg"));
+		if(imgIndex < itemDetails.getMedia().size() && imgIndex > 0){
+			mainImg = itemDetails.getMedia().get(imgIndex);
+		}
+		else{
+			mainImg = itemDetails.getMediaPath(); 
+		}
+		
 	}
 	else{
-		System.out.println(request.getParameter("selectedImg"));
 		mainImg = itemDetails.getMediaPath(); 
 	}
 	
@@ -131,9 +135,9 @@
 	
 			<div class = "box" style="margin-left:10%;">
 				<div class="imgItem">
-					<% for (String photo : itemDetails.getMedia()){ %>
-						<a href="ItemDetails.jsp?itemID=<%= itemID %>&selectedImg=<%= photo %>">
-						<img  src="file?path=<%= photo %>" alt = "Image not found" onerror="this.src='assets/images/missing.png';" style="width:180px; height:180px;"/>	
+					<% for (int i = 0; i < itemDetails.getMedia().size() ; i++){ %>
+						<a href="ItemDetails.jsp?itemID=<%= itemID %>&selectedImg=<%=i%>">
+						<img  src="file?path=<%=itemDetails.getMedia().get(i)%>" alt = "Image not found" onerror="this.src='assets/images/missing.png';" style="width:180px; height:180px;"/>	
 						</a>
 					<%} %>
 					
