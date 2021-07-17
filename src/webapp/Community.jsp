@@ -132,7 +132,7 @@
 			<div class="articleCase" style="background-color: <%= color %>">
 				<img class="image" src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';" alt="media">
 				<div class="title">
-				<form action="ArticleGrid.jsp" method="POST">
+				<form action="ReviewSorter.jsp" method="POST">
 					<input style="width: 0px; height: 0px; visibility: hidden" type="text" name="articleID" value="<%= articleID%>">
 					<input type="submit" name="selectedArticle" value = "<%= title %>">
 				</form>

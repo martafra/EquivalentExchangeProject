@@ -183,11 +183,7 @@
   				</select>
 			</div>
 			
-			<div>
-			<input id="imageChooser" accept="image/jpeg, image/png" type="file" style="visibility: hidden; width: 0px; height: 0px;"/>
-			<input type="button" id="addImg" name="addImg" value="+" class="orange-clickable" style ="height:115px; width:64px; display:inline-block; float: left;" />
-			<div id="images" style="width: 800px; height: 115px; background-color: green; float: left; margin-left: 10px;"></div>
-			</div>
+			
 
 		
 		</form>
@@ -201,31 +197,6 @@
 		$('#type').on('change', function(){
         $(this).closest('form').submit();
     	});
-		
-		$('#addImg').on('click', function(){
-			$('#imageChooser').click();
-		});
-		
-		var reader = new FileReader();
-
-        reader.onload = function (e) {
-        	var img = document.createElement('img');
-            img.src = e.target.result;
-            img.style = "height: 100%; margin-right: 10px;"
-            $('#images').append(img);
-        } 
-        	
-		$('input[type="file"]').change(function(e){
-	            var files = e.target.files;
-	            
-	            for(var i = 0; i < files.length; i++){
-	            	
-	            	reader.readAsDataURL(files[i]);
-	            }
-	            
-	        });
-		
-		
 	</script>
 	
 	

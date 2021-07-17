@@ -164,12 +164,9 @@
    		
    		<div style="height:1080px;width:47.5%;display:inline-block;float:right">
    		
-   			<div style="height:50.0%; margin-top:5%; margin-right:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
-   				<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Average rating</div>
-   				
-   			</div>
    			
-   			<div style="height:35.0%; margin-top:5%; margin-right:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+   			
+   			<div style="height:90.0%; margin-top:65px; margin-right:2%;background-color:#FFFFFF; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
    				<div style="margin-top:5px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Reviews from buyers</div>
    				<div style="width:100%;height:97%;display:inline-block;overflow:scroll">
    					<div>

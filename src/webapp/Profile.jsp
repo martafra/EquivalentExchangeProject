@@ -261,37 +261,7 @@
 				</tr>
 			
 			</table>
-			<% if(loggedUser.isModerator()){ %>
 			
-			<div id="moderatorRequests">
-				
-				<% 
-					List<ArticleBean> pendingArticles = modController.getPendingArticles();
-					pendingArticles = articles;
-					for(ArticleBean article : pendingArticles){
-						String title = article.getTitle();
-						Integer articleID = article.getID();
-						String author = article.getAuthor().getUserID();
-						
-						%> <div class="request">
-							<form method="POST">
-								<div style="float: left;">
-								<div class="rArticleTitle"><%=title %></div>
-								<div class="rAuthor"><%=author %></div>
-								</div>
-								<div style="float: right">
-								<input type="text" name="articleID" value ="<%=articleID %> " style="visibility: hidden; width: 0px; height: 0px;"/>
-								<input class="orange-clickable" type="submit" name="articleRequest" value=" ->"/>
-								</div>
-							</form>
-						
-						</div> <% 
-						
-					 } %>
-	
-			</div>
-			
-			<% } %>
 		</div>
 		
 	</body>
