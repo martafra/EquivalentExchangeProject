@@ -184,7 +184,7 @@ public class ProfileController {
 	public List<OrderReviewBean> getReviewList(UserBean userBean){
         String username = userBean.getUserID();
         OrderDAO orderDAO = new OrderDAO();
-        ArrayList<Order> orders = orderDAO.selectAllOrders(username);
+        List<Order> orders = orderDAO.selectAllOrders(username);
         List<OrderReviewBean> reviewBeans = new ArrayList<>();
         
 

@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import logic.support.database.MyConnection;
 import logic.entity.ItemInSale;
@@ -24,6 +25,7 @@ public class OrderDAO {
 	MyConnection connection = MyConnection.getInstance();
 	OrderQuery orderQ = new OrderQuery();
 	OrderReviewQuery reviewQ = new OrderReviewQuery();
+	String orderIDStr = "orderID";
 	
 	public Order selectOrder(int orderID) {
 		Order order = null;
@@ -43,15 +45,10 @@ public class OrderDAO {
 			
 			ItemInSaleDAO itemInSaleDAO= new ItemInSaleDAO();
 			ItemInSale itemInSale = itemInSaleDAO.selectItemInSale(rs.getInt("referredItemID"));
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date orderDate = null;
-			Date startDate = null;
-			try {
-				startDate = format.parse(rs.getString("startDate"));
-				orderDate = format.parse(rs.getString("orderDate"));
-			} catch (NullPointerException | ParseException e) {
-				
-			}
+			
+			Date startDate = setDate(rs, "startDate");
+			Date orderDate = setDate(rs, "orderDate");
+			
 			Boolean sellerStatus = false;
 			if(rs.getInt("sellerStatus") == 1)
 				sellerStatus = true;
@@ -62,10 +59,10 @@ public class OrderDAO {
 			UserDAO userDAO= new UserDAO();
 			User user = userDAO.selectUser(rs.getString("buyerID"));
 			
-			order = new Order(rs.getInt("orderID"), rs.getString("code"), itemInSale, orderDate, startDate,
+			order = new Order(rs.getInt(orderIDStr), rs.getString("code"), itemInSale, orderDate, startDate,
 				 user, buyerStatus, sellerStatus);
 			
-			query = reviewQ.selectOrderReview(rs.getInt("orderID"));
+			query = reviewQ.selectOrderReview(rs.getInt(orderIDStr));
 			rsR = stmt.executeQuery(query);
 			if (rsR.next()) {
 				OrderReview review = new OrderReview();
@@ -94,7 +91,17 @@ public class OrderDAO {
 
 	}
 	
-	public ArrayList<Order> selectAllOrders(String username) {
+	public Date setDate(ResultSet rs, String date) throws SQLException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			return format.parse(rs.getString(date));
+		} catch (NullPointerException | ParseException e) {
+			return null;
+		}
+	}
+	
+	
+	public List<Order> selectAllOrders(String username) {
 		ArrayList<Order> orders = new ArrayList<>();
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -108,17 +115,8 @@ public class OrderDAO {
 			
 			while(rs.next()) {
 				//int orderID, String code, ItemInSale involvedItem, Date orderDate, Date startDate, Boolean orderStatus, User buyer
-				DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date orderDate = null;
-				Date startDate = null;
-				try {
-					if(rs.getString("orderDate") != null)
-						orderDate = format.parse(rs.getString("orderDate"));
-					if(rs.getString("startDate") != null)
-						startDate = format.parse(rs.getString("startDate"));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				Date startDate = setDate(rs, "startDate");
+				Date orderDate = setDate(rs, "orderDate");
 				
 				UserDAO userDAO = new UserDAO();
 				ItemInSaleDAO itemDAO = new ItemInSaleDAO();
@@ -129,7 +127,7 @@ public class OrderDAO {
 				if(rs.getInt("buyerStatus") == 1)
 					buyerStatus = true;
 				
-				Order order = new Order(rs.getInt("orderID"), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
+				Order order = new Order(rs.getInt(orderIDStr), rs.getString("code"), itemDAO.selectItemInSale(rs.getInt("referredItemID")), orderDate,
 						startDate, userDAO.selectUser(rs.getString("buyerID")), buyerStatus, sellerStatus);
 				
 				orders.add(order);

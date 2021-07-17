@@ -25,7 +25,7 @@ public class WalletController {
 	public List<OrderBean> getOrderList(UserBean userBean){
 		String username = userBean.getUserID();
 		OrderDAO orderDAO = new OrderDAO();
-		ArrayList<Order> orders = orderDAO.selectAllOrders(username);
+		List<Order> orders = orderDAO.selectAllOrders(username);
 		List<OrderBean> orderBeans = new ArrayList<>();
 		
 		for (Order order: orders) {

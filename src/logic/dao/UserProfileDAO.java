@@ -14,6 +14,7 @@ public class UserProfileDAO {
 
 	MyConnection connection = MyConnection.getInstance();
 	UserProfileQuery profileQuery = new UserProfileQuery();
+	String missingImg = "/logic/view/assets/images/avatar.png";
 	
 	public UserProfile selectProfileByUsername(String username, Boolean onlyProPic) {
 		
@@ -40,19 +41,24 @@ public class UserProfileDAO {
 			ImageCache mediaCache = ImageCache.getInstance();
 			String fileName = username + "_profilePic";
 			String filePath = mediaCache.addImage(fileName, rs.getBinaryStream("proPic"));
-			if(filePath.equals(mediaCache.getMissingImagePath()))
-				filePath = "/logic/view/assets/images/avatar.png";
-			
-			profileData.setProfilePicturePath(filePath);
+			if(filePath.equals(mediaCache.getMissingImagePath())) {
+				profileData.setProfilePicturePath(missingImg);
+			}
+			else {
+				profileData.setProfilePicturePath(filePath);
+			}
 			
 			if(Boolean.FALSE.equals(onlyProPic)) {
 				
 				fileName = username + "_coverPic";
 				filePath = mediaCache.addImage(fileName, rs.getBinaryStream("coverPic"));
-				if(filePath.equals(mediaCache.getMissingImagePath()))
-					filePath = "/logic/view/assets/images/avatar.png";
+				if(filePath.equals(mediaCache.getMissingImagePath())) {
+					profileData.setCoverPicturePath(missingImg);
+				}
+				else {
+					profileData.setCoverPicturePath(filePath);
+				}
 				
-				profileData.setCoverPicturePath(filePath);
 				profileData.setPhoneNumber(rs.getString("phoneNumber"));
 				profileData.setBioInfo(rs.getString("bioInfo"));
 				

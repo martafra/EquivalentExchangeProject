@@ -98,19 +98,7 @@ public class UserDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String username = user.getUsername();
-			String password = user.getPassword();
-			String name = user.getName();
-			String lastName = user.getSurname();
-			String email = user.getEmail();
-			
-			String gender = "";
-			if(user.getGender() != null)
-				gender = user.getGender().toString().substring(0,1);
-			Date birthDate = user.getBirthDate();
-			Integer credit = user.getWallet().getCurrentCredit();
-
-			String query = userQ.insertUser(username, password, name, lastName, email, gender, birthDate, credit);
+			String query = selectQuery(user, "insert");
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
@@ -134,20 +122,7 @@ public class UserDAO {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String username = user.getUsername();
-			String password = user.getPassword();
-			String name = user.getName();
-			String lastName = user.getSurname();
-			String email = user.getEmail();
-			
-			String gender = "";
-			if(user.getGender() != null)
-				gender = user.getGender().toString().substring(0,1);
-			Date birthDate = user.getBirthDate();
-			Integer credit = user.getWallet().getCurrentCredit();
-			Boolean isModerator = user.isModerator();
-
-			String query = userQ.updateUser(username, password, name, lastName, email, gender, birthDate, credit, isModerator);
+			String query = selectQuery(user, "update");
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
@@ -165,6 +140,30 @@ public class UserDAO {
 		}
 	}
 	
+	public String selectQuery(User user, String queryType ) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		String name = user.getName();
+		String lastName = user.getSurname();
+		String email = user.getEmail();
+		
+		String gender = "";
+		if(user.getGender() != null)
+			gender = user.getGender().toString().substring(0,1);
+		Date birthDate = user.getBirthDate();
+		Integer credit = user.getWallet().getCurrentCredit();
+		
+		String query;
+		if(queryType.equals("insert")) {
+			query = userQ.insertUser(username, password, name, lastName, email, gender, birthDate, credit);
+		}
+		else{
+			Boolean isModerator = user.isModerator();
+			query = userQ.updateUser(username, password, name, lastName, email, gender, birthDate, credit, isModerator);
+		}
+		return query;
+		
+	}
 	public void deleteUser(String username) {
 		Statement stmt = null;
 		try {

@@ -35,27 +35,11 @@ public class ArticleDAO {
 		try {
 			var con = connection.getConnection();
 			stmt = con.createStatement();
-			Integer articleID = article.getArticleID();
-			String title = article.getTitle();
-			StringBuilder body = new StringBuilder();
-			for(Integer i = 0; i < 4; i++) {
-				body.append(article.getText(i) + ESCAPE_CHARACTER.toString());
-			}
-			LayoutType layout = article.getLayout();
-			var layoutString = layout.toString().substring(0,1);
-			ArticleType type = article.getType();
-			var typeString = type.toString().substring(0,1);
-			String authorID = article.getAuthor().getUsername();
-			Boolean validationStatus = article.isValidated();
-			Integer reviewPoints = 0;
-			var publishingDate = article.getPublishingDate();
 			
-			Integer referredItemID = article.getReferredItem().getItemID();
-			
-			String query = articleQuery.insertArticle(articleID, referredItemID, title, body.toString(), layoutString, typeString, validationStatus, authorID, reviewPoints, publishingDate);
-			
+			String query = selectQuery(article, "insert");
 			stmt.executeUpdate(query);
 			
+			Integer articleID = article.getArticleID();
 			Integer mediaID = 0;
 
 			for(String mediaPath : article.getAllMedia()){
@@ -91,22 +75,8 @@ public class ArticleDAO {
 		try {
 			var con = connection.getConnection();
 			stmt = con.createStatement();
-			Integer articleID = article.getArticleID();
-			String title = article.getTitle();
-			StringBuilder body = new StringBuilder();
-			for(Integer i = 0; i < 4; i++) {
-				body.append(article.getText(i) + ESCAPE_CHARACTER.toString());
-			}
 			
-			LayoutType layout = article.getLayout();
-			var layoutString = layout.toString().substring(0,1);
-			ArticleType type = article.getType();
-			var typeString = type.toString().substring(0,1);
-			Boolean validationStatus = article.isValidated();
-			Integer reviewPoints = 0;
-			
-			String query = articleQuery.updateArticle(articleID, title, body.toString(), layoutString, typeString, validationStatus, reviewPoints);
-			
+			String query = selectQuery(article, "update");
 			stmt.executeUpdate(query);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -120,6 +90,34 @@ public class ArticleDAO {
 					e.printStackTrace();
 				}
 			}
+	}
+	
+	public String selectQuery(Article article, String queryType) {
+		
+		Integer articleID = article.getArticleID();
+		String title = article.getTitle();
+		StringBuilder body = new StringBuilder();
+		for(Integer i = 0; i < 4; i++) {
+			body.append(article.getText(i) + ESCAPE_CHARACTER.toString());
+		}
+		LayoutType layout = article.getLayout();
+		var layoutString = layout.toString().substring(0,1);
+		ArticleType type = article.getType();
+		var typeString = type.toString().substring(0,1);
+		Boolean validationStatus = article.isValidated();
+		Integer reviewPoints = 0;
+		
+		String query;
+		if(queryType.equals("insert")){
+			String authorID = article.getAuthor().getUsername();
+			var publishingDate = article.getPublishingDate();
+			Integer referredItemID = article.getReferredItem().getItemID();
+			query = articleQuery.insertArticle(articleID, referredItemID, title, body.toString(), layoutString, typeString, validationStatus, authorID, reviewPoints, publishingDate);
+		}
+		else {
+			query = articleQuery.updateArticle(articleID, title, body.toString(), layoutString, typeString, validationStatus, reviewPoints);
+		}
+		return query;
 	}
 	
 	public Article selectArticle(Integer articleID) {
