@@ -33,8 +33,13 @@
 		username = loggedUser.getUserID();
 	}
 	if(request.getParameter("searchBar")!=null){
-			searchStr= request.getParameter("searchBar").toLowerCase();
-			filters.put("searchKey",request.getParameter("searchBar"));
+			searchStr= request.getParameter("searchBar");
+			if (searchStr!=null && searchStr.matches("^[a-zA-Z0-9]*$")){
+				filters.put("searchKey",request.getParameter("searchBar"));
+			}
+			else{
+				searchStr=null;
+			}
 	}	
 	if (request.getParameter("nextBtn")!= null){
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
@@ -201,7 +206,7 @@
 			 	
 						<input id = "searchBar" type="text" name="searchBar" placeholder="Search..." autocomplete="off" 
 						<%if (searchStr!=null){%> 
-							value ="<% out.print(searchStr); %>" 
+							value ="<%=searchStr %>" 
 						<%} %>>
 						<input id ="searchBtn" type="submit" name="searchBtn" value="SEARCH">
 						
