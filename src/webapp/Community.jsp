@@ -46,7 +46,7 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 	
 	<head>
 		<title>EE - Community</title>
@@ -130,7 +130,7 @@
 					
 			%>
 			<div class="articleCase" style="background-color: <%= color %>">
-				<img class="image"/ src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';">
+				<img class="image" src="file?path=<%=mediaPath%>" onerror="this.src='assets/images/missing.png';" alt="media">
 				<div class="title">
 				<form action="ArticleGrid.jsp" method="POST">
 					<input style="width: 0px; height: 0px; visibility: hidden" type="text" name="articleID" value="<%= articleID%>">

@@ -46,13 +46,14 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 	
 	<head>
 		<title>EE - Seller Panel</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
+		<link rel="stylesheet" href="Style/Profile.css">
 	</head>
 
 	<body class="bubble-background">
@@ -174,11 +175,101 @@
    					<div>
 		
 					<%for(OrderReviewBean review: reviews){
+						Integer availabilityVote = review.getSellerAvailability();
+						Integer reliabilityVote = review.getSellerReliability();
+						Integer conditions = review.getItemCondition();
 						
-						
+						String note = review.getBuyerNote();
 					%>
 					<div style="width:100%;height:150px;border-width:0px 0px 2px 0px;border-style:solid;border-color:#D4CEAB;">
-						mettere qui stelline
+						
+						<div style="float: left; width: 60%; height: 100%;">
+						<table id="ratings">
+				<tr>
+					<td>Seller availability: </td>
+					<td>
+					
+						<div class="rating">
+							<%
+								Integer i = 0;
+							
+								
+								for(i = 2; i <= availabilityVote; i+=2){
+									%> <img src="assets/images/full-star.png" alt="full_star"> <%
+									}
+								if(availabilityVote % 2 != 0){
+									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+									i+=2;
+								}
+								for(int j = i; j <= 10; j+=2){
+									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+								}
+								%>
+						
+						</div>
+					
+					</td>
+				</tr>
+				<tr>
+					<td>Seller reliability: </td>
+					<td>
+					
+						<div class="rating">
+							<%
+								i = 0;
+								
+								for(i = 2; i <= reliabilityVote; i+=2){
+									%> <img src="assets/images/full-star.png" alt="full_star"> <%
+									}
+								if(reliabilityVote % 2 != 0){
+									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+									i+=2;
+								}
+								for(int j = i; j <= 10; j+=2){
+									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+								}
+								%>
+						
+						</div>
+					
+					</td>
+				</tr>
+				<tr>
+					<td>Product condition: </td>
+					<td>
+					
+						<div class="rating">
+							<%
+								i = 0;
+								for(i = 2; i <= conditions; i+=2){
+									%> <img src="assets/images/full-star.png" alt="full_star"> <%
+									}
+								if(conditions % 2 != 0){
+									%> <img src="assets/images/semi-star.png" alt="half_star"> <%
+									i+=2;
+								}
+								for(int j = i; j <= 10; j+=2){
+									%> <img src="assets/images/empty-star.png" alt="empty_star"> <%
+								}
+								%>
+						
+						</div>
+					
+					</td>
+				</tr>
+			
+			</table>
+						
+						</div>
+						
+						<div style="float: right; width: 35%; height: 70%; padding: 2.5%; overflow: scroll;">
+							<p> <strong>Note from Buyer: </strong> </p>
+							<p style="width: 100%">
+								"<%=note %>"
+							</p>
+						
+						</div>
+						
 					</div>
 					<% } %>
 					</div>

@@ -33,7 +33,7 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 	
 	<head>
 		<title>EE - Order Summary</title>
@@ -102,9 +102,9 @@
         });
     </script>
 
-	<div style ="width:35%;height:720px;display:inline-block;background-color:#FFFFFF;margin-left:5px;float:left">
+	<div style ="width:35%;height:1080px;display:inline-block;background-color:#FFFFFF;margin-left:5px;float:left">
     		<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#5AC02A">Accepted reviews</div>
-    		<div style="height:630px; overflow: scroll;">
+    		<div style="height:1080px; overflow: scroll;">
     			<div>
 		
 			<% for(ArticleBean review : reviews){
@@ -149,9 +149,9 @@
     	</div>
     	</div>
     	
-    	<div style ="width:35%;height:720px;display:inline-block;background-color:#FFFFFF;margin-left:5px;float:left">
+    	<div style ="width:35%;height:1080px;display:inline-block;background-color:#FFFFFF;margin-left:5px;float:left">
     		<div style="margin-top:65px;margin-left:2px;height:25px;font-size:16;color:#FF6A00">Accepted guides</div>
-    		<div style="height:630px; overflow-y: scroll;overflow-x:hidden">
+    		<div style="height:1080px; overflow-y: scroll;overflow-x:hidden">
     		<div>
 		
 			<% for(ArticleBean review : guides){

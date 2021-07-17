@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 	
 	<head>
 		<title>EE - Home</title>
@@ -60,6 +60,7 @@
 			
 			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
 			<table style="justify-content: center;">
+				
 				<tr><td>
 				<a href="Catalogue.jsp" style="margin: 125px;">
 					<img class="HomeImage" src="assets/images/buy.png" alt="buy">
@@ -98,7 +99,7 @@
 			</div>
 			
 			<div style="width: 50%; margin: 10px 25%;">
-			<p style="width: 100%; text-align: center;"><b>OUR MISSION</b></p>
+			<p style="width: 100%; text-align: center;"><strong>OUR MISSION</strong></p>
 			<p style="width: 100%; text-align: center;">Our goal is to create a place where people with the same passions can share them with others.We want to create a community where anyone can trade their used goods, from videogames to books,to let these objects to have a second life, also allowing his previous owner to make a profit out of them.</p>
 			</div>
 		</div>		
