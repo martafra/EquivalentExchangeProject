@@ -93,36 +93,22 @@ public class UserDAO {
 	}
 
 	public void insertUser(User user) {
-		Statement stmt = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = selectQuery(user, "insert");
-			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		String query = selectQuery(user, "insert");
+		writeOnUser(query);
 	}
 	
 	public void updateUser(User user) {
+		String query = selectQuery(user, "update");
+		writeOnUser(query);
+	}
+	
+	private void writeOnUser(String query) {
 		Statement stmt = null;
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = selectQuery(user, "update");
+			
 			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {

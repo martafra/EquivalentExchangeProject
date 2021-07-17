@@ -4,6 +4,8 @@ import java.util.Map;
 
 public class ItemInSaleQuery extends Query{
 
+	private static final String SEARCH_KEY = "searchKey";
+	
 	public String selectItemsByUser(String userID){
 		userID = quote(userID);
 		String query = "SELECT * FROM iteminsale WHERE userID = %s;";
@@ -75,7 +77,7 @@ public class ItemInSaleQuery extends Query{
 		}
 		
 		
-		if ( filters.containsKey("searchKey") || filters.containsKey("type") ) { 
+		if ( filters.containsKey(SEARCH_KEY) || filters.containsKey("type") ) { 
 			queryFilters += getItemFilters(filters);
 		}
 
@@ -102,8 +104,8 @@ public class ItemInSaleQuery extends Query{
 	
 	public String getItemFilters(Map<String,String> filters) {
 		String filter = "";
-		if (filters.containsKey("searchKey") ) { // Se e' presente la parola di ricerca
-			filter = " itemName like '%%" + filters.get("searchKey") + "%%' ";
+		if (filters.containsKey(SEARCH_KEY) ) { // Se e' presente la parola di ricerca
+			filter = " itemName like '%%" + filters.get(SEARCH_KEY) + "%%' ";
 			if (filters.containsKey("type")) {
 				filter += " and ";
 			}

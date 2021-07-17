@@ -117,32 +117,27 @@ public class RegistrationBean implements Bean{
 	public Boolean validateBirthDate(Date birthDate) {
 		int minimumAge = ProfileRules.getMinimumAge();
 		
-		int userAge = calculateAge(birthDate);
+		int userAge = checkAge(birthDate);
 		
 		return (userAge >= minimumAge);
 			
 		
 	}
 	
-	private Integer calculateAge(Date birthDate) {
-		Calendar calendar = new GregorianCalendar();
-		Date now = new Date();
-		calendar.setTime(now);
-		Integer todayYear = calendar.get(Calendar.YEAR);
-		Integer todayMonth = calendar.get(Calendar.MONTH);
-		Integer todayDay = calendar.get(Calendar.DAY_OF_MONTH);
-		calendar.setTime(birthDate);
-		Integer birthYear = calendar.get(Calendar.YEAR);
-		Integer birthMonth = calendar.get(Calendar.MONTH);
-		Integer birthDay = calendar.get(Calendar.DAY_OF_MONTH);
-		
-				
+	private Integer checkAge(Date date) {
+		Calendar cal = new GregorianCalendar();
+		Date today = new Date();
+		cal.setTime(today);
+		Integer todayYear = cal.get(Calendar.YEAR);
+		Integer todayMonth = cal.get(Calendar.MONTH);
+		Integer todayDay = cal.get(Calendar.DAY_OF_MONTH);
+		cal.setTime(date);
+		Integer birthYear = cal.get(Calendar.YEAR);
+		Integer birthMonth = cal.get(Calendar.MONTH);
+		Integer birthDay = cal.get(Calendar.DAY_OF_MONTH);	
 		Integer age = todayYear - birthYear;
-		
-		if(todayMonth < birthMonth) 
+		if(todayMonth < birthMonth || (todayMonth.equals(birthMonth) && todayDay < birthDay)) 
 			age--;
-		else if(todayMonth.equals(birthMonth) && todayDay < birthDay)
-			age = age - 1;
 		return age;
 	}
 	
