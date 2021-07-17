@@ -34,18 +34,25 @@ public class Registration extends SceneManageable{
 	
 	LoginController regController = new LoginController();
 	
+	private Boolean checkIfEmpty() {
+		TextField[] arrayOfNodes = {firstName, lastName, username, email, password, confirmPassword};
+		for(TextField field : arrayOfNodes) {
+			if(field.getText().equals("")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@FXML
 	public void register() {
 		
 		RegistrationBean rBean = new RegistrationBean();
 		
-		
-		TextField arrayOfNodes[] = {firstName, lastName, username, email, password, confirmPassword};
-		for(TextField field : arrayOfNodes) {
-			if(field.getText().equals("")) {
-				return;
-			}
+		if(Boolean.TRUE.equals(checkIfEmpty())) {
+			return;
 		}
+		
 		
 		if(birthDate.getValue() == null) {
 			return;
@@ -55,21 +62,21 @@ public class Registration extends SceneManageable{
 			return;
 		}
 		
-		if(!rBean.validateNames(firstName.getText())) {
+		if(Boolean.FALSE.equals(rBean.validateNames(firstName.getText()))) {
 			return;
 		}
 		else {
 			rBean.setName(firstName.getText());
 		}
 		
-		if(!rBean.validateNames(lastName.getText())) {
+		if(Boolean.FALSE.equals(rBean.validateNames(lastName.getText()))) {
 			return;
 		}
 		else {
 			rBean.setLastName(lastName.getText());
 		}
 		
-		if(!rBean.validateUsername(username.getText())) {
+		if(Boolean.FALSE.equals(rBean.validateUsername(username.getText()))) {
 			return;
 		}
 		else {
@@ -77,14 +84,14 @@ public class Registration extends SceneManageable{
 		}
 		
 		
-		if(!rBean.validateEmail(email.getText())) {
+		if(Boolean.FALSE.equals(rBean.validateEmail(email.getText()))) {
 			return;
 		}
 		else {
 			rBean.setEmail(email.getText());
 		}
 		
-		if(!rBean.validatePassword(password.getText())) {
+		if(Boolean.FALSE.equals(rBean.validatePassword(password.getText()))) {
 			return;
 		}
 		else {
@@ -92,7 +99,7 @@ public class Registration extends SceneManageable{
 		}
 		
 		Date date = Date.from(birthDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		if(!rBean.validateBirthDate(date)) {
+		if(Boolean.FALSE.equals(rBean.validateBirthDate(date))) {
 			return;
 		}
 		else {

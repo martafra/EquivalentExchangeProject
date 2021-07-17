@@ -27,7 +27,7 @@ public class CatalogueController {
 		List<ItemInSaleBean> itemInSaleBeanList =  new ArrayList<>();
 		
 			for (ItemInSale item : itemInSaleList) {
-			if(item.getAvailability()) {
+			if(Boolean.TRUE.equals(item.getAvailability())) {
 				ItemInSaleBean itemInSaleBean = new ItemInSaleBean();
 			
 				itemInSaleBean.setItemID(item.getItemInSaleID());

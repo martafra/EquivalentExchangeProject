@@ -2,6 +2,7 @@ package logic.controller.graphic;
 
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import logic.support.other.Bundle;
@@ -13,7 +14,7 @@ import logic.controller.application.CommunityController;
 import logic.controller.application.WriteReviewController;
 
 public class ReviewerPanelView extends SceneManageable{
-
+	
 	@FXML
 	private VBox reviewsBox;
 	@FXML
@@ -64,9 +65,10 @@ public class ReviewerPanelView extends SceneManageable{
 		        goToScene("profile");
 		        
 			});
-			articleCase.getComponent("removeArticle").setVisible(true);
-			articleCase.getComponent("removeArticle").setDisable(false);
-			articleCase.getComponent("removeArticle").setOnMouseClicked((MouseEvent e) -> {
+			Node removeArticle = articleCase.getComponent("removeArticle");
+			removeArticle.setVisible(true);
+			removeArticle.setDisable(false);
+			removeArticle.setOnMouseClicked((MouseEvent e) -> {
 				writeController.removeArticle(article);
 		        goToScene("reviewerpanel");
 			});

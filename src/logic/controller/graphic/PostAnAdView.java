@@ -32,7 +32,6 @@ import logic.support.other.SceneManageable;
 public class PostAnAdView extends SceneManageable implements Initializable{
 
 	private List<ItemBean> items = new ArrayList<>();
-	private List<String> conditions = new ArrayList<>();
 	private List<String> types = new ArrayList<>();
 	private ArrayList<ItemCase> itemCases = new ArrayList<>();
 	private ItemCase chosenItemCase = null;
@@ -100,8 +99,7 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 		itemFilterField.textProperty().addListener((observable, oldValue, newValue) -> 
 			filterItems(selectedType)
 		);
-
-		conditions = controller.getConditionTypes();
+		List<String> conditions = controller.getConditionTypes();
 		condition.getItems().addAll(conditions);
 		
 	}
@@ -109,14 +107,12 @@ public class PostAnAdView extends SceneManageable implements Initializable{
 	@Override 
 	public void onExit() {
 		items = new ArrayList<>();
-		//itemCases = new ArrayList<>();
 		ad = new ItemDetailsBean();
 		selectedType = " ";
 		images.getChildren().clear();
 		price.setText("");
 		address.setText("");
 		description.setText("");
-		//itemList.getChildren().clear();
 		condition.getSelectionModel().clearSelection();
 		itemTypeList.getSelectionModel().clearSelection();
 		itemFilterField.setText("");

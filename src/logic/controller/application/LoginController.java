@@ -31,8 +31,7 @@ public class LoginController {
 		newUser.setPassword(newUserData.getPassword());
 		newUser.setBirthDate(newUserData.getBirthDate());
 		newUser.getWallet().setCurrentCredit(500);
-		
-		//userDB.registerUser(newUser);
+
 		userDB.insertUser(newUser);
 		
 		return true;
@@ -48,10 +47,8 @@ public class LoginController {
 			return false;
 		}
 
-		if(!loggedUser.getPassword().equals(userData.getPassword())){
-			return false;
-		}
-		return true;
+		return loggedUser.getPassword().equals(userData.getPassword());
+			
 	}
 	
 	public void logout(UserBean loggedUser) {

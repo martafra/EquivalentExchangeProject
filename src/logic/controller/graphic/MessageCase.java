@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logic.bean.ChatBean;
 

@@ -1,11 +1,8 @@
 package logic.controller.graphic;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.Pane;
 
 public class GraphicWidget {
 
@@ -36,13 +33,8 @@ public class GraphicWidget {
 					loadComponents((Parent) node);
 			}
 			catch(ClassCastException e){
-				
+				//Do nothing if you can't cast
 			}
-		}
-	}
-	
-	protected void print() {
-		for(Entry<String, Node> node : internalComponents.entrySet()) {
 		}
 	}
 	

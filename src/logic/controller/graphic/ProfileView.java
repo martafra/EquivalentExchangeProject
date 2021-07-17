@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -37,7 +35,6 @@ public class ProfileView extends SceneManageable implements Initializable{
 
 	private UserBean loggedUser;
 	private UserProfileBean userData;
-	private UserBean selectedUser;
 	private UserProfileBean changedUserData;
 	private Boolean changed = false;
 	private RatingView userR = new RatingView(5);
@@ -137,7 +134,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 		super.onLoad(bundle);
 		
 		loggedUser = (UserBean) getBundle().getBean("loggedUser");
-		selectedUser = (UserBean) getBundle().getBean("selectedUser");
+		UserBean selectedUser = (UserBean) getBundle().getBean("selectedUser");
 		
 		
 		

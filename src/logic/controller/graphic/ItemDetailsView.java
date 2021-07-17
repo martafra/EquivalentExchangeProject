@@ -1,13 +1,7 @@
 package logic.controller.graphic;
 
-
-
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -18,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -26,12 +19,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
-import logic.bean.OrderBean;
 import logic.bean.UserBean;
 import logic.bean.UserProfileBean;
 import logic.controller.application.ItemDetailsController;
@@ -163,13 +154,9 @@ public class ItemDetailsView extends SceneManageable {
     	Image profileImage = new Image(seller.getProfilePicPath());
     	imgSeller.setFill(new ImagePattern(profileImage));
     	sellerText.setText(seller.getName());
-    	sellerDetails.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	        @Override
-	        public void handle(MouseEvent event) {
-	        	Bundle bundle = getBundle();
-	        	bundle.addBean("selectedUser", seller);   	
+    	sellerDetails.setOnMouseClicked((MouseEvent e) -> {
+	        	getBundle().addBean("selectedUser", seller);   	
 	            goToScene("profile");
-	        }
 	    });
     	
     	priceText.setText(itemInSale.getPrice().toString() + " Coins");
@@ -218,13 +205,7 @@ public class ItemDetailsView extends SceneManageable {
     		img.setFitHeight(140);
     		img.setFitWidth(140);
     		imgItem.getChildren().add(img);
-    		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	imgV.setImage(img.getImage());
-		        
-		        }
-		    });
+    		img.setOnMouseClicked((MouseEvent e) -> imgV.setImage(img.getImage()));
     	}
     	
     }
@@ -236,14 +217,12 @@ public class ItemDetailsView extends SceneManageable {
     			OtherItemCase otherItem = new OtherItemCase(itemInSaleBean);
     			otherItemBox.getChildren().add(otherItem.getBody());
     			
-    			otherItem.getImg().setOnMouseClicked(new EventHandler<MouseEvent>() {
-    		        @Override
-    		        public void handle(MouseEvent event) {
-    		        	Bundle bundle = getBundle();
-    		        	bundle.addBean("selectedItem", itemInSaleBean);
+    			otherItem.getImg().setOnMouseClicked((MouseEvent e) -> {
+    		        
+    		        	getBundle().addBean("selectedItem", itemInSaleBean);
     		            goToScene("itemDetails");
     		        }
-    		    });
+    		    );
     		}
     		
     }   
@@ -307,14 +286,13 @@ public class ItemDetailsView extends SceneManageable {
     		wishlist.setText("Add to wishlist");
     	}
     	
-    	wishlist.setOnMouseClicked(new EventHandler<MouseEvent>() { 
-	        @Override
-	        public void handle(MouseEvent event) {
+    	wishlist.setOnMouseClicked((MouseEvent e) -> { 
+	        
 	        	wishlistController.addToWishlist(loggedUser.getUserID(), itemInSale.getItemID());
 	        	wishlist.setText("In Wishlist");
 	        	wishlist.setDisable(true);
 	        }
-	    });
+	    );
     		
     	
     }

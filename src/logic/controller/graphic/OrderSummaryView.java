@@ -277,13 +277,13 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 		summaryCondition.setText("Condition: " + item.getCondition());
 		summaryPrice.setText("Price: " + item.getPrice().toString() + "coins");
 		
-		if(order.getSellerStatus()) {
+		if(Boolean.TRUE.equals(order.getSellerStatus())) {
 			summarySeller.setText("Order accepted by seller");
 		}
 		else {
 			summarySeller.setText("Order not accepted by seller");
 		}
-		if(order.getBuyerStatus()) {
+		if(Boolean.TRUE.equals(order.getBuyerStatus())) {
 			summaryBuyer.setText("Order accepted by buyer");
 		}
 		else {

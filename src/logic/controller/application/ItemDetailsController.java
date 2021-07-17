@@ -61,7 +61,7 @@ public class ItemDetailsController {
 		bean.setAddress(itemInSale.getAddress());
 		bean.setCondition(itemInSale.getCondition().toString());
 		bean.setDescription(itemInSale.getDescription());
-		bean.setMedia((ArrayList<String>)itemInSale.getMedia());
+		bean.setMedia(itemInSale.getMedia());
 		bean.setAvailability(itemInSale.getAvailability());
 		//cast a 'ArrayList<String>' poiche' itemInSale.getMedia() ritorna un List<String>, da modificare?
 		

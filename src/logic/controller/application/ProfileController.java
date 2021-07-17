@@ -16,7 +16,6 @@ import logic.dao.OrderDAO;
 import logic.dao.UserDAO;
 import logic.dao.UserProfileDAO;
 import logic.entity.Order;
-import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.entity.UserProfile;
 
@@ -152,7 +151,9 @@ public class ProfileController {
 		for(Integer i = 0; i < numberOfArticles; i++) {
 			int position = random.nextInt(articles.size());
 			if(articles.get(position) != null) {
-				chosenArticles.add(articles.remove(position));
+				articles.remove(articles.get(position));
+				chosenArticles.add(articles.get(position));
+				
 			}
 		}
 		
@@ -173,7 +174,8 @@ public class ProfileController {
 		for(Integer i = 0; i < numberOfProducts; i++) {
 			int position = random.nextInt(products.size());
 			if(products.get(position) != null) {
-				filteredProducts.add(products.remove(position));
+				products.remove(products.get(position));
+				filteredProducts.add(products.get(position));
 			}
 				
 		}

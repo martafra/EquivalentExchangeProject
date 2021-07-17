@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import logic.bean.ArticleBean;
-import logic.bean.ItemBean;
-import logic.bean.UserBean;
 import logic.dao.ArticleDAO;
 import logic.dao.ItemDAO;
 import logic.dao.UserDAO;

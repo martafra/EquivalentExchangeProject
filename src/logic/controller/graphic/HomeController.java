@@ -1,20 +1,21 @@
 package logic.controller.graphic;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import logic.bean.UserBean;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
 
 public class HomeController extends SceneManageable{
 	
+	private static final String LOGIN = "login";
 	private UserBean loggedUser = null;
+	
 	
 	@FXML
 	public void goToSellerPanel() {
 		
 		if(loggedUser == null) {
-			goToScene("login");
+			goToScene(LOGIN);
 			return;
 		}
 		
@@ -24,7 +25,7 @@ public class HomeController extends SceneManageable{
 	@FXML
 	public void goToWishlist() {
 		if(loggedUser == null) {
-			goToScene("login");
+			goToScene(LOGIN);
 			return;
 		}
 		
@@ -34,7 +35,7 @@ public class HomeController extends SceneManageable{
 	@FXML
 	public void goToReviewerPanel() {
 		if(loggedUser == null) {
-			goToScene("login");
+			goToScene(LOGIN);
 			return;
 		}
 		

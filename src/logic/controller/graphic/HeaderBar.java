@@ -1,5 +1,4 @@
 package logic.controller.graphic;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -85,7 +84,8 @@ public class HeaderBar extends HeaderController implements Observer{
 			logged = false;
 		}
 		
-		switchProfileView(loggedUser);
+		if(loggedUser != null)
+			switchProfileView(loggedUser);
 		
 		if(box != null) {
 			box.register(this);
@@ -96,17 +96,11 @@ public class HeaderBar extends HeaderController implements Observer{
 	}
 
 	@Override
-	public void onLoad() {
-		
-		
-	}
-
-	@Override
 	public void update() {
 		
 		ListMenuView menu = (ListMenuView) this.getMenuManager();
 			
-		if(chatNotif.getChatNotifications(mailbox)) {
+		if(Boolean.TRUE.equals(chatNotif.getChatNotifications(mailbox))) {
 			menu.notifyVoice("chat");
 		}
 		
@@ -115,7 +109,7 @@ public class HeaderBar extends HeaderController implements Observer{
 	}
 
 	public void logout() {
-		if(logged)
+		if(Boolean.TRUE.equals(logged))
 		{
 			logController.logout(loggedUser);
 			this.getBodyManager().getCurrentSceneController().getBundle().removeBean("loggedUser");
@@ -133,20 +127,19 @@ public class HeaderBar extends HeaderController implements Observer{
 				headerBox.getChildren().add(profileBox);
 				profileBox.setProfileName(loggedUser.getUserID());
 				profileBox.setProfilePic(loggedUser.getProfilePicPath());
-				profileBox.setOnMouseClicked(new EventHandler<>() {
-
-					@Override
-					public void handle(MouseEvent arg0) {
-						getBodyManager().switchMenu();
-					}
-					
-				});
+				profileBox.setOnMouseClicked((MouseEvent e) ->  getBodyManager().switchMenu());
 			}else {
 				headerBox.getChildren().remove(profileBox);
 				headerBox.getChildren().add(loginBox);
 			}
 			
 		}
+	}
+
+	@Override
+	public void onLoad() {
+		//Do nothing on load
+		
 	}
 
 	

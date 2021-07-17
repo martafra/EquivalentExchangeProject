@@ -51,7 +51,7 @@ public class BuyController implements SaleController{
 			order.setBuyerStatus(true);
 			order.setCode(generateCode());
 			
-			if(order.isAccepted()){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
+			if(Boolean.TRUE.equals(order.isAccepted())){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
 				//entrambi hanno già accettato:	
 				order.setStartDate(new Date());
 			}
@@ -73,7 +73,7 @@ public class BuyController implements SaleController{
 		Integer itemID = order.getInvolvedItem().getItemInSaleID();
 		
 		
-		if (!orderAccepted(order.getOrderID())){ 
+		if (Boolean.FALSE.equals(orderAccepted(order.getOrderID()))){ 
 			//se orderAccepted non è andato a buon fine:
 			//non notifico nulla al venditore, per lui e' come se il buyer non avesse ancora mai cliccato su accetta
 			return;

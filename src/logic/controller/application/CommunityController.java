@@ -33,7 +33,7 @@ public class CommunityController extends ArticleDataController{
 				reviewSum += review.getValue();
 			}
 			
-			if(reviews.size() > 0) {
+			if(!reviews.isEmpty()) {
 				bean.setVote(reviewSum / reviews.size());
 			}
 			else {

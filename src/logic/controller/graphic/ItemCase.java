@@ -3,7 +3,6 @@ package logic.controller.graphic;
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -14,6 +13,7 @@ public class ItemCase extends GraphicWidget{
 	private Pane boxBody;
 	private Double defaultHeight = 0d;
 	private ItemBean itemData;
+	private static final String LANGUAGE = "Language";
 	
 	public ItemCase(ItemBean itemData) {
 		try {
@@ -36,15 +36,15 @@ public class ItemCase extends GraphicWidget{
 		switch(itemData.getType()) {
 			case 'B':
 				option1.setText("Edition: " + itemData.getEdtion());
-				option2.setText("Language: "+ itemData.getLanguage() );
+				option2.setText(LANGUAGE + ": " + itemData.getLanguage() );
 				break;
 			case 'M':
 				option1.setText("");
-				option2.setText("Language: "+ itemData.getLanguage());
+				option2.setText(LANGUAGE + ": " + itemData.getLanguage());
 				break;
 			case 'V':
 				option1.setText("Console: " + itemData.getConsole());
-				option2.setText("Language: "+ itemData.getLanguage());
+				option2.setText(LANGUAGE + ": " + itemData.getLanguage());
 				break;
 			default:
 				break;	

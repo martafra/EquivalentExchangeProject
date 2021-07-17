@@ -5,7 +5,6 @@ import java.util.List;
 
 import logic.bean.ItemInSaleBean;
 import logic.bean.OrderBean;
-import logic.bean.OrderReviewBean;
 import logic.bean.UserBean;
 import logic.dao.OrderDAO;
 import logic.dao.UserDAO;

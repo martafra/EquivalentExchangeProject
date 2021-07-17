@@ -24,13 +24,15 @@ import logic.support.other.Notification;
 
 public class SellController implements SaleController{
 	
+	private static final String STATUS_STRING = "status";
+	
 	public List<ItemInSaleBean> getItemList(UserBean userBean){
 		String username = userBean.getUserID();
 		ItemInSaleDAO itemSaleDAO = new ItemInSaleDAO();
 		ArrayList<ItemInSale> items = (ArrayList<ItemInSale>) itemSaleDAO.selectItemsInSaleByUser(username);
 		ArrayList<ItemInSaleBean> itemBeans = new ArrayList<>();
 		for(ItemInSale item: items) {
-			if(item.getAvailability()) {
+			if(Boolean.TRUE.equals(item.getAvailability())) {
 				ItemInSaleBean itemBean = new ItemInSaleBean();
 				itemBean.setItemID(item.getItemInSaleID());
 				itemBean.setItemName(item.getReferredItem().getName());
@@ -46,7 +48,7 @@ public class SellController implements SaleController{
 	public List<RequestBean> getRequestList(UserBean userBean){
 		String username = userBean.getUserID();
 		RequestDAO requestDAO = new RequestDAO();
-		ArrayList<Request> requests = (ArrayList<Request>) requestDAO.selectAllRequests(username);
+		ArrayList<Request> requests = requestDAO.selectAllRequests(username);
 		ArrayList<RequestBean> requestBeans = new ArrayList<>();
 		for(Request request: requests) {
 			RequestBean requestBean = new RequestBean();
@@ -76,7 +78,7 @@ public class SellController implements SaleController{
 		rejectedRequest.setSender(seller);
 		rejectedRequest.setDate(new Date());
 		rejectedRequest.setType(NotificationType.REQUEST);
-		rejectedRequest.addParameter("status", "accepted");
+		rejectedRequest.addParameter(STATUS_STRING, "accepted");
 		rejectedRequest.addParameter("item", itemID);
 
 		UserDAO userDAO = new UserDAO();
@@ -111,7 +113,7 @@ public class SellController implements SaleController{
 		rejectedRequest.setSender(seller);
 		rejectedRequest.setDate(new Date());
 		rejectedRequest.setType(NotificationType.REQUEST);
-		rejectedRequest.addParameter("status", "rejected");
+		rejectedRequest.addParameter(STATUS_STRING, "rejected");
 		rejectedRequest.addParameter("item", itemID);
 		
 		MessageSender sender = new MessageSender();
@@ -136,7 +138,7 @@ public class SellController implements SaleController{
 		acceptedOrder.setSender(seller);
 		acceptedOrder.setDate(new Date());
 		acceptedOrder.setType(NotificationType.ORDER);
-		acceptedOrder.addParameter("status", "accepted");
+		acceptedOrder.addParameter(STATUS_STRING, "accepted");
 		acceptedOrder.addParameter("item", itemID.toString());
 		
 		order.setSellerStatus(true);
@@ -168,7 +170,7 @@ public class SellController implements SaleController{
 		rejectedOrder.setSender(seller);
 		rejectedOrder.setDate(new Date());
 		rejectedOrder.setType(NotificationType.ORDER);
-		rejectedOrder.addParameter("status", "rejected");
+		rejectedOrder.addParameter(STATUS_STRING, "rejected");
 		rejectedOrder.addParameter("item", itemID.toString());
 		
 		item.setAvailability(true);
@@ -179,7 +181,7 @@ public class SellController implements SaleController{
 		
 		orderDAO.deleteOrder(orderID);
 		
-		if (order.getBuyerStatus()) {
+		if (Boolean.TRUE.equals(order.getBuyerStatus())) {
 			User buyer = order.getBuyer();
 			Integer price = order.getInvolvedItem().getPrice();
 			

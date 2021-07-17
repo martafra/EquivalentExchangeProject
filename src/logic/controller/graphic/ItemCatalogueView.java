@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import logic.bean.ItemInSaleBean;
-import logic.support.other.Bundle;
-import logic.support.other.PaneManager;
 import logic.support.other.SceneManageable;
 
 

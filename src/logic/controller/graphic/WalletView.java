@@ -1,7 +1,6 @@
 package logic.controller.graphic;
 
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -45,35 +44,28 @@ public class WalletView extends SceneManageable{
 		orderBox.getChildren().clear();
 		for(OrderBean order: orders) {
 			OrderCase orderCase = new OrderCase(order, loggedUser);
-			orderCase.getUserLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
+			orderCase.getUserLabel().setOnMouseClicked((MouseEvent e) -> {    	
 		        	if(!orderCase.getUserData().getUserID().equals(loggedUser.getUserID())) {
-		        		bundle.addBean("selectedUser", orderCase.getUserData());
+		        		getBundle().addBean("selectedUser", orderCase.getUserData());
 		        	}else {
-		        		bundle.addBean("selectedUser", loggedUser);
+		        		getBundle().addBean("selectedUser", loggedUser);
 		        	}
 		        	
 		            goToScene("profile");
 		        }
-		    });
+		    );
 			
-			orderCase.getItemLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
-		        	bundle.addBean("selectedItem", order.getInvolvedItem());
+			orderCase.getItemLabel().setOnMouseClicked((MouseEvent e) -> {
+		        
+		        	getBundle().addBean("selectedItem", order.getInvolvedItem());
 		            goToScene("itemDetails");
-		        }
+		        
 		    });	
-			orderCase.getOrderLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
-		        	bundle.addBean("selectedOrder", order);
+			orderCase.getOrderLabel().setOnMouseClicked((MouseEvent e) -> {
+		        
+		        	getBundle().addBean("selectedOrder", order);
 		            goToScene("ordersummary");
-		        }
+		        
 		    });	
 			orderBox.getChildren().add(orderCase.getBody());
 		}	

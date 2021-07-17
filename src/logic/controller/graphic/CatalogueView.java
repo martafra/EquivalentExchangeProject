@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -168,7 +167,7 @@ public class CatalogueView extends SceneManageable {
 		
 	}
 	
-	public void search(Event e){
+	public void search(){
     	var searchStr = searchBar.getText();
     	
 		if (searchStr != null && !searchStr.isBlank()) {

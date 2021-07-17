@@ -3,7 +3,6 @@ package logic.controller.graphic;
 import java.util.List;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -65,23 +64,19 @@ public class SellerPanelView extends SceneManageable{
 		List<ItemInSaleBean> itemBeans = sellController.getItemList(loggedUser);
 		for(ItemInSaleBean itemBean : itemBeans) {
 			ProductCase productCase = new ProductCase(itemBean);
-			productCase.getProductName().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
-		        	bundle.addBean("selectedItem", itemBean);
+			productCase.getProductName().setOnMouseClicked((MouseEvent e) -> {
+		      
+		        	getBundle().addBean("selectedItem", itemBean);
 		            goToScene("itemDetails");
 		        }
-		    });
-			productCase.getComponent("removeProduct").setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
+		    );
+			productCase.getComponent("removeProduct").setOnMouseClicked((MouseEvent e) -> {
+		        
 		        	sellController.removeProduct(itemBean);
-		        	Bundle bundle = getBundle();
-		        	bundle.addBean("loggedUser", loggedUser);
+		        	getBundle().addBean("loggedUser", loggedUser);
 		            goToScene("sellerpanel");
 		        }
-		    });
+		    );
 			productCase.onSellerPanel();
 			itemBox.getChildren().add(productCase.getBody());
 		}
@@ -92,38 +87,31 @@ public class SellerPanelView extends SceneManageable{
 		for(RequestBean requestBean: requestBeans) {
 			RequestCase requestCase = new RequestCase(requestBean);
 			
-			requestCase.getItemLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
-		        	bundle.addBean("selectedItem", requestBean.getReferredItemBean());
+			requestCase.getItemLabel().setOnMouseClicked((MouseEvent e) -> {
+		       
+		        	getBundle().addBean("selectedItem", requestBean.getReferredItemBean());
 		            goToScene("itemDetails");
 		        }
-		    });
-			requestCase.getBuyerLabel().setOnMouseClicked(new EventHandler<MouseEvent>() {
-		        @Override
-		        public void handle(MouseEvent event) {
-		        	Bundle bundle = getBundle();
+		    );
+			requestCase.getBuyerLabel().setOnMouseClicked((MouseEvent e) -> {
+		            	
 		        	UserBean userBean = new UserBean();
 		        	userBean.setUserID(requestBean.getBuyer());
-		        	bundle.addBean("selectedUser", userBean);
+		        	getBundle().addBean("selectedUser", userBean);
 		            goToScene("userprofile");
 		        }
-		    });
-			requestCase.getAcceptButton().setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
+		    );
+			requestCase.getAcceptButton().setOnAction((ActionEvent e) -> {
 					sellController.acceptRequest(requestBean);
 					requestBox.getChildren().remove(requestCase.getBody());
 				}
-			});
-			requestCase.getRejectButton().setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
+			);
+			requestCase.getRejectButton().setOnAction((ActionEvent e) -> {
+				
 					sellController.rejectRequest(requestBean);
 					requestBox.getChildren().remove(requestCase.getBody());
 				}
-			});
+			);
 			
 			requestBox.getChildren().add(requestCase.getBody());
 		}

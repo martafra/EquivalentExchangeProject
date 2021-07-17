@@ -2,16 +2,12 @@ package logic.controller.graphic;
 
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import logic.bean.ItemInSaleBean;
-import logic.bean.UserBean;
 
 public class OtherItemCase  extends GraphicWidget{
 	private Pane boxBody;
