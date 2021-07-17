@@ -35,12 +35,17 @@ public class UserDAO {
 				mod.setModerator(true);
 				moderators.add(mod);
 			}
+			rs.close();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return moderators;
@@ -68,6 +73,7 @@ public class UserDAO {
 			if(rs.getInt("isModerator") == 1) {
 				user.setModerator(true);
 			}
+			rs.close();
 			
 			
 		} catch (SQLException e) {
@@ -75,8 +81,12 @@ public class UserDAO {
 			e.printStackTrace();
 
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return user;
 

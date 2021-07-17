@@ -35,12 +35,18 @@ public class ArticleReviewDAO {
 				User author = new UserDAO().selectUser(rs.getString("userID"));
 				votes.add(new ArticleReview(rs.getInt("value"), author));
 			}
+			rs.close();
+			
 		} catch (SQLException e) {
 				e.printStackTrace();
 
 			} finally {
-				try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-				try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+				try {
+					if(stmt!=null)
+						stmt.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		
 		return votes;

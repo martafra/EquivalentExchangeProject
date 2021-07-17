@@ -141,11 +141,17 @@ public class ArticleDAO {
 			addImagesToArticle(stmt, article);
 			addTagsToArticle(stmt, article);
 			
+			rs.close();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return article;
 	}
@@ -181,11 +187,17 @@ public class ArticleDAO {
 				addImagesToArticle(stmt, art);
 				addTagsToArticle(stmt, art);
 			}
+			rs.close();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

@@ -76,15 +76,19 @@ public class OrderDAO {
 				order.setOrderReview(review);
 			}
 			
-			
+			rs.close();
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return order;
 
@@ -144,14 +148,19 @@ public class OrderDAO {
 				}
 				rsR.close();
 			}
+			rs.close();
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		} finally {
-			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
-			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
+			try {
+				if(stmt!=null)
+					stmt.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return orders;
 
