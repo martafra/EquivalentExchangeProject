@@ -2,17 +2,13 @@ package logic.view.servlet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import logic.support.other.ImageCache;
 
 public class FileServlet extends HttpServlet {
 
@@ -27,8 +23,7 @@ public class FileServlet extends HttpServlet {
 
     // Properties ---------------------------------------------------------------------------------
 
-    private String filePath;
-
+    
     // Actions ------------------------------------------------------------------------------------
  
     
@@ -83,36 +78,22 @@ public class FileServlet extends HttpServlet {
         response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
 
         // Prepare streams.
-        BufferedInputStream input = null;
-        BufferedOutputStream output = null;
+        
 
-        try {
+        try (
+        	BufferedInputStream input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+            BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+        
+        	){
             // Open streams.
-            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
-            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+            
+            
 
             // Write file contents to response.
             byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
             int length;
             while ((length = input.read(buffer)) > 0) {
                 output.write(buffer, 0, length);
-            }
-        } finally {
-            // Gently close streams.
-            close(output);
-            close(input);
-        }
-    }
-
-    // Helpers (can be refactored to public utility class) ----------------------------------------
-
-    private static void close(Closeable resource) {
-        if (resource != null) {
-            try {
-                resource.close();
-            } catch (IOException e) {
-                // Do your thing with the exception. Print it, log it or mail it.
-                e.printStackTrace();
             }
         }
     }
