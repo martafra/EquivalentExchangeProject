@@ -25,7 +25,7 @@
  	
  %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<link rel="stylesheet" href="Style/Style.css">
 		<link rel="stylesheet" href="Style/HeaderBar.css">
@@ -55,7 +55,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getUserID()%>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath()%>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -82,7 +82,7 @@
 		
 		<form action="ItemDetails.jsp?itemID=<%=itemID %>" method="POST">
 			<div style = "margin-top: 15%; margin-left:auto; margin-right:auto; width:800px">
-				<p style ="display:inline-block; width:590px;"> Enter a message to send to <b><%=sellerID %></b> for the item <b><%= itemName %></b> : </p>
+				<p style ="display:inline-block; width:590px;"> Enter a message to send to <strong><%=sellerID %></strong> for the item <strong><%= itemName %></strong> : </p>
 				<label style =" margin-left:3%;"> Max character: 300 </label>
      			<textarea name="requestText" maxlength="300" placeholder="Enter your text..." style = "width:800px; height:200px;"></textarea>
      		

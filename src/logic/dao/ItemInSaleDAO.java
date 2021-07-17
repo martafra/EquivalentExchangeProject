@@ -21,146 +21,100 @@ public class ItemInSaleDAO {
 	MyConnection connection = MyConnection.getInstance();
 	ItemInSaleQuery itemInSaleQ = new ItemInSaleQuery();
 	MediaQuery mediaQuery = new MediaQuery();
+	String itemInSaleIDStr = "itemInSaleID";
+	String priceStr = "price";
+	String saleDescriptionStr = "saleDescription";
+	String availabilityStr = "availability";
+	String itemConditionStr = "itemCondition";
+	String preferredLocationStr = "preferredLocation";
+	String referredItemIDStr = "referredItemID";
+	String userIDStr = "userID";
+	String missingImg = "/logic/view/assets/images/missing.png";
 	
-	public List<ItemInSale> selectItemsInSaleByUser(String userID){
+	public ItemInSale makeItemInSale(ResultSet rs, ItemDAO itemDAO, UserDAO userDAO) throws SQLException {
+		
+		return new ItemInSale(rs.getInt(itemInSaleIDStr), 
+				rs.getInt(priceStr),
+				rs.getString(saleDescriptionStr), 
+				rs.getBoolean(availabilityStr), 
+				rs.getString(itemConditionStr),
+				rs.getString(preferredLocationStr), 
+				itemDAO.selectItem(rs.getInt(referredItemIDStr)), 
+				userDAO.selectUser(rs.getString(userIDStr)));
+		
+	}
+	
+	public void putImg(Statement stmt, ItemInSale itemInSale) throws SQLException {
+		ResultSet rs = null;
+		
+		String query = mediaQuery.selectItemMedia(itemInSale.getItemInSaleID());
+		rs = stmt.executeQuery(query);
+		ImageCache mediaCache = ImageCache.getInstance();
+		
+		while(rs.next()) {
+			Integer mediaIndex = rs.getInt("imageIndex");
+			Integer itemID = itemInSale.getItemInSaleID();
+			String fileName = itemID.toString() + "_" + mediaIndex.toString();
+			String filePath = mediaCache.addImage(fileName, rs.getBinaryStream("image"));
+			itemInSale.addMedia(filePath);
+		}
+		
+		if(itemInSale.getMedia().isEmpty()){
+			itemInSale.addMedia(missingImg);
+		}
+		
+		rs.close();
+			
+	}
+	
+	public ArrayList<ItemInSale> selectItems(String query) {
 		ArrayList<ItemInSale> itemList = new ArrayList<>();
 		ItemInSale itemInSale = null;
 		Statement stmt = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
+		ResultSet rs = null;	
 		
 		try {
 
 			Connection con = connection.getConnection();
 			stmt = con.createStatement();
-			String query = itemInSaleQ.selectItemsByUser(userID);
 			rs = stmt.executeQuery(query);
-
+			
 			ItemDAO itemDAO= new ItemDAO();
 			UserDAO userDAO= new UserDAO();
 			
 			while (rs.next()) {
-				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
-											rs.getInt("price"),
-											rs.getString("saleDescription"), 
-											rs.getBoolean("availability"), 
-											rs.getString("itemCondition"),
-											rs.getString("preferredLocation"), 
-											itemDAO.selectItem(rs.getInt("referredItemID")), 
-											userDAO.selectUser(rs.getString("userID")));
+				itemInSale = makeItemInSale(rs, itemDAO, userDAO);
 				itemList.add(itemInSale);
 			}
-			
-			ImageCache mediaCache = ImageCache.getInstance();
-			
 			for(ItemInSale item : itemList) {
-				Integer itemID = item.getItemInSaleID();
-				query = mediaQuery.selectItemMedia(itemID);
-				rs2 = stmt.executeQuery(query);
-				while(rs2.next()) {
-					Integer mediaIndex = rs2.getInt("imageIndex");
-					String fileName = itemID.toString() + "_" + mediaIndex.toString();
-					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					item.addMedia(filePath);
-				}
-				if(item.getMedia().isEmpty())
-				{
-					item.addMedia("/logic/view/assets/images/missing.png");
-				}
-				rs2.close();
-			}	
-		} catch (SQLException e) {
-				e.printStackTrace();
-
-			} finally {
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-					if (rs2 != null) {
-						rs2.close();
-					}
-					if (stmt != null) {
-						stmt.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				putImg(stmt, item);
 			}
 
-		return itemList;
-	}
-	public ItemInSale selectItemInSale(int itemInSaleID) {
-		ItemInSale itemInSale = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.selectItemInSale(itemInSaleID);
-			rs = stmt.executeQuery(query);
-
-			if (!rs.next()) {
-				return null;
-			}
-			
-			ItemDAO itemDAO= new ItemDAO();
-			UserDAO userDAO= new UserDAO();
-			
-			itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
-										rs.getInt("price"),
-										rs.getString("saleDescription"), 
-										rs.getBoolean("availability"), 
-										rs.getString("itemCondition"),
-										rs.getString("preferredLocation"), 
-										itemDAO.selectItem(rs.getInt("referredItemID")), 
-										userDAO.selectUser(rs.getString("userID")));
-			
-			query = mediaQuery.selectItemMedia(itemInSale.getItemInSaleID());
-			rs2 = stmt.executeQuery(query);
-			
-			ImageCache mediaCache = ImageCache.getInstance();
-			
-			while(rs2.next()) {
-				Integer mediaIndex = rs2.getInt("imageIndex");
-				Integer itemID = itemInSale.getItemInSaleID();
-				String fileName = itemID.toString() + "_" + mediaIndex.toString();
-				String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-				itemInSale.addMedia(filePath);
-			}
-			
-			if(itemInSale.getMedia().isEmpty())
-			{
-				itemInSale.addMedia("/logic/view/assets/images/missing.png");
-			}
-
-			if(itemInSale.getMedia().isEmpty()){
-				itemInSale.addMedia("/logic/view/assets/images/missing.png");
-			}
-
-			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (rs2 != null) {
-					rs2.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (rs != null) rs.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
-		return itemInSale;
+		return itemList;
+	}
+	
+	
+	public List<ItemInSale> selectItemsInSaleByUser(String userID){
+		String query = itemInSaleQ.selectItemsByUser(userID);
+		ArrayList<ItemInSale> itemList = selectItems(query);	
+		return itemList;
+		
+	}
+	public ItemInSale selectItemInSale(int itemInSaleID) {
+		String query = itemInSaleQ.selectItemInSale(itemInSaleID);
+		ArrayList<ItemInSale> itemList = selectItems(query);	
+		if(itemList.isEmpty()) {
+			return null;
+		}
+		return itemList.get(0);
 
 	}
 	
@@ -194,8 +148,6 @@ public class ItemInSaleDAO {
 				mediaID++;
 			}
 
-
-
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -212,7 +164,6 @@ public class ItemInSaleDAO {
 		
 	}
 	
-
 	
 	public void updateItemInSale(ItemInSale itemInSale) {
 		Statement stmt = null;
@@ -270,216 +221,35 @@ public class ItemInSaleDAO {
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { if (stmtm != null) stmtm.close(); } catch (SQLException e) {e.printStackTrace();}
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) {e.printStackTrace();}
 		}
 		
 	}
 	
 	
 	public List<ItemInSale> getOtherItem(String seller, String itemName){
-		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
-		ItemInSale itemInSale = null;
-		Statement stmt = null;
-		ResultSet rs2 = null;
-		ResultSet rs = null;
-		ItemDAO itemDAO= new ItemDAO();
-		UserDAO userDAO= new UserDAO();
-		try {
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.getOtherItemInSale(seller, itemName);
-			rs = stmt.executeQuery(query);
-			
-			while(rs.next()) {
-				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
-											rs.getInt("price"),
-											rs.getString("saleDescription"), 
-											rs.getBoolean("availability"), 
-											rs.getString("itemCondition"),
-											rs.getString("preferredLocation"), 
-											itemDAO.selectItem(rs.getInt("referredItemID")), 
-											userDAO.selectUser(rs.getString("userID")));
-				itemInSaleList.add(itemInSale); 
-			}
-			
-			ImageCache mediaCache = ImageCache.getInstance();
-			for(ItemInSale item : itemInSaleList) {
-				Integer itemID = item.getItemInSaleID();
-				query = mediaQuery.selectItemMedia(itemID);
-				rs2 = stmt.executeQuery(query);
-				while(rs2.next()) {
-					Integer mediaIndex = rs2.getInt("imageIndex");
-					String fileName = itemID.toString() + "_" + mediaIndex.toString();
-					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					item.addMedia(filePath);
-				}
-				if(item.getMedia().isEmpty()){
-					item.addMedia("/logic/view/assets/images/missing.png");
-				}
-				rs2.close();
-			}	
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return itemInSaleList;
+		String query = itemInSaleQ.getOtherItemInSale(seller, itemName);
+		ArrayList<ItemInSale> itemList = selectItems(query);	
+		return itemList;
 			
 	}
 	
 	public List<ItemInSale> getItemsInSaleListFiltered(String loggedUser, Map<String, String> filters){
-		ArrayList<ItemInSale> itemInSaleList = new ArrayList<>();
-		ItemInSale itemInSale = null;
-		Statement stmt = null;
-		ResultSet rs2 = null;
-		ResultSet rs = null;
-		try {
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.getItemsInSaleFiltered(loggedUser, filters);
-			rs = stmt.executeQuery(query);
-			
-			while(rs.next()) {
-				ItemDAO itemDAO= new ItemDAO();
-				UserDAO userDAO= new UserDAO();
-				
-				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
-											rs.getInt("price"),
-											rs.getString("saleDescription"), 
-											rs.getBoolean("availability"), 
-											rs.getString("itemCondition"),
-											rs.getString("preferredLocation"), 
-											itemDAO.selectItem(rs.getInt("referredItemID")), 
-											userDAO.selectUser(rs.getString("userID")));
-				itemInSaleList.add(itemInSale); 
-			}
-			ImageCache mediaCache = ImageCache.getInstance();
-			for(ItemInSale item : itemInSaleList) {
-				Integer itemID = item.getItemInSaleID();
-				query = mediaQuery.selectItemMedia(itemID);
-				rs2 = stmt.executeQuery(query);
-				while(rs2.next()) {
-					Integer mediaIndex = rs2.getInt("imageIndex");
-					String fileName = itemID.toString() + "_" + mediaIndex.toString();
-					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					item.addMedia(filePath);
-				}
-				if(item.getMedia().isEmpty()){
-					item.addMedia("/logic/view/assets/images/missing.png");
-				}
-				rs2.close();
-			}	
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		String query = itemInSaleQ.getItemsInSaleFiltered(loggedUser, filters);
+		ArrayList<ItemInSale> itemInSaleList = selectItems(query);	
 		return itemInSaleList;
 			
 	}
 	
 	
 	public List<ItemInSale> getItemInSaleWishlist(String userID){
-		ArrayList<ItemInSale> itemList = new ArrayList<>();
-		ItemInSale itemInSale = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
-		
-		try {
-
-			Connection con = connection.getConnection();
-			stmt = con.createStatement();
-			String query = itemInSaleQ.getItemInSaleWishlist(userID);
-			rs = stmt.executeQuery(query);
-
-			ItemDAO itemDAO= new ItemDAO();
-			UserDAO userDAO= new UserDAO();
-			
-			while (rs.next()) {
-				itemInSale = new ItemInSale(rs.getInt("itemInSaleID"), 
-											rs.getInt("price"),
-											rs.getString("saleDescription"), 
-											rs.getBoolean("availability"), 
-											rs.getString("itemCondition"),
-											rs.getString("preferredLocation"), 
-											itemDAO.selectItem(rs.getInt("referredItemID")), 
-											userDAO.selectUser(rs.getString("userID")));
-				itemList.add(itemInSale);
-			}
-			
-			ImageCache mediaCache = ImageCache.getInstance();
-			
-			for(ItemInSale item : itemList) {
-				Integer itemID = item.getItemInSaleID();
-				query = mediaQuery.selectItemMedia(itemID);
-				rs2 = stmt.executeQuery(query);
-				while(rs2.next()) {
-					Integer mediaIndex = rs2.getInt("imageIndex");
-					String fileName = itemID.toString() + "_" + mediaIndex.toString();
-					String filePath = mediaCache.addImage(fileName, rs2.getBinaryStream("image"));
-					item.addMedia(filePath);
-				}
-				if(item.getMedia().isEmpty())
-				{
-					item.addMedia("/logic/view/assets/images/missing.png");
-				}
-				rs2.close();
-			}	
-		} catch (SQLException e) {
-
-				e.printStackTrace();
-			} finally {
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-					if (rs2 != null) {
-						rs2.close();
-					}
-					if (stmt != null) {
-						stmt.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
+		String query = itemInSaleQ.getItemInSaleWishlist(userID);
+		ArrayList<ItemInSale> itemList = selectItems(query);	
 		return itemList;
+		
 	}
 	
 	
-	
-	
+
 }

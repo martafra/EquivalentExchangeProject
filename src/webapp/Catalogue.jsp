@@ -90,7 +90,7 @@
 
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<link rel="stylesheet" href="Style/Catalogue.css">
 		<link rel="stylesheet" href="Style/Style.css">
@@ -119,7 +119,7 @@
 				<% }else {%>
 						<div class="loggedUserLabel" id="user">
 							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" alt="e"/>
+							<img src="file?path=<%=loggedUser.getProfilePicPath()%>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
 						
 						</div>
 						<div id="menu">
@@ -218,7 +218,7 @@
 						<% for (int i = 0; i < maxItem && ( i+(maxItem*pageNumber) < itemInSaleBeanList.size() ); i++) { %>
 						<div class= "itemBox">
 							<div id="img" style="width:200px; height:200px; margin:auto;">
-								<img src="file?path=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getMediaPath()%>" alt="error" style="width:200px; height:200px;"/>
+								<img src="file?path=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getMediaPath()%>" alt="error" onerror="this.src='assets/images/missing.png';" style="width:200px; height:200px;"/>
 							</div>
 							<br>
 							<a href ="ItemDetails.jsp?itemID=<%=itemInSaleBeanList.get(i+(maxItem*pageNumber)).getItemID()%>" class="link" id="Item<%=i%>" > 

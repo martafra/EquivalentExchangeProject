@@ -63,7 +63,9 @@ public class ItemFactory {
 			e.printStackTrace();
 		}
 		
-		return new Book(name, publishingDate, author, edition, numberOfPages, genre, publishingHouse, language);
+		Book book = new Book(name, publishingDate, author, edition, genre, publishingHouse, language);
+		book.setNumberOfPages(numberOfPages);
+		return book;
 		
 	}
 	

@@ -26,7 +26,7 @@
 	List<ItemInSaleBean> wishlist = controller.getItemInWishlist(loggedUser);
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>EE - Wishlist</title>
