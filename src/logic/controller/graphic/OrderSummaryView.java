@@ -246,7 +246,6 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 	@Override
 	public void onExit() {
 		super.onExit();
-		errorLabel.setText("");
 		if(timer != null) {
 			timer.stop();
 		}
