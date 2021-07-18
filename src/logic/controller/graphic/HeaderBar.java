@@ -98,15 +98,13 @@ public class HeaderBar extends HeaderController implements Observer{
 	@Override
 	public void update() {
 		
-		Platform.runLater(() -> {
+		
 			ListMenuView menu = (ListMenuView) this.getMenuManager();
 				
 			if(Boolean.TRUE.equals(chatNotif.getChatNotifications(mailbox))) {
-				menu.notifyVoice("chat");
+				Platform.runLater(() -> menu.notifyVoice("chat"));
 			}
-		});
-		
-	
+
 	}
 
 	public void logout() {

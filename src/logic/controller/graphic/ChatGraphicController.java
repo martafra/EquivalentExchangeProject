@@ -131,10 +131,10 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 	@Override
 	public void update() {
 		
-		Platform.runLater(() -> {
 		
-			ChatBean chatBean = controller.getLastMessageSent(mailbox);
-			
+		
+		ChatBean chatBean = controller.getLastMessageSent(mailbox);
+		Platform.runLater(() -> {	
 			
 			if(lastMessageSent != null && lastMessageSent == chatBean)
 				return;

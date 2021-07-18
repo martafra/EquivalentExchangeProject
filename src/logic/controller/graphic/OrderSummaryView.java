@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javafx.animation.AnimationTimer;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -368,12 +368,13 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 	@Override
 	public void update() {
 		
-		Platform.runLater(() -> {
 			if (bController.checkNotification(mailbox, order.getOrderID())) {
+			Platform.runLater(() -> {
 				timer.stop();
 				onLoad(bundle);
+			});
 			}	
-		});
+		
 	}
 
 }

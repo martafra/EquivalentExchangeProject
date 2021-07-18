@@ -1,21 +1,21 @@
 package logic.support.other;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import org.apache.tomcat.jakartaee.commons.io.IOUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 public class ImageCache {
 	
 	private static ImageCache instance = null;
-	private static final String MISSING_IMAGE_PATH = "/logic/view/assets/images/missing.png";
+	private static final String MISSING_IMAGE_PATH = 
+			File.separator + "logic" + File.separator + "view" + File.separator + "assets" +
+					File.separator + "images" + File.separator + "missing.png";
 	private Path directoryPath;
 	
 	private ImageCache() {
