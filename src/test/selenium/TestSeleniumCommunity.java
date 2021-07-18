@@ -14,8 +14,16 @@ import java.util.List;
 
 import org.junit.Test;
 
+/*
+ * 
+ * @author Marco Valerio
+ * 
+ * 
+ */
+
 public class TestSeleniumCommunity {
 
+	
 	@Test
 	public void seleniumTest() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
