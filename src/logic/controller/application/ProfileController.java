@@ -48,7 +48,7 @@ public class ProfileController {
 					relSum += review.getSellerReliability();
 					avalSum += review.getSellerAvailability();
 					condsSum += review.getItemCondition();
-					totalVoteSum = review.getSellerVote();
+					totalVoteSum += review.getSellerVote();
 				}
 			}
 		}
