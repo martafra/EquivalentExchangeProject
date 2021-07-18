@@ -19,34 +19,35 @@ public class TestSeleniumSelectVG {
 		
 		int pageNumber=0;
 		Boolean result=true;
-		for(int i=0; true; i++) {
+		Boolean stop=false;
+		int i = 0;
+		while(!stop) {
 			driver.findElement(By.xpath("//*[@id=\"catalogue\"]")).click();
 			driver.findElement(By.xpath("//*[@id=\"videogame\"]")).click();
 			for(int j = 0; j < pageNumber; j++) {
 				driver.findElement(By.name("nextBtn")).click();
 			}
 			
-			
 			try {
 				driver.findElement(By.xpath("//*[@id=\"Item"+i+"\"]")).click();
+				WebElement txtBoxContent = driver.findElement(By.xpath("//*[@id=\"type\"]"));
+				String type= txtBoxContent.getText();
+				if(!type.equals("VIDEOGAME")) {
+					result = false;
+					stop = true;
+				}
 			}catch(NoSuchElementException e ) {
 				if(driver.findElement(By.name("nextBtn")).isEnabled()) {
 					pageNumber+=1;	
 					i = -1;
-					continue;
 				}
 				else {
-					break;
+					stop = true;
 				}
 			}
-			WebElement TxtBoxContent = driver.findElement(By.xpath("//*[@id=\"type\"]"));
-			String type= TxtBoxContent.getText();
-			if(!type.equals("VIDEOGAME")) {
-				result = false;
-				break;
-			}		
+			i++;			
 		}
-
+		
 		assertEquals(true, result);
 		driver.close();
 	}
