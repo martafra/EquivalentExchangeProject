@@ -1,0 +1,89 @@
+{
+  "id": "9efaa148-1a82-4290-8a92-650b9b71d585",
+  "version": "2.0",
+  "name": "SeleniumIDEClickBuyNotLogged",
+  "url": "http://localhost:8081/prova_web_project/Home.jsp",
+  "tests": [{
+    "id": "8b790756-3a67-417b-9eb3-c1748b192457",
+    "name": "TestClickBuyNotLogged",
+    "commands": [{
+      "id": "a831e563-b1f8-43c7-b6b1-849218126cb5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8081/prova_web_project/Home.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "35001403-0ba5-414b-bb94-860a8944c507",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aa01cb5b-7ce9-47c3-b9f2-11121bf44a1b",
+      "comment": "",
+      "command": "click",
+      "target": "id=catalogue",
+      "targets": [
+        ["id=catalogue", "id"],
+        ["linkText=CATALOGUE", "linkText"],
+        ["css=#catalogue", "css:finder"],
+        ["xpath=//a[contains(text(),'CATALOGUE')]", "xpath:link"],
+        ["xpath=//a[@id='catalogue']", "xpath:attributes"],
+        ["xpath=//div[@id='headerbar']/span[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'Catalogue.jsp')]", "xpath:href"],
+        ["xpath=//span[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'CATALOGUE')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c3331f63-7ce5-4172-829c-c5e56481cd5e",
+      "comment": "",
+      "command": "click",
+      "target": "id=Item0",
+      "targets": [
+        ["id=Item0", "id"],
+        ["linkText=A Court of Thorns and Roses", "linkText"],
+        ["css=#Item0", "css:finder"],
+        ["xpath=//a[contains(text(),'A Court of Thorns and Roses')]", "xpath:link"],
+        ["xpath=//a[@id='Item0']", "xpath:attributes"],
+        ["xpath=//a[contains(@href, 'ItemDetails.jsp?itemID=-355048136')]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'A Court of Thorns and Roses')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7f77e93-4784-40af-a9bf-292136a58ee8",
+      "comment": "",
+      "command": "click",
+      "target": "id=buybtn",
+      "targets": [
+        ["id=buybtn", "id"],
+        ["name=buyItem", "name"],
+        ["css=#buybtn", "css:finder"],
+        ["xpath=//button[@id='buybtn']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'BUY ITEM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6a8127c-8ccf-42ff-be73-cd417a2fe90d",
+      "comment": "",
+      "command": "verifyTitle",
+      "target": "EE - Login",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "51df3325-fad9-43f0-8109-eaeb59d7b0e6",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8081/prova_web_project/Home.jsp"],
+  "plugins": []
+}
