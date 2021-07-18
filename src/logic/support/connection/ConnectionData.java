@@ -24,7 +24,7 @@ public class ConnectionData {
 		return this.port;
 	}
 	
-	public String getStringData(){
+	public String toString(){
 		return ip + ":" + port;
 	}
 

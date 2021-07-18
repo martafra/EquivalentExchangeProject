@@ -72,7 +72,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 	private void setLayoutImage(String layout) {
 		String imageName = "";
 		switch(layout) {
-			case "linear": 
+			case "vertical": 
 				imageName = "LinearLayout.png";
 				break;
 			case "grid":
@@ -211,7 +211,7 @@ public class WriteReviewView extends SceneManageable implements Initializable{
 		types.add("Guide");
 		
 		layouts.add("grid");
-		layouts.add("linear");
+		layouts.add("vertical");
 	}
 	
 	private void loadItems(String category) {

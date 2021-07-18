@@ -34,7 +34,7 @@ public class MessageDAO {
 				ChatMessage message = new ChatMessage();
 				message.setSender(rs.getString("senderID"));
 				
-				Date messageDate = setMessageDate(rs.getString("sDataTime"));
+				Date messageDate = setMessageDate(rs.getString("sDateTime"));
 				
 				message.setDate(messageDate);
 				message.setText(rs.getString("body"));
