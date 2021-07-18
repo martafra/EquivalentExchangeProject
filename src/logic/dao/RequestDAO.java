@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 import logic.entity.Request;
 import logic.query.RequestQuery;
 import logic.support.database.MyConnection;
@@ -16,7 +18,7 @@ public class RequestDAO {
 	MyConnection connection = MyConnection.getInstance();
 	RequestQuery requestQuery = new RequestQuery();
 	
-	public void insertRequest(Request request) {
+	public void insertRequest(Request request) throws MysqlDataTruncation {
 		Statement stmt = null;
 		
 		try {
@@ -30,11 +32,16 @@ public class RequestDAO {
 				status = 0;
 			String query = requestQuery.insertRequest(request.getBuyer().getUsername(), request.getReferredItem().getItemInSaleID(), status, request.getNote());
 			stmt.executeUpdate(query);
-	
+			
+		} catch (MysqlDataTruncation e) {
+			throw e;
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-
+			
+		
+			
 		} finally {
 			try {
 				if (stmt != null) {

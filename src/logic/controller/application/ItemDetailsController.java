@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 import logic.bean.ItemBean;
 import logic.bean.ItemDetailsBean;
 import logic.bean.ItemInSaleBean;
@@ -131,7 +133,7 @@ public class ItemDetailsController {
 		return bean;
 	}
 
-	public void clickOnBuy(String buyerID, Integer itemInSaleID, String requestMsg) {
+	public Boolean clickOnBuy(String buyerID, Integer itemInSaleID, String requestMsg) {
 		
 		UserDAO userDAO = new UserDAO();
 		User buyer = userDAO.selectUser(buyerID);
@@ -140,7 +142,11 @@ public class ItemDetailsController {
 		
 		Request request = new Request(buyer, itemInSale, false, requestMsg); 
 		RequestDAO requestD = new RequestDAO();
-		requestD.insertRequest(request);
+		try {
+			requestD.insertRequest(request);
+		}catch(MysqlDataTruncation e) {
+			return false;
+		}
 		
 		Notification notification = new Notification(); 
 		notification.setSender(buyerID);
@@ -150,7 +156,7 @@ public class ItemDetailsController {
 		
 		MessageSender msgSender = new MessageSender();
 		msgSender.sendNotification(itemInSale.getSeller().getUsername(), notification);
-		
+		return true;
 	}
 	
 	public boolean checkRequest(String buyer, Integer item) {

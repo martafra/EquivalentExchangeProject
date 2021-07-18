@@ -2,6 +2,7 @@ package logic.entity;
 import java.util.Date;
 
 import logic.enumeration.Gender;
+import logic.support.exceptions.InsufficientCreditException;
 
 public class User {
 
@@ -93,7 +94,7 @@ public class User {
 			return true;
 		}	
 	}
-	public boolean decreaseCredit(Integer n) {
+	public boolean decreaseCredit(Integer n) throws InsufficientCreditException {
 		if (n < 0) {
 			return false;
 		}
@@ -103,7 +104,10 @@ public class User {
 			wallet.setCurrentCredit( (credit-n) );
 			return true;}
 		
-		else {return false;}
+		else {
+			throw new InsufficientCreditException("Insufficient credit");
+			//return false;
+		}
 		
 	}
 	

@@ -96,6 +96,8 @@ public class ItemDetailsView extends SceneManageable {
 	private HBox sellerReviews;
 	@FXML
 	private Label sellerDetails;
+	@FXML
+	private Label errorLabel;
 	
 	
 	
@@ -316,28 +318,27 @@ public class ItemDetailsView extends SceneManageable {
     	String buyerID = loggedUser.getUserID();
     	Integer itemInSaleID = itemDetails.getItemInSaleID();
     	String request = requestArea.getText();
-    	controller.clickOnBuy(buyerID, itemInSaleID, request); 
-    	secondaryStage.close();
-    	buyBtn.setDisable(true);
-    	msgLabel.setText("Request Sent");
-    	msgLabel.setVisible(true);
+    	if (controller.clickOnBuy(buyerID, itemInSaleID, request)) {
+    		secondaryStage.close();
+    		buyBtn.setDisable(true);
+    		msgLabel.setText("Request Sent");
+    		msgLabel.setVisible(true);
+    	}
+    	else {
+    		errorLabel.setText("Error: you entered too many characters.");
+    		errorLabel.setVisible(true);	
+    	}
     }
     
     public void onTextChange() {
-    	Integer charactersLeft = maxCharacter - requestArea.getLength();
-    	
-    	if (charactersLeft > 0 ) {
-    		character.setTextFill(Color.BLACK);
-        	character.setText(charactersLeft.toString());
-    	}
-    	else if (charactersLeft == 0 ) {
+    	Integer characters = requestArea.getLength();
+    	if (characters > 300 ) {
     		character.setTextFill(Color.RED);
-    		character.setText(charactersLeft.toString());	
+    		character.setText(characters.toString());	
     	}
-    	else {
-    		var x = requestArea.getText().substring(0, maxCharacter);
-    		requestArea.setText(x);
-    		requestArea.positionCaret(maxCharacter);
+    	else if (characters >= 0 ) {
+    		character.setTextFill(Color.BLACK);
+        	character.setText(characters.toString());
     	}
     }
     

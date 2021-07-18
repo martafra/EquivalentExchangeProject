@@ -19,6 +19,7 @@ import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
+import logic.support.exceptions.InsufficientCreditException;
 import logic.support.interfaces.SaleController;
 import logic.support.other.MailBox;
 import logic.support.other.Notification;
@@ -37,7 +38,7 @@ public class BuyController implements SaleController{
 		orderDAO.updateOder(order);
 	}
 	
-	public Boolean orderAccepted(Integer orderID) { //metodo che viene chiamato quando entrambi hanno accettato
+	public Boolean orderAccepted(Integer orderID) throws InsufficientCreditException { //metodo che viene chiamato quando entrambi hanno accettato
 		
 		UserDAO userD = new UserDAO();
 		OrderDAO orderDAO = new OrderDAO();
@@ -47,22 +48,23 @@ public class BuyController implements SaleController{
 		ItemInSale involvedItem = order.getInvolvedItem();
 		if (buyer.decreaseCredit(involvedItem.getPrice())) {
 			
-			userD.updateUser(buyer);
-			order.setBuyerStatus(true);
-			order.setCode(generateCode());
+				userD.updateUser(buyer);
+				order.setBuyerStatus(true);
+				order.setCode(generateCode());
 			
-			if(Boolean.TRUE.equals(order.isAccepted())){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
+				if(Boolean.TRUE.equals(order.isAccepted())){ //se entrambi hanno accettato -> il buyer e' il secondo ad aver cliccato accetta
 				//entrambi hanno già accettato:	
-				order.setStartDate(new Date());
-			}
-			orderDAO.updateOder(order);
-			return true;
+					order.setStartDate(new Date());
+				}
+				orderDAO.updateOder(order);
+				return true;
 		}
+	
 		return false;
 	}
 	
 	@Override
-	public void acceptOrder(OrderBean orderBean) { //buyer clicca su accetta ordine
+	public void acceptOrder(OrderBean orderBean) throws InsufficientCreditException { //buyer clicca su accetta ordine
 
 		
 		Integer orderID = orderBean.getOrderID();
