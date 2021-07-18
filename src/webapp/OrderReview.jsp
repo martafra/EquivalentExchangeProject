@@ -5,6 +5,7 @@
 <%@ page import="logic.bean.OrderReviewBean" %>
 <%@ page import ="logic.controller.application.BuyController" %>
 <%@ page import ="logic.controller.application.SellController" %>
+<%@ page import ="logic.support.exception.EmptyFieldOrderReviewException" %>
 
 
 <%! BuyController bController = new BuyController(); %>
@@ -12,6 +13,7 @@
 <%! List<OrderBean> prevOrders = new ArrayList<>(); %>
 <% OrderBean order = ((OrderBean)(session.getAttribute("selectedOrder"))); %>
 <% OrderReviewBean review = new OrderReviewBean(); %>
+<% String errorLabel=""; %>
 <% if (session.getAttribute("loggedUser") == null){
 	%>
 	<jsp:forward page="Login.jsp"/>
@@ -25,18 +27,20 @@
 } %>
 
 <%	if (request.getParameter("insertRevBtn") !=null){
-		if(request.getParameter("a") != null && request.getParameter("r") != null && request.getParameter("c") != null &&
-		   request.getParameter("note") != null){
 			review.setOrderID(order.getOrderID());
 			review.setSellerAvailability( Integer.valueOf(((String)request.getParameter("a"))));
 			review.setSellerReliability( Integer.valueOf(((String)request.getParameter("r"))));
 			review.setItemCondition( Integer.valueOf(((String)request.getParameter("c"))));
 			review.setBuyerNote( ((String)request.getParameter("note")) );
-			bController.updateReview(review);
-			%>
-			<jsp:forward page="Wallet.jsp"/>
-			<%
-		}
+			try{
+				bController.updateReview(review);
+				%>
+				<jsp:forward page="Wallet.jsp"/>
+				<%
+			}
+			catch(EmptyFieldOrderReviewException e1){
+				errorLabel="Note: all fields are required!";
+			}
 		
 } %>
 
@@ -156,14 +160,15 @@
 
             </table>
     	<form action="OrderReview.jsp">
-    		<input type = "text" style="height:0px; width:0px; visibility:hidden" name="a" id="a">
-    		<input type = "text" style="height:0px; width:0px; visibility:hidden" name="r" id="r">
-    		<input type = "text" style="height:0px; width:0px; visibility:hidden" name="c" id="c">
+    		<input type = "text" value="0" style="height:0px; width:0px; visibility:hidden" name="a" id="a">
+    		<input type = "text" value="0" style="height:0px; width:0px; visibility:hidden" name="r" id="r">
+    		<input type = "text" value="0" style="height:0px; width:0px; visibility:hidden" name="c" id="c">
     	<div>
     		<textarea id="note" name="note" placeholder = "Rate your purchase..." style = "width: 480px; height: 240px; display: inline-block; margin-top:50px; margin-left:50px; resize:none"></textarea>
     	</div>
     	<div>
-    		<input type="submit" id="insertRevBtn" name="insertRevBtn" value="Insert review" class="orange-clickable" style ="height:34px; width:150px; display:inline.block; margin-top:50px;margin-left:50px;">
+    		<input type="submit" id="insertRevBtn" name="insertRevBtn" value="Insert review" class="orange-clickable" style ="height:34px; width:150px; display:inline-block; margin-top:50px;margin-left:50px; float:left">
+    		<div style="display:inline-block;margin-top:57px; margin-left:20px; float:left; color:red"><%=errorLabel %></div>
     	</div>
     	</form>
     </div>

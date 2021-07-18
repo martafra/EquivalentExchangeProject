@@ -19,6 +19,7 @@ import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
+import logic.support.exception.EmptyFieldOrderReviewException;
 import logic.support.exception.InsufficientCreditException;
 import logic.support.interfaces.SaleController;
 import logic.support.other.MailBox;
@@ -26,16 +27,21 @@ import logic.support.other.Notification;
 
 public class BuyController implements SaleController{
 	
-	public void updateReview(OrderReviewBean reviewBean) {
+	public void updateReview(OrderReviewBean reviewBean) throws EmptyFieldOrderReviewException{
 		OrderDAO orderDAO = new OrderDAO();
 		Order order = orderDAO.selectOrder(reviewBean.getOrderID());
 		OrderReview review = new OrderReview();
-		review.setSellerReliability(reviewBean.getSellerReliability());
-		review.setSellerAvailability(reviewBean.getSellerAvailability());
-		review.setItemCondition(reviewBean.getItemCondition());
-		review.setBuyerNote(reviewBean.getBuyerNote());
-		order.setOrderReview(review);
-		orderDAO.updateOder(order);
+		if(reviewBean.getSellerReliability().equals(0) || reviewBean.getSellerAvailability().equals(0)|| reviewBean.getItemCondition().equals(0)|| reviewBean.getBuyerNote() == null || "".equals(reviewBean.getBuyerNote())) {
+			throw new EmptyFieldOrderReviewException(1);
+		}
+		else {
+			review.setSellerReliability(reviewBean.getSellerReliability());
+			review.setSellerAvailability(reviewBean.getSellerAvailability());
+			review.setItemCondition(reviewBean.getItemCondition());
+			review.setBuyerNote(reviewBean.getBuyerNote());
+			order.setOrderReview(review);
+			orderDAO.updateOder(order);
+		}
 	}
 	
 	public Boolean orderAccepted(Integer orderID) throws InsufficientCreditException { //metodo che viene chiamato quando entrambi hanno accettato

@@ -28,6 +28,7 @@ import logic.bean.UserBean;
 import logic.controller.application.BuyController;
 import logic.controller.application.ItemDetailsController;
 import logic.controller.application.SellController;
+import logic.support.exception.EmptyFieldOrderReviewException;
 import logic.support.interfaces.Observer;
 import logic.support.other.Bundle;
 import logic.support.other.MailBox;
@@ -80,7 +81,10 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 	@FXML
 	private TextArea buyerNoteInput;
 	@FXML
+	private Label errorLabel;
+	@FXML
 	private Button summaryInsertReviewButton;
+
 	
 	private SellController sController = new SellController();
 	private BuyController bController = new BuyController();
@@ -142,16 +146,20 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 		Integer con = conS.getValue();
 		String note = buyerNoteInput.getText();
 		
-		if(rel != null && ava != null && con != null && note != null) {
 			reviewBean.setSellerReliability(rel);
 			reviewBean.setSellerAvailability(ava);
 			reviewBean.setItemCondition(con);
 			reviewBean.setBuyerNote(note);
 			reviewBean.setOrderID(order.getOrderID());
-			bController.updateReview(reviewBean);
-			reviewStage.close();
-			goToScene("ordersummary");
-		}
+			try {
+				bController.updateReview(reviewBean);
+				reviewStage.close();
+				goToScene("ordersummary");
+			} catch (EmptyFieldOrderReviewException e) {
+				errorLabel.setText("Note: all fields are required!");
+			}
+			
+		
 	}
 	
 	
@@ -238,6 +246,7 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 	@Override
 	public void onExit() {
 		super.onExit();
+		errorLabel.setText("");
 		if(timer != null) {
 			timer.stop();
 		}

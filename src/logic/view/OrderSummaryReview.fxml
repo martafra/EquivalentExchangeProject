@@ -32,5 +32,6 @@
       </GridPane>
       <TextArea fx:id="buyerNoteInput" layoutX="34.0" layoutY="137.0" prefHeight="200.0" prefWidth="537.0" promptText="Rate your purchase..." />
       <Button fx:id="summaryInsertReviewButton" layoutX="34.0" layoutY="350.0" mnemonicParsing="false" onAction="#insertReview" prefHeight="30.0" prefWidth="133.0" styleClass="orange-clickable" stylesheets="@style/Style.css" text="Insert review" />
+      <Label fx:id="errorLabel" layoutX="191.0" layoutY="357.0" prefHeight="17.0" prefWidth="388.0" textFill="RED" />
    </children>
 </Pane>
