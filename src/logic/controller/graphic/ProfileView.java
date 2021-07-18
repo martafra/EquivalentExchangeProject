@@ -49,11 +49,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 	@FXML
 	private Label usernameLabel;
 	@FXML
-	private Label genderLabel;
-	@FXML
 	private Label ageLabel;
-	@FXML
-	private Label cityLabel;
 	@FXML
 	private Label descriptionLabel;
 	@FXML
@@ -170,9 +166,7 @@ public class ProfileView extends SceneManageable implements Initializable{
 		
 		setRatings();
 		
-		genderLabel.setText(userData.getGender());
 		ageLabel.setText("I'm " + userData.getAge().toString() + " years old");
-		cityLabel.setText(userData.getCity() + ", " + userData.getCountry());
 		
 		if(userData.getDescription() != null)
 			descriptionLabel.setText(userData.getDescription());
