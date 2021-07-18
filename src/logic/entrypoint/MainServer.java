@@ -16,6 +16,10 @@ public class MainServer{
 			
 			while(true) {
 				Socket client = server.accept();
+				
+				if(client == null)
+					break;
+				
 				new Thread(new ClientHandler(session, client)).start();
 				
 			}

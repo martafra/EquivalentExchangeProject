@@ -55,13 +55,11 @@ public class ClientHandler implements Runnable {
 						else {
 							for(ConnectionData data : list){
 								response.append(data.getIP()+"-"+data.getPort()+"_");
-								System.out.println(response.toString());
 							}
 							responseString = response.toString();
 							responseString = responseString.substring(0, responseString.length() - 1);
 							responseString+="}";
 						}
-						System.out.println(responseString);
 						writer.println(responseString);
 						break;
 					case "remove":
