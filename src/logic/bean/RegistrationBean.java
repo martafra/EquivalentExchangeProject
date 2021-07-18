@@ -71,7 +71,7 @@ public class RegistrationBean implements Bean{
 	
 	public Boolean validateUsername(String username) {
 
-		return !username.matches("[a-z0-9]*");
+		return username.matches("[a-z0-9]*");
 			
 	}
 	
@@ -105,12 +105,12 @@ public class RegistrationBean implements Bean{
 	}
 	
 	public Boolean validateNames(String name) {
-		return !isAlphabetic(name);
+		return isAlphabetic(name);
 			
 	}
 	
 	public Boolean validateEmail(String email) {
-		return !email.matches("[0-9a-z]+[\\.[0-9a-z]+]*@[0-9a-z]+[\\.[0-9a-z]+]*");
+		return email.matches("[0-9a-z]+[\\.[0-9a-z]+]*@[0-9a-z]+[\\.[0-9a-z]+]*");
 			
 	}
 	

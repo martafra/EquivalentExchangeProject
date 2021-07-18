@@ -10,6 +10,7 @@ import java.util.List;
 
 import logic.query.UserQuery;
 import logic.support.database.MyConnection;
+import logic.support.exception.AlreadyRegisteredUserException;
 import logic.entity.User;
 
 public class UserDAO {
@@ -92,17 +93,30 @@ public class UserDAO {
 
 	}
 
-	public void insertUser(User user) {
+	public void insertUser(User user) throws AlreadyRegisteredUserException {
 		String query = selectQuery(user, "insert");
-		writeOnUser(query);
+		
+		if(selectUser(user.getUsername()) != null) {
+			throw new AlreadyRegisteredUserException(2);
+		}
+		
+		try {
+			writeOnUser(query);
+		} catch (SQLException e) {
+			throw new AlreadyRegisteredUserException(1);
+		}
 	}
 	
 	public void updateUser(User user) {
 		String query = selectQuery(user, "update");
-		writeOnUser(query);
+		try {
+			writeOnUser(query);
+		}catch(SQLException e) {
+			//DO nothing
+		}
 	}
 	
-	private void writeOnUser(String query) {
+	private void writeOnUser(String query) throws SQLException {
 		Statement stmt = null;
 		try {
 
@@ -110,10 +124,6 @@ public class UserDAO {
 			stmt = con.createStatement();
 			
 			stmt.executeUpdate(query);
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
 
 		} finally {
 			try {

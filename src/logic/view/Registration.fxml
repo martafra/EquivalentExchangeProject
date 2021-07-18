@@ -101,7 +101,7 @@
                   <Insets bottom="25.0" />
                </VBox.margin>
             </HBox>
-            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="96.0" prefWidth="420.0" style="-fx-text-fill: red; -fx-font-size: 15;" text="Label" visible="false" />
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="96.0" prefWidth="420.0" style="-fx-text-fill: red; -fx-font-size: 15;" textFill="#ff2b2b" wrapText="true" />
          </children>
       </VBox>
    </children>

@@ -10,17 +10,15 @@ import logic.entity.UserProfile;
 import logic.support.connection.ConnectionData;
 import logic.support.connection.ConnectionServer;
 import logic.support.connection.SessionHandler;
+import logic.support.exception.AlreadyRegisteredUserException;
 import logic.support.other.MailBox;
 
 
 public class LoginController {
 	
-	public Boolean register(RegistrationBean newUserData) {
+	public void register(RegistrationBean newUserData) throws AlreadyRegisteredUserException {
 		
 		//check if exists another user with the same username or email
-		
-		if(false)
-			return false;
 		
 		UserDAO userDB = new UserDAO();
 		User newUser = new User();
@@ -32,9 +30,8 @@ public class LoginController {
 		newUser.setBirthDate(newUserData.getBirthDate());
 		newUser.getWallet().setCurrentCredit(500);
 
-		userDB.insertUser(newUser);
 		
-		return true;
+		userDB.insertUser(newUser);
 		
 	}
 
