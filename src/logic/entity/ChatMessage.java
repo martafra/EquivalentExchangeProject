@@ -14,7 +14,7 @@ public class ChatMessage {
 		this.sender = sender;
 		this.text = text;
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd_hh-mm-ss");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss");
 		
 		try {
 			this.date = format.parse(date);

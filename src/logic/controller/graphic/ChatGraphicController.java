@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -128,37 +130,41 @@ public class ChatGraphicController extends SceneManageable implements Observer{
 
 	@Override
 	public void update() {
-		ChatBean chatBean = controller.getLastMessageSent(mailbox);
 		
+		Platform.runLater(() -> {
 		
-		if(lastMessageSent != null && lastMessageSent == chatBean)
-			return;
-		
-		lastMessageSent = chatBean;		
-		
-		if(chatBean == null)
-			return;
+			ChatBean chatBean = controller.getLastMessageSent(mailbox);
 			
-		HBox messageRow = null;
-		String userBoxID = null;
-		if(chatBean.getSender().equals(loggedUser.getUserID())){
-			messageRow = (HBox) new MessageCase(chatBean).getBody();
-			messageRow.setAlignment(Pos.CENTER_RIGHT);
-			userBoxID = currentChatUser.getUserID();
-		}
-		else if(chatBean.getSender().equals(currentChatUser.getUserID())){
-			messageRow = (HBox) new MessageCase(chatBean).getBody();
-			messageRow.setAlignment(Pos.CENTER_LEFT);
-			userBoxID = currentChatUser.getUserID();
-		}
-		else {
-			userBoxID = chatBean.getSender();
-		}
-		
-		messageBox.getChildren().add(messageRow);
-		
-		goToBottom();
-		chatBoxes.get(userBoxID).setMessage(chatBean.getMessageText());	
+			
+			if(lastMessageSent != null && lastMessageSent == chatBean)
+				return;
+			
+			lastMessageSent = chatBean;		
+			
+			if(chatBean == null)
+				return;
+				
+			HBox messageRow = null;
+			String userBoxID = null;
+			if(chatBean.getSender().equals(loggedUser.getUserID())){
+				messageRow = (HBox) new MessageCase(chatBean).getBody();
+				messageRow.setAlignment(Pos.CENTER_RIGHT);
+				userBoxID = currentChatUser.getUserID();
+			}
+			else if(chatBean.getSender().equals(currentChatUser.getUserID())){
+				messageRow = (HBox) new MessageCase(chatBean).getBody();
+				messageRow.setAlignment(Pos.CENTER_LEFT);
+				userBoxID = currentChatUser.getUserID();
+			}
+			else {
+				userBoxID = chatBean.getSender();
+			}
+			
+			messageBox.getChildren().add(messageRow);
+			
+			goToBottom();
+			chatBoxes.get(userBoxID).setMessage(chatBean.getMessageText());	
+		});
 	}
 	
 	private void loadUsers() {

@@ -10,10 +10,8 @@ public abstract class Subject {
 	
 	public void notifyObservers() {
 	
-		Platform.runLater(() -> {
-				for(Observer ob : observers) { ob.update();}
-			}	
-		);
+		for(Observer ob : observers) { ob.update();}
+		
 	}
 	
 	public void register(Observer ob) {

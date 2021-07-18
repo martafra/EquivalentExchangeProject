@@ -1,4 +1,5 @@
 package logic.controller.graphic;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -97,12 +98,13 @@ public class HeaderBar extends HeaderController implements Observer{
 	@Override
 	public void update() {
 		
-		ListMenuView menu = (ListMenuView) this.getMenuManager();
-			
-		if(Boolean.TRUE.equals(chatNotif.getChatNotifications(mailbox))) {
-			menu.notifyVoice("chat");
-		}
-		
+		Platform.runLater(() -> {
+			ListMenuView menu = (ListMenuView) this.getMenuManager();
+				
+			if(Boolean.TRUE.equals(chatNotif.getChatNotifications(mailbox))) {
+				menu.notifyVoice("chat");
+			}
+		});
 		
 	
 	}
