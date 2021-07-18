@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TestSeleniumSelectVG {
 	@Test
 	public void seleniumTest() {
-		System.setProperty("webdriver.chrome.driver","Driver/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8081/prova_web_project/Home.jsp");
