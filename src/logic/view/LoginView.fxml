@@ -21,5 +21,6 @@
          </padding></Button>
       <Label layoutX="480.0" layoutY="202.0" text="username:" />
       <Label layoutX="480.0" layoutY="316.0" text="password:" />
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="497.0" prefHeight="18.0" prefWidth="593.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

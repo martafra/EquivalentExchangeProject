@@ -11,6 +11,7 @@ import java.util.List;
 import logic.query.UserQuery;
 import logic.support.database.MyConnection;
 import logic.support.exception.AlreadyRegisteredUserException;
+import logic.support.exception.WrongLoginCredentialsException;
 import logic.entity.User;
 
 public class UserDAO {
@@ -52,7 +53,7 @@ public class UserDAO {
 		return moderators;
 	}
 	
-	public User selectUser(String username) {
+	public User selectUser(String username){
 		User user = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -91,6 +92,16 @@ public class UserDAO {
 		}
 		return user;
 
+	}
+	
+	public User selectLoginUser(String username) throws WrongLoginCredentialsException{
+		User user = selectUser(username);
+		if(user == null) {
+			throw new WrongLoginCredentialsException(1);
+		}
+		else {
+			return user;
+		}
 	}
 
 	public void insertUser(User user) throws AlreadyRegisteredUserException {

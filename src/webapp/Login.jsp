@@ -1,24 +1,30 @@
 <%@ page import="logic.bean.LoginBean" %>
 <%@ page import="logic.bean.UserBean" %>
 <%@ page import="logic.controller.application.LoginController" %>
+<%@ page import="logic.support.exception.WrongLoginCredentialsException" %>
 
 
 <jsp:useBean id = "loginBean" scope = "request" class = "logic.bean.LoginBean"/>
-
 <jsp:setProperty name="loginBean" property ="*"/>
 
+<%String loginRes ="";  %>
 <% 
     if( request.getParameter("login") != null){
         LoginController logController=new LoginController();
-        Boolean result = logController.login(loginBean);
-        if(Boolean.TRUE.equals(result)){
+        try{
+        	logController.login(loginBean);
         	%> <jsp:useBean id = "loggedUser" scope = "session" class = "logic.bean.UserBean"/> <%
-            loggedUser = logController.getUserByLoginData(loginBean);
-            request.getSession().setAttribute("loggedUser", loggedUser);
-            %>
-                <jsp:forward page="Home.jsp"/>
-            <% 
-            }
+                    loggedUser = logController.getUserByLoginData(loginBean);
+                    request.getSession().setAttribute("loggedUser", loggedUser);
+                    %>
+                        <jsp:forward page="Home.jsp"/>
+                    <% 
+        }catch (WrongLoginCredentialsException e1){
+        	loginRes = "Wrong credentials supplied, check your user ID and password!";
+        }
+        
+        	
+            
     }
 %>
 
@@ -80,6 +86,7 @@
                     
                     
                 </div>
+                <div style = "margin:23px auto; color:red"><%=loginRes %></div>
             </div>
         </form>
         </div>

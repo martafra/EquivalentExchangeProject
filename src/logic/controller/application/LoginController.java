@@ -11,6 +11,7 @@ import logic.support.connection.ConnectionData;
 import logic.support.connection.ConnectionServer;
 import logic.support.connection.SessionHandler;
 import logic.support.exception.AlreadyRegisteredUserException;
+import logic.support.exception.WrongLoginCredentialsException;
 import logic.support.other.MailBox;
 
 
@@ -35,18 +36,21 @@ public class LoginController {
 		
 	}
 
-	public Boolean login(LoginBean userData) {
+	public void login(LoginBean userData) throws WrongLoginCredentialsException {
 		
 		UserDAO userDB = new UserDAO();
-		User loggedUser = userDB.selectUser(userData.getUserID());
+		User loggedUser = userDB.selectLoginUser(userData.getUserID());
 		
-		if(loggedUser == null) {
-			return false;
-		}
 
-		return loggedUser.getPassword().equals(userData.getPassword());
+		if(loggedUser.getPassword().equals(userData.getPassword())) {
+			return;
+		}
+		else {
+			throw new WrongLoginCredentialsException(2);
+		}
 			
 	}
+	
 	
 	public void logout(UserBean loggedUser) {
 		SessionHandler session = new SessionHandler();
