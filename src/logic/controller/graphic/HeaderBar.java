@@ -41,7 +41,6 @@ public class HeaderBar extends HeaderController implements Observer{
 	@FXML
 	private Button logoutButton;
 
-	
 	@FXML
 	private HBox loginBox;
 	
@@ -74,6 +73,7 @@ public class HeaderBar extends HeaderController implements Observer{
 		
 		loggedUser = (UserBean) getBodyManager().getCurrentSceneController().getBundle().getBean("loggedUser");
 		MailBox box = (MailBox) getBodyManager().getCurrentSceneController().getBundle().getObject("mailbox");
+			
 		
 		if(loggedUser != null && !logged){
 			changeState = true;
@@ -84,8 +84,7 @@ public class HeaderBar extends HeaderController implements Observer{
 			logged = false;
 		}
 		
-		if(loggedUser != null)
-			switchProfileView(loggedUser);
+		switchProfileView(loggedUser);
 		
 		if(box != null) {
 			box.register(this);
@@ -125,8 +124,11 @@ public class HeaderBar extends HeaderController implements Observer{
 			{
 				headerBox.getChildren().remove(loginBox);
 				headerBox.getChildren().add(profileBox);
-				profileBox.setProfileName(loggedUser.getUserID());
-				profileBox.setProfilePic(loggedUser.getProfilePicPath());
+				
+				if(loggedUser != null) {
+					profileBox.setProfileName(loggedUser.getUserID());
+					profileBox.setProfilePic(loggedUser.getProfilePicPath());
+				}
 				profileBox.setOnMouseClicked((MouseEvent e) ->  getBodyManager().switchMenu());
 			}else {
 				headerBox.getChildren().remove(profileBox);
