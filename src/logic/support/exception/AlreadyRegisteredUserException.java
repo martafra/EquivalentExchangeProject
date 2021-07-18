@@ -8,7 +8,7 @@ public class AlreadyRegisteredUserException extends Exception{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer code = 0;
+	private final Integer code;
 	
 	/*
 	 * code
