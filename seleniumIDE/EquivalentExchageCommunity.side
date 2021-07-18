@@ -1,0 +1,116 @@
+{
+  "id": "04c94752-b4ca-422b-9c15-ad32b7296eeb",
+  "version": "2.0",
+  "name": "EquivalentExchageCommunity",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "07fc3294-1573-43d0-b454-b6c401c96a72",
+    "name": "TestCommunity",
+    "commands": [{
+      "id": "e01b8bdd-6320-413b-bfb3-6bafb08bfee5",
+      "comment": "",
+      "command": "open",
+      "target": "/EEProject/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6029a2f5-2cab-4c03-92d5-b16b39626e3c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=COMMUNITY",
+      "targets": [
+        ["linkText=COMMUNITY", "linkText"],
+        ["css=span:nth-child(5) > .link", "css:finder"],
+        ["xpath=//a[contains(text(),'COMMUNITY')]", "xpath:link"],
+        ["xpath=//div[@id='headerbar']/span[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'Community.jsp')]", "xpath:href"],
+        ["xpath=//span[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'COMMUNITY')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "53defeb5-503c-44d5-bfbc-b19b27b97273",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchBar",
+      "targets": [
+        ["id=searchBar", "id"],
+        ["name=filterText", "name"],
+        ["css=#searchBar", "css:finder"],
+        ["xpath=//input[@id='searchBar']", "xpath:attributes"],
+        ["xpath=//div[@id='filterText']/form/input", "xpath:idRelative"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "478dbd92-fba1-466c-b5df-4e2d668f2cc7",
+      "comment": "",
+      "command": "type",
+      "target": "id=searchBar",
+      "targets": [
+        ["id=searchBar", "id"],
+        ["name=filterText", "name"],
+        ["css=#searchBar", "css:finder"],
+        ["xpath=//input[@id='searchBar']", "xpath:attributes"],
+        ["xpath=//div[@id='filterText']/form/input", "xpath:idRelative"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": "testTagjiwdiqdhoqdyqoniqoiydhqdo"
+    }, {
+      "id": "4302b134-8567-412d-94a1-0bb2b29c6a4a",
+      "comment": "",
+      "command": "click",
+      "target": "id=searchBtn",
+      "targets": [
+        ["id=searchBtn", "id"],
+        ["name=filter", "name"],
+        ["css=#searchBtn", "css:finder"],
+        ["xpath=//input[@id='searchBtn']", "xpath:attributes"],
+        ["xpath=//div[@id='filterText']/form/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "496cfdf6-e10a-4711-bfa2-09c600304f2b",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "css=.articleCase",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a50503af-90fc-4e63-86c8-a2909abb07fc",
+      "comment": "",
+      "command": "click",
+      "target": "id=All",
+      "targets": [
+        ["id=All", "id"],
+        ["css=#All", "css:finder"],
+        ["xpath=//input[@id='All']", "xpath:attributes"],
+        ["xpath=//div[@id='navBar']/form/input", "xpath:idRelative"],
+        ["xpath=//div[3]/form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9988567-468b-4792-aac9-e7244f72b86d",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.articleCase",
+      "targets": [
+        ["css=.articleCase:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='reviewsContainer']/div", "xpath:idRelative"],
+        ["xpath=//div[6]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "04c02502-dda2-4c58-bb78-69d46182951f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}
