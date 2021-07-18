@@ -42,10 +42,7 @@ public class LoginController {
 		User loggedUser = userDB.selectLoginUser(userData.getUserID());
 		
 
-		if(loggedUser.getPassword().equals(userData.getPassword())) {
-			return;
-		}
-		else {
+		if(!loggedUser.getPassword().equals(userData.getPassword())) {
 			throw new WrongLoginCredentialsException(2);
 		}
 			
