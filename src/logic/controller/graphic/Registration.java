@@ -138,10 +138,10 @@ public class Registration extends SceneManageable{
 			goToScene("home");
 		} catch (AlreadyRegisteredUserException e) {
 			switch(e.getCode()) {
-				case 1:
+				case 2:
 					errorLabel.setText("User already Registered");
 					break;
-				case 2:
+				case 1:
 					errorLabel.setText("Email already in use");
 					break;
 				case 0:

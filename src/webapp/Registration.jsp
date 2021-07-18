@@ -1,6 +1,7 @@
 <%@ page import="logic.bean.RegistrationBean" %>
 <%@ page import="logic.controller.application.LoginController" %>
 <%@page import="java.util.Date" %>
+<%@page import="logic.support.exception.AlreadyRegisteredUserException" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
 <%@ page import ="java.text.DateFormat" %>
 <%@ page import = "java.time.ZoneId" %>
@@ -9,6 +10,7 @@
 
 
 <%
+	String errorLabel = "";
 	if(request.getParameter("registration") != null){
 		registrationBean.setName((String)request.getParameter("name"));
 		registrationBean.setLastName((String)request.getParameter("lastName"));
@@ -29,12 +31,26 @@
 		Date birthDate = format.parse(date);
 		registrationBean.setBirthDate(birthDate);
 		LoginController regController = new LoginController();
-		if(Boolean.TRUE.equals(regController.register(registrationBean))){
+		try{
+		regController.register(registrationBean);
+		%>
+        	<jsp:forward page="Login.jsp"/>
+    	<% 
+		}catch(AlreadyRegisteredUserException e){
 			
-			%>
-        		<jsp:forward page="Login.jsp"/>
-    		<% 
+			switch(e.getCode()) {
+			case 2:
+				errorLabel = "User already Registered";
+				break;
+			case 1:
+				errorLabel = "Email already in use";
+				break;
+			case 0:
+			default:
+				break;
 		}
+		}
+		
 	}	
 %>
 
@@ -89,7 +105,7 @@
 			</div>
 		</form>
 		</div>	
-		
+		<div style="width: 500px; height: 20px; color: red; margin: 20px auto; text-align: center"><%=errorLabel %></div>
 		
 		
 	</body>
