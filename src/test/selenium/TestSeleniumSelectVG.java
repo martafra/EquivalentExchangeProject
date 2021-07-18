@@ -21,7 +21,7 @@ public class TestSeleniumSelectVG {
 		Boolean result=true;
 		Boolean stop=false;
 		int i = 0;
-		while(!stop) {
+		while(stop.equals(Boolean.FALSE)) {
 			driver.findElement(By.xpath("//*[@id=\"catalogue\"]")).click();
 			driver.findElement(By.xpath("//*[@id=\"videogame\"]")).click();
 			for(int j = 0; j < pageNumber; j++) {

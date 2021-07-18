@@ -6,7 +6,6 @@ import logic.dao.ItemInSaleDAO;
 import logic.dao.OrderDAO;
 import logic.dao.UserDAO;
 import logic.bean.OrderBean;
-import logic.bean.UserBean;
 import logic.controller.application.BuyController;
 import logic.entity.ItemInSale;
 import logic.entity.Movie;
@@ -16,7 +15,6 @@ import logic.enumeration.Condition;
 import logic.enumeration.Gender;
 import logic.support.exception.AlreadyRegisteredUserException;
 import logic.support.exception.InsufficientCreditException;
-import logic.support.other.Notification;
 
 import static org.junit.Assert.*;
 
