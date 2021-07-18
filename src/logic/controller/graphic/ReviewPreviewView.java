@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import logic.bean.ArticleBean;
 import logic.bean.UserBean;
 import logic.controller.application.WriteReviewController;
+import logic.support.exception.MissingArticleParametersException;
 import logic.support.other.ArticleBodyAdapter;
 import logic.support.other.Bundle;
 import logic.support.other.SceneManageable;
@@ -28,6 +29,8 @@ public class ReviewPreviewView extends SceneManageable{
 	private Button rejectReviewButton;
 	@FXML
 	private Label reviewTitle;
+	@FXML
+	private Label errorLabel;
 	
 	
 	@FXML
@@ -45,7 +48,12 @@ public class ReviewPreviewView extends SceneManageable{
 	public void saveReview() {
 
 		articleData = (ArticleBean) getBundle().getBean("articleData");
-		controller.saveArticle(articleData);
+		try {
+			controller.saveArticle(articleData);
+		} catch (MissingArticleParametersException e) {
+			errorLabel.setVisible(true);
+			return;
+		}
 		
 		goToScene("reviewerpanel");
 	}
@@ -80,6 +88,8 @@ public class ReviewPreviewView extends SceneManageable{
 		saveButton.setDisable(!isAuthor);
 		backButton.setVisible(isAuthor);
 		backButton.setDisable(!isAuthor);
+		
+		errorLabel.setVisible(false);
 		
 	}
 	

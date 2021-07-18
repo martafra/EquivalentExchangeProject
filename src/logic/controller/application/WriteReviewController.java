@@ -15,16 +15,22 @@ import logic.enumeration.ArticleType;
 import logic.enumeration.LayoutType;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
+import logic.support.exception.MissingArticleParametersException;
 import logic.support.other.Notification;
 
 public class WriteReviewController extends ArticleDataController{
 	
 	
-	public void saveArticle(ArticleBean articleData) {
+	public void saveArticle(ArticleBean articleData) throws MissingArticleParametersException {
 		
 		UserDAO userDAO = new UserDAO();
 		Article article = new Article();
 		ItemDAO itemDAO = new ItemDAO();
+		
+		if(articleData.getTitle() == null || "".equals(articleData.getTitle())) {
+			throw new MissingArticleParametersException();
+		}
+		
 		article.setTitle(articleData.getTitle());
 		
 		for(Integer i = 0; i < 4; i++)
@@ -39,6 +45,8 @@ public class WriteReviewController extends ArticleDataController{
 		for(String tag : articleData.getTags()) {
 			article.addTag(tag);
 		}
+		
+		try {
 		
 		User author = userDAO.selectUser(articleData.getAuthor().getUserID());
 		article.setAuthor(author);
@@ -66,7 +74,9 @@ public class WriteReviewController extends ArticleDataController{
 			default:
 		}
 		
-		
+		}catch(NullPointerException e) {
+			throw new MissingArticleParametersException();
+		}
 		
 		List<User> mods = userDAO.getModerators();
 		

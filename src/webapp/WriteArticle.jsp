@@ -1,5 +1,6 @@
 <%@ page import="logic.controller.application.ItemRetrieveController" %>
 <%@ page import="logic.controller.application.WriteReviewController" %>
+<%@ page import="logic.support.exception.MissingArticleParametersException" %>
 <%@ page import="logic.bean.ArticleBean" %>
 <%@ page import="logic.bean.UserBean" %>
 <%@ page import="logic.bean.ItemBean" %>
@@ -9,6 +10,8 @@
 <%@ page import="java.util.HashMap" %>
 <%!Map<String, ItemBean> itemMap = new HashMap<>(); %>
 <%
+
+	String errorLabel = "";
 	ItemRetrieveController itemRetController = new ItemRetrieveController();
 	List<ItemBean> items = new ArrayList<>(); 
 	List<String> itemTypes = new ArrayList<>(List.of("Book", "Movie", "Videogame"));
@@ -36,9 +39,13 @@
 		articleData.setText(2, request.getParameter("text3"));
 		articleData.setText(3, request.getParameter("text4"));
 		
-		controller.saveArticle(articleData);
+		try{
+			controller.saveArticle(articleData);
+			%> <jsp:forward page="Home.jsp"/> <%
+		}catch(MissingArticleParametersException e){
+			errorLabel = "Some important fields are missing";
+		}
 		
-		%> <jsp:forward page="Home.jsp"/> <%
 	}
 	
 	
@@ -173,9 +180,9 @@
   			</select>
 			
 				<input type="submit" name="articleBtn" value="Publish"/>
-			
+				<div style="color: red; width: 45%; font-size: 14px; background-color: transparent"><%= errorLabel %></div>
 			</div>
-		
+			
 		</div>
 		</form>
 	</body>
