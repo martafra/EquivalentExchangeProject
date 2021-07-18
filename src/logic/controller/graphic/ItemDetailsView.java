@@ -37,7 +37,6 @@ public class ItemDetailsView extends SceneManageable {
 	private UserBean seller;
 	private ItemBean item;
 	private ItemDetailsBean itemDetails;
-	private Integer maxCharacter = 300;
 	private Stage secondaryStage;
 	private RatingView userR = new RatingView(5);
 	private ItemDetailsController controller = new ItemDetailsController();

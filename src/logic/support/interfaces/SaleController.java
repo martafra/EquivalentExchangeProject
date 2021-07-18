@@ -1,7 +1,7 @@
 package logic.support.interfaces;
 
 import logic.bean.OrderBean;
-import logic.support.exceptions.InsufficientCreditException;
+import logic.support.exception.InsufficientCreditException;
 
 public interface SaleController {
 

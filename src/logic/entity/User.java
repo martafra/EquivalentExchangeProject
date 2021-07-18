@@ -2,7 +2,7 @@ package logic.entity;
 import java.util.Date;
 
 import logic.enumeration.Gender;
-import logic.support.exceptions.InsufficientCreditException;
+import logic.support.exception.InsufficientCreditException;
 
 public class User {
 
@@ -106,7 +106,6 @@ public class User {
 		
 		else {
 			throw new InsufficientCreditException("Insufficient credit");
-			//return false;
 		}
 		
 	}

@@ -22,7 +22,7 @@ import logic.bean.UserBean;
 import logic.controller.application.BuyController;
 import logic.controller.application.ChatController;
 import logic.controller.application.SellController;
-import logic.support.exceptions.InsufficientCreditException;
+import logic.support.exception.InsufficientCreditException;
 import logic.support.interfaces.Observer;
 import logic.support.interfaces.SaleController;
 import logic.support.other.Bundle;

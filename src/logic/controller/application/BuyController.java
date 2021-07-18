@@ -19,7 +19,7 @@ import logic.entity.OrderReview;
 import logic.entity.User;
 import logic.enumeration.NotificationType;
 import logic.support.connection.MessageSender;
-import logic.support.exceptions.InsufficientCreditException;
+import logic.support.exception.InsufficientCreditException;
 import logic.support.interfaces.SaleController;
 import logic.support.other.MailBox;
 import logic.support.other.Notification;
