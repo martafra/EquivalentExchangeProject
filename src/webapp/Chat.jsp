@@ -8,11 +8,12 @@
 <%@ page import="logic.support.interfaces.SaleController" %>
 <%@ page import="logic.controller.application.SellController" %>
 <%@ page import="logic.controller.application.BuyController" %>
+<%@ page import="logic.support.exception.InsufficientCreditException" %>
 
 <jsp:useBean id = "currentChat" scope = "session" class = "logic.bean.UserBean"/>
 
 <%
-
+	String errorLabel = "";
 	UserBean loggedUser = (UserBean) session.getAttribute("loggedUser");
 	if(loggedUser == null){
 	 %>  <jsp:forward page="Login.jsp"/>  <%
@@ -56,8 +57,12 @@
 	}
 	
 	if(request.getParameter("acceptOrder") != null){
-		sController.acceptOrder(order);
-		order = null;	
+		try{
+			sController.acceptOrder(order);
+			order = null;	
+		}catch(InsufficientCreditException e){
+			errorLabel = "Insufficient credit";
+		}
 	}
 	else if(request.getParameter("rejectOrder") != null){
 		sController.rejectOrder(order);
@@ -165,6 +170,7 @@
 				<div id="chatHeader">
 					<img src="file?path=<%=currentChat.getProfilePicPath() %>" alt="user" onerror="this.src='assets/images/avatar.png';"/>
 					<div id="currentChatUsername"><%= currentChat.getUserID() %></div>
+					<label id="currentChatUsername" style = "color: red; float:right;"><%=errorLabel %></label>
 					
 				</div>
 				

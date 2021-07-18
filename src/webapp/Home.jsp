@@ -23,40 +23,51 @@
 	<body class="bubble-background">
 		
 		<div id="headerbar">
-			<img id="logoImage" src="assets/images/logo.png" alt="logoImage">
-			<span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
-			
-			
-			<span><a href="Home.jsp" class ="link">HOME</a></span>
+            <img id="logoImage" src="assets/images/logo.png" alt="logoImage">
+            <span><span style="color: #FF6A00">E</span>QUIVALENT <span style="color: #5AC02A">E</span>XCHANGE</span>
+
+
+            <span><a href="Home.jsp" class ="link">HOME</a></span>
             <span><a href="Catalogue.jsp" class ="link" id="catalogue">CATALOGUE</a></span>
             <span><a href="Community.jsp" class ="link">COMMUNITY</a></span>
-			
-			
-			<div id="login">
-			<%
-				UserBean loggedUser = ((UserBean)session.getAttribute("loggedUser"));
-				
-				if(loggedUser == null){ %>
-    				
-    					<a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
-    				
-				<% }else {%>
-						<div class="loggedUserLabel" id="user">
-							<div> <%=loggedUser.getUserID()%> </div>
-							<img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
-						
-						</div>
-						<div id="menu">
-							
-							<div><a href="Profile.jsp">Profile</a></div>
-							<div><a href="Wallet.jsp">Wallet</a></div>
-							<div><a href="Chat.jsp">Chat</a></div>
-							<div><a href="Wishlist.jsp">WishList</a></div>
-							<div><a href="Logout.jsp">Logout</a></div>
-							
-						</div>
-				<%}%>
-			</div>
+
+
+            <div id="login">
+            <%
+                UserBean loggedUser = ((UserBean)session.getAttribute("loggedUser"));
+                if(loggedUser==null){ %>
+
+                        <a href="Login.jsp"><input style="margin: 5px auto" type="button" name="Login" value="Login" id="loginButton" class="orange-clickable"></a>
+
+                <% }else {%>
+                        <div class="loggedUserLabel" id="user">
+                            <div> <%=loggedUser.getUserID()%> </div>
+                            <img src="file?path=<%=loggedUser.getProfilePicPath() %>" onerror="this.src='assets/images/avatar.png';" alt="e"/>
+
+                        </div>
+                        <div id="menu">
+
+                            <div><a href="Profile.jsp">Profile</a></div>
+                            <div><a href="Wallet.jsp">Wallet</a></div>
+                            <div><a href="Chat.jsp">Chat</a></div>
+                            <div><a href="Wishlist.jsp">WishList</a></div>
+                            <div><a href="Logout.jsp">Logout</a></div>
+
+                        </div>
+                <%}%>
+            </div>
+
+        </div>
+
+	<script>
+        $('#user').click(function(e){
+
+            if($('#menu').css("visibility") == 'hidden')
+                $('#menu').css("visibility", "visible");
+            else
+                $('#menu').css("visibility", "hidden");
+        });
+    </script>
 			
 			<div style="width:100%; display: flex; justify-content: center; margin-top: 20px;">
 			<table style="justify-content: center;">
@@ -112,13 +123,5 @@
 		
 		
 	</body>
-	<script>
-		$('#user').click(function(e){
-			
-			if($('#menu').css("visibility") == 'hidden')
-				$('#menu').css("visibility", "visible");
-			else
-				$('#menu').css("visibility", "hidden");
-		});	
-	</script>
+	
 </html>
