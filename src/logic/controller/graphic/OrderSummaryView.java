@@ -367,10 +367,13 @@ public class OrderSummaryView extends SceneManageable implements Observer{
 	
 	@Override
 	public void update() {
-		if (bController.checkNotification(mailbox, order.getOrderID())) {
-			timer.stop();
-			onLoad(bundle);
-		}	
+		
+		Platform.runLater(() -> {
+			if (bController.checkNotification(mailbox, order.getOrderID())) {
+				timer.stop();
+				onLoad(bundle);
+			}	
+		});
 	}
 
 }
