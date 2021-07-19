@@ -81,7 +81,7 @@
                 <span>password:</span>
                 <input type="password" id="password" name="password" style = "width: 100%; height: 34px; display: block; margin: 0 auto">
                 <div style ="margin: 33px auto">
-                <input type="submit" id = "login" name = "login" value = "Login" class = "orange-clickable" style = "height:39px; display:block; margin:0 auto; float: right">
+                <input type="submit" id = "loginBtn" name = "login" value = "Login" class = "orange-clickable" style = "height:39px; display:block; margin:0 auto; float: right">
                 <a href="Registration.jsp"><input type="button" value="Create an account" class="orange-clickable" style="display:inline-block"/></a>
                     
                     
