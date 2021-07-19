@@ -86,7 +86,7 @@
                     
                     
                 </div>
-                <div style = "margin:23px auto; color:red"><%=loginRes %></div>
+                <div id="errorLabel" style = "margin:23px auto; color:red"><%=loginRes %></div>
             </div>
         </form>
         </div>
