@@ -1,7 +1,7 @@
 # EquivalentExchangeProject
-Repository of ISPW Project 2020/2021
+Codice e database dell'applicativo consegnato come prova di esame del corso di Ingeneria del Software e Progettazione Web - Ingeneria Informatica, Università degli studi di Roma Tor Vergata
 
-participants:\
-  Fraioli Marta 0268603\
-  Martini Valentina 0266523\
-  Valerio Marco 0267670
+Partecipanti al progetto:\
+  Fraioli Marta \
+  Martini Valentina \
+  Valerio Marco 
